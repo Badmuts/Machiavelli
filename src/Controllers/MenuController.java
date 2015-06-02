@@ -1,4 +1,4 @@
-package Models;
+package Controllers;
 
 import Views.MainMenuView;
 

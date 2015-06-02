@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import Models.MenuController;
+import Controllers.MenuController;
 
 public class MainMenuView extends Application implements EventHandler<ActionEvent>{
 		private Button startbutton;
