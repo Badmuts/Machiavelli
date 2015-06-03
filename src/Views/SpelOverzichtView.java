@@ -1,4 +1,4 @@
-package Views;
+/*package Views;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -71,7 +71,7 @@ public class SpelOverzichtView {
 		setButton(hervattenknop,700,370, 200f,75f);
 		setButton(deelnemenknop,700,450,200f,75f);
 		setButton(exitbutton,700,530,200f,75f);
-		setButton(spelregels,20,30,150f,50f);
+		setButton(spelregels,20,30,125f,50f);
 		
 		//toevoegen van elementen aan het frame
 		spelOverzicht.getChildren().addAll(nieuwspelknop,hervattenknop,deelnemenknop,exitbutton,spelregels,mainTx);
@@ -99,8 +99,9 @@ public class SpelOverzichtView {
 	public Button getExitButton(){
 		return exitbutton;
 	}
+	
 	public Button getSpelRegelsButton(){
 		return spelregels;
 	}
 }
-	
+	*/

@@ -37,7 +37,7 @@
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-fill: white;
-    -fx-font-size: 3em;
+    -fx-font-size: 2.5em;
 }
 #buttonregels: hover {
 	-fx-background-color: #febf04;
@@ -45,7 +45,7 @@
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-fill: white;
-    -fx-font-size: 3em;
+    -fx-font-size: 2.5em;
 }
 #gamekiezen {
 	-fx-background-color: linear-gradient(#ffd65e,#febf04);
