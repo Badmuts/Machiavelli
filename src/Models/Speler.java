@@ -35,14 +35,14 @@ public class Speler
 		
 	}
 	
-	public void setKarakter()
+	public void setKarakter(Karakter karakter)
 	{
-		
+		this.karakter = karakter;
 	}
 	
-	public void getKarakter()
+	public Karakter getKarakter()
 	{
-		
+	    return this.karakter;
 	}
 	
 	public void betaalGoud()
