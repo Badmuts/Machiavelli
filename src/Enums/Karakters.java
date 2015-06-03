@@ -1,0 +1,13 @@
+package Enums;
+
+public enum Karakters
+{
+	MOORDENAAR,
+	DIEF,
+	MAGIER,
+	KONING,
+	PREDIKER,
+	KOOPMAN,
+	BOUWMEESTER,
+	CONDOTTIERE
+}
