@@ -3,14 +3,16 @@
     -fx-background-radius: 6, 5;
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
-    -fx-text-fill: white
+    -fx-text-fill: white;
+    -fx-font-size: 3em;
 }
 #buttonstart: hover {
 	-fx-background-color: linear-gradient(#14ba1f ,#3b8400);
     -fx-background-radius: 6, 5;
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
-    -fx-text-fill: white
+    -fx-text-fill: white;
+    -fx-font-size: 3em;
 }
 
 #buttonexit {
@@ -18,27 +20,46 @@
     -fx-background-radius: 6, 5;
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
-    -fx-text-fill: white
+    -fx-text-fill: white;
+    -fx-font-size: 3em;
 }
 #buttonexit: hover {
 	-fx-background-color: linear-gradient(#ff5400, #be1d00);
     -fx-background-radius: 6, 5;
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
-    -fx-text-fill: white
+    -fx-text-fill: white;
+    -fx-font-size: 3em;
 }
 #buttonregels {
-  -fx-background-color: linear-gradient(#ffd65e,#febf04);
+    -fx-background-color: linear-gradient(#ffd65e,#febf04);
     -fx-background-radius: 6, 5;
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
-    -fx-text-fill: white
-    
+    -fx-text-fill: white;
+    -fx-font-size: 3em;
 }
 #buttonregels: hover {
-	 -fx-background-color: #febf04;
+	-fx-background-color: #febf04;
     -fx-background-radius: 6, 5;
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
-    -fx-text-fill: white
+    -fx-text-fill: white;
+    -fx-font-size: 3em;
+}
+#gamekiezen {
+	-fx-background-color: linear-gradient(#ffd65e,#febf04);
+	-fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 3em;
+}
+#gamekiezen: hover {
+    -fx-background-color: #febf04;
+	-fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 3em;
 }

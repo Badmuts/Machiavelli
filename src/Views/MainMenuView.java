@@ -22,8 +22,8 @@ public class MainMenuView{
 	public void setButton(Button button, int posx, int posy, float sizeX, float sizeY){
 		button.setLayoutX(posx);
 		button.setLayoutY(posy);
-		button.setScaleX(sizeX);
-		button.setScaleY(sizeY);
+		button.setMinWidth(sizeX);
+		button.setMinHeight(sizeY);
 	}
 	
 		
@@ -59,9 +59,9 @@ public class MainMenuView{
 		mainTx.setLayoutX(780);
 		mainTx.setLayoutY(320);
 		
-		setButton(startbutton,780,450,3.5f,3f);
-		setButton(exitbutton,780,530,3.5f,2.7f);
-		setButton(spelregels,50,30,2f,2f);
+		setButton(startbutton,700,450,200f,75f);
+		setButton(exitbutton,700,530,200f,75f);
+		setButton(spelregels,20,30,150f,50f);
 		
 		//toevoegen van elementen aan het frame
 		mainMenuPane.getChildren().addAll(startbutton,exitbutton,spelregels,mainTx);
@@ -72,6 +72,7 @@ public class MainMenuView{
 	}
 	public void show(Stage stage){
 		stage.setTitle("Machiavelli");
+		stage.setResizable(false);
 		stage.setScene(mainMenu);
 		stage.show();
 	}
@@ -81,7 +82,7 @@ public class MainMenuView{
 	public Button getExitButton(){
 		return exitbutton;
 	}
-	public Button getSpelregelsbutton(){
+	public Button getSpelregelsButton(){
 		return spelregels;
 	}
 
