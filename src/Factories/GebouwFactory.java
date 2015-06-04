@@ -12,7 +12,7 @@ public class GebouwFactory {
 
     private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
 
-    public static GebouwKaart createGebouwKaart() {
+    private static GebouwKaart createGebouwKaart() {
         // TODO: Hoe gaan we dit doen?
     }
 
@@ -20,11 +20,10 @@ public class GebouwFactory {
         this.gebouwen.add(gebouw);
     }
 
-    public ArrayList<GebouwKaart> trekkenKaarten() {
-        ArrayList<GebouwKaart> tmpGebouwKaartenArray = new ArrayList<GebouwKaart>();
-        tmpGebouwKaartenArray.add(gebouwen.get(1));
-        tmpGebouwKaartenArray.add(gebouwen.get(2));
-        return tmpGebouwKaartenArray;
+    public GebouwKaart trekKaart() {
+        GebouwKaart gebouw = gebouwen.get(0);
+        gebouwen.remove(gebouw);
+        return gebouw;
     }
 
     public void schuddenKaarten() {
