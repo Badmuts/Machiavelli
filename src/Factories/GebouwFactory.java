@@ -1,6 +1,6 @@
 package Factories;
 
-import Enummerations.Type;
+import Enumerations.Type;
 import Models.GebouwKaart;
 
 import java.util.ArrayList;
