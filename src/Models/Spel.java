@@ -11,4 +11,10 @@ public class Spel {
 	public Stage getPrimaryStage(){
 		return primaryStage;
 	}
+	public void NieuwSpel(){
+		
+	}
+	public void EindeBeurt(){
+		
+	}
 }
