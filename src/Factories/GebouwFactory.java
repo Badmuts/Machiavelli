@@ -3,6 +3,7 @@ package Factories;
 import Models.GebouwKaart;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by daanrosbergen on 04/06/15.
@@ -26,5 +27,8 @@ public class GebouwFactory {
         return tmpGebouwKaartenArray;
     }
 
+    public void schuddenKaarten() {
+        Collections.shuffle(gebouwen);
+    }
 
 }

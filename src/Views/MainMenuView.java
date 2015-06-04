@@ -137,4 +137,13 @@ public class MainMenuView{
 	public Button getExitButton2(){
 		return exitbutton2;
 	}
+	public Button getNieuwSpelKnop(){
+		return nieuwspelknop;
+	}
+	public Button getDeelnemenKnop(){
+		return deelnemenknop;
+	}
+	public Button getHervattenknop(){
+		return hervattenknop;
+	}
 }
