@@ -12,7 +12,6 @@ public class Spel {
 		return primaryStage;
 	}
 	public void NieuwSpel(){
-		
 	}
 	public void EindeBeurt(){
 		
