@@ -39,6 +39,7 @@ public class SpeelveldView {
 		placeholderbutton2 = new Button();
 		
 		initButton(gebruikEigenschap,"Eigenschap","gamekiezen",1300,700, 200f,75f);
+		initButton(exitbutton,"Afsluiten","buttonexit", 1400, 800, 200f,75f);
 		
 		Pane speelveldpane = new Pane();
 		speelveldpane.getChildren().addAll(gebruikEigenschap);
