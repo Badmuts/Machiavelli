@@ -21,4 +21,9 @@ public class GebouwKaart
     public Stad getStad() {
         return stad;
     }
+    
+    public short getKosten()
+    {
+    	return this.kosten;
+    }
 }
