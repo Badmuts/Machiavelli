@@ -24,7 +24,7 @@ public class Condotierre implements Karakter {
         this.selectGebouwView.start();
         // TODO: Iets van een listener? (voor gekozen kaart (SelectGebouwView))
         // TODO: Speler, remove gold (betaalGoud)
-        this.vernietigGebouw.getStad().removeGebouw();
+        this.vernietigGebouw.getStad().removeGebouw(vernietigGebouw);
     }
 
     public void registerSelectGebouwView(SelecteGebouwView selecteGebouwView) {

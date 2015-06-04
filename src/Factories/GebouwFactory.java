@@ -6,35 +6,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * 
- * @author Sander
- *
+ * Created by daanrosbergen on 04/06/15.
  */
+public class GebouwFactory {
 
-public class GebouwFactory
-{
-	// Variables
-	private ArrayList<GebouwKaart> lstStapel;
-	
-	public GebouwFactory()
-	{
-		lstStapel = new ArrayList<GebouwKaart>();
-		schuddenKaarten(lstStapel);
-	}
-	
-	private void vullenLijst(ArrayList<GebouwKaart> list)
-	{
-		
-	}
-	
-	private void schuddenKaarten(ArrayList<GebouwKaart> list)
-	{
-		Collections.shuffle(list);
-	}
-	
-	private GebouwKaart trekkenKaart()
-	{
-		return this.lstStapel.get(0);
-	}
-	
+    private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
+
+    private static GebouwKaart createGebouwKaart() {
+        // TODO: Hoe gaan we dit doen?
+    }
+
+    public void addGebouw(GebouwKaart gebouw) {
+        this.gebouwen.add(gebouw);
+    }
+
+    public GebouwKaart trekKaart() {
+        GebouwKaart gebouw = gebouwen.get(0);
+        gebouwen.remove(gebouw);
+        return gebouw;
+    }
+
+    public void schuddenKaarten() {
+        Collections.shuffle(gebouwen);
+    }
+
 }
