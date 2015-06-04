@@ -25,12 +25,12 @@ public class Speler
 		// hand = new Hand();
 	}
 	
-	public void getGoudVanBank(Bank bank, short aantal)
+	public void getGoudVanBank(Bank bank, int aantal)
 	{
 		bank.gevenGoud(portemonnee, aantal);
 	}
 	
-	public void setGoudOpBank(Portemonnee portemonnee, short aantal)
+	public void setGoudOpBank(Portemonnee portemonnee, int aantal)
 	{
 		portemonnee.bestedenGoud(this.spel.getBank(), aantal);
 	}

@@ -10,7 +10,7 @@ public class Stad
 
 	private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
 	private Spel spel;
-	private short waardeStad;
+	private int waardeStad;
 	//private StadView stadView;
 
 	public Stad(Spel spel)
@@ -37,7 +37,7 @@ public class Stad
 		// this.stadView.modelChanged();
 	}
 	
-	public short getWaardeStad()
+	public int getWaardeStad()
 	{
 		berekenWaarde(gebouwen);
 		return this.waardeStad;
@@ -45,7 +45,7 @@ public class Stad
 	
 	private void berekenWaarde(ArrayList<GebouwKaart> lijst)
 	{
-		short waarde = 0;
+		int waarde = 0;
 		for(int i = 0; i < lijst.size(); i++)
 		{
 			waarde += lijst.get(i).getKosten();
