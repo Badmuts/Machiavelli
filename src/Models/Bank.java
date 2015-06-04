@@ -9,13 +9,18 @@ public class Bank
 	// Variables
 	private short goudMunten;
 	
-	public void ontvangenGoud()
+	public Bank()
 	{
-		
+		this.goudMunten = 30;
 	}
 	
-	public void gevenGoud()
+	public void ontvangenGoud(short aantal)
 	{
-		
+		this.goudMunten += aantal;
+	}
+	
+	public void gevenGoud(Portemonnee portemonnee, short aantal)
+	{
+		portemonnee.ontvangenGoud(aantal);
 	}
 }
