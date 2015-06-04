@@ -5,9 +5,6 @@ package Enumerations;
  */
 public enum Type {
 
-    NORMAAL, 
-    MONUMENT, 
-    KERKELIJK, 
-    COMMERCIEL, 
-    MILITAIR
+    NORMAAL, MONUMENT, KERKELIJK, COMMERCIEL, MILITAIR
+
 }
