@@ -7,9 +7,11 @@ De structuur voor dit project is als volgt:
 ```
 └── src
     ├── Controllers
+    ├── Enummerations
     ├── Factories
-    ├── Machiavelli.java
+    ├── Interfaces
     ├── Models
+    ├── Resources
     └── Views
 ```
 

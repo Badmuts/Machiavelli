@@ -1,6 +1,6 @@
 package Models;
 
-import Enums.Karakters;
+import Interfaces.Karakter;
 
 /**
  * 
@@ -12,7 +12,7 @@ public class Speler
 	// Variables
 	private Portemonnee portemonnee;
 	private boolean isKoning;
-	private Karakters karakter;
+	private Karakter karakter;
 	private Hand hand;
 	
 	public void getGoudVanBank()
@@ -35,14 +35,14 @@ public class Speler
 		
 	}
 	
-	public void setKarakter()
+	public void setKarakter(Karakter karakter)
 	{
-		
+		this.karakter = karakter;
 	}
 	
-	public void getKarakter()
+	public Karakter getKarakter()
 	{
-		
+	    return this.karakter;
 	}
 	
 	public void betaalGoud()

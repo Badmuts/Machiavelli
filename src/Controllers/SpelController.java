@@ -29,6 +29,9 @@ public class SpelController implements EventHandler<ActionEvent> {
 	public void show2(){
 		mmv.show(spel.getPrimaryStage());
 	}
+	public void cmdNieuwSpel(){
+		
+	}
 	
 	@Override
 	public void handle(ActionEvent e) {
@@ -42,6 +45,16 @@ public class SpelController implements EventHandler<ActionEvent> {
 		if(e.getSource() == mmv.getStartButton()){
 			mmv.show2(spel.getPrimaryStage());
 		}
+		if(e.getSource() == mmv.getNieuwSpelKnop()){
+			
+		}
+		if(e.getSource() == mmv.getDeelnemenKnop()){
+			
+		}
+		if(e.getSource() == mmv.getHervattenknop()){
+			
+		}
+		
 	}
 
 }
