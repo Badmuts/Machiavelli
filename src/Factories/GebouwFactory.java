@@ -76,6 +76,7 @@ public class GebouwFactory {
             // 5 Taveerne: 1 punt: Commerciel
             gebouwen.add(new GebouwKaart(1, "Taveerne", Type.COMMERCIEL));
         }
+        this.schuddenKaarten();
     }
 
     public void addGebouw(GebouwKaart gebouw) {
@@ -88,7 +89,7 @@ public class GebouwFactory {
         return gebouw;
     }
 
-    public void schuddenKaarten() {
+    private void schuddenKaarten() {
         Collections.shuffle(gebouwen);
     }
 
