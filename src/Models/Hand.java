@@ -10,20 +10,32 @@ import java.util.*;
 public class Hand
 {
 	// Variables
-	private List<GebouwKaart> kaartenLijst;
+	private ArrayList<GebouwKaart> kaartenLijst;
+	private Speler speler;
 	
-	public void addGebouw()
+	public Hand(Speler speler)
 	{
+		this.speler = speler;
 		
+		kaartenLijst = new ArrayList<GebouwKaart>();
+		for(int i = 0; i < 4; i ++)
+		{
+			kaartenLijst.add(this.speler.getSpel().getGebouwFactory().trekKaart());
+		}
 	}
 	
-	public void getGebouwen()
+	public void addGebouw(GebouwKaart kaart)
 	{
-		
+		kaartenLijst.add(kaart);
 	}
 	
-	public void removeGebouw()
+	public ArrayList<GebouwKaart> getGebouwen()
 	{
-		
+		return this.kaartenLijst;
+	}
+	
+	public void removeGebouw(GebouwKaart gebouw)
+	{
+		this.kaartenLijst.remove(gebouw);
 	}
 }

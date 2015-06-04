@@ -20,4 +20,9 @@ public class InkomstenController
 	{
 		
 	}
+	
+	public void cmdKiezenGoud()
+	{
+		
+	}
 }
