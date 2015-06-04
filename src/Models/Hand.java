@@ -11,9 +11,21 @@ public class Hand
 {
 	// Variables
 	private List<GebouwKaart> kaartenLijst;
+	private Speler speler;
 	
-	public void addGebouw()
+	public Hand(Speler speler)
 	{
+		this.speler = speler;
+		
+		for(int i = 0; i < 5; i ++)
+		{
+			this.speler.getSpel().getGebouwFactory().trekKaart();
+		}
+	}
+	
+	public void addGebouw(GebouwKaart kaart)
+	{
+		
 		
 	}
 	

@@ -1,6 +1,6 @@
 package Models;
 
-import Enums.GebouwTypes;
+import Enumerations.Type;
 
 /**
  * 

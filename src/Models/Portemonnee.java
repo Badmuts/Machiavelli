@@ -11,7 +11,7 @@ public class Portemonnee
 	
 	public Portemonnee()
 	{
-		this.goudMunten = 0;
+		this.goudMunten = 2;
 	}
 	
 	public void bestedenGoud(Bank bank, short aantal)

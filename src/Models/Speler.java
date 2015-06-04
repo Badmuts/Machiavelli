@@ -14,9 +14,11 @@ public class Speler
 	private boolean isKoning;
 	private Karakter karakter;
 	private Hand hand;
+	private Spel spel;
 	
-	public Speler()
+	public Speler(Spel spel)
 	{
+		this.spel = spel;
 		portemonnee = new Portemonnee();
 		// hand = new Hand();
 	}
@@ -28,7 +30,7 @@ public class Speler
 	
 	public void setGoudOpBank(Portemonnee portemonnee, short aantal)
 	{
-		//portemonnee.bestedenGoud(Spel.getBank(), aantal);
+		portemonnee.bestedenGoud(this.spel.getBank(), aantal);
 	}
 	
 	public void setKaartInStad()
