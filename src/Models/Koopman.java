@@ -1,5 +1,6 @@
 package Models;
 
+import Enummerations.Type;
 import Interfaces.Karakter;
 
 /**
@@ -7,8 +8,17 @@ import Interfaces.Karakter;
  */
 public class Koopman implements Karakter {
 
+    private String      naam                = "Koopman";
+    private int         nummer              = 6;
+    private int         bouwLimiet          = 1;
+    private Type        type                = Type.COMMERCIEL;
+    
+    private ;
+    
     @Override
     public void gebruikEigenschap() {
         // TODO: ontvangt 1 goudstuk
+    	
+    	
     }
 }
