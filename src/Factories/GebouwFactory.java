@@ -12,8 +12,8 @@ public class GebouwFactory {
 
     private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
 
-    public GebouwKaart createGebouwKaart() {
-        // TODO:
+    public static GebouwKaart createGebouwKaart() {
+        // TODO: Hoe gaan we dit doen?
     }
 
     public void addGebouw(GebouwKaart gebouw) {
