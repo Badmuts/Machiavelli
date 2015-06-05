@@ -14,25 +14,39 @@ public class Speler
 	private boolean isKoning;
 	private Karakter karakter;
 	private Hand hand;
+	private Spel spel;
+	private Stad stad;
 	
-	public void getGoudVanBank()
+	public Speler(Spel spel)
 	{
-		
+		this.spel = spel;
+		this.stad = new Stad(spel);
+		portemonnee = new Portemonnee();
+		// hand = new Hand();
 	}
 	
-	public void setGoudOpBank()
+	public void getGoudVanBank(Bank bank, int aantal)
 	{
-		
+		bank.gevenGoud(portemonnee, aantal);
 	}
 	
-	public void setKaartInStad()
+	public void setGoudOpBank(Portemonnee portemonnee, int aantal)
 	{
-		
+		portemonnee.bestedenGoud(this.spel.getBank(), aantal);
+	}
+	
+	public void setKaartInStad(GebouwKaart gebouw)
+	{
+		this.stad.addGebouw(gebouw);
 	}
 	
 	public void trekkenKaart()
 	{
-		
+		// NIET AF
+		for (int i = 0; i < 2; i++)
+		{
+			this.spel.getGebouwFactory().trekKaart();
+		}
 	}
 	
 	public void setKarakter(Karakter karakter)
@@ -45,8 +59,8 @@ public class Speler
 	    return this.karakter;
 	}
 	
-	public void betaalGoud()
+	public Spel getSpel()
 	{
-		
+		return this.spel;
 	}
 }

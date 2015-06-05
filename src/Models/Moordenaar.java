@@ -1,6 +1,7 @@
+
 package Models;
 
-import Enummerations.Type;
+import Enumerations.Type;
 import Interfaces.Karakter;
 
 /**
@@ -23,3 +24,6 @@ public class Moordenaar implements Karakter {
         this.vermoordKarakter = karakter;
     }
 }
+
+
+

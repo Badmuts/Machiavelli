@@ -7,7 +7,7 @@ De structuur voor dit project is als volgt:
 ```
 └── src
     ├── Controllers
-    ├── Enummerations
+    ├── Enumerations
     ├── Factories
     ├── Interfaces
     ├── Models

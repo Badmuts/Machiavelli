@@ -3,6 +3,7 @@ package Models;
 import java.util.ArrayList;
 
 import javafx.stage.Stage;
+import Factories.GebouwFactory;
 import Views.SpeelveldView;
 
 public class Spel {
@@ -10,8 +11,12 @@ public class Spel {
 	private Speelveld speelveld;
 	private SpeelveldView speelveldview;
 	private ArrayList<Speler> speler;
+	private Bank bank;
+	private GebouwFactory gebouwFactory;
 	
 	public Spel(Stage primaryStage){
+		bank = new Bank();
+		gebouwFactory = new GebouwFactory();
 		this.primaryStage = primaryStage;
 	}
 	public Stage getPrimaryStage(){
@@ -25,13 +30,23 @@ public class Spel {
 		//Starten karakterkiezenlijst speler 1
 		//Doorgeven karakterlijst aan andere spelers
 		ArrayList<Speler> spelers = new ArrayList<Speler>();
-		spelers.add(new Speler());
-		spelers.add(new Speler());
-		spelers.add(new Speler());
-		spelers.add(new Speler());
+		spelers.add(new Speler(this));
+		spelers.add(new Speler(this));
+		spelers.add(new Speler(this));
+		spelers.add(new Speler(this));
 		this.speelveld = new Speelveld(spelers);
 	}
 	public void EindeBeurt(){
 		
+	}
+	
+	public Bank getBank()
+	{
+		return this.bank;
+	}
+	
+	public GebouwFactory getGebouwFactory()
+	{
+		return this.gebouwFactory;
 	}
 }

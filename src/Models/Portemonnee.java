@@ -7,15 +7,20 @@ package Models;
 public class Portemonnee
 {
 	// Variables
-	private short goudMunten;
+	private int goudMunten;
 	
-	public void bestedenGoud()
+	public Portemonnee()
 	{
-		
+		this.goudMunten = 2;
 	}
 	
-	public void ontvangenGoud()
+	public void bestedenGoud(Bank bank, int aantal)
 	{
-		
+		bank.ontvangenGoud(aantal);
+	}
+	
+	public void ontvangenGoud(int aantal)
+	{
+		goudMunten += aantal;
 	}
 }
