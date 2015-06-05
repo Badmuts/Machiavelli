@@ -3,6 +3,7 @@ package Factories;
 import Enumerations.Type;
 import Models.GebouwKaart;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -85,12 +86,17 @@ public class GebouwFactory {
 
     public GebouwKaart trekKaart() {
         GebouwKaart gebouw = gebouwen.get(0);
-        gebouwen.remove(gebouw);
+        this.gebouwen.remove(gebouw);
         return gebouw;
     }
 
     private void schuddenKaarten() {
         Collections.shuffle(gebouwen);
+    }
+
+    public ArrayList<GebouwKaart> getGebouwen()
+    {
+        return this.gebouwen;
     }
 
 }
