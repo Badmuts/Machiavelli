@@ -17,10 +17,17 @@ public class Bank
 	public void ontvangenGoud(int aantal)
 	{
 		this.goudMunten += aantal;
+
 	}
 	
 	public void gevenGoud(Portemonnee portemonnee, int aantal)
 	{
 		portemonnee.ontvangenGoud(aantal);
+		this.goudMunten -= aantal;
+	}
+
+	public int getGoudMunten()
+	{
+		return this.goudMunten;
 	}
 }

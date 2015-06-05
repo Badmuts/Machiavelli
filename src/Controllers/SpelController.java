@@ -1,11 +1,9 @@
 package Controllers;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import Models.Spel;
 import Views.MainMenuView;
 
-public class SpelController implements EventHandler<ActionEvent> {
+public class SpelController{
 	private MainMenuView mmv;
 	private Spel spel;
 	//private SpelOverzichtView sov;
@@ -13,12 +11,15 @@ public class SpelController implements EventHandler<ActionEvent> {
 	public SpelController(Spel sp){
 		this.spel = sp;
 		this.mmv = new MainMenuView (this,sp);
+		
+		
 		//this.sov = new SpelOverzichtView(this, sp);
-		
-		
-		mmv.getStartButton().setOnAction(this);
-		mmv.getExitButton().setOnAction(this);
-		mmv.getExitButton2().setOnAction(this);
+		mmv.getStartButton().setOnAction(event -> mmv.show2(spel.getPrimaryStage()));
+		mmv.getExitButton().setOnAction(event -> System.exit(0));
+		mmv.getExitButton2().setOnAction(event -> System.exit(0));
+		mmv.getNieuwSpelKnop().setOnAction(event -> cmdNieuwSpel());
+		mmv.getHervattenknop().setOnAction(event -> System.out.println("spel hervatten"));
+		mmv.getDeelnemenKnop().setOnAction(event -> System.out.println("Deelnemen"));
 		//sov.getNieuwSpelKnop().setOnAction(this);
 		//sov.getExitButton().setOnAction(this);
 		
@@ -29,32 +30,17 @@ public class SpelController implements EventHandler<ActionEvent> {
 	public void show2(){
 		mmv.show(spel.getPrimaryStage());
 	}
-	public void cmdNieuwSpel(){
-		
-	}
 	
-	@Override
-	public void handle(ActionEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getSource() == mmv.getExitButton()){
-			System.exit(0);
-		}
-		if(e.getSource() == mmv.getExitButton2()){
-			System.exit(0);
-		}
-		if(e.getSource() == mmv.getStartButton()){
-			mmv.show2(spel.getPrimaryStage());
-		}
-		if(e.getSource() == mmv.getNieuwSpelKnop()){
-			
-		}
-		if(e.getSource() == mmv.getDeelnemenKnop()){
-			
-		}
-		if(e.getSource() == mmv.getHervattenknop()){
-			
-		}
+	public void cmdNieuwSpel(){
+		//Create nieuw spel
+		//Speelveld laden
+		//Spelers koppeln aan speelveld
+		//Start spelers is koning
+		//Starten karakterkiezenlijst speler 1
+		//Doorgeven karakterlijst aan andere spelers
+		this.spel.NieuwSpel();
+		mmv.StopStage(spel.getPrimaryStage());
 		
 	}
-
 }
+

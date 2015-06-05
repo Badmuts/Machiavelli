@@ -37,11 +37,6 @@ public class GebouwKaart
         this.naam = naam;
     }
 
-    public int getKosten() {
-
-        return kosten;
-    }
-
     public void setKosten(int kosten) {
         this.kosten = kosten;
     }
@@ -54,7 +49,7 @@ public class GebouwKaart
         return stad;
     }
     
-    public short getKosten()
+    public int getKosten()
     {
     	return this.kosten;
     }
