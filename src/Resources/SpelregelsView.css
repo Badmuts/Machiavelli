@@ -1,0 +1,28 @@
+.root
+
+{
+
+	-fx-background-color: linear-gradient(#efefef, #e5e5e5);
+	
+}
+
+
+#ROOTNODE {
+-fx-background-radius: 30;
+-fx-border-radius: 30;
+-fx-border-width:5;
+-fx-border-color: #393939;
+}
+
+
+#title{
+	-fx-font: 40px Tahoma;
+    	-fx-top:0;
+    	-fx-stroke: black;
+    	-fx-stroke-width: 1;
+    	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+}
+
+#regels{
+	-fx-font: 15px Tahoma;
+}
