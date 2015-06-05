@@ -1,15 +1,21 @@
 package Controllers;
 
+import java.io.IOException;
+
 import Models.Spel;
+import Models.Spelregels;
 import Views.MainMenuView;
 
 public class SpelController{
 	private MainMenuView mmv;
 	private Spel spel;
+	private RaadplegenSpelregelsController spelregelsController;
 	//private SpelOverzichtView sov;
 	
 	public SpelController(Spel sp){
 		this.spel = sp;
+		this.spelregelsController = new RaadplegenSpelregelsController();
+		Spelregels r = new Spelregels();
 		this.mmv = new MainMenuView (this,sp);
 		
 		
@@ -20,6 +26,7 @@ public class SpelController{
 		mmv.getNieuwSpelKnop().setOnAction(event -> cmdNieuwSpel());
 		mmv.getHervattenknop().setOnAction(event -> System.out.println("spel hervatten"));
 		mmv.getDeelnemenKnop().setOnAction(event -> System.out.println("Deelnemen"));
+		mmv.getSpelregelsButton().setOnAction(event -> this.spelregelsController.cmdWeergeefSpelregels());
 		//sov.getNieuwSpelKnop().setOnAction(this);
 		//sov.getExitButton().setOnAction(this);
 		
