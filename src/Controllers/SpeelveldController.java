@@ -1,5 +1,6 @@
 package Controllers;
 
+import javafx.stage.Stage;
 import Models.Speelveld;
 import Views.SpeelveldView;
 
@@ -9,10 +10,11 @@ public class SpeelveldController {
 	
 	public SpeelveldController(Speelveld speelveld){
 		this.speelveld = speelveld;
-		this.speelveldview = new SpeelveldView(this, speelveld);
+		//this.speelveldview = new SpeelveldView(this, speelveld);
+		
 	}
 	public void show(){
-		speelveldview.show(speelveld.getSecondStage());
+		speelveldview.show(speelveld.getSecondaryStage());
 	}
 	
 }

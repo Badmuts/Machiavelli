@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import Controllers.SpelController;
 import Models.Spel;
 
@@ -90,13 +91,12 @@ public class MainMenuView{
 		mainSelectPane.getStylesheets().add("Resources/stylecss.css");
 	}
 	public void show(Stage stage){
-		stage.setTitle("Machiavelli");
+		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setResizable(false);
 		stage.setScene(mainMenu);
 		stage.show();
 	}
 	public void show2(Stage stage){
-		stage.setTitle("Machiavelli");
 		stage.setResizable(false);
 		stage.setScene(mainSelect);
 		stage.show();
@@ -121,5 +121,8 @@ public class MainMenuView{
 	}
 	public Button getHervattenknop(){
 		return hervattenknop;
+	}
+	public void StopStage(Stage stage){
+		stage.hide();
 	}
 }

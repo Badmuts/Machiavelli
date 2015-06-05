@@ -3,19 +3,22 @@ package Models;
 import java.util.ArrayList;
 
 import javafx.stage.Stage;
+import Controllers.SpeelveldController;
 import Interfaces.Karakter;
+import Views.SpeelveldView;
 
 public class Speelveld {
-	private Stage secondStage;
+	private Stage secondaryStage;
 	private ArrayList<Speler> spelers;
 	private Speler koning;
 	private Karakter karakter;
+	private SpeelveldView speelveldview;
 	
-	public Speelveld(Stage secondStage){
-	 this.secondStage = secondStage;	
+	public Speelveld(Stage secondaryStage){
+	 this.secondaryStage = secondaryStage;	
 	}
-	public Stage getSecondStage(){
-		return secondStage;
+	public Stage getSecondaryStage(){
+		return secondaryStage;
 	}
 	
 	public Speelveld(ArrayList<Speler> spelers){
@@ -24,8 +27,8 @@ public class Speelveld {
 		//Starten karakterkiezenlijst speler 1
 		//Doorgeven karakterlijst aan andere spelers
 		this.spelers = spelers;
-		this.setKoning(spelers.get(1));
-		
+		this.setKoning(spelers.get(0));		
+		speelveldview = new SpeelveldView(new SpeelveldController(this),this);
 	}
 	public void setKoning(Speler spelers){
 		this.koning = spelers;
