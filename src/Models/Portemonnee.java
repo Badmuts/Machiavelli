@@ -17,10 +17,16 @@ public class Portemonnee
 	public void bestedenGoud(Bank bank, int aantal)
 	{
 		bank.ontvangenGoud(aantal);
+		this.goudMunten -= aantal;
 	}
 	
 	public void ontvangenGoud(int aantal)
 	{
 		goudMunten += aantal;
+	}
+
+	public int getGoudMunten()
+	{
+		return this.goudMunten;
 	}
 }
