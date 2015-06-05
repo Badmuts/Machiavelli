@@ -28,14 +28,14 @@ public class Hand
 	{
 		kaartenLijst.add(kaart);
 	}
-	
-	public ArrayList<GebouwKaart> getGebouwen()
-	{
-		return this.kaartenLijst;
-	}
-	
+
 	public void removeGebouw(GebouwKaart gebouw)
 	{
 		this.kaartenLijst.remove(gebouw);
+	}
+
+	public ArrayList<GebouwKaart> getKaartenLijst()
+	{
+		return this.kaartenLijst;
 	}
 }

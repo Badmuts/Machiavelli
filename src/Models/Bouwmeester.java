@@ -1,6 +1,6 @@
 package Models;
 
-import Enummerations.Type;
+import Enumerations.Type;
 import Interfaces.Karakter;
 
 /**

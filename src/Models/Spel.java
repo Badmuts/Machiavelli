@@ -1,23 +1,40 @@
 package Models;
 
-import Factories.GebouwFactory;
+import java.util.ArrayList;
+
 import javafx.stage.Stage;
+import Factories.GebouwFactory;
+import Views.SpeelveldView;
 
 public class Spel {
 	private Stage primaryStage;
+	private Speelveld speelveld;
+	private SpeelveldView speelveldview;
+	private ArrayList<Speler> speler;
 	private Bank bank;
 	private GebouwFactory gebouwFactory;
 	
 	public Spel(Stage primaryStage){
 		bank = new Bank();
 		gebouwFactory = new GebouwFactory();
-		
 		this.primaryStage = primaryStage;
 	}
 	public Stage getPrimaryStage(){
 		return primaryStage;
 	}
 	public void NieuwSpel(){
+		//Speelveld laden
+		//Spelers koppeln aan speelveld
+		//Speelveld laten zien
+		//Start spelers is koning
+		//Starten karakterkiezenlijst speler 1
+		//Doorgeven karakterlijst aan andere spelers
+		ArrayList<Speler> spelers = new ArrayList<Speler>();
+		spelers.add(new Speler(this));
+		spelers.add(new Speler(this));
+		spelers.add(new Speler(this));
+		spelers.add(new Speler(this));
+		this.speelveld = new Speelveld(spelers);
 	}
 	public void EindeBeurt(){
 		
