@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import Controllers.SpelController;
 import Models.Spel;
 
@@ -25,7 +26,9 @@ public class MainMenuView{
 		private Scene mainSelect;
 		
 		
-	public void setButton(Button button, int posx, int posy, float sizeX, float sizeY){
+	public void initButton(Button button,String tekst,String id, int posx, int posy, float sizeX, float sizeY){
+		button.setText(tekst);
+		button.setId(id);
 		button.setLayoutX(posx);
 		button.setLayoutY(posy);
 		button.setMinWidth(sizeX);
@@ -48,34 +51,7 @@ public class MainMenuView{
 		spelregels = new Button();
 		exitbutton2 = new Button();
 		spelregels2 = new Button();
-		
-		nieuwspelknop.setText("Nieuw spel");
-		nieuwspelknop.setId("gamekiezen");
-		
-		hervattenknop.setText("Hervatten");
-		hervattenknop.setId("gamekiezen");
-		
-		deelnemenknop.setText("Deelnemen");
-		deelnemenknop.setId("gamekiezen");
 
-		startbutton.setText("Kies spel");
-		startbutton.setId("buttonstart");
-		//startbutton.setOnAction(this);
-		
-		exitbutton.setText("Afsluiten");
-		exitbutton.setId("buttonexit");
-		//exitbutton.setOnAction(this);
-		
-		spelregels.setText("Spelregels");
-		spelregels.setId("buttonregels");
-		
-		exitbutton2.setText("Afsluiten");
-		exitbutton2.setId("buttonexit");
-		//exitbutton.setOnAction(this);
-		
-		spelregels2.setText("Spelregels");
-		spelregels2.setId("buttonregels");
-		
 		//Machiavelli tekst layout
 		Text mainTx = new Text("Machiavelli");
 		mainTx.setFill(Color.WHITE);
@@ -93,16 +69,17 @@ public class MainMenuView{
 		mainTx2.setScaleX(7);
 		mainTx2.setScaleY(6.5);
 		mainTx2.setLayoutX(780);
-		mainTx2.setLayoutY(190);
+		mainTx2.setLayoutY(170);
 		
-		setButton(startbutton,700,450,200f,75f);
-		setButton(exitbutton,700,530,200f,75f);
-		setButton(spelregels,20,30,125f,50f);
-		setButton(nieuwspelknop,700,290,200f,75f);
-		setButton(hervattenknop,700,370, 200f,75f);
-		setButton(deelnemenknop,700,450,200f,75f);
-		setButton(exitbutton2,700,530,200f,75f);
-		setButton(spelregels2,20,30,125f,50f);
+		//Knoppen definiëren
+		initButton(startbutton,"Kies spel", "buttonstart", 700,450,200f,75f);
+		initButton(exitbutton,"Afsluiten", "buttonexit", 700,530,200f,75f);
+		initButton(spelregels,"Spelregels", "buttonregels", 20,30,125f,50f);
+		initButton(nieuwspelknop,"Nieuw spel", "gamekiezen", 700,290,200f,75f);
+		initButton(hervattenknop,"Hervatten","gamekiezen", 700,370, 200f,75f);
+		initButton(deelnemenknop,"Deelnemen", "gamekiezen", 700,450,200f,75f);
+		initButton(exitbutton2,"Afsluiten", "buttonexit", 700,530,200f,75f);
+		initButton(spelregels2,"Spelregels", "buttonregels", 20,30,125f,50f);
 		
 		//toevoegen van elementen aan het frame
 		mainMenuPane.getChildren().addAll(startbutton,exitbutton,spelregels,mainTx);
@@ -110,17 +87,16 @@ public class MainMenuView{
 		//Instellen wat er weergeven moet worden
 		mainSelect = new Scene(mainSelectPane, 1600, 900);
 		mainMenu = new Scene(mainMenuPane, 1600, 900);
-		mainMenuPane.getStylesheets().add("Views/stylecss.css");
-		mainSelectPane.getStylesheets().add("Views/stylecss.css");
+		mainMenuPane.getStylesheets().add("Resources/stylecss.css");
+		mainSelectPane.getStylesheets().add("Resources/stylecss.css");
 	}
 	public void show(Stage stage){
-		stage.setTitle("Machiavelli");
+		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setResizable(false);
 		stage.setScene(mainMenu);
 		stage.show();
 	}
 	public void show2(Stage stage){
-		stage.setTitle("Machiavelli");
 		stage.setResizable(false);
 		stage.setScene(mainSelect);
 		stage.show();
@@ -145,5 +121,8 @@ public class MainMenuView{
 	}
 	public Button getHervattenknop(){
 		return hervattenknop;
+	}
+	public void StopStage(Stage stage){
+		stage.hide();
 	}
 }
