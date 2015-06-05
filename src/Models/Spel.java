@@ -2,6 +2,7 @@ package Models;
 
 import java.util.ArrayList;
 
+import Interfaces.Karakter;
 import javafx.stage.Stage;
 import Factories.GebouwFactory;
 import Views.SpeelveldView;

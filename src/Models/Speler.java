@@ -83,4 +83,6 @@ public class Speler
 	{
 		return this.hand;
 	}
+
+	public Stad getStad() { return this.stad;}
 }

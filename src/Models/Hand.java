@@ -38,4 +38,9 @@ public class Hand
 	{
 		return this.kaartenLijst;
 	}
+
+	public void setKaartenLijst(ArrayList<GebouwKaart> lijst)
+	{
+		this.kaartenLijst = lijst;
+	}
 }

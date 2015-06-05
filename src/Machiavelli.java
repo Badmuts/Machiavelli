@@ -1,12 +1,10 @@
-import Models.GebouwKaart;
+import Interfaces.Karakter;
+import Models.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import Controllers.SpeelveldController;
 import Controllers.SpelController;
-import Models.Speelveld;
-import Models.Spel;
-import Models.Speler;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -84,7 +82,38 @@ public class Machiavelli extends Application {
 //        }
 //        System.out.println();
 
+        // Test magier eigenschap: Ruilen met speler
+        Speler speler1 = new Speler(sp);
+        Speler speler2 = new Speler(sp);
+
+        speler1.setKarakter(new Magier());
+
+        showHand(speler1);
+        showHand(speler2);
+
+        Magier magier = new Magier();
+        //speler1.getKarakter().ruilMetKarakter(speler1, speler2); Werkt niet
+        magier.ruilMetKarakter(speler1, speler2);
+        System.out.println("Speler 1 ruilt zijn kaarten met speler 2\n");
+
+        showHand(speler1);
+        showHand(speler2);
+        // Einde test
+
 	}
+
+    // Deze method is voor test magier eigenschap
+    public void showHand(Speler speler)
+    {
+        ArrayList<GebouwKaart> lst = speler.getHand().getKaartenLijst();
+        System.out.println("Kaarten in hand:");
+        for(int i = 0; i < speler.getHand().getKaartenLijst().size(); i++)
+        {
+            System.out.println(lst.get(i).getNaam() + " / " + lst.get(i).getKosten());
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args) {
         launch(args);
 
