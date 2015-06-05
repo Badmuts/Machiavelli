@@ -26,6 +26,7 @@ public class SpeelveldView {
 	private Stage stage;
 	private Rectangle buttonholder;
 	private Rectangle karakterholder;
+	private Rectangle kaartholder;
 	
 	public void initButton(Button button,String tekst,String id, int posx, int posy, float sizeX, float sizeY){
 		button.setText(tekst);
@@ -63,6 +64,8 @@ public class SpeelveldView {
 		karakterholder = new Rectangle(0, 680, 250, 250);
 		karakterholder.setFill(Color.GRAY);
 		
+		kaartholder = new Rectangle(250, 680,925,250);
+		kaartholder.setFill(Color.DARKGRAY);
 		Pane speelveldpane = new Pane();
 		
 		Image spelregelsbg = new Image("Resources/SpelregelsBorder.png");
@@ -70,11 +73,10 @@ public class SpeelveldView {
 		iv.setCache(true);
 		iv.setFitWidth(200);
         
-		speelveldpane.getChildren().addAll(iv,buttonholder,karakterholder, gebruikEigenschap, exitbutton,spelregels, opslaanknop,placeholderbutton1,placeholderbutton2,placeholderbutton3);
+		speelveldpane.getChildren().addAll(iv,buttonholder,karakterholder,kaartholder, gebruikEigenschap, exitbutton,spelregels, opslaanknop,placeholderbutton1,placeholderbutton2,placeholderbutton3);
 		speelveldscene = new Scene(speelveldpane, 1600, 900);
 		speelveldpane.getStylesheets().add("Resources/Speelveld.css");
 						
-		
 		this.show(new Stage());
 	}
 	public void show(Stage stage){
