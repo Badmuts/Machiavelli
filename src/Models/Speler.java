@@ -21,8 +21,8 @@ public class Speler
 	{
 		this.spel = spel;
 		this.stad = new Stad(spel);
-		portemonnee = new Portemonnee();
-		// hand = new Hand();
+		this.portemonnee = new Portemonnee();
+		this.hand = new Hand(this);
 	}
 	
 	public void getGoudVanBank(Bank bank, int aantal)
@@ -62,5 +62,15 @@ public class Speler
 	public Spel getSpel()
 	{
 		return this.spel;
+	}
+
+	public Portemonnee getPortemonnee()
+	{
+		return this.portemonnee;
+	}
+
+	public Hand getHand()
+	{
+		return this.hand;
 	}
 }
