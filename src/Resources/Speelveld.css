@@ -1,0 +1,68 @@
+.root {
+	-fx-background-color: #F5EBC6;
+}
+#buttonsave {
+	-fx-background-color: linear-gradient(#8fc800 ,#59bf00);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 2em;
+}
+#buttonsave: hover {
+	-fx-background-color: linear-gradient(#14ba1f ,#3b8400);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 2.5em;
+}
+
+#buttonexit {
+	-fx-background-color: linear-gradient(#f2825b,#e55b2b,#f07146);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 2em;
+}
+#buttonexit: hover {
+	-fx-background-color: linear-gradient(#ff5400, #be1d00);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 2.5em;
+}
+#buttonregels {
+    -fx-background-color: linear-gradient(#ffd65e,#febf04);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 2.5em;
+}
+#buttonregels: hover {
+	-fx-background-color: #febf04;
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 2.5em;
+}
+#gamebutton {
+	-fx-background-color: linear-gradient(#ffd65e,#febf04);
+	-fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 2em;
+}
+#gamebutton: hover {
+    -fx-background-color: #febf04;
+	-fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 2.5em;
+}
