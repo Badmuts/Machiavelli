@@ -65,7 +65,8 @@ public class SpeelveldView {
 		karakterholder.setFill(Color.GRAY);
 		
 		kaartholder = new Rectangle(250, 680,925,250);
-		kaartholder.setFill(Color.DARKGRAY);
+		kaartholder.setFill(Color.DIMGRAY);
+		
 		Pane speelveldpane = new Pane();
 		
 		Image spelregelsbg = new Image("Resources/SpelregelsBorder.png");

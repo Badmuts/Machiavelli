@@ -3,10 +3,8 @@ package Models;
 import java.util.ArrayList;
 
 import javafx.stage.Stage;
-import Controllers.KarakterController;
 import Controllers.SpeelveldController;
 import Interfaces.Karakter;
-import Views.SpeelveldView;
 
 public class Speelveld {
 	private Stage secondaryStage;
@@ -38,6 +36,7 @@ public class Speelveld {
 	public void toonKarakterLijst(){
 		
 	}
+	
 	
 }
 

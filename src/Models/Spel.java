@@ -7,6 +7,7 @@ import Factories.GebouwFactory;
 import Views.SpeelveldView;
 
 public class Spel {
+	private int aantalspelers;
 	private Stage primaryStage;
 	private Speelveld speelveld;
 	private SpeelveldView speelveldview;
@@ -23,6 +24,8 @@ public class Spel {
 		return primaryStage;
 	}
 	public void NieuwSpel(){
+		//Minimaal aantal spelers kiezen
+		
 		//Speelveld laden
 		//Spelers koppeln aan speelveld
 		//Speelveld laten zien
