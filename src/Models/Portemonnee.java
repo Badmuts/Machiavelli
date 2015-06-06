@@ -11,7 +11,8 @@ public class Portemonnee
 	
 	public Portemonnee()
 	{
-		this.goudMunten = 2;
+		// Dit goud moet uit de bank gehaald worden.
+		ontvangenGoud(2);
 	}
 	
 	public void bestedenGoud(Bank bank, int aantal)

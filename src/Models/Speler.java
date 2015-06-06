@@ -52,6 +52,17 @@ public class Speler
 		return tempList;
 	}
 
+	// Voor magier eigenschap, die hoeft niet te kiezen. Kan ook aparte method worden..
+	public ArrayList<GebouwKaart> trekkenKaart(int aantal)
+	{
+		ArrayList<GebouwKaart>tempList = new ArrayList<GebouwKaart>();
+		for (int i = 0; i < aantal; i++)
+		{
+			tempList.add(this.spel.getGebouwFactory().trekKaart());
+		}
+		return tempList;
+	}
+
 	public void selecterenKaart(ArrayList<GebouwKaart> lijst, int index)
 	{
 		this.getHand().addGebouw(lijst.get(index));

@@ -34,9 +34,23 @@ public class Magier implements Karakter {
     }
 
     // Leg een x aantal kaarten af op de stapel en pak een gelijk aantal nieuwe kaarten
-    public void ruilMetStapel(Hand spelerHand)
+    // Moet nog getest worden
+    public void ruilMetStapel(Hand hand, ArrayList<GebouwKaart> ruilLijst)
     {
+        // Afleggen en tellen gebouwkaarten.
+        int count = 0;
+        for (int i = 0; i < ruilLijst.size(); i++)
+        {
+            hand.removeGebouw(ruilLijst.get(i));
+            count ++;
+        }
 
+        // Trek nieuwe kaarten
+        ArrayList<GebouwKaart> tempList = hand.getSpeler().trekkenKaart(count);;
+        for (int i = 0; i < tempList.size(); i++)
+        {
+            hand.addGebouw(tempList.get(i));
+        }
     }
 
     // Return karakternummer

@@ -43,4 +43,9 @@ public class Hand
 	{
 		this.kaartenLijst = lijst;
 	}
+
+	public Speler getSpeler()
+	{
+		return this.speler;
+	}
 }
