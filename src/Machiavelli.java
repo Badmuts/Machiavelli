@@ -21,7 +21,20 @@ public class Machiavelli extends Application {
         sc.show();
 
         Speler speler1 = new Speler(sp);
-        speler1.setKarakter(new Magier());
+        Magier magier = new Magier();
+        speler1.setKarakter(magier); // doet nu dus niks
+        showHand(speler1);
+        Scanner s = new Scanner(System.in);
+        ArrayList<GebouwKaart> l = new ArrayList<GebouwKaart>();
+
+        // Kaart 1 2 en 4 ruilen. 2 komt bovenaan gevolgd door 3 nieuwe kaarten.
+        l.add(speler1.getHand().getKaartenLijst().get(0));
+        l.add(speler1.getHand().getKaartenLijst().get(1));
+        l.add(speler1.getHand().getKaartenLijst().get(3));
+        magier.ruilMetStapel(speler1.getHand(), l);
+        showHand(speler1);
+
+
     }
 
     // Deze method is voor testen
