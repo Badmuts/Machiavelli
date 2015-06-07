@@ -24,7 +24,7 @@ public class MainMenuView{
 		private Button exitbutton2;
 		private Button spelregels2;
 		private SpelController sc;
-		private Stage primaryStage;
+		//private Stage primaryStage;
 		private Scene mainMenu;
 		private Scene mainSelect;
 		
@@ -53,7 +53,6 @@ public class MainMenuView{
 		exitbutton2 = new Button();
 		spelregels2 = new Button();
 		
-
 		//Machiavelli tekst layout
 		Text mainTx = new Text("Machiavelli");
 		mainTx.setFill(Color.WHITE);
@@ -72,7 +71,6 @@ public class MainMenuView{
 		mainTx2.setScaleY(6.5);
 		mainTx2.setLayoutX(780);
 		mainTx2.setLayoutY(170);
-		
 		
 		//Knoppen definiëren
 		initButton(startbutton,"Kies spel", "buttonstart", 700,450,200f,75f);
@@ -108,9 +106,10 @@ public class MainMenuView{
 		stage.setScene(mainMenu);
 		stage.show();
 	}
-	public void show2(Stage stage){
+	public void showSelect(Stage stage){
 		stage.setResizable(false);
 		stage.setScene(mainSelect);
+    	stage.centerOnScreen();
 		stage.show();
 	}
 	public Button getStartButton(){
