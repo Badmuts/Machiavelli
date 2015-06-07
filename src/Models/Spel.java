@@ -25,7 +25,6 @@ public class Spel {
 	}
 	public void NieuwSpel(){
 		//Minimaal aantal spelers kiezen
-		
 		//Speelveld laden
 		//Spelers koppeln aan speelveld
 		//Speelveld laten zien
@@ -33,10 +32,13 @@ public class Spel {
 		//Starten karakterkiezenlijst speler 1
 		//Doorgeven karakterlijst aan andere spelers
 		ArrayList<Speler> spelers = new ArrayList<Speler>();
+		for(int i = 0; i < aantalspelers; i++){
+			spelers.add(new Speler(this));
+		}
+		/*spelers.add(new Speler(this));
 		spelers.add(new Speler(this));
 		spelers.add(new Speler(this));
-		spelers.add(new Speler(this));
-		spelers.add(new Speler(this));
+		spelers.add(new Speler(this));*/
 		this.speelveld = new Speelveld(spelers);
 	}
 	public void EindeBeurt(){
@@ -51,5 +53,11 @@ public class Spel {
 	public GebouwFactory getGebouwFactory()
 	{
 		return this.gebouwFactory;
+	}
+	public void setAantalSpelers(int aantalspelers){
+		this.aantalspelers = aantalspelers;
+	}
+	public int getAantalSpelers(){
+		return aantalspelers;
 	}
 }

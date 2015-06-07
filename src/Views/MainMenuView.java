@@ -6,6 +6,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -51,6 +52,7 @@ public class MainMenuView{
 		spelregels = new Button();
 		exitbutton2 = new Button();
 		spelregels2 = new Button();
+		
 
 		//Machiavelli tekst layout
 		Text mainTx = new Text("Machiavelli");
@@ -70,6 +72,7 @@ public class MainMenuView{
 		mainTx2.setScaleY(6.5);
 		mainTx2.setLayoutX(780);
 		mainTx2.setLayoutY(170);
+		
 		
 		//Knoppen definiëren
 		initButton(startbutton,"Kies spel", "buttonstart", 700,450,200f,75f);

@@ -1,15 +1,15 @@
 package Controllers;
 
-import java.io.IOException;
-
 import Models.Spel;
 import Models.Spelregels;
+import Views.InvullenSpelersView;
 import Views.MainMenuView;
 
 public class SpelController{
 	private MainMenuView mmv;
 	private Spel spel;
 	private RaadplegenSpelregelsController spelregelsController;
+	private InvullenSpelersView invulspelers;
 	//private SpelOverzichtView sov;
 	
 	public SpelController(Spel sp){
@@ -19,7 +19,6 @@ public class SpelController{
 		this.mmv = new MainMenuView (this,sp);
 		
 		
-		//this.sov = new SpelOverzichtView(this, sp);
 		mmv.getStartButton().setOnAction(event -> mmv.show2(spel.getPrimaryStage()));
 		mmv.getExitButton().setOnAction(event -> System.exit(0));
 		mmv.getExitButton2().setOnAction(event -> System.exit(0));
@@ -27,19 +26,21 @@ public class SpelController{
 		mmv.getHervattenknop().setOnAction(event -> System.out.println("spel hervatten"));
 		mmv.getDeelnemenKnop().setOnAction(event -> System.out.println("Deelnemen"));
 		mmv.getSpelregelsButton().setOnAction(event -> this.spelregelsController.cmdWeergeefSpelregels());
-		//sov.getNieuwSpelKnop().setOnAction(this);
-		//sov.getExitButton().setOnAction(this);
 		
 	}
 	public void show(){
 		mmv.show(spel.getPrimaryStage());
 	}
-	public void show2(){
+	/*public void show2(){
 		mmv.show(spel.getPrimaryStage());
+	}*/
+
+	public void cmdAantalSpelers(){
 	}
-	
 	public void cmdNieuwSpel(){
 		//Create nieuw spel
+		//Aantal spelers bepalen
+		spel.setAantalSpelers(5);
 		//Speelveld laden
 		//Spelers koppeln aan speelveld
 		//Start spelers is koning
