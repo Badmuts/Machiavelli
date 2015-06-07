@@ -41,9 +41,7 @@ public class MainMenuView{
 		this.sc = sc;
 		
 		Pane mainMenuPane = new Pane();
-		mainMenuPane.setStyle("-fx-background-color: #48443c");
 		Pane mainSelectPane = new Pane();
-		mainSelectPane.setStyle("-fx-background-color: #48443c");
 
 		nieuwspelknop = new Button();
 		hervattenknop = new Button();
