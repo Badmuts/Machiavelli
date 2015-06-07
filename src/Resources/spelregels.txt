@@ -1,3 +1,0 @@
-Dit bestand bevat de spelregels van Machiavelli.
-
-Locatie: machiavelli\bin\Resources\spelregels.txt

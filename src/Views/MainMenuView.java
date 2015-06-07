@@ -3,8 +3,6 @@ package Views;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -75,30 +73,21 @@ public class MainMenuView{
 		//Knoppen definiëren
 		initButton(startbutton,"Kies spel", "buttonstart", 700,450,200f,75f);
 		initButton(exitbutton,"Afsluiten", "buttonexit", 700,530,200f,75f);
-		initButton(spelregels,"Spelregels", "buttonregels", 15,10,125f,50f);
+		initButton(spelregels,"Spelregels", "buttonregels", 20,30,125f,50f);
 		initButton(nieuwspelknop,"Nieuw spel", "gamekiezen", 700,290,200f,75f);
 		initButton(hervattenknop,"Hervatten","gamekiezen", 700,370, 200f,75f);
 		initButton(deelnemenknop,"Deelnemen", "gamekiezen", 700,450,200f,75f);
 		initButton(exitbutton2,"Afsluiten", "buttonexit", 700,530,200f,75f);
-		initButton(spelregels2,"Spelregels", "buttonregels", 15,10,125f,50f);
-		
-		Image spelregelsbg = new Image("Resources/SpelregelsBorder.png");
-		ImageView iv = new ImageView(spelregelsbg);
-		ImageView iv2 = new ImageView(spelregelsbg);
-		iv.setCache(true);
-		iv.setFitWidth(200);
-		iv2.setCache(true);
-		iv2.setFitWidth(200);
+		initButton(spelregels2,"Spelregels", "buttonregels", 20,30,125f,50f);
 		
 		//toevoegen van elementen aan het frame
-		mainMenuPane.getChildren().addAll(iv, startbutton,exitbutton,spelregels,mainTx);
-		mainSelectPane.getChildren().addAll(iv2, nieuwspelknop,hervattenknop,deelnemenknop,exitbutton2,spelregels2,mainTx2);
-		
+		mainMenuPane.getChildren().addAll(startbutton,exitbutton,spelregels,mainTx);
+		mainSelectPane.getChildren().addAll(nieuwspelknop,hervattenknop,deelnemenknop,exitbutton2,spelregels2,mainTx2);
 		//Instellen wat er weergeven moet worden
 		mainSelect = new Scene(mainSelectPane, 1600, 900);
 		mainMenu = new Scene(mainMenuPane, 1600, 900);
-		mainMenuPane.getStylesheets().add("Resources/Menu.css");
-		mainSelectPane.getStylesheets().add("Resources/Menu.css");
+		mainMenuPane.getStylesheets().add("Resources/stylecss.css");
+		mainSelectPane.getStylesheets().add("Resources/stylecss.css");
 	}
 	public void show(Stage stage){
 		stage.initStyle(StageStyle.UNDECORATED);

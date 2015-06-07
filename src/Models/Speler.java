@@ -2,8 +2,6 @@ package Models;
 
 import Interfaces.Karakter;
 
-import java.util.ArrayList;
-
 /**
  * 
  * @author Sander de Jong
@@ -42,21 +40,13 @@ public class Speler
 		this.stad.addGebouw(gebouw);
 	}
 	
-	public ArrayList<GebouwKaart> trekkenKaart()
+	public void trekkenKaart()
 	{
-		ArrayList<GebouwKaart> tempList = new ArrayList<GebouwKaart>();
+		// NIET AF
 		for (int i = 0; i < 2; i++)
 		{
-			tempList.add(this.spel.getGebouwFactory().trekKaart());
+			this.spel.getGebouwFactory().trekKaart();
 		}
-		return tempList;
-	}
-
-	public void selecterenKaart(ArrayList<GebouwKaart> lijst, int index)
-	{
-		this.getHand().addGebouw(lijst.get(index));
-		lijst.remove(index);
-		this.getSpel().getGebouwFactory().addGebouw(lijst.get(0));
 	}
 	
 	public void setKarakter(Karakter karakter)

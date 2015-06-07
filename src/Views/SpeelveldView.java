@@ -28,6 +28,7 @@ public class SpeelveldView {
 	private Rectangle karakterholder;
 	private Rectangle kaartholder;
 	private Image portretmagiër;
+
 	
 	public void initButton(Button button,String tekst,String id, int posx, int posy, float sizeX, float sizeY){
 		button.setText(tekst);
@@ -41,7 +42,6 @@ public class SpeelveldView {
 	public SpeelveldView(SpeelveldController speelveldcontroller,Speelveld speelveld){
 		this.speelveld = speelveld;
 		this.speelveldcontroller = speelveldcontroller;
-		
 		
 		gebruikEigenschap = new Button();
 		exitbutton = new Button();
@@ -85,9 +85,16 @@ public class SpeelveldView {
 		portretview.setLayoutY(615);
 		
 		speelveldpane.getChildren().addAll(iv,buttonholder,karakterholder,kaartholder, gebruikEigenschap, exitbutton,spelregels, opslaanknop,placeholderbutton1,placeholderbutton2,placeholderbutton3,portretview);
+		
+		initButton(gebruikEigenschap,"Eigenschap","gamekiezen",1200,700, 200f,75f);
+		initButton(exitbutton,"Afsluiten","buttonexit", 1400, 800, 200f,75f);
+		initButton(spelregels,"Spelregels", "buttonregels", 20,30,125f,50f);
+		initButton(opslaanknop,"Opslaan","buttonstart",1200, 800, 200f, 75f);
+		
+		speelveldpane.getChildren().addAll(gebruikEigenschap, exitbutton,spelregels, opslaanknop);
+
 		speelveldscene = new Scene(speelveldpane, 1600, 900);
-		speelveldpane.getStylesheets().add("Resources/Speelveld.css");
-						
+		speelveldpane.getStylesheets().add("Resources/stylecss.css");
 		this.show(new Stage());
 	}
 	public void show(Stage stage){
@@ -100,7 +107,5 @@ public class SpeelveldView {
 	public Button getSpelregels(){
 		return spelregels;
 	}
-	public Button getExitButton(){
-		return exitbutton;
-	}
+	
 }
