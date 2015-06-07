@@ -2,6 +2,7 @@ package Factories;
 
 import Enumerations.Type;
 import Models.GebouwKaart;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,7 +51,7 @@ public class GebouwFactory {
             // 3 Haven: 4 punten: Commerciel
             gebouwen.add(new GebouwKaart(4, "Haven", Type.COMMERCIEL));
             // 3 Handelshuis: 3 punten: Commerciel
-            gebouwen.add(new GebouwKaart(3, "Handelshuis", Type.COMMERCIEL));
+            gebouwen.add(new GebouwKaart(3, "Handelshuis", Type.COMMERCIEL, new Image("../Resources/Gebouwkaarten/handelshuis.png")));
             // 3 Toernooiveld: 3 punten: Militair
             gebouwen.add(new GebouwKaart(3, "Toernooiveld", Type.MILITAIR));
             // 3 Wachttoren: 1 punt: Militair
