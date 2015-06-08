@@ -6,5 +6,8 @@ package Views;
 
 public class TrekkenKaartView 
 {
-
+	public TrekkenKaartView()
+	{
+		
+	}
 }
