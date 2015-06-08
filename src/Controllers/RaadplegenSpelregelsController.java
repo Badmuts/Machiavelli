@@ -17,10 +17,12 @@ public class RaadplegenSpelregelsController
 	
 	public void cmdWeergeefSpelregels()
 	{
-		try {
+		try 
+		{
 			this.spelRegelsView = new SpelregelsView();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		}
+		catch (IOException e) 
+		{
 			e.printStackTrace();
 		}
 		this.spelRegelsView.getStage().show();
