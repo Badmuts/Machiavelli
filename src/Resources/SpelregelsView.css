@@ -26,3 +26,16 @@
 #regels{
 	-fx-font: 15px Tahoma;
 }
+
+#closeButton {
+-fx-background-color: linear-gradient(#f2825b,#e55b2b,#f07146);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 1em;
+}
+
+#closeButton:hover {
+	-fx-background-color: linear-gradient(#ff5400, #be1d00);
+}

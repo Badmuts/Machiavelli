@@ -12,17 +12,20 @@ import Views.SpelregelsView;
 public class RaadplegenSpelregelsController 
 {
 	//Variables
-	private SpelregelsView spelRegelsView;
-	private Spelregels spelRegels;
-	
-	public void cmdWeergeefSpelregels()
-	{
-		try {
-			this.spelRegelsView = new SpelregelsView();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		private SpelregelsView spelRegelsView;
+		private Spelregels spelRegels;
+		
+		public RaadplegenSpelregelsController()
+		{
+			try {
+				this.spelRegelsView = new SpelregelsView();
+				this.spelRegelsView.getCloseButton().setOnAction(event -> this.spelRegelsView.getStage().close());
+			} catch (Exception e) {
+				System.out.println(e);
+			}
 		}
-		this.spelRegelsView.getStage().show();
-	}
+		
+		public void cmdWeergeefSpelregels() {
+			this.spelRegelsView.getStage().show();
+		}
 }

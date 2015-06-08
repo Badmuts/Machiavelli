@@ -25,22 +25,17 @@ public class Spelregels {
 
 	private String spelregels = "Regel 1: test.";
 	
-	public String getSpelregels() throws IOException
-	{
+	public String getSpelregels() throws IOException {
 		return this.getSpelregelsFromResource("spelregels.txt");
 	}
 	
-	public String getSpelregelsFromResource(String fileName)
-	{
+	private String getSpelregelsFromResource(String fileName) {
 		String text = null;
-		File file = new File("src/Resources/spelregels.txt");
+		File file = new File("src" + File.separator + "Resources" + File.separator + "spelregels.txt");
 		String absolutePath = file.getAbsolutePath();
-		try 
-		{
+		try {
 			text = new Scanner( new File(absolutePath), "UTF-8" ).useDelimiter("\\A").next();
-		} 
-		catch (FileNotFoundException e) 
-		{
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		

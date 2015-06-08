@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -17,6 +18,7 @@ public class SpelregelsView extends Application
 	
 	private Spelregels spelregels;
 	private Stage stage;
+	private Button closeButton;
 
 	public SpelregelsView() throws IOException 
 	{
@@ -34,12 +36,17 @@ public class SpelregelsView extends Application
 		text.setId("regels");
 		text.setLayoutX(50);
 		text.setLayoutY(100);
+		
+		this.closeButton = new Button("X");
+		this.closeButton.setId("closeButton");
+		this.closeButton.setLayoutX(984);
+		this.closeButton.setLayoutY(15);
 
 //		text.setContentDisplay
 //		text.setFont(Font.font ("Roboto", 20));
 		Pane stPane = new Pane();
 		stPane.setId("ROOTNODE");
-		stPane.getChildren().addAll(title, text);
+		stPane.getChildren().addAll(title, text, closeButton);
 		Rectangle rect = new Rectangle(1024, 768);
 		rect.setArcHeight(60.0);
 		rect.setArcWidth(60.0);
@@ -64,5 +71,10 @@ public class SpelregelsView extends Application
 	public Stage getStage()
 	{
 		return this.stage;
+	}
+	
+	public Button getCloseButton()
+	{
+		return this.closeButton;
 	}
 }
