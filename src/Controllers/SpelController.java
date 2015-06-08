@@ -50,10 +50,15 @@ public class SpelController{
 		//Create nieuw spel
 		
 		//Aantal spelers bepalen
-		spel.setAantalSpelers(Integer.parseInt(invullenspeler.getTextField()));
+		//Nieuw spel starten
+		try {
+			spel.setAantalSpelers(Integer.parseInt(invullenspeler.getTextField()));
+			this.spel.NieuwSpel();
+		} catch(Exception e) {
+			System.out.println("Getal invoeren");
+		}
+		//testen hoeveel spelers er zijn
 		System.out.println(spel.getAantalSpelers());
-		//Speelveld laden
-		this.spel.NieuwSpel();
 		//Spelers koppeln aan speelveld
 		//Start spelers is koning
 		//Starten karakterkiezenlijst speler 1
