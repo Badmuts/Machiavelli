@@ -7,7 +7,6 @@ import java.util.ArrayList;
  */
 public class Stad
 {
-
 	private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
 	private Spel spel;
 	private int waardeStad;

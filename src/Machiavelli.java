@@ -21,20 +21,12 @@ public class Machiavelli extends Application {
         sc.show();
 
         Speler speler1 = new Speler(sp);
-        Magier magier = new Magier();
-        speler1.setKarakter(magier); // doet nu dus niks
+        Prediker p = new Prediker();
+        System.out.println(speler1.getPortemonnee().getGoudMunten());
+        speler1.setKarakter(p);
         showHand(speler1);
-        Scanner s = new Scanner(System.in);
-        ArrayList<GebouwKaart> l = new ArrayList<GebouwKaart>();
-
-        // Kaart 1 2 en 4 ruilen. 2 komt bovenaan gevolgd door 3 nieuwe kaarten.
-        l.add(speler1.getHand().getKaartenLijst().get(0));
-        l.add(speler1.getHand().getKaartenLijst().get(1));
-        l.add(speler1.getHand().getKaartenLijst().get(3));
-        magier.ruilMetStapel(speler1.getHand(), l);
-        showHand(speler1);
-
-
+        p.ontvangenBonusGoud(speler1);
+        System.out.println(speler1.getPortemonnee().getGoudMunten());
     }
 
     // Deze method is voor testen
@@ -44,14 +36,12 @@ public class Machiavelli extends Application {
         System.out.println("Kaarten in hand:");
         for(int i = 0; i < speler.getHand().getKaartenLijst().size(); i++)
         {
-            System.out.println(i + 1 + ") " + lst.get(i).getNaam() + " / " + lst.get(i).getKosten());
+            System.out.println(i + 1 + ") " + lst.get(i).getNaam() + " / " + lst.get(i).getType());
         }
         System.out.println();
     }
 
     public static void main(String[] args) {
         launch(args);
-
-
     }
 }

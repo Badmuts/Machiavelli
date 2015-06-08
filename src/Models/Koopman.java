@@ -15,8 +15,5 @@ public class Koopman implements Karakter {
     
     @Override
     public void gebruikEigenschap() {
-        // TODO: ontvangt 1 goudstuk
-    	
-    	
     }
 }

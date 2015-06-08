@@ -34,7 +34,6 @@ public class Magier implements Karakter {
     }
 
     // Leg een x aantal kaarten af op de stapel en pak een gelijk aantal nieuwe kaarten
-    // Moet nog getest worden
     public void ruilMetStapel(Hand hand, ArrayList<GebouwKaart> ruilLijst)
     {
         // Afleggen en tellen gebouwkaarten.
@@ -55,11 +54,11 @@ public class Magier implements Karakter {
 
     // Return karakternummer
     public int getNummer() {
-        return nummer;
+        return this.nummer;
     }
 
     // Return gebouwlimiet
     public int getBouwLimiet() {
-        return bouwLimiet;
+        return this.bouwLimiet;
     }
 }

@@ -23,7 +23,7 @@ public class Speler
 	{
 		this.spel = spel;
 		this.stad = new Stad(spel);
-		this.portemonnee = new Portemonnee();
+		this.portemonnee = new Portemonnee(this.spel.getBank());
 		this.hand = new Hand(this);
 	}
 	
@@ -95,5 +95,8 @@ public class Speler
 		return this.hand;
 	}
 
-	public Stad getStad() { return this.stad;}
+	public Stad getStad()
+	{
+		return this.stad;
+	}
 }

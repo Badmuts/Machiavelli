@@ -22,6 +22,6 @@ public class Beurt
     // Best method naam
     public void geefBeurt(Speler speler)
     {
-        // Speler moet iets hebben om te bepalen of hij aan de beurt is of niet?
+        // TODO:
     }
 }
