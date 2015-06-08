@@ -5,22 +5,22 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-
-
 /**
  * 
  * 
- * @author Bernd Oostrum
+ * @author Jamie Kalloe
  *
  */
 
-public class Spelregels {
+	public class Spelregels {
 	
-	public String getSpelregels() throws IOException {
+	public String getSpelregels() throws IOException
+	{
 		return this.getSpelregelsFromResource("spelregels.txt");
 	}
 	
-	public String getSpelregelsFromResource(String fileName) {
+	public String getSpelregelsFromResource(String fileName)
+	{
 		String text = null;
 		File file = new File("src" + File.separator + "Resources" + File.separator + "spelregels.txt");
 		String absolutePath = file.getAbsolutePath();
@@ -32,5 +32,5 @@ public class Spelregels {
 		
 		return text;
 	}
-
+	
 }

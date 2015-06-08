@@ -7,13 +7,13 @@ import Factories.GebouwFactory;
 import Views.SpeelveldView;
 
 public class Spel {
+	private int aantalspelers;
 	private Stage primaryStage;
 	private Speelveld speelveld;
 	private SpeelveldView speelveldview;
 	private ArrayList<Speler> speler;
 	private Bank bank;
 	private GebouwFactory gebouwFactory;
-	private int aantalspelers;
 	
 	public Spel(Stage primaryStage){
 		bank = new Bank();

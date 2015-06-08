@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.Spel;
+import Models.Spelregels;
 import Views.DeelnemenSpelView;
 import Views.HervattenSpelView;
 import Views.InvullenSpelersView;
@@ -12,10 +13,12 @@ public class SpelController{
 	private RaadplegenSpelregelsController spelregelsController;
 	private DeelnemenSpelView deelnemenview;
 	private InvullenSpelersView invullenspeler;
-	private HervattenSpelView hervattenspel;	
+	private HervattenSpelView hervattenspel;
 	
 	public SpelController(Spel sp){
 		this.spel = sp;
+		this.spelregelsController = new RaadplegenSpelregelsController();
+		Spelregels r = new Spelregels();
 		this.mmv = new MainMenuView (this,sp);
 		this.deelnemenview = new DeelnemenSpelView(this,sp);
 		this.invullenspeler = new InvullenSpelersView(this,sp);
@@ -32,7 +35,6 @@ public class SpelController{
 		mmv.getDeelnemenKnop().setOnAction(event -> deelnemenview.show(spel.getPrimaryStage()));
 		mmv.getSpelregelsButton().setOnAction(event -> this.spelregelsController.cmdWeergeefSpelregels());
 		deelnemenview.getTerugKnop().setOnAction(event -> mmv.showSelect(spel.getPrimaryStage()));
-		mmv.getDeelnemenKnop().setOnAction(event -> System.out.println("Deelnemen"));
 		
 	}
 	public void show(){
@@ -48,10 +50,15 @@ public class SpelController{
 		//Create nieuw spel
 		
 		//Aantal spelers bepalen
-		spel.setAantalSpelers(Integer.parseInt(invullenspeler.getTextField()));
+		//Nieuw spel starten
+		try {
+			spel.setAantalSpelers(Integer.parseInt(invullenspeler.getTextField()));
+			this.spel.NieuwSpel();
+		} catch(Exception e) {
+			System.out.println("Getal invoeren");
+		}
+		//testen hoeveel spelers er zijn
 		System.out.println(spel.getAantalSpelers());
-		//Speelveld laden
-		this.spel.NieuwSpel();
 		//Spelers koppeln aan speelveld
 		//Start spelers is koning
 		//Starten karakterkiezenlijst speler 1

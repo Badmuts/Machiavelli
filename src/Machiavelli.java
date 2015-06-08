@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 /**
  * Created by daanrosbergen on 28/05/15.
+ * Google Java Style Guide aanhouden
  */
 public class Machiavelli extends Application {
 
