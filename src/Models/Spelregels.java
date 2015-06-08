@@ -1,16 +1,24 @@
 package Models;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
 /**
  * 
  * 
- * @author Bernd Oostrum
+ * @author Jamie Kalloe
  *
  */
 
 public class Spelregels {
+	private String spelregels = "Regel 1: test.";
 	
-	String spelregels = "D:/test.txt";
-
+	public String getSpelregels() throws IOException
+	{
+		return this.getSpelregelsFromResource("spelregels.txt");
+	}
+	
 	public String getSpelregelsFromResource(String fileName)
 	{
 		String text = null;
@@ -28,12 +36,4 @@ public class Spelregels {
 		return text;
 	}
 	
-	public String weergeefSpelregels(){
-		System.out.println("test");
-		return this.spelregels;
-	}	
-	
-	public static void main(String[] args) {
-		Spelregels nieuw = new Spelregels();
-	}
 }

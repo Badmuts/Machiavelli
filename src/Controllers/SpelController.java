@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.Spel;
+import Models.Spelregels;
 import Views.DeelnemenSpelView;
 import Views.HervattenSpelView;
 import Views.InvullenSpelersView;
@@ -12,10 +13,12 @@ public class SpelController{
 	private RaadplegenSpelregelsController spelregelsController;
 	private DeelnemenSpelView deelnemenview;
 	private InvullenSpelersView invullenspeler;
-	private HervattenSpelView hervattenspel;	
+	private HervattenSpelView hervattenspel;
 	
 	public SpelController(Spel sp){
 		this.spel = sp;
+		this.spelregelsController = new RaadplegenSpelregelsController();
+		Spelregels r = new Spelregels();
 		this.mmv = new MainMenuView (this,sp);
 		this.deelnemenview = new DeelnemenSpelView(this,sp);
 		this.invullenspeler = new InvullenSpelersView(this,sp);
@@ -32,7 +35,6 @@ public class SpelController{
 		mmv.getDeelnemenKnop().setOnAction(event -> deelnemenview.show(spel.getPrimaryStage()));
 		mmv.getSpelregelsButton().setOnAction(event -> this.spelregelsController.cmdWeergeefSpelregels());
 		deelnemenview.getTerugKnop().setOnAction(event -> mmv.showSelect(spel.getPrimaryStage()));
-		mmv.getDeelnemenKnop().setOnAction(event -> System.out.println("Deelnemen"));
 		
 	}
 	public void show(){
@@ -60,4 +62,3 @@ public class SpelController{
 		
 	}
 }
-

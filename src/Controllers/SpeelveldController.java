@@ -12,6 +12,8 @@ public class SpeelveldController {
 		this.speelveld = speelveld;
 		//this.speelveldview = new SpeelveldView(this, speelveld);
 		
+		speelveldview.getExitButton().setOnAction(event -> System.exit(0));
+		
 	}
 	public void show(){
 		speelveldview.show(speelveld.getSecondaryStage());

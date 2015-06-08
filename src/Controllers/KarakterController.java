@@ -2,7 +2,7 @@ package Controllers;
 
 import Interfaces.Karakter;
 import Models.Speler;
-*
+/*
  * Created by daanrosbergen on 03/06/15.
  */
 public class KarakterController {
