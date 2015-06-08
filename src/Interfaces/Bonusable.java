@@ -1,8 +1,8 @@
 package Interfaces;
 
 /**
- * Deze interface word gebruikt voor karakters die een
- * bonus ontvangen voor gebouwen van het zelfde type
+ * Deze interface word gebruikt voor karakters die
+ * bonus goud ontvangen voor gebouwen van het zelfde type
  * als zij zijn.
  *
  * Voorbeeld: De koning is van het type monument.
