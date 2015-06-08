@@ -9,10 +9,11 @@ import Models.Speler;
  */
 public class Bouwmeester implements Karakter {
 	
-	private String      naam                = "Bouwmeester";
-    private int         nummer              = 7;
-    private int         bouwLimiet          = 3;
-    private Type        type                = Type.NORMAAL;
+	private final String      naam                = "Bouwmeester";
+    private final int         nummer              = 7;
+    private final int         bouwLimiet          = 3;
+    private final Type        type                = Type.NORMAAL;
+
     private Speler      speler              = null;
 
     @Override
@@ -22,6 +23,25 @@ public class Bouwmeester implements Karakter {
 
     @Override
     public void setSpeler(Speler speler) {
+        this.speler = speler;
+    }
 
+    public Type getType() {
+        return type;
+    }
+
+    public int getBouwLimiet() {
+
+        return bouwLimiet;
+    }
+
+    public int getNummer() {
+
+        return nummer;
+    }
+
+    public String getNaam() {
+
+        return naam;
     }
 }

@@ -13,10 +13,11 @@ import java.util.ArrayList;
  */
 public class Condotierre implements Karakter, Bonusable {
 
-    private String      naam            = "Condotierre";
-    private int         nummer          = 8;
-    private int         bouwLimiet      = 1;
-    private Type        type            = Type.MILITAIR;
+    private final String      naam            = "Condotierre";
+    private final int         nummer          = 8;
+    private final int         bouwLimiet      = 1;
+    private final Type        type            = Type.MILITAIR;
+
     private GebouwKaart vernietigGebouw = null;
     private Speler      speler          = null;
 
@@ -47,4 +48,22 @@ public class Condotierre implements Karakter, Bonusable {
     public void registerSelectGebouwView(SelecteGebouwView selecteGebouwView) {
         this.selectGebouwView = selectGebouwView;
     } */
+
+    public Type getType() {
+        return type;
+    }
+
+    public int getBouwLimiet() {
+
+        return bouwLimiet;
+    }
+
+    public int getNummer() {
+
+        return nummer;
+    }
+
+    public String getNaam() {
+        return naam;
+    }
 }

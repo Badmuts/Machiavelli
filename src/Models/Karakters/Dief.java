@@ -10,11 +10,12 @@ import Models.Speler;
 
 public class Dief implements Karakter {
 	
-	private String      naam                = "Dief";
-	private int         nummer              = 2;
-	private int         bouwLimiet          = 1;
-	private Type        type                = Type.NORMAAL;
-	private Karakter    besteelKarakter     = null;
+	private final String      naam                = "Dief";
+	private final int         nummer              = 2;
+	private final int         bouwLimiet          = 1;
+	private final Type        type                = Type.NORMAAL;
+
+    private Karakter    besteelKarakter     = null;
     private Speler      speler              = null;
 
     @Override
@@ -29,5 +30,24 @@ public class Dief implements Karakter {
 
     public void setbesteelKarakter(Karakter karakter) {
         this.besteelKarakter = karakter;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public int getBouwLimiet() {
+
+        return bouwLimiet;
+    }
+
+    public int getNummer() {
+
+        return nummer;
+    }
+
+    public String getNaam() {
+
+        return naam;
     }
 }

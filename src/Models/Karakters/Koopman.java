@@ -23,10 +23,10 @@ import java.util.ArrayList;
 public class Koopman implements Karakter, Bonusable {
 	
     // Eigenschappen van karakter Koopman
-    private int nummer = 6;
-    private int bouwLimiet = 1;
-    private String naam = "Koopman";
-    private Type type = Type.COMMERCIEL;
+    private final int nummer = 6;
+    private final int bouwLimiet = 1;
+    private final String naam = "Koopman";
+    private final Type type = Type.COMMERCIEL;
     private Speler speler = null;
 	
 	
@@ -82,5 +82,7 @@ public class Koopman implements Karakter, Bonusable {
         }
     }
 
-	
+    public int getBouwLimiet() {
+        return bouwLimiet;
+    }
 }

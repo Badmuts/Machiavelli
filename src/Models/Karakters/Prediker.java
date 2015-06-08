@@ -14,11 +14,12 @@ import java.util.ArrayList;
  */
 public class Prediker implements Karakter, Bonusable {
 
-    private String      naam                = "Prediker";
-    private int         nummer              = 5;
-    private int         bouwLimiet          = 1;
-    private Type        type                = Type.KERKELIJK;
-    private Speler      speler              = null;
+    private final String      naam                = "Prediker";
+    private final int         nummer              = 5;
+    private final int         bouwLimiet          = 1;
+    private final Type        type                = Type.KERKELIJK;
+
+    private Speler speler = null;
 
     public void gebruikEigenschap() {
         // TODO: beschermt tegen karakter Condotierre
@@ -34,5 +35,24 @@ public class Prediker implements Karakter, Bonusable {
 
     public void setSpeler(Speler speler) {
         this.speler = speler;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public int getBouwLimiet() {
+
+        return bouwLimiet;
+    }
+
+    public int getNummer() {
+
+        return nummer;
+    }
+
+    public String getNaam() {
+
+        return naam;
     }
 }

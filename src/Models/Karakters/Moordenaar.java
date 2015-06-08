@@ -10,10 +10,11 @@ import Models.Speler;
  */
 public class Moordenaar implements Karakter {
 
-    private String      naam                = "Moordenaar";
-    private int         nummer              = 1;
-    private int         bouwLimiet          = 1;
-    private Type        type                = Type.NORMAAL;
+    private final String      naam                = "Moordenaar";
+    private final int         nummer              = 1;
+    private final int         bouwLimiet          = 1;
+    private final Type        type                = Type.NORMAAL;
+
     private Karakter    vermoordKarakter    = null;
     private Speler      speler              = null;
 
@@ -29,6 +30,25 @@ public class Moordenaar implements Karakter {
 
     public void setVermoordKarakter(Karakter karakter) {
         this.vermoordKarakter = karakter;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public int getBouwLimiet() {
+
+        return bouwLimiet;
+    }
+
+    public int getNummer() {
+
+        return nummer;
+    }
+
+    public String getNaam() {
+
+        return naam;
     }
 }
 
