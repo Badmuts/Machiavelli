@@ -3,7 +3,17 @@ package Models;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
+
+
+
+
+
+
 /**
  * 
  * 
@@ -12,6 +22,7 @@ import java.util.Scanner;
  */
 
 public class Spelregels {
+
 	private String spelregels = "Regel 1: test.";
 	
 	public String getSpelregels() throws IOException
@@ -22,7 +33,7 @@ public class Spelregels {
 	public String getSpelregelsFromResource(String fileName)
 	{
 		String text = null;
-		File file = new File("bin" + File.separator + "Resources" + File.separator + "spelregels.txt");
+		File file = new File("bin/Resources/spelregels.txt");
 		String absolutePath = file.getAbsolutePath();
 		try 
 		{

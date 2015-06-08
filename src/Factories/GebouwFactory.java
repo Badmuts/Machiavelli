@@ -2,8 +2,8 @@ package Factories;
 
 import Enumerations.Type;
 import Models.GebouwKaart;
-import javafx.scene.image.Image;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -16,66 +16,66 @@ public class GebouwFactory {
 
     public GebouwFactory() {
         // 1 Bibliotheek: 6 punten: Normaal
-        gebouwen.add(new GebouwKaart(6, "Bibliotheek", Type.NORMAAL, new Image("../Resources/Gebouwkaarten/bibliotheek.png")));
+        gebouwen.add(new GebouwKaart(6, "Bibliotheek", Type.NORMAAL));
         // 1 Werkplaats: 5 punten: Normaal
-        gebouwen.add(new GebouwKaart(5, "Werkplaats", Type.NORMAAL, new Image("../Resources/Gebouwkaarten/werkplaats.png")));
+        gebouwen.add(new GebouwKaart(5, "Werkplaats", Type.NORMAAL));
         // 1 School voor magiers: 6 punten: Normaal
-        gebouwen.add(new GebouwKaart(6, "School voor Magiërs", Type.NORMAAL, new Image("../Resources/Gebouwkaarten/school-voor-magiers.png")));
+        gebouwen.add(new GebouwKaart(6, "School voor Magiër", Type.NORMAAL));
         // 1 Laboratoruim: 5 punten: Normaal
-        gebouwen.add(new GebouwKaart(5, "Laboratorium", Type.NORMAAL, new Image("../Resources/Gebouwkaarten/laboratorium.png")));
+        gebouwen.add(new GebouwKaart(5, "Laboratorium", Type.NORMAAL));
         // 1 Drakenpoort: 6 punten: Normaal
-        gebouwen.add(new GebouwKaart(6, "Drakenpoort", Type.NORMAAL, new Image("../Resources/Gebouwkaarten/drakenpoort.png")));
+        gebouwen.add(new GebouwKaart(6, "Drakenpoort", Type.NORMAAL));
         // 1 Kerkhof: 5 punten: Normaal
-        gebouwen.add(new GebouwKaart(5, "Kerkhof", Type.NORMAAL, new Image("../Resources/Gebouwkaarten/kerkhof.png")));
+        gebouwen.add(new GebouwKaart(5, "Kerkhof", Type.NORMAAL));
         // 1 Universiteit: 6 punten: Normaal
-        gebouwen.add(new GebouwKaart(6, "Universiteit", Type.NORMAAL, new Image("../Resources/Gebouwkaarten/universiteit.png")));
+        gebouwen.add(new GebouwKaart(6, "Universiteit", Type.NORMAAL));
         // 1 Observatorium: 5 punten: Normaal
-        gebouwen.add(new GebouwKaart(5, "Observatorium", Type.NORMAAL, new Image("../Resources/Gebouwkaarten/observatorium.png")));
+        gebouwen.add(new GebouwKaart(5, "Observatorium", Type.NORMAAL));
         // 1 Hof der Wonderen: 2 punten: Normaal
-        gebouwen.add(new GebouwKaart(2, "Hof der Wonderen", Type.NORMAAL, new Image("../Resources/Gebouwkaarten/hof-der-wonderen.png")));
+        gebouwen.add(new GebouwKaart(2, "Hof der Wonderen", Type.NORMAAL));
         for (int i = 0; i < 2; i++) {
             // 2 Kerker: 3 punten: Normaal
-            gebouwen.add(new GebouwKaart(2, "Kerker", Type.NORMAAL, new Image("../Resources/Gebouwkaarten/kerker.png")));
+            gebouwen.add(new GebouwKaart(2, "Kerker", Type.NORMAAL));
             // 2 Raadhuis: 5 punten: Commerciel
-            gebouwen.add(new GebouwKaart(5, "Raadhuis", Type.COMMERCIEL, new Image("../Resources/Gebouwkaarten/raadhuis.png")));
+            gebouwen.add(new GebouwKaart(5, "Raadhuis", Type.COMMERCIEL));
             // 2 Kathedraal: 5 punten: Kerkelijk
-            gebouwen.add(new GebouwKaart(5, "Kathedraal", Type.KERKELIJK, new Image("../Resources/Gebouwkaarten/kathedraal.png")));
+            gebouwen.add(new GebouwKaart(5, "Kathedraal", Type.KERKELIJK));
             // 2 Burcht: 5 punten: Militair
-            gebouwen.add(new GebouwKaart(5, "Burcht", Type.MILITAIR, new Image("../Resources/Gebouwkaarten/burcht.png")));
+            gebouwen.add(new GebouwKaart(5, "Burcht", Type.MILITAIR));
         }
         for (int i = 0; i < 3; i++) {
             // 3 Paleis: 4 punten: Monument
-            gebouwen.add(new GebouwKaart(4, "Paleis", Type.MONUMENT, new Image("../Resources/Gebouwkaarten/paleis.png")));
+            gebouwen.add(new GebouwKaart(4, "Paleis", Type.MONUMENT));
             // 3 Winkels: 2 punten: Commerciel
-            gebouwen.add(new GebouwKaart(2, "Winkels", Type.COMMERCIEL, new Image("../Resources/Gebouwkaarten/winkels.png")));
+            gebouwen.add(new GebouwKaart(2, "Winkels", Type.COMMERCIEL));
             // 3 Haven: 4 punten: Commerciel
-            gebouwen.add(new GebouwKaart(4, "Haven", Type.COMMERCIEL, new Image("../Resources/Gebouwkaarten/haven.png")));
+            gebouwen.add(new GebouwKaart(4, "Haven", Type.COMMERCIEL));
             // 3 Handelshuis: 3 punten: Commerciel
-            gebouwen.add(new GebouwKaart(3, "Handelshuis", Type.COMMERCIEL, new Image("../Resources/Gebouwkaarten/handelshuis.png")));
+            gebouwen.add(new GebouwKaart(3, "Handelshuis", Type.COMMERCIEL));
             // 3 Toernooiveld: 3 punten: Militair
-            gebouwen.add(new GebouwKaart(3, "Toernooiveld", Type.MILITAIR, new Image("../Resources/Gebouwkaarten/toernooiveld.png")));
+            gebouwen.add(new GebouwKaart(3, "Toernooiveld", Type.MILITAIR));
             // 3 Wachttoren: 1 punt: Militair
-            gebouwen.add(new GebouwKaart(1, "Wachttoren", Type.MILITAIR, new Image("../Resources/Gebouwkaarten/wachttoren.png")));
+            gebouwen.add(new GebouwKaart(1, "Wachttoren", Type.MILITAIR));
             // 3 Gevangenis: 2 punten: Militair
-            gebouwen.add(new GebouwKaart(2, "Gevangenis", Type.MILITAIR, new Image("../Resources/Gebouwkaarten/gevangenis.png")));
+            gebouwen.add(new GebouwKaart(2, "Gevangenis", Type.MILITAIR));
             // 3 Tempel: 1 punt: Kerkelijk
-            gebouwen.add(new GebouwKaart(1, "Tempel", Type.KERKELIJK, new Image("../Resources/Gebouwkaarten/tempel.png")));
+            gebouwen.add(new GebouwKaart(1, "Tempel", Type.KERKELIJK));
             // 3 Klooster: 3 punten: Kerkelijk
-            gebouwen.add(new GebouwKaart(3, "Klooster", Type.KERKELIJK, new Image("../Resources/Gebouwkaarten/klooster.png")));
+            gebouwen.add(new GebouwKaart(3, "Klooster", Type.KERKELIJK));
             // 3 Kerk: 2 punten: Kerkelijk
-            gebouwen.add(new GebouwKaart(3, "Kerk", Type.KERKELIJK, new Image("../Resources/Gebouwkaarten/kerk.png")));
+            gebouwen.add(new GebouwKaart(3, "Kerk", Type.KERKELIJK));
         }
         for (int i = 0; i < 4; i++) {
             // 4 Kasteel: 4 punten: Monument
-            gebouwen.add(new GebouwKaart(4, "Kasteel", Type.MONUMENT, new Image("../Resources/Gebouwkaarten/kasteel.png")));
+            gebouwen.add(new GebouwKaart(4, "Kasteel", Type.MONUMENT));
             // 4 Markt: 2 punten: Commerciel
-            gebouwen.add(new GebouwKaart(2, "Markt", Type.COMMERCIEL, new Image("../Resources/Gebouwkaarten/markt.png")));
+            gebouwen.add(new GebouwKaart(2, "Markt", Type.COMMERCIEL));
         }
         for (int i = 0; i < 5; i++) {
             // 5 Landgoed: 3 punten: Monument
-            gebouwen.add(new GebouwKaart(3, "Landgoed", Type.MONUMENT, new Image("../Resources/Gebouwkaarten/landgoed.png")));
+            gebouwen.add(new GebouwKaart(3, "Landgoed", Type.MONUMENT));
             // 5 Taveerne: 1 punt: Commerciel
-            gebouwen.add(new GebouwKaart(1, "Taveerne", Type.COMMERCIEL, new Image("../Resources/Gebouwkaarten/taveerne.png")));
+            gebouwen.add(new GebouwKaart(1, "Taveerne", Type.COMMERCIEL));
         }
         this.schuddenKaarten();
     }
@@ -86,12 +86,17 @@ public class GebouwFactory {
 
     public GebouwKaart trekKaart() {
         GebouwKaart gebouw = gebouwen.get(0);
-        gebouwen.remove(gebouw);
+        this.gebouwen.remove(gebouw);
         return gebouw;
     }
 
     private void schuddenKaarten() {
         Collections.shuffle(gebouwen);
+    }
+
+    public ArrayList<GebouwKaart> getGebouwen()
+    {
+        return this.gebouwen;
     }
 
 }

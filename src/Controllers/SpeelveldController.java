@@ -10,7 +10,7 @@ public class SpeelveldController {
 	
 	public SpeelveldController(Speelveld speelveld){
 		this.speelveld = speelveld;
-		//this.speelveldview = new SpeelveldView(this, speelveld);
+		this.speelveldview = new SpeelveldView(this, speelveld);
 		
 		speelveldview.getExitButton().setOnAction(event -> System.exit(0));
 		

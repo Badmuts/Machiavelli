@@ -1,7 +1,5 @@
 package Models;
 
-import Factories.GebouwFactory;
-
 import java.util.ArrayList;
 
 /**
