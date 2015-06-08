@@ -29,4 +29,8 @@ public class Portemonnee
 	{
 		return this.goudMunten;
 	}
+	
+	public void ontvangenBonusGoud(int aantal){
+		goudMunten += aantal;
+	}
 }
