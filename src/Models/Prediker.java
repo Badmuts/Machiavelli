@@ -16,7 +16,7 @@ public class Prediker implements Karakter {
     }
 
     // Hand van speler ophalen en checken hoeveel speler
-    public void ontvangenBonusGoud(Speler speler)
+    public void ontvangenGebouwBonusGoud(Speler speler)
     {
         ArrayList<GebouwKaart> tempList = speler.getStad().getGebouwen();
         int count = 0;
