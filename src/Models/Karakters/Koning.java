@@ -33,7 +33,7 @@ public class Koning implements Karakter, Bonusable {
     public void ontvangenBonusGoud() {
         ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
         for(GebouwKaart gebouw: gebouwen) {
-            if (gebouw.getType() == Type.MONUMENT)
+            if (gebouw.getType() == this.type)
                 speler.getPortemonnee().ontvangenGoud(1);
         }
     }

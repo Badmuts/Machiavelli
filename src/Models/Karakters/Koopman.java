@@ -1,12 +1,12 @@
 package Models.Karakters;
 
-import java.util.ArrayList;
-
 import Enumerations.Type;
 import Interfaces.Bonusable;
 import Interfaces.Karakter;
 import Models.GebouwKaart;
 import Models.Speler;
+
+import java.util.ArrayList;
 
 /**
  * 
@@ -77,7 +77,7 @@ public class Koopman implements Karakter, Bonusable {
     public void ontvangenBonusGoud() {
         ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
         for(GebouwKaart gebouw: gebouwen) {
-            if (gebouw.getType() == Type.COMMERCIEL)
+            if (gebouw.getType() == this.type)
                 speler.getPortemonnee().ontvangenGoud(1);
         }
     }

@@ -27,7 +27,7 @@ public class Prediker implements Karakter, Bonusable {
     public void ontvangenBonusGoud() {
         ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
         for(GebouwKaart gebouw: gebouwen) {
-            if (gebouw.getType() == Type.KERKELIJK)
+            if (gebouw.getType() == this.type)
                 speler.getPortemonnee().ontvangenGoud(1);
         }
     }

@@ -37,7 +37,7 @@ public class Condotierre implements Karakter, Bonusable {
     public void ontvangenBonusGoud() {
         ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
         for(GebouwKaart gebouw: gebouwen) {
-            if (gebouw.getType() == Type.MILITAIR)
+            if (gebouw.getType() == this.type)
                 speler.getPortemonnee().ontvangenGoud(1);
         }
     }
