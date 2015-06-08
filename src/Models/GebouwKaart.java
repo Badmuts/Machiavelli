@@ -1,6 +1,7 @@
 package Models;
 
 import Enumerations.Type;
+import javafx.scene.image.Image;
 
 /**
  * 
@@ -13,11 +14,13 @@ public class GebouwKaart
 	private String naam;
 	private Type type;
 	private Stad stad;
+    private Image image;
 
-    public GebouwKaart(int kosten, String naam, Type type) {
+    public GebouwKaart(int kosten, String naam, Type type, Image image) {
         this.kosten = kosten;
         this.naam = naam;
         this.type = type;
+        this.image = image;
     }
 
     public Type getType() {
@@ -52,5 +55,13 @@ public class GebouwKaart
     public int getKosten()
     {
     	return this.kosten;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }
