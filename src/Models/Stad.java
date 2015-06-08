@@ -22,9 +22,11 @@ public class Stad
 		return this.gebouwen;
 	}
 
-	public void addGebouw(GebouwKaart gebouw)
+	public void addGebouw(GebouwKaart gebouw, Hand hand)
 	{
+		// Limiet moet nog gecheckt worden?
 		this.gebouwen.add(gebouw);
+		hand.removeGebouw(gebouw);
 	}
 
 	public void removeGebouw(GebouwKaart gebouw)
