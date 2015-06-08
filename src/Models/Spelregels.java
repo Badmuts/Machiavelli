@@ -33,7 +33,7 @@ public class Spelregels {
 	public String getSpelregelsFromResource(String fileName)
 	{
 		String text = null;
-		File file = new File("bin/Resources/spelregels.txt");
+		File file = new File("bin" + File.separator + "Resources" + File.separator + "spelregels.txt");
 		String absolutePath = file.getAbsolutePath();
 		try 
 		{
