@@ -31,7 +31,7 @@ public class Spelregels {
 	
 	public String getSpelregelsFromResource(String fileName) {
 		String text = null;
-		File file = new File("bin" + File.separator + "Resources" + File.separator + "spelregels.txt");
+		File file = new File("src" + File.separator + "Resources" + File.separator + "spelregels.txt");
 		String absolutePath = file.getAbsolutePath();
 		try {
 			text = new Scanner( new File(absolutePath), "UTF-8" ).useDelimiter("\\A").next();
