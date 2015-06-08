@@ -18,7 +18,8 @@ public class Machiavelli extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-        Spel sp = new Spel(primaryStage);
+		Spel sp = new Spel(primaryStage);
+		System.out.println("Machiavelli");
         SpelController sc = new SpelController(sp);
         sc.show();
 
