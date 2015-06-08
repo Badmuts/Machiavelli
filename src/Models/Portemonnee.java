@@ -8,10 +8,12 @@ public class Portemonnee
 {
 	// Variables
 	private int goudMunten;
+	private Bank bank;
 	
-	public Portemonnee()
+	public Portemonnee(Bank bank)
 	{
-		this.goudMunten = 2;
+		this.bank = bank;
+		bank.gevenGoud(this, 2);
 	}
 	
 	public void bestedenGoud(Bank bank, int aantal)

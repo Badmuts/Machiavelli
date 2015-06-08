@@ -1,7 +1,12 @@
-package Models;
+package Models.Karakters;
+
+import java.util.ArrayList;
 
 import Enumerations.Type;
+import Interfaces.Bonusable;
 import Interfaces.Karakter;
+import Models.GebouwKaart;
+import Models.Speler;
 
 /**
  * 
@@ -15,13 +20,14 @@ import Interfaces.Karakter;
  * 
  *
  */
-public class Koopman implements Karakter {
+public class Koopman implements Karakter, Bonusable {
 	
     // Eigenschappen van karakter Koopman
     private int nummer = 6;
     private int bouwLimiet = 1;
     private String naam = "Koopman";
     private Type type = Type.COMMERCIEL;
+    private Speler speler = null;
 	
 	
 
@@ -30,18 +36,20 @@ public class Koopman implements Karakter {
 	@Override
     public void gebruikEigenschap() {
 		// TODO: ontvangt 1 goudstuk	
-		//ontvangenBonusGoud(null);
-		
-    	
-    	
+		ontvangenBonusGoud();
        }
+	
+	//Overriden van de methode uit de interface Karakter
+	@Override
+	public void setSpeler(Speler speler) {
+        this.speler = speler;
+    }
     
+	
     //ontvangen bonusgoud
     public void ontvangenBonusGoud(Speler koopman){
     	
     	koopman.getPortemonnee().ontvangenBonusGoud(1);
-    	
-
     	
 
     }
@@ -59,13 +67,20 @@ public class Koopman implements Karakter {
     public int getBouwlimiet(){
     	return this.bouwLimiet;
     }
-
+    //return gebouwtype
 	public Type getType() {
 		return this.type;
 	}
     
-    
-    
-    
-}
+	//ontvangen bonusgoud voor commerciele gebouwen
+    @Override
+    public void ontvangenBonusGoud() {
+        ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
+        for(GebouwKaart gebouw: gebouwen) {
+            if (gebouw.getType() == Type.COMMERCIEL)
+                speler.getPortemonnee().ontvangenGoud(1);
+        }
+    }
 
+	
+}

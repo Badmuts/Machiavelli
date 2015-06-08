@@ -23,7 +23,7 @@ public class Speler
 	{
 		this.spel = spel;
 		this.stad = new Stad(spel);
-		this.portemonnee = new Portemonnee();
+		this.portemonnee = new Portemonnee(this.spel.getBank());
 		this.hand = new Hand(this);
 	}
 	
@@ -46,6 +46,17 @@ public class Speler
 	{
 		ArrayList<GebouwKaart> tempList = new ArrayList<GebouwKaart>();
 		for (int i = 0; i < 2; i++)
+		{
+			tempList.add(this.spel.getGebouwFactory().trekKaart());
+		}
+		return tempList;
+	}
+
+	// Voor magier eigenschap, die hoeft niet te kiezen. Kan ook aparte method worden..
+	public ArrayList<GebouwKaart> trekkenKaart(int aantal)
+	{
+		ArrayList<GebouwKaart>tempList = new ArrayList<GebouwKaart>();
+		for (int i = 0; i < aantal; i++)
 		{
 			tempList.add(this.spel.getGebouwFactory().trekKaart());
 		}
@@ -82,5 +93,10 @@ public class Speler
 	public Hand getHand()
 	{
 		return this.hand;
+	}
+
+	public Stad getStad()
+	{
+		return this.stad;
 	}
 }
