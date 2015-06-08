@@ -24,6 +24,3 @@ public class Moordenaar implements Karakter {
         this.vermoordKarakter = karakter;
     }
 }
-
-
-
