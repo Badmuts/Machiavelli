@@ -39,9 +39,9 @@ public class GebouwFactory {
             // 2 Raadhuis: 5 punten: Commerciel
             gebouwen.add(new GebouwKaart(5, "Raadhuis", Type.COMMERCIEL));
             // 2 Kathedraal: 5 punten: Kerkelijk
-            gebouwen.add(new GebouwKaart(5, "Kathedraal", Type.KERKELIJK));
+            gebouwen.add(new GebouwKaart(5, "Kathedraal", Type.KERKELIJK, new Image("../Resources/Gebouwkaarten/kathedraal.png")));
             // 2 Burcht: 5 punten: Militair
-            gebouwen.add(new GebouwKaart(5, "Burcht", Type.MILITAIR));
+            gebouwen.add(new GebouwKaart(5, "Burcht", Type.MILITAIR, new Image("../Resources/Gebouwkaarten/burcht.png")));
         }
         for (int i = 0; i < 3; i++) {
             // 3 Paleis: 4 punten: Monument
@@ -53,17 +53,17 @@ public class GebouwFactory {
             // 3 Handelshuis: 3 punten: Commerciel
             gebouwen.add(new GebouwKaart(3, "Handelshuis", Type.COMMERCIEL, new Image("../Resources/Gebouwkaarten/handelshuis.png")));
             // 3 Toernooiveld: 3 punten: Militair
-            gebouwen.add(new GebouwKaart(3, "Toernooiveld", Type.MILITAIR));
+            gebouwen.add(new GebouwKaart(3, "Toernooiveld", Type.MILITAIR, new Image("../Resources/Gebouwkaarten/toernooiveld.png")));
             // 3 Wachttoren: 1 punt: Militair
-            gebouwen.add(new GebouwKaart(1, "Wachttoren", Type.MILITAIR));
+            gebouwen.add(new GebouwKaart(1, "Wachttoren", Type.MILITAIR, new Image("../Resources/Gebouwkaarten/wachttoren.png")));
             // 3 Gevangenis: 2 punten: Militair
-            gebouwen.add(new GebouwKaart(2, "Gevangenis", Type.MILITAIR));
+            gebouwen.add(new GebouwKaart(2, "Gevangenis", Type.MILITAIR, new Image("../Resources/Gebouwkaarten/gevangenis.png")));
             // 3 Tempel: 1 punt: Kerkelijk
-            gebouwen.add(new GebouwKaart(1, "Tempel", Type.KERKELIJK));
+            gebouwen.add(new GebouwKaart(1, "Tempel", Type.KERKELIJK, new Image("../Resources/Gebouwkaarten/tempel.png")));
             // 3 Klooster: 3 punten: Kerkelijk
-            gebouwen.add(new GebouwKaart(3, "Klooster", Type.KERKELIJK));
+            gebouwen.add(new GebouwKaart(3, "Klooster", Type.KERKELIJK, new Image("../Resources/Gebouwkaarten/klooster.png")));
             // 3 Kerk: 2 punten: Kerkelijk
-            gebouwen.add(new GebouwKaart(3, "Kerk", Type.KERKELIJK));
+            gebouwen.add(new GebouwKaart(3, "Kerk", Type.KERKELIJK, new Image("../Resources/Gebouwkaarten/kerk.png")));
         }
         for (int i = 0; i < 4; i++) {
             // 4 Kasteel: 4 punten: Monument
