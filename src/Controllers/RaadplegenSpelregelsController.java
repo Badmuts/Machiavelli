@@ -9,22 +9,23 @@ import Views.SpelregelsView;
  * @author Jamie Kalloe
  */
 
-public class RaadplegenSpelregelsController 
-{
+public class RaadplegenSpelregelsController {
+	
 	//Variables
 	private SpelregelsView spelRegelsView;
 	private Spelregels spelRegels;
 	
-	public void cmdWeergeefSpelregels()
+	public RaadplegenSpelregelsController()
 	{
-		try 
-		{
+		try {
 			this.spelRegelsView = new SpelregelsView();
+			this.spelRegelsView.getCloseButton().setOnAction(event -> this.spelRegelsView.getStage().close());
+		} catch (Exception e) {
+			System.out.println(e);
 		}
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
+	}
+	
+	public void cmdWeergeefSpelregels() {
 		this.spelRegelsView.getStage().show();
 	}
 }

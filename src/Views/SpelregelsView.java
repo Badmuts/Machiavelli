@@ -1,9 +1,11 @@
 package Views;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -12,14 +14,13 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import Models.Spelregels;
 
-public class SpelregelsView extends Application
-{
+public class SpelregelsView extends Application {
 	
 	private Spelregels spelregels;
 	private Stage stage;
+	private Button closeButton;
 
-	public SpelregelsView() throws IOException 
-	{
+	public SpelregelsView() throws IOException {
 		Stage stage = new Stage();
 		this.spelregels = new Spelregels();
 		stage.setTitle("Spelregels Machiavelli");
@@ -34,12 +35,17 @@ public class SpelregelsView extends Application
 		text.setId("regels");
 		text.setLayoutX(50);
 		text.setLayoutY(100);
+		
+		this.closeButton = new Button("X");
+		this.closeButton.setId("closeButton");
+		this.closeButton.setLayoutX(984);
+		this.closeButton.setLayoutY(15);
 
 //		text.setContentDisplay
 //		text.setFont(Font.font ("Roboto", 20));
 		Pane stPane = new Pane();
 		stPane.setId("ROOTNODE");
-		stPane.getChildren().addAll(title, text);
+		stPane.getChildren().addAll(title, text, closeButton);
 		Rectangle rect = new Rectangle(1024, 768);
 		rect.setArcHeight(60.0);
 		rect.setArcWidth(60.0);
@@ -56,13 +62,15 @@ public class SpelregelsView extends Application
 	}
 	
 	@Override
-	public void start(Stage stage) throws Exception 
-	{
+	public void start(Stage stage) throws Exception {
 		this.stage = stage;
 	}
 	
-	public Stage getStage()
-	{
+	public Stage getStage() {
 		return this.stage;
+	}
+	
+	public Button getCloseButton() {
+		return this.closeButton;
 	}
 }
