@@ -6,6 +6,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -23,7 +24,7 @@ public class MainMenuView{
 		private Button exitbutton2;
 		private Button spelregels2;
 		private SpelController sc;
-		private Stage primaryStage;
+		//private Stage primaryStage;
 		private Scene mainMenu;
 		private Scene mainSelect;
 		
@@ -41,9 +42,7 @@ public class MainMenuView{
 		this.sc = sc;
 		
 		Pane mainMenuPane = new Pane();
-		mainMenuPane.setStyle("-fx-background-color: #48443c");
 		Pane mainSelectPane = new Pane();
-		mainSelectPane.setStyle("-fx-background-color: #48443c");
 
 		nieuwspelknop = new Button();
 		hervattenknop = new Button();
@@ -53,7 +52,7 @@ public class MainMenuView{
 		spelregels = new Button();
 		exitbutton2 = new Button();
 		spelregels2 = new Button();
-
+		
 		//Machiavelli tekst layout
 		Text mainTx = new Text("Machiavelli");
 		mainTx.setFill(Color.WHITE);
@@ -107,9 +106,10 @@ public class MainMenuView{
 		stage.setScene(mainMenu);
 		stage.show();
 	}
-	public void show2(Stage stage){
+	public void showSelect(Stage stage){
 		stage.setResizable(false);
 		stage.setScene(mainSelect);
+    	stage.centerOnScreen();
 		stage.show();
 	}
 	public Button getStartButton(){
