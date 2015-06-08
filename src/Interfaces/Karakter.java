@@ -7,6 +7,6 @@ import Models.Speler;
  */
 public interface Karakter {
 
-    public void gebruikEigenschap();
-    public void setSpeler(Speler speler);
+    void gebruikEigenschap();
+    void setSpeler(Speler speler);
 }

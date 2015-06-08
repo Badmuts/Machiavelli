@@ -22,6 +22,6 @@ package Interfaces;
  */
 public interface Bonusable {
 
-    public void ontvangenBonusGoud();
+    void ontvangenBonusGoud();
 
 }
