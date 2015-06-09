@@ -27,6 +27,7 @@ public class RaadplegenSpelregelsController {
 	}
 	
 	public void cmdWeergeefSpelregels() {
-		this.spelRegelsView.getStage().show();
+//		this.spelRegelsView.getStage().show();
+		//remove the lines under...!
 	}
 }
