@@ -13,7 +13,7 @@ public class Portemonnee
 	public Portemonnee(Bank bank)
 	{
 		this.bank = bank;
-		bank.gevenGoud(this, 2);
+		goudMunten += this.bank.gevenGoud(2);
 	}
 	
 	public void bestedenGoud(Bank bank, int aantal)
@@ -24,7 +24,7 @@ public class Portemonnee
 	
 	public void ontvangenGoud(int aantal)
 	{
-		goudMunten += aantal;
+		goudMunten += this.bank.gevenGoud(aantal);
 	}
 
 	public int getGoudMunten()

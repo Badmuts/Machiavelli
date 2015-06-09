@@ -1,6 +1,7 @@
 package Models.Karakters;
 
 import Enumerations.Type;
+import Factories.GebouwFactory;
 import Interfaces.Karakter;
 import Models.GebouwKaart;
 import Models.Hand;
@@ -21,12 +22,28 @@ public class Magier implements Karakter {
     private final int     bouwLimiet  = 1;
     private final Type    type        = Type.NORMAAL;
 
-    private Speler  speler      = null;
+    private Speler  speler  = null;
+    private Object  target  = null;
+    private ArrayList<GebouwKaart> ruilLijst = new ArrayList<GebouwKaart>();
 
     @Override
     public void gebruikEigenschap() {
         // TODO: ruilen bouwkaarten
         System.out.println("faka");
+        while (getTarget() != null) {
+            // Iets tonen/afvangen om target te setten (View aanpassen?)
+            if (getTarget().equals(speler.getSpel().getGebouwFactory())) {
+                // Als het target de stapel met gebouwkaarten is
+                // ruilen met stapelkaarten implementeren
+                // Afvangen ruil lijst
+                ruilMetStapel(speler.getHand(), ruilLijst);
+                break;
+            } else {
+                // Ruil kaarten met een speler.
+                ruilMetKarakter((Speler)getTarget(), this.speler);
+                break;
+            }
+        }
     }
 
     @Override
@@ -35,7 +52,7 @@ public class Magier implements Karakter {
     }
 
     // Ruil alle bouwkaarten met alle bouwkaarten van een ander speler/karakter??
-    public void ruilMetKarakter(Speler target, Speler magier)
+    private void ruilMetKarakter(Speler target, Speler magier)
     {
         ArrayList<GebouwKaart> handTarget = target.getHand().getKaartenLijst();
         ArrayList<GebouwKaart> magierHand = magier.getHand().getKaartenLijst();
@@ -44,7 +61,7 @@ public class Magier implements Karakter {
     }
 
     // Leg een x aantal kaarten af op de stapel en pak een gelijk aantal nieuwe kaarten
-    public void ruilMetStapel(Hand hand, ArrayList<GebouwKaart> ruilLijst)
+    private void ruilMetStapel(Hand hand, ArrayList<GebouwKaart> ruilLijst)
     {
         // Afleggen en tellen gebouwkaarten.
         int count = 0;
@@ -79,5 +96,21 @@ public class Magier implements Karakter {
     public String getNaam() {
 
         return naam;
+    }
+
+    public Object getTarget() {
+        return target;
+    }
+
+    public void setTarget(GebouwFactory target) {
+        this.target = target;
+    }
+
+    public void setTarget(Speler target) {
+        this.target = target;
+    }
+
+    public void setRuilLijst(ArrayList<GebouwKaart> ruilLijst) {
+        this.ruilLijst = ruilLijst;
     }
 }

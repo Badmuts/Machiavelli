@@ -19,6 +19,8 @@ package Interfaces;
  * - COMMERCIEL
  * - MILITAIR
  *
+ * TODO: Mogelijk kan deze worden vervangen door een abstracte klasse? Omdat de implementatie van deze methode altijd gelijk is.
+ *
  */
 public interface Bonusable {
 

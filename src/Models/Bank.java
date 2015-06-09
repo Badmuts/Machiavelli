@@ -20,10 +20,10 @@ public class Bank
 
 	}
 	
-	public void gevenGoud(Portemonnee portemonnee, int aantal)
+	public int gevenGoud(int aantal)
 	{
-		portemonnee.ontvangenGoud(aantal);
 		this.goudMunten -= aantal;
+		return aantal;
 	}
 
 	public int getGoudMunten()
