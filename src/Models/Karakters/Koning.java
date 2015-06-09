@@ -13,10 +13,11 @@ import java.util.ArrayList;
  */
 public class Koning implements Karakter, Bonusable {
 
-    private String      naam                = "Koning";
-    private int         nummer              = 4;
-    private int         bouwLimiet          = 1;
-    private Type        type                = Type.MONUMENT;
+    private final String      naam                = "Koning";
+    private final int         nummer              = 4;
+    private final int         bouwLimiet          = 1;
+    private final Type        type                = Type.MONUMENT;
+
     private Speler      speler              = null;
 
     @Override
@@ -33,8 +34,27 @@ public class Koning implements Karakter, Bonusable {
     public void ontvangenBonusGoud() {
         ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
         for(GebouwKaart gebouw: gebouwen) {
-            if (gebouw.getType() == Type.MONUMENT)
+            if (gebouw.getType() == this.type)
                 speler.getPortemonnee().ontvangenGoud(1);
         }
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public int getBouwLimiet() {
+
+        return bouwLimiet;
+    }
+
+    public int getNummer() {
+
+        return nummer;
+    }
+
+    public String getNaam() {
+
+        return naam;
     }
 }

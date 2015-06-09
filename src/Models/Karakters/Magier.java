@@ -16,10 +16,11 @@ import java.util.ArrayList;
 public class Magier implements Karakter {
 
     // Variables
-    private String  naam        = "Magier";
-    private int     nummer      = 3;
-    private int     bouwLimiet  = 1;
-    private Type    type        = Type.NORMAAL;
+    private final String  naam        = "Magier";
+    private final int     nummer      = 3;
+    private final int     bouwLimiet  = 1;
+    private final Type    type        = Type.NORMAAL;
+
     private Speler  speler      = null;
 
     @Override
@@ -69,5 +70,14 @@ public class Magier implements Karakter {
     // Return gebouwlimiet
     public int getBouwLimiet() {
         return this.bouwLimiet;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public String getNaam() {
+
+        return naam;
     }
 }

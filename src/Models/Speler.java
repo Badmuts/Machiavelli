@@ -39,7 +39,7 @@ public class Speler
 	
 	public void setKaartInStad(GebouwKaart gebouw)
 	{
-		this.stad.addGebouw(gebouw, hand);
+		this.stad.addGebouw(gebouw);
 	}
 	
 	public ArrayList<GebouwKaart> trekkenKaart()
