@@ -27,6 +27,7 @@ public class SpeelveldView {
 	private Rectangle buttonholder;
 	private Rectangle karakterholder;
 	private Rectangle kaartholder;
+	private Image portretmagiër;
 	
 	public void initButton(Button button,String tekst,String id, int posx, int posy, float sizeX, float sizeY){
 		button.setText(tekst);
@@ -50,22 +51,22 @@ public class SpeelveldView {
 		placeholderbutton2 = new Button();
 		placeholderbutton3 = new Button();
 		
-		initButton(gebruikEigenschap,"Sander","gamebutton",1400,770, 180f,60f);
+		initButton(gebruikEigenschap,"Button","gamebutton",1400,770, 180f,60f);
 		initButton(exitbutton,"Afsluiten","buttonexit", 1400, 835, 180f,60f);
 		initButton(spelregels,"Spelregels", "buttonregels", 15,10,125f,50f);
 		initButton(opslaanknop,"Opslaan","buttonsave",1200, 835, 180f, 60f);
-		initButton(placeholderbutton1, "Jimmy", "gamebutton", 1200, 770, 180f, 60f);
-		initButton(placeholderbutton2, "Jaimy", "gamebutton", 1400, 705, 180f, 60f);
-		initButton(placeholderbutton3, "Bernd", "gamebutton", 1200, 705, 180f, 60f);
+		initButton(placeholderbutton1, "Button", "gamebutton", 1200, 770, 180f, 60f);
+		initButton(placeholderbutton2, "Bouwen", "gamebutton", 1400, 705, 180f, 60f);
+		initButton(placeholderbutton3, "Eigenschap", "gamebutton", 1200, 705, 180f, 60f);
 		
 		buttonholder = new Rectangle(1175,680,425,250);
-		buttonholder.setFill(Color.GRAY);
+		buttonholder.setFill(Color.DIMGRAY);
 		
 		karakterholder = new Rectangle(0, 680, 250, 250);
-		karakterholder.setFill(Color.GRAY);
+		karakterholder.setFill(Color.DIMGRAY);
 		
 		kaartholder = new Rectangle(250, 680,925,250);
-		kaartholder.setFill(Color.DIMGRAY);
+		kaartholder.setFill(Color.GRAY);
 		
 		Pane speelveldpane = new Pane();
 		
@@ -74,7 +75,16 @@ public class SpeelveldView {
 		iv.setCache(true);
 		iv.setFitWidth(200);
         
-		speelveldpane.getChildren().addAll(iv,buttonholder,karakterholder,kaartholder, gebruikEigenschap, exitbutton,spelregels, opslaanknop,placeholderbutton1,placeholderbutton2,placeholderbutton3);
+		//De portretten moeten nog in andere klassen worden opgeslagen, dit is een test.
+		portretmagiër = new Image("Resources/Portrait-Magiër.png");
+		ImageView portretview = new ImageView(portretmagiër);
+		portretview.setCache(true);
+		portretview.setScaleX(0.45);
+		portretview.setScaleY(0.45);
+		portretview.setLayoutX(-60);
+		portretview.setLayoutY(615);
+		
+		speelveldpane.getChildren().addAll(iv,buttonholder,karakterholder,kaartholder, gebruikEigenschap, exitbutton,spelregels, opslaanknop,placeholderbutton1,placeholderbutton2,placeholderbutton3,portretview);
 		speelveldscene = new Scene(speelveldpane, 1600, 900);
 		speelveldpane.getStylesheets().add("Resources/Speelveld.css");
 						

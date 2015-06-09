@@ -23,7 +23,7 @@ public class Speler
 	{
 		this.spel = spel;
 		this.stad = new Stad(spel);
-		this.portemonnee = new Portemonnee();
+		this.portemonnee = new Portemonnee(this.spel.getBank());
 		this.hand = new Hand(this);
 	}
 	
@@ -39,7 +39,7 @@ public class Speler
 	
 	public void setKaartInStad(GebouwKaart gebouw)
 	{
-		this.stad.addGebouw(gebouw);
+		this.stad.addGebouw(gebouw, hand);
 	}
 	
 	public ArrayList<GebouwKaart> trekkenKaart()
@@ -95,5 +95,8 @@ public class Speler
 		return this.hand;
 	}
 
-	public Stad getStad() { return this.stad;}
+	public Stad getStad()
+	{
+		return this.stad;
+	}
 }

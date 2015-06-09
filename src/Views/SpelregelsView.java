@@ -1,5 +1,6 @@
 package Views;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -13,15 +14,13 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import Models.Spelregels;
 
-public class SpelregelsView extends Application
-{
+public class SpelregelsView extends Application {
 	
 	private Spelregels spelregels;
 	private Stage stage;
 	private Button closeButton;
 
-	public SpelregelsView() throws IOException 
-	{
+	public SpelregelsView() throws IOException {
 		Stage stage = new Stage();
 		this.spelregels = new Spelregels();
 		stage.setTitle("Spelregels Machiavelli");
@@ -63,18 +62,15 @@ public class SpelregelsView extends Application
 	}
 	
 	@Override
-	public void start(Stage stage) throws Exception 
-	{
+	public void start(Stage stage) throws Exception {
 		this.stage = stage;
 	}
 	
-	public Stage getStage()
-	{
+	public Stage getStage() {
 		return this.stage;
 	}
 	
-	public Button getCloseButton()
-	{
+	public Button getCloseButton() {
 		return this.closeButton;
 	}
 }
