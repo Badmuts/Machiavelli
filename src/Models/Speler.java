@@ -40,6 +40,7 @@ public class Speler
 	public void setKaartInStad(GebouwKaart gebouw)
 	{
 		this.stad.addGebouw(gebouw);
+		this.hand.removeGebouw(gebouw);
 	}
 	
 	public ArrayList<GebouwKaart> trekkenKaart()

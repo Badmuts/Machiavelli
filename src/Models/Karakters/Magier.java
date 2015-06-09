@@ -31,14 +31,17 @@ public class Magier implements Karakter {
         // TODO: ruilen bouwkaarten
         System.out.println("faka");
         while (getTarget() != null) {
-            // Iets tonen om target te setten (View aanpassen?)
+            // Iets tonen/afvangen om target te setten (View aanpassen?)
             if (getTarget().equals(speler.getSpel().getGebouwFactory())) {
                 // Als het target de stapel met gebouwkaarten is
                 // ruilen met stapelkaarten implementeren
+                // Afvangen ruil lijst
                 ruilMetStapel(speler.getHand(), ruilLijst);
+                break;
             } else {
                 // Ruil kaarten met een speler.
                 ruilMetKarakter((Speler)getTarget(), this.speler);
+                break;
             }
         }
     }
