@@ -55,7 +55,7 @@ public class SpeelveldView {
 		initButton(exitbutton,"Afsluiten","buttonexit", 1400, 835, 180f,60f);
 		initButton(spelregels,"Spelregels", "buttonregels", 15,10,125f,50f);
 		initButton(opslaanknop,"Opslaan","buttonsave",1200, 835, 180f, 60f);
-		initButton(placeholderbutton1, "Button", "gamebutton", 1200, 770, 180f, 60f);
+		initButton(placeholderbutton1, "Bonusgoud", "gamebutton", 1200, 770, 180f, 60f);
 		initButton(placeholderbutton2, "Bouwen", "gamebutton", 1400, 705, 180f, 60f);
 		initButton(placeholderbutton3, "Eigenschap", "gamebutton", 1200, 705, 180f, 60f);
 		
