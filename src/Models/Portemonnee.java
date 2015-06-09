@@ -24,7 +24,7 @@ public class Portemonnee
 	
 	public void ontvangenGoud(int aantal)
 	{
-		goudMunten += aantal;
+		goudMunten += this.bank.gevenGoud(	aantal);
 	}
 
 	public int getGoudMunten()
