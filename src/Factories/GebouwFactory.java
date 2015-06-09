@@ -15,7 +15,7 @@ public class GebouwFactory {
     private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
 
     public GebouwFactory() {
-        gebouwen.add(new GebouwKaart(6, "Bibliotheek", Type.NORMAAL, new Image("../Resources/Gebouwkaarten/bibliotheek.png")));
+        /*gebouwen.add(new GebouwKaart(6, "Bibliotheek", Type.NORMAAL, new Image("../Resources/Gebouwkaarten/bibliotheek.png")));
         gebouwen.add(new GebouwKaart(5, "Werkplaats", Type.NORMAAL, new Image("../Resources/Gebouwkaarten/werkplaats.png")));
         gebouwen.add(new GebouwKaart(6, "School voor Magiërs", Type.NORMAAL, new Image("../Resources/Gebouwkaarten/school-voor-magiers.png")));
         gebouwen.add(new GebouwKaart(5, "Laboratorium", Type.NORMAAL, new Image("../Resources/Gebouwkaarten/laboratorium.png")));
@@ -49,7 +49,7 @@ public class GebouwFactory {
         for (int i = 0; i < 5; i++) {
             gebouwen.add(new GebouwKaart(3, "Landgoed", Type.MONUMENT, new Image("../Resources/Gebouwkaarten/landgoed.png")));
             gebouwen.add(new GebouwKaart(1, "Taveerne", Type.COMMERCIEL, new Image("../Resources/Gebouwkaarten/taveerne.png")));
-        }
+        }*/
         this.schuddenKaarten();
     }
 

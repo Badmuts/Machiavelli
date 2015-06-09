@@ -1,8 +1,11 @@
 package Views;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import Models.GebouwKaart;
+import Models.Speler;
+import Models.Spelregels;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,30 +22,37 @@ import javafx.stage.StageStyle;
 
 public class TrekkenKaartView extends Application
 {
-
+	private Speler speler;
 	private Stage stage;
-	
-	//test var
-	private ArrayList<Button> testKaarten;
-	
-	public TrekkenKaartView()
-	{
+//	private
+
+	public TrekkenKaartView() {
 		Stage stage = new Stage();
-		Text title = new Text();
-		title.setId("trekkenKaartTitle");
+		stage.setTitle("Trekken Kaart");
+		
+		Text title = new Text("Trek een kaart:");
+		title.setId("title");
 		title.setFill(Color.WHITE);
 		title.setLayoutX(420);
 		title.setLayoutY(50);
-		title.setText("Maak je keuze:");
-
+		
+		Text title2 = new Text("Trek een kaart:1");
+		title.setId("title2");
+		title.setFill(Color.WHITE);
+		title.setLayoutX(420);
+		title.setLayoutY(50);
+		
+		Text title3 = new Text("Trek een kaart:3");
+		title.setId("title3");
+		title.setFill(Color.WHITE);
+		title.setLayoutX(420);
+		title.setLayoutY(50);
+		
 		Pane stPane = new Pane();
 		stPane.setId("ROOTNODE");
-		
-		for(int i = 0; i < testKaarten.size(); i++)
-		{
-			stPane.getChildren().addAll(title, testKaarten.get(i));
-		}
-		
+		stPane.getChildren().add(title);
+		stPane.getChildren().add(title2);
+		stPane.getChildren().add(title3);
 		Rectangle rect = new Rectangle(1024, 768);
 		rect.setArcHeight(60.0);
 		rect.setArcWidth(60.0);
@@ -63,8 +73,7 @@ public class TrekkenKaartView extends Application
 		this.stage = stage;
 	}
 	
-	public Stage getStage()
-	{
+	public Stage getStage() {
 		return this.stage;
 	}
 }

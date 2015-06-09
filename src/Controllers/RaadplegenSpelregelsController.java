@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import Models.Spelregels;
 import Views.SpelregelsView;
+import Views.TrekkenKaartView;
 
 /**
  * @author Jamie Kalloe
