@@ -29,7 +29,7 @@ public class Speler
 	
 	public void getGoudVanBank(Bank bank, int aantal)
 	{
-		bank.gevenGoud(portemonnee, aantal);
+		bank.gevenGoud(aantal);
 	}
 	
 	public void setGoudOpBank(Portemonnee portemonnee, int aantal)
@@ -39,8 +39,8 @@ public class Speler
 	
 	public void setKaartInStad(GebouwKaart gebouw)
 	{
-		this.stad.addGebouw(gebouw, hand);
-		//fout
+		this.stad.addGebouw(gebouw);
+		this.hand.removeGebouw(gebouw);
 	}
 	
 	public ArrayList<GebouwKaart> trekkenKaart()

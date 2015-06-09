@@ -24,7 +24,6 @@ public class TrekkenKaartView extends Application
 {
 	private Speler speler;
 	private Stage stage;
-//	private
 
 	public TrekkenKaartView() {
 		Stage stage = new Stage();
