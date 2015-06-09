@@ -37,11 +37,13 @@ public class InvullenSpelersView extends TextField {
 		okbutton = new Button("Ok");
 		terugbutton = new Button("Terug");
 		textfield = new TextField();
+		textfield.setPromptText("Getal tussen 2 en 7");
 		
 		stackpane.getChildren().addAll(textfield, okbutton, terugbutton,invoertekst);
 		stackpane.setAlignment(invoertekst,Pos.TOP_CENTER);
 		stackpane.setAlignment(okbutton, Pos.BOTTOM_LEFT);
 		stackpane.setAlignment(terugbutton, Pos.BOTTOM_RIGHT);
+		
 		invulscene = new Scene(stackpane, 200, 200);
 	}
  

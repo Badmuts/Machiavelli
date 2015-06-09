@@ -13,6 +13,8 @@ public class Speelveld {
 	private Karakter karakter;
 	private SpeelveldController speelveldcontroller;
 	
+	
+	
 	public Speelveld(Stage secondaryStage){
 	 this.secondaryStage = secondaryStage;	
 	}

@@ -21,7 +21,6 @@ public class SpeelveldView {
 	private Button placeholderbutton2;
 	private Button placeholderbutton3;
 	private SpeelveldController speelveldcontroller;
-	private Speelveld speelveld;
 	private Scene speelveldscene;
 	private Stage stage;
 	private Rectangle buttonholder;
@@ -38,8 +37,7 @@ public class SpeelveldView {
 		button.setMinHeight(sizeY);
 	}
 	
-	public SpeelveldView(SpeelveldController speelveldcontroller,Speelveld speelveld){
-		this.speelveld = speelveld;
+	public SpeelveldView(SpeelveldController speelveldcontroller){
 		this.speelveldcontroller = speelveldcontroller;
 		
 		

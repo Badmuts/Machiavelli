@@ -27,35 +27,38 @@ public class SpelController{
 		mmv.getStartButton().setOnAction(event -> mmv.showSelect(spel.getPrimaryStage()));
 		mmv.getExitButton().setOnAction(event -> System.exit(0));
 		mmv.getExitButton2().setOnAction(event -> System.exit(0));
-		invullenspeler.getOkButton().setOnAction(event -> cmdNieuwSpel());
-		invullenspeler.getTerugButton().setOnAction(event -> mmv.showSelect(spel.getPrimaryStage()));
-		hervattenspel.getTerugKnop().setOnAction(event -> mmv.showSelect(spel.getPrimaryStage()));
 		mmv.getNieuwSpelKnop().setOnAction(event -> invullenspeler.show(spel.getPrimaryStage()));
 		mmv.getHervattenknop().setOnAction(event -> hervattenspel.show(spel.getPrimaryStage()));
 		mmv.getDeelnemenKnop().setOnAction(event -> deelnemenview.show(spel.getPrimaryStage()));
 		mmv.getSpelregelsButton().setOnAction(event -> this.spelregelsController.cmdWeergeefSpelregels());
+		
+		invullenspeler.getOkButton().setOnAction(event -> cmdNieuwSpel());
+		invullenspeler.getTerugButton().setOnAction(event -> mmv.showSelect(spel.getPrimaryStage()));
+		
+		hervattenspel.getTerugKnop().setOnAction(event -> mmv.showSelect(spel.getPrimaryStage()));
+		
 		deelnemenview.getTerugKnop().setOnAction(event -> mmv.showSelect(spel.getPrimaryStage()));
 		
 	}
-	public void show(){
+	public void show() {
 		mmv.show(spel.getPrimaryStage());
 	}
 	/*public void show2(){
 		mmv.show(spel.getPrimaryStage());
 	}*/
 
-	public void cmdAantalSpelers(){
-	}
-	public void cmdNieuwSpel(){
-		//Create nieuw spel
+	public void cmdAantalSpelers() {
 		
+	}
+	public void cmdNieuwSpel() {
+		//Create nieuw spel		
 		//Aantal spelers bepalen
 		//Nieuw spel starten
 		try {
 			spel.setAantalSpelers(Integer.parseInt(invullenspeler.getTextField()));
 			this.spel.NieuwSpel();
 		} catch(Exception e) {
-			System.out.println("Getal invoeren");
+			System.out.println("Getal invoeren tussen 2 en 7");
 		}
 		//testen hoeveel spelers er zijn
 		System.out.println(spel.getAantalSpelers());

@@ -22,8 +22,7 @@ public class MainMenuView{
 		private Button hervattenknop;
 		private Button nieuwspelknop;
 		private Button exitbutton2;
-		private Button spelregels2;
-		private SpelController sc;
+		private Button spelregels2;;
 		//private Stage primaryStage;
 		private Scene mainMenu;
 		private Scene mainSelect;
@@ -39,7 +38,6 @@ public class MainMenuView{
 	}
 	
 	public MainMenuView(SpelController sc, Spel sp){
-		this.sc = sc;
 		
 		Pane mainMenuPane = new Pane();
 		Pane mainSelectPane = new Pane();

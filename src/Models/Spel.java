@@ -33,14 +33,15 @@ public class Spel {
 		//Starten karakterkiezenlijst speler 1
 		//Doorgeven karakterlijst aan andere spelers
 		ArrayList<Speler> spelers = new ArrayList<Speler>();
-		for(int i = 0; i < aantalspelers; i++){
+		if(aantalspelers >= 2 && aantalspelers <= 8){
+			for(int i = 0; i < aantalspelers; i++){
 			spelers.add(new Speler(this));
+			this.speelveld = new Speelveld(spelers);
+			}
+		} else {
+			return;
 		}
-		/*spelers.add(new Speler(this));
-		spelers.add(new Speler(this));
-		spelers.add(new Speler(this));
-		spelers.add(new Speler(this));*/
-		this.speelveld = new Speelveld(spelers);
+
 	}
 	public void EindeBeurt(){
 		
