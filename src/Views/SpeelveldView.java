@@ -27,7 +27,7 @@ public class SpeelveldView {
 	private Rectangle buttonholder;
 	private Rectangle karakterholder;
 	private Rectangle kaartholder;
-	private Image portretmagiër;
+	private Image portretmagier;
 	
 	public void initButton(Button button,String tekst,String id, int posx, int posy, float sizeX, float sizeY){
 		button.setText(tekst);
@@ -76,8 +76,8 @@ public class SpeelveldView {
 		iv.setFitWidth(200);
         
 		//De portretten moeten nog in andere klassen worden opgeslagen, dit is een test.
-		portretmagiër = new Image("Resources/Portrait-Magiër.png");
-		ImageView portretview = new ImageView(portretmagiër);
+		portretmagier = new Image("Resources/Portrait-Magier.png");
+		ImageView portretview = new ImageView(portretmagier);
 		portretview.setCache(true);
 		portretview.setScaleX(0.45);
 		portretview.setScaleY(0.45);

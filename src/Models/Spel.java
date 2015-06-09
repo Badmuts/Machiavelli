@@ -55,9 +55,11 @@ public class Spel {
 	{
 		return this.gebouwFactory;
 	}
+
 	public void setAantalSpelers(int aantalspelers){
 		this.aantalspelers = aantalspelers;
 	}
+
 	public int getAantalSpelers(){
 		return aantalspelers;
 	}
