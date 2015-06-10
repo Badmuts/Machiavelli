@@ -1,5 +1,6 @@
 package Machiavelli.Interfaces;
 
+import Machiavelli.Enumerations.Type;
 import Machiavelli.Models.Speler;
 
 /**
@@ -19,5 +20,9 @@ public interface Karakter {
 	
 	void setSpeler(Speler speler);
     void gebruikEigenschap();
+    String getNaam();
+    int getNummer();
+    int getBouwLimiet();
+    Type getType();
     
 }
