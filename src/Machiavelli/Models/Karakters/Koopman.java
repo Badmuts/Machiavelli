@@ -56,12 +56,12 @@ public class Koopman implements Karakter, Bonusable {
     public void ontvangenBonusGoud(Speler koopman){
     	koopman.getPortemonnee().ontvangenGoud(1);
     }
-    
+
 	/** ontvangen bonusgoud voor commerciele gebouwen */
     @Override
     public void ontvangenBonusGoud() {
         ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
-        for(GebouwKaart gebouw: gebouwen) {
+        for (GebouwKaart gebouw : gebouwen) {
             if (gebouw.getType() == this.type)
                 speler.getPortemonnee().ontvangenGoud(1);
         }
@@ -84,4 +84,3 @@ public class Koopman implements Karakter, Bonusable {
 	}
     
 }
-

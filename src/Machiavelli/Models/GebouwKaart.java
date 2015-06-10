@@ -2,20 +2,26 @@ package Machiavelli.Models;
 
 import Machiavelli.Enumerations.Type;
 import javafx.scene.image.Image;
-
 /**
- * 
+ * Dit is de blauwdruk voor een gebouwkaart. De gebouwkaarten worden
+ * door de spelers gebruikt om het spel te winnen. De gebouwkaarten
+ * hebben een enumeration genaamd type die aangeeft of een bepaald
+ * karakter extra bonusgoud ontvangt.
+ *
  * @author Sander
+ * @version 0.1
  *
  */
 public class GebouwKaart
 {
+    // Variables
 	private int kosten;
 	private String naam;
 	private Type type;
 	private Stad stad;
     private Image image;
 
+    // Een kaart wordt aangemaakt met de meegegeven waardes
     public GebouwKaart(int kosten, String naam, Type type, Image image) {
         this.kosten = kosten;
         this.naam = naam;
@@ -32,7 +38,6 @@ public class GebouwKaart
     }
 
     public String getNaam() {
-
         return naam;
     }
 
@@ -40,21 +45,21 @@ public class GebouwKaart
         this.naam = naam;
     }
 
-    public void setKosten(int kosten) {
-        this.kosten = kosten;
+    public int getKosten()
+    {
+        return this.kosten;
     }
 
-    public void setStad(Stad stad) {
-        this.stad = stad;
+    public void setKosten(int kosten) {
+        this.kosten = kosten;
     }
 
     public Stad getStad() {
         return stad;
     }
-    
-    public int getKosten()
-    {
-    	return this.kosten;
+
+    public void setStad(Stad stad) {
+        this.stad = stad;
     }
 
     public Image getImage() {

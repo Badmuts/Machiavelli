@@ -25,17 +25,17 @@ import java.util.ArrayList;
  */
 
 public class Magier implements Karakter {
-	
-	private Speler  speler  = null;
+
+    // Variables
+    private final String naam = "Magier";
+    private final int nummer = 3;
+    private final int bouwLimiet = 1;
+    private final Type type = Type.NORMAAL;
+
+    private Speler  speler  = null;
     private Object  target  = null;
     private ArrayList<GebouwKaart> ruilLijst = new ArrayList<GebouwKaart>();
 
-	/** Eigenschappen van karakter Magier. */
-    private final int nummer = 3;	
-    private final int bouwLimiet = 1; 
-    private final String naam = "Magier";
-    private final Type type = Type.NORMAAL;
-    
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Magier wordt aan de speler gekoppeld.
