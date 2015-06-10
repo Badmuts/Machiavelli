@@ -42,7 +42,8 @@ public class Stad
 		berekenWaarde(gebouwen);
 		return this.waardeStad;
 	}
-	
+
+	// Berekenen van de waarde van de stad (in punten)
 	private void berekenWaarde(ArrayList<GebouwKaart> lijst)
 	{
 		int waarde = 0;
