@@ -1,16 +1,18 @@
 package Machiavelli.Factories;
 
 import Machiavelli.Enumerations.Type;
+import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Models.GebouwKaart;
 import javafx.scene.image.Image;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 
 /**
  * Created by daanrosbergen on 04/06/15.
  */
-public class GebouwFactory {
+public class GebouwFactory implements GebouwFactoryRemote {
 
     private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
 
@@ -53,11 +55,11 @@ public class GebouwFactory {
         this.schuddenKaarten();
     }
 
-    public void addGebouw(GebouwKaart gebouw) {
+    public void addGebouw(GebouwKaart gebouw) throws RemoteException {
         this.gebouwen.add(gebouw);
     }
 
-    public GebouwKaart trekKaart() {
+    public GebouwKaart trekKaart() throws RemoteException {
         GebouwKaart gebouw = gebouwen.get(0);
         this.gebouwen.remove(gebouw);
         return gebouw;
@@ -67,7 +69,7 @@ public class GebouwFactory {
         Collections.shuffle(gebouwen);
     }
 
-    public ArrayList<GebouwKaart> getGebouwen()
+    public ArrayList<GebouwKaart> getGebouwen() throws RemoteException
     {
         return this.gebouwen;
     }

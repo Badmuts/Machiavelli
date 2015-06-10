@@ -1,11 +1,13 @@
 package Machiavelli.Factories;
 
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
 import Machiavelli.Models.Karakters.*;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class KarakterFactory {
+public class KarakterFactory implements KarakterFactoryRemote {
     /**
      * ArrayList om alle karakters op te slaan
      */
@@ -31,7 +33,7 @@ public class KarakterFactory {
      *
      * @return ArrayList<Karakter>
      */
-    public ArrayList<Karakter> getKarakters() {
+    public ArrayList<Karakter> getKarakters() throws RemoteException {
         return this.karakters;
     }
 
@@ -49,7 +51,7 @@ public class KarakterFactory {
      * @param karakterNummer
      * @return
      */
-    public Karakter getKarakterByNumber(int karakterNummer) {
+    public Karakter getKarakterByNumber(int karakterNummer) throws RemoteException {
         Karakter tmpKarakter = null;
         for (Karakter karakter: karakters) {
             if (karakter.getNummer() == karakterNummer)
