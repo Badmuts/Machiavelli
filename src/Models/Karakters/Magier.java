@@ -35,7 +35,7 @@ public class Magier implements Karakter {
     private Speler  speler  = null;
     private Object  target  = null;
     private ArrayList<GebouwKaart> ruilLijst = new ArrayList<GebouwKaart>();
-    
+
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Magier wordt aan de speler gekoppeld.
