@@ -1,11 +1,9 @@
 package server;
 
-import java.rmi.Remote;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-import Interfaces.Speelable;
 import Models.Spel;
 import Models.Speler;
 
@@ -18,7 +16,7 @@ public class Server {
 		try {
 			
 			Speler speler = new Speler();// create speelveld
-			Speelable speelSkeleton = 	(Speelable) UnicastRemoteObject.exportObject(speelSkeleton, 0); // cast to remote object
+			Interfaces.SpeelveldRemote speelSkeleton = 	(Interfaces.SpeelveldRemote) UnicastRemoteObject.exportObject(speelSkeleton, 0); // cast to remote object
 			System.out.println("skeleton created");
 			Registry registry = LocateRegistry.createRegistry(1099); // default port 1099 // run RMI registry on local host
 			System.out.println("RMI Registry starter");

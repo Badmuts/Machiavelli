@@ -1,6 +1,8 @@
 
 package Machiavelli.Models;
 
+import Machiavelli.Interfaces.Remotes.BankRemote;
+
 /**
  * Dit is de bank van het spel. Per spel is er ��n bank aanwezig die het geld beheerd.
  * Spelers kunnen via de portemonnee geld van de bank halen en geld aan de bank geven.
@@ -9,8 +11,7 @@ package Machiavelli.Models;
  * @version 0.1
  *
  */
-public class Bank
-{
+public class Bank implements BankRemote {
 	// Variables
 	private int goudMunten;
 

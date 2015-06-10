@@ -1,11 +1,11 @@
-package Interfaces;
+package Machiavelli.Interfaces.Remotes;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import Machiavelli.Models.Speler;
 
-public interface Beurtable extends Remote {
+public interface BeurtRemote extends Remote {
 	/**
 	 * 
 	 * @param speler
