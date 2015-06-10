@@ -3,7 +3,7 @@ package Interfaces;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import Models.Speelveld;
+import Machiavelli.Models.Speelveld;
 
 public interface SpeelveldObserver extends Remote {
 	

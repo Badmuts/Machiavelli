@@ -3,7 +3,7 @@ package Interfaces;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import Models.Speler;
+import Machiavelli.Models.Speler;
 
 public interface SpelerObserver extends Remote{
 	

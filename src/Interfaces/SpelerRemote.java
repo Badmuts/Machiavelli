@@ -4,12 +4,13 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import Models.Bank;
-import Models.GebouwKaart;
-import Models.Hand;
-import Models.Portemonnee;
-import Models.Spel;
-import Models.Stad;
+import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Models.Bank;
+import Machiavelli.Models.GebouwKaart;
+import Machiavelli.Models.Hand;
+import Machiavelli.Models.Portemonnee;
+import Machiavelli.Models.Spel;
+import Machiavelli.Models.Stad;
 
 public interface SpelerRemote extends Remote{
 

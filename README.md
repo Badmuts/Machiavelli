@@ -6,15 +6,16 @@ De structuur voor dit project is als volgt:
 
 ```
 └── src
-    ├── Controllers
-    ├── Enumerations
-    ├── Factories
-    ├── Interfaces
-    ├── Models
-    ├── Resources
-    └── Views
+    └── Machiavelli
+        ├── Controllers
+        ├── Enumerations
+        ├── Factories
+        ├── Interfaces
+        ├── Models
+        ├── Resources
+        └── Views
 ```
 
-`Machiavelli.java` bevat de main method en is dus de bootstrap van de applicatie. De rest van de structuur spreekt voorzich.
+`Machiavelli.java` bevat de main method en is dus de bootstrap van de applicatie, deze klasse is ook een Singleton waar je de JavaFX stage kunt ophalen. De rest van de structuur spreekt voorzich.
 
 Controllers staan in de Controllers map, Factories staan in de Factories map, Views staan in de Views map en Models staan in de Models map.
