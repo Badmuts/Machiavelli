@@ -49,7 +49,7 @@ public class Koopman implements Karakter, Bonusable {
     //ontvangen bonusgoud
     public void ontvangenBonusGoud(Speler koopman){
     	
-    	koopman.getPortemonnee().ontvangenBonusGoud(1);
+    	koopman.getPortemonnee().ontvangenGoud(1);
     	
 
     }

@@ -17,10 +17,10 @@ import java.util.ArrayList;
 public class Magier implements Karakter {
 
     // Variables
-    private final String  naam        = "Magier";
-    private final int     nummer      = 3;
-    private final int     bouwLimiet  = 1;
-    private final Type    type        = Type.NORMAAL;
+    private final String naam = "Magier";
+    private final int nummer = 3;
+    private final int bouwLimiet = 1;
+    private final Type type = Type.NORMAAL;
 
     private Speler  speler  = null;
     private Object  target  = null;
