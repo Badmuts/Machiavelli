@@ -43,7 +43,7 @@ public class Speler
 	}
 
 	// Plaats een gebouwkaart in de stad van de speler
-	public void setKaartInStad(GebouwKaart gebouw) {
+	public void bouwenGebouw(GebouwKaart gebouw) {
 		this.stad.addGebouw(gebouw);
 		this.hand.removeGebouw(gebouw);
 	}
