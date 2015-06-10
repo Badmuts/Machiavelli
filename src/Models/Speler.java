@@ -101,4 +101,5 @@ public class Speler implements SpelerRemote
 	{
 		return this.stad;
 	}
+
 }

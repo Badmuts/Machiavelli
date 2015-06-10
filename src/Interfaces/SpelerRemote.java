@@ -1,6 +1,7 @@
 package Interfaces;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import Models.Bank;
@@ -12,17 +13,17 @@ import Models.Stad;
 
 public interface SpelerRemote extends Remote{
 
-	public void getGoudVanBank(Bank bank, int aantal);
-	public void setGoudOpBank(Portemonnee portemonnee, int aantal);
-	public void setKaartInStad(GebouwKaart gebouwen);
-	public ArrayList<GebouwKaart> trekkenKaart();
-	public ArrayList<GebouwKaart> trekkenKaart(int aantal);
-	public void selecterenKaart(ArrayList<GebouwKaart> lijst, int index);
-	public void setKarakter(Karakter karakter);
-	public Karakter getKarakter();
-	public Spel getSpel();
-	public Portemonnee getPortemonnee();
-	public Hand getHand();
-	public Stad getStad();
+	public void getGoudVanBank(Bank bank, int aantal) throws RemoteException;
+	public void setGoudOpBank(Portemonnee portemonnee, int aantal) throws RemoteException;
+	public void setKaartInStad(GebouwKaart gebouwen) throws RemoteException;
+	public ArrayList<GebouwKaart> trekkenKaart() throws RemoteException;
+	public ArrayList<GebouwKaart> trekkenKaart(int aantal) throws RemoteException;
+	public void selecterenKaart(ArrayList<GebouwKaart> lijst, int index) throws RemoteException;
+	public void setKarakter(Karakter karakter) throws RemoteException;
+	public Karakter getKarakter() throws RemoteException;
+	public Spel getSpel() throws RemoteException;
+	public Portemonnee getPortemonnee() throws RemoteException;
+	public Hand getHand() throws RemoteException;
+	public Stad getStad() throws RemoteException;
 
 }

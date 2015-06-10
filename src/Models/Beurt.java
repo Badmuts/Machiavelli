@@ -23,7 +23,7 @@ public class Beurt
     // Best method naam
     public void geefBeurt(Speler speler)
     {
-        // TODO:
+        // TODO: een speler object een beurt geven.
     }
     
     public Speler getSpeler()
