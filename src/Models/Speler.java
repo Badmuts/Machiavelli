@@ -1,15 +1,16 @@
 package Models;
 
-import Interfaces.Karakter;
-
 import java.util.ArrayList;
+
+import Interfaces.Karakter;
+import Interfaces.SpelerRemote;
 
 /**
  * 
  * @author Sander de Jong
  *
  */
-public class Speler
+public class Speler implements SpelerRemote
 {
 	// Variables
 	private Portemonnee portemonnee;
