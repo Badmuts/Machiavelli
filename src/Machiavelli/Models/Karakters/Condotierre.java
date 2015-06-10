@@ -29,7 +29,13 @@ public class Condotierre implements Karakter, Bonusable {
 	private final int nummer = 8;	
 	private final int bouwLimiet = 1; 
 	private final String naam = "Condotierre";
-	private final Type type = Type.MILITAIR;	
+
+    @Override
+    public int getBouwLimiet() {
+        return this.bouwLimiet;
+    }
+
+    private final Type type = Type.MILITAIR;
     
     /**
 	 * Overriden van de methode uit de interface Karakter,

@@ -67,7 +67,12 @@ public class Dief implements Karakter {
     public int getNummer() {
     	return this.nummer;
     }
-    
+
+    @Override
+    public int getBouwLimiet() {
+        return this.bouwLimiet;
+    }
+
     public int getBouwlimiet() {
     	return this.bouwLimiet;
     }

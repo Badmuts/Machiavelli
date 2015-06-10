@@ -74,7 +74,12 @@ public class Koopman implements Karakter, Bonusable {
     public int getNummer() {
     	return this.nummer;
     }
-    
+
+    @Override
+    public int getBouwLimiet() {
+        return this.bouwLimiet;
+    }
+
     public int getBouwlimiet() {
     	return this.bouwLimiet;
     }

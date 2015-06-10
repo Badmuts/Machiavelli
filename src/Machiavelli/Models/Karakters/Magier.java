@@ -113,12 +113,13 @@ public class Magier implements Karakter {
     public int getNummer() {
     	return this.nummer;
     }
-    
-    public int getBouwlimiet() {
-    	return this.bouwLimiet;
+
+    @Override
+    public int getBouwLimiet() {
+        return this.bouwLimiet;
     }
-    
-	public Type getType() {
+
+    public Type getType() {
 		return this.type;
 	}
 }
