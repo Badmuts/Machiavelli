@@ -11,20 +11,35 @@ import java.util.ArrayList;
 /**
  * Created by daanrosbergen on 03/06/15.
  * Edited by Sander de Jong on 08/06/15.
+ * 
+ * De speler heeft het karakter Prediker gekozen. 
+ * De eigenschappen van dit karakter worden gebruikt
+ * door de speler tijdens de duur van een ronde.
+ * 
+ * Uit de stad van de prediker kunnen geen gebouwen worden
+ * verwijderd.
  */
 public class Prediker implements Karakter, Bonusable {
+	
+	private Speler speler = null;
 
-    private final String      naam                = "Prediker";
-    private final int         nummer              = 5;
-    private final int         bouwLimiet          = 1;
-    private final Type        type                = Type.KERKELIJK;
+	/** Eigenschappen van karakter Prediker. */
+    private final int nummer = 5;	
+    private final int bouwLimiet = 1; 
+    private final String naam = "Prediker";
+    private final Type type = Type.KERKELIJK;
+    
+    @Override
+    public void setSpeler(Speler speler) {
+        this.speler = speler;
+    }
 
-    private Speler speler = null;
-
+    @Override
     public void gebruikEigenschap() {
         // TODO: beschermt tegen karakter Condotierre
     }
-
+    
+    /** ontvangen bonusgoud voor Kerk gebouwen */
     public void ontvangenBonusGoud() {
         ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
         for(GebouwKaart gebouw: gebouwen) {
@@ -33,26 +48,19 @@ public class Prediker implements Karakter, Bonusable {
         }
     }
 
-    public void setSpeler(Speler speler) {
-        this.speler = speler;
-    }
-
-    public Type getType() {
-        return type;
-    }
-
-    public int getBouwLimiet() {
-
-        return bouwLimiet;
-    }
-
-    public int getNummer() {
-
-        return nummer;
-    }
-
     public String getNaam() {
-
-        return naam;
+    	return this.naam;
     }
+   
+    public int getNummer() {
+    	return this.nummer;
+    }
+    
+    public int getBouwlimiet() {
+    	return this.bouwLimiet;
+    }
+    
+	public Type getType() {
+		return this.type;
+	}
 }

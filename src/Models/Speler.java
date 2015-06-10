@@ -29,7 +29,7 @@ public class Speler
 	
 	public void getGoudVanBank(Bank bank, int aantal)
 	{
-		bank.gevenGoud(portemonnee, aantal);
+		bank.gevenGoud(aantal);
 	}
 	
 	public void setGoudOpBank(Portemonnee portemonnee, int aantal)
