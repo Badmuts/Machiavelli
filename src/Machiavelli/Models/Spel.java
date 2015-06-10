@@ -26,15 +26,20 @@ public class Spel {
 		//Start spelers is koning
 		//Starten karakterkiezenlijst speler 1
 		//Doorgeven karakterlijst aan andere spelers
-		ArrayList<Speler> spelers = new ArrayList<Speler>();
-		for(int i = 0; i < aantalspelers; i++){
-			spelers.add(new Speler(this));
+		speler = new ArrayList<Speler>();
+		if(aantalspelers >= 2 && aantalspelers < 8){
+			for(int i = 0; i < aantalspelers; i++) {
+				speler.add(new Speler(this));
+			}
+		} else {
+			return;
 		}
+	
 		/*spelers.add(new Speler(this));
 		spelers.add(new Speler(this));
 		spelers.add(new Speler(this));
 		spelers.add(new Speler(this));*/
-		this.speelveld = new Speelveld(spelers);
+		this.speelveld = new Speelveld(speler);
 	}
 
 	public void EindeBeurt() {

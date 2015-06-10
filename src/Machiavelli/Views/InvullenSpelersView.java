@@ -27,18 +27,18 @@ public class InvullenSpelersView extends TextField {
 		
 		StackPane stackpane = new StackPane();
 		
-		invoertekst = new Text("Vul hier het aantal spelers in");
+		invoertekst = new Text("Vul hier minimaal 2 en maximaal 7 spelers in");
 		okbutton = new Button("Ok");
 		terugbutton = new Button("Terug");
 		textfield = new TextField();
-		textfield.setPromptText("Getal tussen 2 en 7");
+		textfield.setMaxSize(50, 10);
 		
 		stackpane.getChildren().addAll(textfield, okbutton, terugbutton,invoertekst);
 		stackpane.setAlignment(invoertekst,Pos.TOP_CENTER);
 		stackpane.setAlignment(okbutton, Pos.BOTTOM_LEFT);
 		stackpane.setAlignment(terugbutton, Pos.BOTTOM_RIGHT);
 		
-		invulscene = new Scene(stackpane, 200, 200);
+		invulscene = new Scene(stackpane, 400, 200);
 	}
  
     public void show(){

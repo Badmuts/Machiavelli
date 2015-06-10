@@ -8,6 +8,12 @@ import Machiavelli.Views.HervattenSpelView;
 import Machiavelli.Views.InvullenSpelersView;
 import Machiavelli.Views.MainMenuView;
 import javafx.stage.Stage;
+ 
+/**
+ * 
+ * Deze klasse bestuurt de view en het model van het spel( met name het hoofdmenu en het opstarten van het spel )
+ *
+ */
 
 public class SpelController{
 	private MainMenuView mmv;
@@ -50,17 +56,17 @@ public class SpelController{
 	}
 
 	public void cmdNieuwSpel() {
-		//Create nieuw spel		
+		//Create nieuw spel
 		//Aantal spelers bepalen
 		//Nieuw spel starten
 		try {
 			spel.setAantalSpelers(Integer.parseInt(invullenspeler.getTextField()));
-			this.spel.NieuwSpel();
 		} catch(Exception e) {
-			System.out.println("Getal invoeren tussen 2 en 7");
+			System.out.println("Vul een getal in tussen de 2 en de 7.(Geen letters of speciale tekens");
 		}
 		//testen hoeveel spelers er zijn
 		System.out.println(spel.getAantalSpelers());
+		spel.NieuwSpel();
 		//Spelers koppeln aan speelveld
 		//Start spelers is koning
 		//Starten karakterkiezenlijst speler 1
