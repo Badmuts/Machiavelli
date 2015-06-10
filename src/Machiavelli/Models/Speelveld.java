@@ -20,7 +20,6 @@ public class Speelveld {
 		//Doorgeven karakterlijst aan andere spelers
 		this.spelers = spelers;
 		this.setKoning(spelers.get(0));		
-		//speelveldview = new SpeelveldView(new SpeelveldController(this),this,new KarakterController());
 		speelveldcontroller = new SpeelveldController(this);
 
 	}
