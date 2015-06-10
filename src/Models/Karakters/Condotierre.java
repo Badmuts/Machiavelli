@@ -8,19 +8,45 @@ import Models.Speler;
 
 import java.util.ArrayList;
 
-/**
+/** 
  * Created by daanrosbergen on 03/06/15.
+ * Editted by Bernd Oostrum
+ * 
+ * De speler heeft het karakter Condotierre gekozen. 
+ * De eigenschappen van dit karakter worden gebruikt
+ * door de speler tijdens de duur van een ronde.
+ * 
+ * De Condotierre kan een gebouw uit een stad van een 
+ * andere speler vernietigen. Ook ontvangt hij 1 goudstuk
+ * voor elk militair gebouw in zijn stad.
  */
 public class Condotierre implements Karakter, Bonusable {
 
-    private final String      naam            = "Condotierre";
-    private final int         nummer          = 8;
-    private final int         bouwLimiet      = 1;
-    private final Type        type            = Type.MILITAIR;
-
-    private GebouwKaart vernietigGebouw = null;
-    private Speler      speler          = null;
-
+	private GebouwKaart vernietigGebouw = null;
+	private Speler      speler          = null;
+	
+	/** Eigenschappen van karakter Condotierre */
+	private final int nummer = 8;	
+	private final int bouwLimiet = 1; 
+	private final String naam = "Condotierre";
+	private final Type type = Type.MILITAIR;	
+    
+    /**
+	 * Overriden van de methode uit de interface Karakter,
+	 * de Condotierre wordt aan de speler gekoppeld.
+	 */
+    @Override
+    public void setSpeler(Speler speler) {
+        this.speler = speler;
+    }
+    
+    /**
+	 * overriden van de methode uit de interface Karakter
+	 * en aanroepen van de methode selectGebouwView
+	 * Er wordt gewacht op de keuze van de speler. 
+	 * Vervolgens wordt het het gekozen gebouw verwijderd 
+	 * uit de stad van de speler waarin dit gebouw gekozen is
+	 */
     public void gebruikEigenschap() {
         // TODO: sloopgebouw
         // this.selectGebouwView.start();
@@ -29,11 +55,7 @@ public class Condotierre implements Karakter, Bonusable {
         // this.vernietigGebouw.getStad().removeGebouw(vernietigGebouw);
     }
 
-    @Override
-    public void setSpeler(Speler speler) {
-        this.speler = speler;
-    }
-
+    /** ontvangen bonusgoud voor militaire gebouwen */
     @Override
     public void ontvangenBonusGoud() {
         ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
@@ -49,21 +71,29 @@ public class Condotierre implements Karakter, Bonusable {
         this.selectGebouwView = selectGebouwView;
     } */
 
-    public Type getType() {
-        return type;
+    public GebouwKaart getVernietigGebouw() {
+		return vernietigGebouw;
+	}
+
+	public void setVernietigGebouw(GebouwKaart vernietigGebouw) {
+		this.vernietigGebouw = vernietigGebouw;
+	}
+	
+	public String getNaam() {
+    	return this.naam;
     }
-
-    public int getBouwLimiet() {
-
-        return bouwLimiet;
-    }
-
+   
     public int getNummer() {
-
-        return nummer;
+    	return this.nummer;
     }
-
-    public String getNaam() {
-        return naam;
+    
+    public int getBouwlimiet() {
+    	return this.bouwLimiet;
     }
+    
+	public Type getType() {
+		return this.type;
+	}
+
+	
 }

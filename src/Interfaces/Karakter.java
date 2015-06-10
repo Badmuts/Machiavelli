@@ -16,7 +16,8 @@ import Models.Speler;
  * object veel word gebruikt binnen de methode gebruikEigenschap.
  */
 public interface Karakter {
-
+	
+	void setSpeler(Speler speler);
     void gebruikEigenschap();
-    void setSpeler(Speler speler);
+    
 }
