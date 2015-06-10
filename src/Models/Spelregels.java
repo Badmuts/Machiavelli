@@ -14,13 +14,11 @@ import java.util.Scanner;
 
 	public class Spelregels {
 	
-	public String getSpelregels() throws IOException
-	{
+	public String getSpelregels() throws IOException {
 		return this.getSpelregelsFromResource("spelregels.txt");
 	}
 	
-	public String getSpelregelsFromResource(String fileName)
-	{
+	private String getSpelregelsFromResource(String fileName) {
 		String text = null;
 
 		File file = new File("src" + File.separator + "Resources" + File.separator + "spelregels.txt");

@@ -1,9 +1,5 @@
-.root
-
-{
-
-	-fx-background-color: linear-gradient(#efefef, #e5e5e5);
-	
+.root{
+	-fx-background-color: linear-gradient(#efefef, #e5e5e5);	
 }
 
 
@@ -28,7 +24,7 @@
 }
 
 #closeButton {
-	-fx-background-color: linear-gradient(#f2825b,#e55b2b,#f07146);
+-fx-background-color: linear-gradient(#f2825b,#e55b2b,#f07146);
     -fx-background-radius: 6, 5;
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );

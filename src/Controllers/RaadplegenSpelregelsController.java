@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import Models.Spelregels;
 import Views.SpelregelsView;
+import Views.TrekkenKaartView;
 
 /**
  * @author Jamie Kalloe
@@ -27,5 +28,6 @@ public class RaadplegenSpelregelsController {
 	
 	public void cmdWeergeefSpelregels() {
 		this.spelRegelsView.getStage().show();
+		//remove the lines under...!
 	}
 }
