@@ -5,8 +5,13 @@ import Machiavelli.Models.Speelveld;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface SpeelVeldObserver extends Remote {
+public interface SpeelveldObserver extends Remote {
 
-    void modelChanged(Speelveld speelveld) throws RemoteException;
-
+	/**
+	 *
+	 * @param speelveld model is changed.
+	 * @throws RemoteException
+	 */
+	public void modelChanged(Speelveld speelveld) throws RemoteException;
 }
+
