@@ -1,12 +1,14 @@
 package Machiavelli.Models;
 
+import Machiavelli.Interfaces.Remotes.StadRemote;
+
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
  * Created by daanrosbergen on 03/06/15.
  */
-public class Stad
-{
+public class Stad implements StadRemote {
 	private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
 	private Spel spel;
 	private int waardeStad;
@@ -17,18 +19,18 @@ public class Stad
 		this.spel = spel;
 	}
 
-	public ArrayList<GebouwKaart> getGebouwen()
+	public ArrayList<GebouwKaart> getGebouwen() throws RemoteException
 	{
 		return this.gebouwen;
 	}
 
-	public void addGebouw(GebouwKaart gebouw)
+	public void addGebouw(GebouwKaart gebouw) throws RemoteException
 	{
 		// Limiet moet nog gecheckt worden?
 		this.gebouwen.add(gebouw);
 	}
 
-	public void removeGebouw(GebouwKaart gebouw)
+	public void removeGebouw(GebouwKaart gebouw) throws RemoteException
 	{
 		this.gebouwen.remove(gebouw);
 		// Plaats gebouwkaart terug op gebouwenstapel (GebouwFactory)
@@ -37,13 +39,13 @@ public class Stad
 		// this.stadView.modelChanged();
 	}
 	
-	public int getWaardeStad()
+	public int getWaardeStad() throws RemoteException
 	{
 		berekenWaarde(gebouwen);
 		return this.waardeStad;
 	}
 	
-	private void berekenWaarde(ArrayList<GebouwKaart> lijst)
+	private void berekenWaarde(ArrayList<GebouwKaart> lijst) throws RemoteException
 	{
 		int waarde = 0;
 		for(int i = 0; i < lijst.size(); i++)

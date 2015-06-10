@@ -1,5 +1,7 @@
 package Machiavelli.Models;
 
+import Machiavelli.Interfaces.Remotes.SpelregelsRemote;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,7 +14,7 @@ import java.util.Scanner;
  *
  */
 
-	public class Spelregels {
+public class Spelregels implements SpelregelsRemote {
 	
 	public String getSpelregels() throws IOException {
 		return this.getSpelregelsFromResource("spelregels.txt");

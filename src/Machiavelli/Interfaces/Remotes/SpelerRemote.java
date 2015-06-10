@@ -16,7 +16,7 @@ public interface SpelerRemote extends Remote{
 
 	public void getGoudVanBank(Bank bank, int aantal) throws RemoteException;
 	public void setGoudOpBank(Portemonnee portemonnee, int aantal) throws RemoteException;
-	public void setKaartInStad(GebouwKaart gebouwen) throws RemoteException;
+	public void bouwenGebouw(GebouwKaart gebouwen) throws RemoteException;
 	public ArrayList<GebouwKaart> trekkenKaart() throws RemoteException;
 	public ArrayList<GebouwKaart> trekkenKaart(int aantal) throws RemoteException;
 	public void selecterenKaart(ArrayList<GebouwKaart> lijst, int index) throws RemoteException;

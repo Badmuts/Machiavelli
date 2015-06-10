@@ -1,7 +1,9 @@
 package Machiavelli.Models;
 
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
@@ -14,8 +16,7 @@ import java.util.ArrayList;
  * @version 0.1
  *
  */
-public class Speler
-{
+public class Speler implements SpelerRemote {
 	// Variables
 	private boolean isKoning;
 	private Portemonnee portemonnee;
@@ -28,28 +29,32 @@ public class Speler
 	public Speler(Spel spel) {
 		this.spel = spel;
 		this.stad = new Stad(spel);
-		this.portemonnee = new Portemonnee(this.spel.getBank());
+		try {
+			this.portemonnee = new Portemonnee(this.spel.getBank());
+		} catch (RemoteException re) {
+			System.out.print(re);
+		}
 		this.hand = new Hand(this);
 	}
 
 	// Haalt goud van de bank en zet het in de portemonnee
-	public void getGoudVanBank(Bank bank, int aantal) {
+	public void getGoudVanBank(Bank bank, int aantal) throws RemoteException {
 		this.portemonnee.ontvangenGoud(aantal);
 	}
 
 	// Haalt goud uit de portemonnee en geeft dit aan de bank
-	public void setGoudOpBank(Portemonnee portemonnee, int aantal) {
+	public void setGoudOpBank(Portemonnee portemonnee, int aantal) throws RemoteException {
 		this.portemonnee.bestedenGoud(this.spel.getBank(), aantal);
 	}
 
 	// Plaats een gebouwkaart in de stad van de speler
-	public void bouwenGebouw(GebouwKaart gebouw) {
+	public void bouwenGebouw(GebouwKaart gebouw) throws RemoteException {
 		this.stad.addGebouw(gebouw);
 		this.hand.removeGebouw(gebouw);
 	}
 
 	// Trekken van twee kaarten uit de stapel
-	public ArrayList<GebouwKaart> trekkenKaart() {
+	public ArrayList<GebouwKaart> trekkenKaart() throws RemoteException {
 		ArrayList<GebouwKaart> tempList = new ArrayList<GebouwKaart>();
 		for (int i = 0; i < 2; i++)
 		{
@@ -59,7 +64,7 @@ public class Speler
 	}
 
 	// Trekken van een x aantal kaarten van de stapel
-	public ArrayList<GebouwKaart> trekkenKaart(int aantal) {
+	public ArrayList<GebouwKaart> trekkenKaart(int aantal) throws RemoteException {
 		ArrayList<GebouwKaart>tempList = new ArrayList<GebouwKaart>();
 		for (int i = 0; i < aantal; i++)
 		{
@@ -69,33 +74,33 @@ public class Speler
 	}
 
 	// Selecteren van een kaart aan de hand van de getrokken kaarten
-	public void selecterenKaart(ArrayList<GebouwKaart> lijst, int index) {
+	public void selecterenKaart(ArrayList<GebouwKaart> lijst, int index) throws RemoteException {
 		this.getHand().addGebouw(lijst.get(index));
 		lijst.remove(index);
 		this.getSpel().getGebouwFactory().addGebouw(lijst.get(0));
 	}
 
-	public Karakter getKarakter() {
+	public Karakter getKarakter() throws RemoteException {
 		return this.karakter;
 	}
 	
-	public void setKarakter(Karakter karakter) {
+	public void setKarakter(Karakter karakter) throws RemoteException {
 		this.karakter = karakter;
 	}
 
-	public Spel getSpel() {
+	public Spel getSpel() throws RemoteException {
 		return this.spel;
 	}
 
-	public Portemonnee getPortemonnee() {
+	public Portemonnee getPortemonnee() throws RemoteException {
 		return this.portemonnee;
 	}
 
-	public Hand getHand() {
+	public Hand getHand() throws RemoteException {
 		return this.hand;
 	}
 
-	public Stad getStad() {
+	public Stad getStad() throws RemoteException {
 		return this.stad;
 	}
 }

@@ -1,11 +1,13 @@
 package Machiavelli.Models;
 
 import Machiavelli.Factories.GebouwFactory;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Views.SpeelveldView;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class Spel {
+public class Spel implements SpelRemote {
 	private int aantalspelers;
 	private Speelveld speelveld;
 	private SpeelveldView speelveldview;
@@ -18,7 +20,7 @@ public class Spel {
 		gebouwFactory = new GebouwFactory();
 	}
 
-	public void NieuwSpel() {
+	public void NieuwSpel() throws RemoteException {
 		//Minimaal aantal spelers kiezen
 		//Speelveld laden
 		//Spelers koppeln aan speelveld
@@ -42,23 +44,23 @@ public class Spel {
 		this.speelveld = new Speelveld(speler);
 	}
 
-	public void EindeBeurt() {
+	public void EindeBeurt() throws RemoteException {
 		
 	}
 	
-	public Bank getBank() {
+	public Bank getBank() throws RemoteException {
 		return this.bank;
 	}
 	
-	public GebouwFactory getGebouwFactory() {
+	public GebouwFactory getGebouwFactory() throws RemoteException {
 		return this.gebouwFactory;
 	}
 
-	public void setAantalSpelers(int aantalspelers) {
+	public void setAantalSpelers(int aantalspelers) throws RemoteException {
 		this.aantalspelers = aantalspelers;
 	}
 
-	public int getAantalSpelers() {
+	public int getAantalSpelers() throws RemoteException {
 		return aantalspelers;
 	}
 }
