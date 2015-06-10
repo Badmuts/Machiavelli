@@ -37,6 +37,7 @@ public class InvullenSpelersView extends TextField {
 		stackpane.setAlignment(invoertekst,Pos.TOP_CENTER);
 		stackpane.setAlignment(okbutton, Pos.BOTTOM_LEFT);
 		stackpane.setAlignment(terugbutton, Pos.BOTTOM_RIGHT);
+		
 		invulscene = new Scene(stackpane, 400, 200);
 	}
  

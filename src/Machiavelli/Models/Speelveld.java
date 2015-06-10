@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class Speelveld {
-	private Stage secondaryStage;
 	private ArrayList<Speler> spelers;
 	private Speler koning;
 	private Karakter karakter;

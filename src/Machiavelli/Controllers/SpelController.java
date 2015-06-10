@@ -36,6 +36,7 @@ public class SpelController{
 		mmv.getStartButton().setOnAction(event -> mmv.showSelect());
 		mmv.getExitButton().setOnAction(event -> System.exit(0));
 		mmv.getExitButton2().setOnAction(event -> System.exit(0));
+
 		invullenspeler.getOkButton().setOnAction(event -> cmdNieuwSpel());
 		invullenspeler.getTerugButton().setOnAction(event -> mmv.showSelect());
 		hervattenspel.getTerugKnop().setOnAction(event -> mmv.showSelect());
@@ -51,6 +52,7 @@ public class SpelController{
 	}
 
 	public void cmdAantalSpelers() {
+
 	}
 
 	public void cmdNieuwSpel() {
