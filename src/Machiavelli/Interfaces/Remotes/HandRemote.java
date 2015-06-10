@@ -19,5 +19,6 @@ public interface HandRemote extends Remote {
     public void setKaartenLijst(ArrayList<GebouwKaart> lijst) throws RemoteException;
     public Speler getSpeler() throws RemoteException;
     public void addObserver(HandObserver handObserver) throws RemoteException;
+    public void notifyObservers() throws RemoteException;
 
 }

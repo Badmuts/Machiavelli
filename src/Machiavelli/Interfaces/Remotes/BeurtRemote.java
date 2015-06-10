@@ -16,5 +16,6 @@ public interface BeurtRemote extends Remote {
 	public Speler getSpeler() throws RemoteException;
 	public void setSpeler(Speler speler) throws RemoteException;
 	public void addObserver(BeurtObserver beurtObserver) throws RemoteException;
+	public void notifyObservers() throws RemoteException;
 
 }

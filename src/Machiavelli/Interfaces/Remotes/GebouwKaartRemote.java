@@ -24,5 +24,6 @@ public interface GebouwKaartRemote extends Remote {
     public Image getImage() throws RemoteException;
     public void setImage(Image image) throws RemoteException;
     public void addObserver(GebouwKaartObserver gebouwKaartObserver) throws RemoteException;
+    public void notifyObservers() throws RemoteException;
 
 }

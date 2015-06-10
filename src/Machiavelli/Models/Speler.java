@@ -1,6 +1,7 @@
 package Machiavelli.Models;
 
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.SpelerObserver;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 import java.rmi.RemoteException;
@@ -24,6 +25,7 @@ public class Speler implements SpelerRemote {
 	private Hand hand;
 	private Spel spel;
 	private Stad stad;
+	private ArrayList<SpelerObserver> observers = new ArrayList<>();
 
 	// Speler toewijzen aan spel en een nieuwe portemonnee, hand en stad maken.
 	public Speler(Spel spel) {
@@ -40,17 +42,20 @@ public class Speler implements SpelerRemote {
 	// Haalt goud van de bank en zet het in de portemonnee
 	public void getGoudVanBank(Bank bank, int aantal) throws RemoteException {
 		this.portemonnee.ontvangenGoud(aantal);
+        notifyObservers();
 	}
 
 	// Haalt goud uit de portemonnee en geeft dit aan de bank
 	public void setGoudOpBank(Portemonnee portemonnee, int aantal) throws RemoteException {
 		this.portemonnee.bestedenGoud(this.spel.getBank(), aantal);
+        notifyObservers();
 	}
 
 	// Plaats een gebouwkaart in de stad van de speler
 	public void bouwenGebouw(GebouwKaart gebouw) throws RemoteException {
 		this.stad.addGebouw(gebouw);
 		this.hand.removeGebouw(gebouw);
+        notifyObservers();
 	}
 
 	// Trekken van twee kaarten uit de stapel
@@ -78,6 +83,7 @@ public class Speler implements SpelerRemote {
 		this.getHand().addGebouw(lijst.get(index));
 		lijst.remove(index);
 		this.getSpel().getGebouwFactory().addGebouw(lijst.get(0));
+        notifyObservers();
 	}
 
 	public Karakter getKarakter() throws RemoteException {
@@ -86,6 +92,7 @@ public class Speler implements SpelerRemote {
 	
 	public void setKarakter(Karakter karakter) throws RemoteException {
 		this.karakter = karakter;
+        notifyObservers();
 	}
 
 	public Spel getSpel() throws RemoteException {
@@ -102,5 +109,16 @@ public class Speler implements SpelerRemote {
 
 	public Stad getStad() throws RemoteException {
 		return this.stad;
+	}
+
+	@Override
+	public void addObserver(SpelerObserver observer) throws RemoteException {
+		observers.add(observer);
+	}
+
+	public void notifyObservers() throws RemoteException {
+		for (SpelerObserver observer: observers) {
+			observer.modelChanged(this);
+		}
 	}
 }

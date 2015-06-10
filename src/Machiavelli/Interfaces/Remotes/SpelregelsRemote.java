@@ -16,5 +16,6 @@ public interface SpelregelsRemote extends Remote {
 
     public String getSpelregels() throws IOException;
     public void addObserver(SpelregelsObserver spelregelsObserver) throws RemoteException;
+    public void notifyObservers() throws RemoteException;
 
 }

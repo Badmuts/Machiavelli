@@ -10,5 +10,6 @@ public interface PuntenRemote extends Remote {
 	
 	public Speler berekenWinnaar() throws RemoteException;
     public void addObserver(PuntenObserver puntenObserver) throws RemoteException;
+    public void notifyObservers() throws RemoteException;
 
 }

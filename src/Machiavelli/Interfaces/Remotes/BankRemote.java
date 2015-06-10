@@ -14,5 +14,6 @@ public interface BankRemote extends Remote {
     public int gevenGoud(int aantal) throws RemoteException;
     public int getGoudMunten() throws RemoteException;
     public void addObserver(BankObserver bankObserver) throws RemoteException;
+    public void notifyObservers() throws RemoteException;
 
 }

@@ -17,5 +17,6 @@ public interface StadRemote extends Remote {
     public void removeGebouw(GebouwKaart gebouw) throws RemoteException;
     public int getWaardeStad() throws RemoteException;
     public void addObserver(StadObserver stadObserver) throws RemoteException;
+    public void notifyObservers() throws RemoteException;
 
 }

@@ -1,10 +1,13 @@
 package Machiavelli.Models;
 
 import Machiavelli.Enumerations.Type;
+import Machiavelli.Interfaces.Observers.BankObserver;
+import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import javafx.scene.image.Image;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 /**
  * Dit is de blauwdruk voor een gebouwkaart. De gebouwkaarten worden
@@ -23,6 +26,7 @@ public class GebouwKaart implements GebouwKaartRemote {
 	private Type type;
 	private Stad stad;
     private Image image;
+    private ArrayList<GebouwKaartObserver> observers = new ArrayList<>();
 
     // Een kaart wordt aangemaakt met de meegegeven waardes
     public GebouwKaart(int kosten, String naam, Type type, Image image) {
@@ -38,6 +42,7 @@ public class GebouwKaart implements GebouwKaartRemote {
 
     public void setType(Type type) throws RemoteException {
         this.type = type;
+        notifyObservers();
     }
 
     public String getNaam() throws RemoteException {
@@ -46,6 +51,7 @@ public class GebouwKaart implements GebouwKaartRemote {
 
     public void setNaam(String naam) throws RemoteException {
         this.naam = naam;
+        notifyObservers();
     }
 
     public int getKosten() throws RemoteException
@@ -55,6 +61,7 @@ public class GebouwKaart implements GebouwKaartRemote {
 
     public void setKosten(int kosten) throws RemoteException {
         this.kosten = kosten;
+        notifyObservers();
     }
 
     public Stad getStad() throws RemoteException {
@@ -63,6 +70,7 @@ public class GebouwKaart implements GebouwKaartRemote {
 
     public void setStad(Stad stad) throws RemoteException {
         this.stad = stad;
+        notifyObservers();
     }
 
     public Image getImage() throws RemoteException {
@@ -71,5 +79,17 @@ public class GebouwKaart implements GebouwKaartRemote {
 
     public void setImage(Image image) throws RemoteException {
         this.image = image;
+        notifyObservers();
+    }
+
+    @Override
+    public void addObserver(GebouwKaartObserver gebouwKaartObserver) throws RemoteException {
+        observers.add(gebouwKaartObserver);
+    }
+
+    public void notifyObservers() throws RemoteException {
+        for (GebouwKaartObserver observer: observers) {
+            observer.modelChanged(this);
+        }
     }
 }

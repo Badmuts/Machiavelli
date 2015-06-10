@@ -17,5 +17,6 @@ public interface GebouwFactoryRemote extends Remote {
     public GebouwKaart trekKaart() throws RemoteException;
     public ArrayList<GebouwKaart> getGebouwen() throws RemoteException;
     public void addObserver(GebouwFactoryObserver gebouwFactoryObserver) throws RemoteException;
+    public void notifyObservers() throws RemoteException;
 
 }

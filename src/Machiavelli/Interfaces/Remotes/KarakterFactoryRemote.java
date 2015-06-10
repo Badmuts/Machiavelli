@@ -15,5 +15,6 @@ public interface KarakterFactoryRemote extends Remote {
     public ArrayList<Karakter> getKarakters() throws RemoteException;
     public Karakter getKarakterByNumber(int karakterNummer) throws RemoteException;
     public void addObserver(KarakterFactoryObserver karakterFactoryObserver) throws RemoteException;
+    public void notifyObservers() throws RemoteException;
 
 }

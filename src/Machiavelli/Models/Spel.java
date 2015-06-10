@@ -1,6 +1,7 @@
 package Machiavelli.Models;
 
 import Machiavelli.Factories.GebouwFactory;
+import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Views.SpeelveldView;
 
@@ -14,6 +15,7 @@ public class Spel implements SpelRemote {
 	private ArrayList<Speler> speler;
 	private Bank bank;
 	private GebouwFactory gebouwFactory;
+	private ArrayList<SpelObserver> observers = new ArrayList<>();
 	
 	public Spel(){
 		bank = new Bank();
@@ -42,6 +44,7 @@ public class Spel implements SpelRemote {
 		spelers.add(new Speler(this));
 		spelers.add(new Speler(this));*/
 		this.speelveld = new Speelveld(speler);
+        notifyObservers();
 	}
 
 	public void EindeBeurt() throws RemoteException {
@@ -58,10 +61,22 @@ public class Spel implements SpelRemote {
 
 	public void setAantalSpelers(int aantalspelers) throws RemoteException {
 		this.aantalspelers = aantalspelers;
+        notifyObservers();
 	}
 
 	public int getAantalSpelers() throws RemoteException {
 		return aantalspelers;
+	}
+
+	@Override
+	public void addObserver(SpelObserver observer) throws RemoteException {
+		observers.add(observer);
+	}
+
+	public void notifyObservers() throws RemoteException {
+		for (SpelObserver observer: observers) {
+			observer.modelChanged(this);
+		}
 	}
 }
 

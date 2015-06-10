@@ -2,6 +2,7 @@ package Machiavelli.Models;
 
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.SpeelveldObserver;
 import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import javafx.stage.Stage;
 
@@ -13,6 +14,7 @@ public class Speelveld implements SpeelveldRemote {
 	private Speler koning;
 	private Karakter karakter;
 	private SpeelveldController speelveldcontroller;
+	private ArrayList<SpeelveldObserver> observers = new ArrayList<>();
 
 	public Speelveld(ArrayList<Speler> spelers){
 		//Spelers koppeln aan speelveld
@@ -31,10 +33,22 @@ public class Speelveld implements SpeelveldRemote {
 
 	public void setKoning(Speler spelers) throws RemoteException {
 		this.koning = spelers;
+        notifyObservers();
 	}
 
 	public void toonKarakterLijst() throws RemoteException {
 		
+	}
+
+	@Override
+	public void addObserver(SpeelveldObserver observer) throws RemoteException {
+		observers.add(observer);
+	}
+
+	public void notifyObservers() throws RemoteException {
+		for (SpeelveldObserver observer: observers) {
+			observer.modelChanged(this);
+		}
 	}
 	
 	

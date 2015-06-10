@@ -28,5 +28,6 @@ public interface SpelerRemote extends Remote{
 	public Hand getHand() throws RemoteException;
 	public Stad getStad() throws RemoteException;
 	public void addObserver(SpelerObserver spelerObserver) throws RemoteException;
+	public void notifyObservers() throws RemoteException;
 
 }

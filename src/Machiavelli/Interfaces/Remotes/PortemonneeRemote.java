@@ -12,5 +12,6 @@ public interface PortemonneeRemote extends Remote {
     public void ontvangenGoud(int aantal) throws RemoteException;
     public int getGoudMunten() throws RemoteException;
     public void addObserver(PortemonneeOberserver portemonneeOberserver) throws RemoteException;
+    public void notifyObservers() throws RemoteException;
 
 }

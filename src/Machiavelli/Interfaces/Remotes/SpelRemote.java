@@ -22,5 +22,6 @@ public interface SpelRemote extends Remote {
     public void setAantalSpelers(int aantalspelers) throws RemoteException;
     public int getAantalSpelers() throws RemoteException;
     public void addObserver(SpelObserver spelObserver) throws RemoteException;
+    public void notifyObservers() throws RemoteException;
 
 }

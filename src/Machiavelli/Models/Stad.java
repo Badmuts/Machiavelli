@@ -1,5 +1,6 @@
 package Machiavelli.Models;
 
+import Machiavelli.Interfaces.Observers.StadObserver;
 import Machiavelli.Interfaces.Remotes.StadRemote;
 
 import java.rmi.RemoteException;
@@ -12,6 +13,7 @@ public class Stad implements StadRemote {
 	private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
 	private Spel spel;
 	private int waardeStad;
+	private ArrayList<StadObserver> observers = new ArrayList<>();
 	//private StadView stadView;
 
 	public Stad(Spel spel)
@@ -28,6 +30,7 @@ public class Stad implements StadRemote {
 	{
 		// Limiet moet nog gecheckt worden?
 		this.gebouwen.add(gebouw);
+        notifyObservers();
 	}
 
 	public void removeGebouw(GebouwKaart gebouw) throws RemoteException
@@ -37,6 +40,7 @@ public class Stad implements StadRemote {
 		this.spel.getGebouwFactory().addGebouw(gebouw);
 		// Update StadView
 		// this.stadView.modelChanged();
+        notifyObservers();
 	}
 	
 	public int getWaardeStad() throws RemoteException
@@ -53,6 +57,18 @@ public class Stad implements StadRemote {
 			waarde += lijst.get(i).getKosten();
 		}
 		this.waardeStad = waarde;
+		notifyObservers();
+	}
+
+	@Override
+	public void addObserver(StadObserver observer) throws RemoteException {
+		observers.add(observer);
+	}
+
+	public void notifyObservers() throws RemoteException {
+		for (StadObserver observer: observers) {
+			observer.modelChanged(this);
+		}
 	}
 
 }
