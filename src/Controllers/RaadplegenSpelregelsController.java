@@ -2,6 +2,9 @@ package Controllers;
 
 import java.io.IOException;
 
+import javafx.stage.Stage;
+import Models.Spel;
+import Models.Speler;
 import Models.Spelregels;
 import Views.SpelregelsView;
 import Views.TrekkenKaartView;
@@ -27,7 +30,10 @@ public class RaadplegenSpelregelsController {
 	}
 	
 	public void cmdWeergeefSpelregels() {
-		this.spelRegelsView.getStage().show();
+//		this.spelRegelsView.getStage().show();
 		//remove the lines under...!
+		//de ic controller maakt de view, en weergeeft hem met de weergaafTrekkenKaartView method.
+		InkomstenController ic = new InkomstenController(new Speler(new Spel(new Stage())));
+		ic.weergeefTrekkenKaartView();
 	}
 }

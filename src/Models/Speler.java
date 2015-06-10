@@ -64,10 +64,10 @@ public class Speler
 		return tempList;
 	}
 
-	public void selecterenKaart(ArrayList<GebouwKaart> lijst, int index)
+	public void selecterenKaart(ArrayList<GebouwKaart> lijst, int gekozenKaart)
 	{
-		this.getHand().addGebouw(lijst.get(index));
-		lijst.remove(index);
+		this.getHand().addGebouw(lijst.get(gekozenKaart));
+		lijst.remove(gekozenKaart);
 		this.getSpel().getGebouwFactory().addGebouw(lijst.get(0));
 	}
 	

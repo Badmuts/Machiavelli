@@ -31,6 +31,11 @@ public class Beurt
     	return this.speler;
     }
     
+    public ArrayList<Speler> getSpelerLijst()
+    {
+    	return this.spelerLijst;
+    }
+    
     public void setSpeler(Speler speler) {
     	this.speler = speler;
     }
