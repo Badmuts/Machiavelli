@@ -1,5 +1,6 @@
 package Machiavelli.Interfaces.Remotes;
 
+import Machiavelli.Interfaces.Observers.HandObserver;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 
@@ -17,5 +18,6 @@ public interface HandRemote extends Remote {
     public ArrayList<GebouwKaart> getKaartenLijst() throws RemoteException;
     public void setKaartenLijst(ArrayList<GebouwKaart> lijst) throws RemoteException;
     public Speler getSpeler() throws RemoteException;
+    public void addObserver(HandObserver handObserver) throws RemoteException;
 
 }

@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.SpelerObserver;
 import Machiavelli.Models.Bank;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Hand;
@@ -26,5 +27,6 @@ public interface SpelerRemote extends Remote{
 	public Portemonnee getPortemonnee() throws RemoteException;
 	public Hand getHand() throws RemoteException;
 	public Stad getStad() throws RemoteException;
+	public void addObserver(SpelerObserver spelerObserver) throws RemoteException;
 
 }

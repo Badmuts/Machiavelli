@@ -1,6 +1,7 @@
 package Machiavelli.Interfaces.Remotes;
 
 import Machiavelli.Enumerations.Type;
+import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
 import Machiavelli.Models.Stad;
 import javafx.scene.image.Image;
 
@@ -22,5 +23,6 @@ public interface GebouwKaartRemote extends Remote {
     public void setStad(Stad stad) throws RemoteException;
     public Image getImage() throws RemoteException;
     public void setImage(Image image) throws RemoteException;
+    public void addObserver(GebouwKaartObserver gebouwKaartObserver) throws RemoteException;
 
 }

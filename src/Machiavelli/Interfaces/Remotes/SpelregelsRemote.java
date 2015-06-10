@@ -1,5 +1,7 @@
 package Machiavelli.Interfaces.Remotes;
 
+import Machiavelli.Interfaces.Observers.SpelregelsObserver;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,5 +15,6 @@ import java.util.Scanner;
 public interface SpelregelsRemote extends Remote {
 
     public String getSpelregels() throws IOException;
+    public void addObserver(SpelregelsObserver spelregelsObserver) throws RemoteException;
 
 }

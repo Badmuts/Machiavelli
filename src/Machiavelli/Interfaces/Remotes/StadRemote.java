@@ -1,5 +1,6 @@
 package Machiavelli.Interfaces.Remotes;
 
+import Machiavelli.Interfaces.Observers.StadObserver;
 import Machiavelli.Models.GebouwKaart;
 
 import java.rmi.Remote;
@@ -15,5 +16,6 @@ public interface StadRemote extends Remote {
     public void addGebouw(GebouwKaart gebouw) throws RemoteException;
     public void removeGebouw(GebouwKaart gebouw) throws RemoteException;
     public int getWaardeStad() throws RemoteException;
+    public void addObserver(StadObserver stadObserver) throws RemoteException;
 
 }
