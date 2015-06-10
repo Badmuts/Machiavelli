@@ -1,4 +1,4 @@
-package Interfaces;
+package Machiavelli.Interfaces.Remotes;
 
 import java.rmi.Remote;
 

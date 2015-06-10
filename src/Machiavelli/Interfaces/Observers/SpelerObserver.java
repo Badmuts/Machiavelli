@@ -1,4 +1,4 @@
-package Interfaces;
+package Machiavelli.Interfaces.Observers;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

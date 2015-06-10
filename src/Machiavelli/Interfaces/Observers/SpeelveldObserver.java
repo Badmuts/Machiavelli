@@ -1,4 +1,4 @@
-package Machiavelli.Observers;
+package Machiavelli.Interfaces.Observers;
 
 import Machiavelli.Models.Speelveld;
 
