@@ -43,6 +43,7 @@ public class Bouwmeester implements Karakter {
     @Override
     public void gebruikEigenschap() {
         //TODO: 2 of 3 kaarten plaatsen in stad
+    	this.speler.getHand().addGebouwen(this.speler.trekkenKaart(2));
     }
 
     public String getNaam() {
