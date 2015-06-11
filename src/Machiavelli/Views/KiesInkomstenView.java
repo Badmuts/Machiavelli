@@ -1,5 +1,7 @@
 package Machiavelli.Views;
 
+import java.rmi.RemoteException;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -28,7 +30,7 @@ public class KiesInkomstenView {
 	private Scene scene;
 	private Pane pane;
 	
-	public KiesInkomstenView()
+	public KiesInkomstenView() throws RemoteException
 	{
 		//comment out new stage.
 		this.stage = new Stage();

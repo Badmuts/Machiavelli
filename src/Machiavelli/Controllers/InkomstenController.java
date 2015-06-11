@@ -1,5 +1,6 @@
 package Machiavelli.Controllers;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
@@ -14,14 +15,14 @@ import Machiavelli.Views.TrekkenKaartView;
  * @author Jamie Kalloe
  *
  */
-public class InkomstenController implements EventHandler<ActionEvent>
+public class InkomstenController
 {
 	// Variables
 	private Speler speler; // ?
 //	Beurt beurt;
 	private TrekkenKaartView trekkenKaartView;
 	
-	public InkomstenController(Speler speler)
+	public InkomstenController(Speler speler) throws RemoteException
 	{
 		this.speler = speler;
 		this.cmdTrekkenKaart();
@@ -33,7 +34,7 @@ public class InkomstenController implements EventHandler<ActionEvent>
 //		this.trekkenKaartView.getButtonList().get(1).setOnAction(event -> System.out.println("Kaart 2"));
 	}
 	private static int gekozenKaartIndex = 0;
-	public void cmdTrekkenKaart()
+	public void cmdTrekkenKaart() throws RemoteException
 	{
 		this.trekkenKaartView = new TrekkenKaartView(this);
 		ArrayList<GebouwKaart> getrokkenKaarten = speler.trekkenKaart();
@@ -52,7 +53,6 @@ public class InkomstenController implements EventHandler<ActionEvent>
 //			gekozenKaartIndex++;
 //		}
 //		System.out.println(gekozenKaartIndex);
-		
 		trekkenKaartView.getButtonList().get(0).setOnAction(event -> this.cmdKiezenKaart(0));
 		trekkenKaartView.getButtonList().get(1).setOnAction(event -> this.cmdKiezenKaart(1));
 
@@ -70,13 +70,20 @@ public class InkomstenController implements EventHandler<ActionEvent>
 	
 	public void cmdKiezenKaart(int gekozenKaart)
 	{
-		System.out.println("Gekozenkaart Index: (vanuit ActionEvent" + gekozenKaart);
-		this.speler.selecterenKaart(this.trekkenKaartView.getGebouwen(), gekozenKaart);
-		//gekozenKaart -1, omdat 2 leeg is in de gekozenKaart lijst.
-		//Je moet altijd maar 1 kaart trekken,
-		showHand(this.speler);
-		trekkenKaartView.getStage().close();
-		//sluit de view na het trekken van de kaart.
+		try
+		{
+			System.out.println("Gekozenkaart Index: (vanuit ActionEvent" + gekozenKaart);
+			this.speler.selecterenKaart(this.trekkenKaartView.getGebouwen(), gekozenKaart);
+			//gekozenKaart -1, omdat 2 leeg is in de gekozenKaart lijst.
+			//Je moet altijd maar 1 kaart trekken,
+			showHand(this.speler);
+			trekkenKaartView.getStage().close();
+			//sluit de view na het trekken van de kaart.
+		}
+		catch(RemoteException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public void cmdKiezenGoud()
@@ -91,7 +98,7 @@ public class InkomstenController implements EventHandler<ActionEvent>
 		this.trekkenKaartView.getStage().show();
 	}
 	
-	public void showHand(Speler speler)
+	public void showHand(Speler speler) throws RemoteException
     {
         ArrayList<GebouwKaart> lst = speler.getHand().getKaartenLijst();
         System.out.println("Kaarten in hand:");
@@ -102,17 +109,4 @@ public class InkomstenController implements EventHandler<ActionEvent>
         System.out.println();
     }
 
-	@Override
-	public void handle(ActionEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println("Handle event");
-		int i = 0;
-		Button sourcebutton = (Button)e.getSource();
-		for (Button button: trekkenKaartView.getButtonList()) {
-			if(button.equals(sourcebutton)){
-				this.cmdKiezenKaart(i);
-				i++;
-			}
-		}
-	}
 }

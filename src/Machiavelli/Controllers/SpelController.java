@@ -1,5 +1,7 @@
 package Machiavelli.Controllers;
 
+import java.rmi.RemoteException;
+
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Spel;
 import Machiavelli.Models.Spelregels;
@@ -61,16 +63,17 @@ public class SpelController{
 		//Nieuw spel starten
 		try {
 			spel.setAantalSpelers(Integer.parseInt(invullenspeler.getTextField()));
+			//testen hoeveel spelers er zijn
+			System.out.println(spel.getAantalSpelers());
+			spel.NieuwSpel();
+			//Spelers koppeln aan speelveld
+			//Start spelers is koning
+			//Starten karakterkiezenlijst speler 1
+			//Doorgeven karakterlijst aan andere spelers
 		} catch(Exception e) {
 			System.out.println("Vul een getal in tussen de 2 en de 7.(Geen letters of speciale tekens");
 		}
-		//testen hoeveel spelers er zijn
-		System.out.println(spel.getAantalSpelers());
-		spel.NieuwSpel();
-		//Spelers koppeln aan speelveld
-		//Start spelers is koning
-		//Starten karakterkiezenlijst speler 1
-		//Doorgeven karakterlijst aan andere spelers
+
 	}
 }
 

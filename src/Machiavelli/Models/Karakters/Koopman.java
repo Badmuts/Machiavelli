@@ -48,14 +48,14 @@ public class Koopman implements Karakter, Bonusable {
 	@Override
     public void gebruikEigenschap() {	
 		ontvangenBonusGoud();
-       }
+    }
 	
 	/**
 	 * Deze methode wordt aangroepen door gebruikEigenschap()
 	 * de speler met het karakter koopman ontvangt 1 goudstuk
 	 * @throws RemoteException 
 	 */
-    public void ontvangenBonusGoud(Speler koopman) throws RemoteException{
+    public void ontvangenBonusGoud(Speler koopman) throws RemoteException {
     	koopman.getPortemonnee().ontvangenGoud(1);
     }
 
@@ -75,7 +75,6 @@ public class Koopman implements Karakter, Bonusable {
     		e.printStackTrace();
     	}
     }
-    
     public String getNaam() {
     	return this.naam;
     }

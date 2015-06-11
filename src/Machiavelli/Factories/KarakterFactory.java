@@ -13,7 +13,7 @@ public class KarakterFactory implements KarakterFactoryRemote {
      * ArrayList om alle karakters op te slaan
      */
     private ArrayList<Karakter> karakters = new ArrayList<Karakter>();
-    private ArrayList<KarakterFactoryObserver> observers = new ArrayList<KarakterFactoryObserver>();
+    private ArrayList<KarakterFactoryObserver> observers = new ArrayList<>();
 
     /**
      * Maakt alle karakters aan (in dit geval 8)
@@ -63,18 +63,16 @@ public class KarakterFactory implements KarakterFactoryRemote {
         return tmpKarakter;
     }
 
-	@Override
-	public void addObserver(KarakterFactoryObserver karakterFactoryObserver)
-			throws RemoteException {
-			observers.add(karakterFactoryObserver);
-	}
+    @Override
+    public void addObserver(KarakterFactoryObserver karakterFactoryObserver) throws RemoteException {
+        observers.add(karakterFactoryObserver);
+    }
 
-	@Override
-	public void notifyObservers() throws RemoteException {
-		for(KarakterFactoryObserver observer : observers)
-		{
-			observer.modelChanged(this);
-		}
-	}
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (KarakterFactoryObserver observer: observers) {
+            observer.modelChanged(this);
+        }
+    }
 
 }

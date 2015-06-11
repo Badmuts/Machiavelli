@@ -1,5 +1,7 @@
 package Machiavelli.Controllers;
 
+import java.rmi.RemoteException;
+
 import Machiavelli.Models.Speelveld;
 import Machiavelli.Views.KiesInkomstenView;
 import Machiavelli.Views.SpeelveldView;
@@ -9,7 +11,7 @@ public class SpeelveldController {
 	private SpeelveldView speelveldview;
 	private KiesInkomstenView inkomstenView;
 	
-	public SpeelveldController(Speelveld speelveld) {
+	public SpeelveldController(Speelveld speelveld) throws RemoteException {
 		this.speelveld = speelveld;
 		this.speelveldview = new SpeelveldView(this, this.speelveld);
 		

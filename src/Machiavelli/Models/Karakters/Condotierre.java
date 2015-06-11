@@ -78,7 +78,6 @@ public class Condotierre implements Karakter, Bonusable {
     		e.printStackTrace();
     	}
     }
-
     /*
     TODO: implement registerSelectGebouwView
     public void registerSelectGebouwView(SelecteGebouwView selecteGebouwView) {

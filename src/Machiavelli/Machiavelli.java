@@ -1,5 +1,6 @@
 package Machiavelli;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -69,7 +70,7 @@ public class Machiavelli extends Application {
     }
 
     // Deze method is voor testen
-    public void showHand(Speler speler) {
+    public void showHand(Speler speler) throws RemoteException {
         ArrayList<GebouwKaart> lst = speler.getHand().getKaartenLijst();
         System.out.println("Kaarten in hand:");
         for(int i = 0; i < speler.getHand().getKaartenLijst().size(); i++)
@@ -80,7 +81,7 @@ public class Machiavelli extends Application {
     }
 
     // Deze ook
-    public void showStad(Speler speler) {
+    public void showStad(Speler speler) throws RemoteException {
         ArrayList<GebouwKaart> lst = speler.getHand().getKaartenLijst();
         System.out.println("Kaarten in stad:");
         for(int i = 0; i < speler.getStad().getGebouwen().size(); i++)

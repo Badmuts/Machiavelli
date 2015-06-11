@@ -16,7 +16,7 @@ public class Speelveld implements SpeelveldRemote {
 	private SpeelveldController speelveldcontroller;
 	private ArrayList<SpeelveldObserver> observers = new ArrayList<>();
 
-	public Speelveld(ArrayList<Speler> spelers){
+	public Speelveld(ArrayList<Speler> spelers) throws RemoteException{
 		//Spelers koppeln aan speelveld
 		//Start spelers is koning
 		//Starten karakterkiezenlijst speler 1
