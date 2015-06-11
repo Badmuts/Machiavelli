@@ -2,15 +2,19 @@ package Machiavelli.Models;
 
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Karakter;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.stage.Stage;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 
+@XmlRootElement(name = "Speelveld")
 public class Speelveld {
 	private Stage secondaryStage;
 	private ArrayList<Speler> spelers;
 	private Speler koning;
 	private Karakter karakter;
+	@XStreamOmitField
 	private SpeelveldController speelveldcontroller;
 
 	public Speelveld(ArrayList<Speler> spelers){
