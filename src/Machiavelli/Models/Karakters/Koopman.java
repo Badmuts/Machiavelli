@@ -6,6 +6,7 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /** 
@@ -52,19 +53,27 @@ public class Koopman implements Karakter, Bonusable {
 	/**
 	 * Deze methode wordt aangroepen door gebruikEigenschap()
 	 * de speler met het karakter koopman ontvangt 1 goudstuk
+	 * @throws RemoteException 
 	 */
-    public void ontvangenBonusGoud(Speler koopman){
+    public void ontvangenBonusGoud(Speler koopman) throws RemoteException{
     	koopman.getPortemonnee().ontvangenGoud(1);
     }
 
 	/** ontvangen bonusgoud voor commerciele gebouwen */
     @Override
     public void ontvangenBonusGoud() {
-        ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
-        for (GebouwKaart gebouw : gebouwen) {
-            if (gebouw.getType() == this.type)
-                speler.getPortemonnee().ontvangenGoud(1);
-        }
+    	try
+    	{
+	        ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
+	        for (GebouwKaart gebouw : gebouwen) {
+	            if (gebouw.getType() == this.type)
+	                speler.getPortemonnee().ontvangenGoud(1);
+	        }
+    	}
+    	catch(RemoteException e)
+    	{
+    		e.printStackTrace();
+    	}
     }
     
     public String getNaam() {
@@ -74,7 +83,12 @@ public class Koopman implements Karakter, Bonusable {
     public int getNummer() {
     	return this.nummer;
     }
-    
+
+    @Override
+    public int getBouwLimiet() {
+        return this.bouwLimiet;
+    }
+
     public int getBouwlimiet() {
     	return this.bouwLimiet;
     }

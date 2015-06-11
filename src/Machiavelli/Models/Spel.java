@@ -1,24 +1,28 @@
 package Machiavelli.Models;
 
 import Machiavelli.Factories.GebouwFactory;
+import Machiavelli.Interfaces.Observers.SpelObserver;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Views.SpeelveldView;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class Spel {
+public class Spel implements SpelRemote {
 	private int aantalspelers;
 	private Speelveld speelveld;
 	private SpeelveldView speelveldview;
 	private ArrayList<Speler> speler;
 	private Bank bank;
 	private GebouwFactory gebouwFactory;
+	private ArrayList<SpelObserver> observers = new ArrayList<>();
 	
 	public Spel(){
 		bank = new Bank();
 		gebouwFactory = new GebouwFactory();
 	}
 
-	public void NieuwSpel() {
+	public void NieuwSpel() throws RemoteException {
 		//Minimaal aantal spelers kiezen
 		//Speelveld laden
 		//Spelers koppeln aan speelveld
@@ -26,34 +30,53 @@ public class Spel {
 		//Start spelers is koning
 		//Starten karakterkiezenlijst speler 1
 		//Doorgeven karakterlijst aan andere spelers
-		ArrayList<Speler> spelers = new ArrayList<Speler>();
-		for(int i = 0; i < aantalspelers; i++){
-			spelers.add(new Speler(this));
+		speler = new ArrayList<Speler>();
+		if(aantalspelers >= 2 && aantalspelers < 8){
+			for(int i = 0; i < aantalspelers; i++) {
+				speler.add(new Speler(this));
+			}
+		} else {
+			return;
 		}
+	
 		/*spelers.add(new Speler(this));
 		spelers.add(new Speler(this));
 		spelers.add(new Speler(this));
 		spelers.add(new Speler(this));*/
-		this.speelveld = new Speelveld(spelers);
+		this.speelveld = new Speelveld(speler);
+        notifyObservers();
 	}
 
-	public void EindeBeurt() {
+	public void EindeBeurt() throws RemoteException {
 		
 	}
 	
-	public Bank getBank() {
+	public Bank getBank() throws RemoteException {
 		return this.bank;
 	}
 	
-	public GebouwFactory getGebouwFactory() {
+	public GebouwFactory getGebouwFactory() throws RemoteException {
 		return this.gebouwFactory;
 	}
 
-	public void setAantalSpelers(int aantalspelers) {
+	public void setAantalSpelers(int aantalspelers) throws RemoteException {
 		this.aantalspelers = aantalspelers;
+        notifyObservers();
 	}
 
-	public int getAantalSpelers() {
+	public int getAantalSpelers() throws RemoteException {
 		return aantalspelers;
 	}
+
+	@Override
+	public void addObserver(SpelObserver observer) throws RemoteException {
+		observers.add(observer);
+	}
+
+	public void notifyObservers() throws RemoteException {
+		for (SpelObserver observer: observers) {
+			observer.modelChanged(this);
+		}
+	}
 }
+

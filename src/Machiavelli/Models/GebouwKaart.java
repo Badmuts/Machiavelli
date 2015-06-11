@@ -1,7 +1,14 @@
 package Machiavelli.Models;
 
 import Machiavelli.Enumerations.Type;
+import Machiavelli.Interfaces.Observers.BankObserver;
+import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
+import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import javafx.scene.image.Image;
+
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+
 /**
  * Dit is de blauwdruk voor een gebouwkaart. De gebouwkaarten worden
  * door de spelers gebruikt om het spel te winnen. De gebouwkaarten
@@ -12,14 +19,14 @@ import javafx.scene.image.Image;
  * @version 0.1
  *
  */
-public class GebouwKaart
-{
+public class GebouwKaart implements GebouwKaartRemote {
     // Variables
 	private int kosten;
 	private String naam;
 	private Type type;
 	private Stad stad;
     private Image image;
+    private ArrayList<GebouwKaartObserver> observers = new ArrayList<>();
 
     // Een kaart wordt aangemaakt met de meegegeven waardes
     public GebouwKaart(int kosten, String naam, Type type, Image image) {
@@ -29,44 +36,60 @@ public class GebouwKaart
         this.image = image;
     }
 
-    public Type getType() {
+    public Type getType() throws RemoteException {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(Type type) throws RemoteException {
         this.type = type;
+        notifyObservers();
     }
 
-    public String getNaam() {
+    public String getNaam() throws RemoteException {
         return naam;
     }
 
-    public void setNaam(String naam) {
+    public void setNaam(String naam) throws RemoteException {
         this.naam = naam;
+        notifyObservers();
     }
 
-    public int getKosten()
+    public int getKosten() throws RemoteException
     {
         return this.kosten;
     }
 
-    public void setKosten(int kosten) {
+    public void setKosten(int kosten) throws RemoteException {
         this.kosten = kosten;
+        notifyObservers();
     }
 
-    public Stad getStad() {
+    public Stad getStad() throws RemoteException {
         return stad;
     }
 
-    public void setStad(Stad stad) {
+    public void setStad(Stad stad) throws RemoteException {
         this.stad = stad;
+        notifyObservers();
     }
 
-    public Image getImage() {
+    public Image getImage() throws RemoteException {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(Image image) throws RemoteException {
         this.image = image;
+        notifyObservers();
+    }
+
+    @Override
+    public void addObserver(GebouwKaartObserver gebouwKaartObserver) throws RemoteException {
+        observers.add(gebouwKaartObserver);
+    }
+
+    public void notifyObservers() throws RemoteException {
+        for (GebouwKaartObserver observer: observers) {
+            observer.modelChanged(this);
+        }
     }
 }

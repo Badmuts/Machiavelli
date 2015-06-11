@@ -29,7 +29,6 @@ public class MainMenuView{
     private Stage stage = Machiavelli.getInstance().getStage();
 	
 	public MainMenuView(SpelController sc, Spel sp){
-		this.sc = sc;
 		
 		Pane mainMenuPane = new Pane();
 		Pane mainSelectPane = new Pane();

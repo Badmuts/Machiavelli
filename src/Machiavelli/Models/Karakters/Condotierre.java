@@ -6,6 +6,7 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /** 
@@ -29,7 +30,13 @@ public class Condotierre implements Karakter, Bonusable {
 	private final int nummer = 8;	
 	private final int bouwLimiet = 1; 
 	private final String naam = "Condotierre";
-	private final Type type = Type.MILITAIR;	
+
+    @Override
+    public int getBouwLimiet() {
+        return this.bouwLimiet;
+    }
+
+    private final Type type = Type.MILITAIR;
     
     /**
 	 * Overriden van de methode uit de interface Karakter,
@@ -58,11 +65,18 @@ public class Condotierre implements Karakter, Bonusable {
     /** ontvangen bonusgoud voor militaire gebouwen */
     @Override
     public void ontvangenBonusGoud() {
-        ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
-        for(GebouwKaart gebouw: gebouwen) {
-            if (gebouw.getType() == this.type)
-                speler.getPortemonnee().ontvangenGoud(1);
-        }
+    	try
+    	{
+	        ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
+	        for(GebouwKaart gebouw: gebouwen) {
+	            if (gebouw.getType() == this.type)
+	                speler.getPortemonnee().ontvangenGoud(1);
+	        }
+    	}
+    	catch(RemoteException e)
+    	{
+    		e.printStackTrace();
+    	}
     }
 
     /*

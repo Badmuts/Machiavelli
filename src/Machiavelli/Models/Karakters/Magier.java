@@ -7,6 +7,7 @@ import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Hand;
 import Machiavelli.Models.Speler;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
@@ -49,20 +50,27 @@ public class Magier implements Karakter {
     public void gebruikEigenschap() {
         // TODO: ruilen bouwkaarten
         System.out.println("faka");
-        while (getTarget() != null) {
-            // Iets tonen/afvangen om target te setten (View aanpassen?)
-            if (getTarget().equals(speler.getSpel().getGebouwFactory())) {
-                // Als het target de stapel met gebouwkaarten is
-                // ruilen met stapelkaarten implementeren
-                // Afvangen ruil lijst
-                ruilMetStapel(speler.getHand(), ruilLijst);
-                break;
-            } 
-            else {
-                // Ruil kaarten met een speler.
-                ruilMetKarakter((Speler)getTarget(), this.speler);
-                break;
-            }
+        try
+        {
+	        while (getTarget() != null) {
+	            // Iets tonen/afvangen om target te setten (View aanpassen?)
+	            if (getTarget().equals(speler.getSpel().getGebouwFactory())) {
+	                // Als het target de stapel met gebouwkaarten is
+	                // ruilen met stapelkaarten implementeren
+	                // Afvangen ruil lijst
+	                ruilMetStapel(speler.getHand(), ruilLijst);
+	                break;
+	            } 
+	            else {
+	                // Ruil kaarten met een speler.
+	                ruilMetKarakter((Speler)getTarget(), this.speler);
+	                break;
+	            }
+	        }
+        }
+        catch(RemoteException e)
+        {
+        	e.printStackTrace();
         }
     }
 
@@ -113,12 +121,13 @@ public class Magier implements Karakter {
     public int getNummer() {
     	return this.nummer;
     }
-    
-    public int getBouwlimiet() {
-    	return this.bouwLimiet;
+
+    @Override
+    public int getBouwLimiet() {
+        return this.bouwLimiet;
     }
-    
-	public Type getType() {
+
+    public Type getType() {
 		return this.type;
 	}
 }

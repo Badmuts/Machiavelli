@@ -1,18 +1,22 @@
 package Machiavelli.Factories;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import javafx.scene.image.Image;
 import Machiavelli.Enumerations.Type;
+import Machiavelli.Interfaces.Observers.GebouwFactoryObserver;
+import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Models.GebouwKaart;
 
 /**
  * Created by daanrosbergen on 04/06/15.
  */
-public class GebouwFactory {
+public class GebouwFactory implements GebouwFactoryRemote {
 
     private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
+    private ArrayList<GebouwFactoryObserver> observers = new ArrayList<GebouwFactoryObserver>();
 
     public GebouwFactory() {
         gebouwen.add(new GebouwKaart(6, "Bibliotheek", Type.NORMAAL, new Image("/Machiavelli/Resources/Gebouwkaarten/bibliotheek.png")));
@@ -53,11 +57,11 @@ public class GebouwFactory {
         this.schuddenKaarten();
     }
 
-    public void addGebouw(GebouwKaart gebouw) {
+    public void addGebouw(GebouwKaart gebouw) throws RemoteException {
         this.gebouwen.add(gebouw);
     }
 
-    public GebouwKaart trekKaart() {
+    public GebouwKaart trekKaart() throws RemoteException {
         GebouwKaart gebouw = gebouwen.get(0);
         this.gebouwen.remove(gebouw);
         return gebouw;
@@ -67,8 +71,23 @@ public class GebouwFactory {
         Collections.shuffle(gebouwen);
     }
 
-    public ArrayList<GebouwKaart> getGebouwen()
+    public ArrayList<GebouwKaart> getGebouwen() throws RemoteException
     {
         return this.gebouwen;
     }
+
+	@Override
+	public void addObserver(GebouwFactoryObserver gebouwFactoryObserver)
+			throws RemoteException {
+		observers.add(gebouwFactoryObserver);
+	}
+
+	@Override
+	public void notifyObservers() throws RemoteException {
+		for(GebouwFactoryObserver observer : observers)
+		{
+			observer.modelChanged(this);
+		}
+		
+	}
 }

@@ -1,6 +1,12 @@
 
 package Machiavelli.Models;
 
+import Machiavelli.Interfaces.Observers.BankObserver;
+import Machiavelli.Interfaces.Remotes.BankRemote;
+
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+
 /**
  * Dit is de bank van het spel. Per spel is er ��n bank aanwezig die het geld beheerd.
  * Spelers kunnen via de portemonnee geld van de bank halen en geld aan de bank geven.
@@ -9,10 +15,21 @@ package Machiavelli.Models;
  * @version 0.1
  *
  */
-public class Bank
-{
+public class Bank implements BankRemote {
 	// Variables
 	private int goudMunten;
+	private ArrayList<BankObserver> observers = new ArrayList<>();
+
+	@Override
+	public void addObserver(BankObserver bankObserver) throws RemoteException {
+		observers.add(bankObserver);
+	}
+
+	public void notifyObservers() throws RemoteException {
+		for (BankObserver observer: observers) {
+			observer.modelChanged(this);
+		}
+	}
 
 	// De bank begint met 30 goudmunten
 	public Bank() {
@@ -20,17 +37,19 @@ public class Bank
 	}
 
 	// De bank ontvangt een x aantal goud
-	public void ontvangenGoud(int aantal) {
+	public void ontvangenGoud(int aantal) throws RemoteException{
 		this.goudMunten += aantal;
+		notifyObservers();
 	}
 
 	// De bank geeft een x aantal goud en haalt het van het totaal af
-	public int gevenGoud(int aantal) {
+	public int gevenGoud(int aantal) throws RemoteException {
 		this.goudMunten -= aantal;
+		notifyObservers();
 		return aantal;
 	}
 
-	public int getGoudMunten() {
+	public int getGoudMunten() throws RemoteException {
 		return this.goudMunten;
 	}
 }

@@ -1,6 +1,8 @@
 package Machiavelli.Views;
 
 import Machiavelli.Controllers.SpeelveldController;
+import Machiavelli.Interfaces.Observers.SpeelveldObserver;
+import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Speelveld;
 import javafx.scene.Scene;
@@ -12,7 +14,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-public class SpeelveldView {
+import java.rmi.RemoteException;
+
+public class SpeelveldView implements SpeelveldObserver {
 	private Button gebruikEigenschap;
 	private Button exitbutton;
 	private Button spelregels;
@@ -107,5 +111,10 @@ public class SpeelveldView {
 
 	public Button getExitButton(){
 		return exitbutton;
+	}
+
+	@Override
+	public void modelChanged(SpeelveldRemote speelveld) throws RemoteException {
+		// Doe iets?
 	}
 }

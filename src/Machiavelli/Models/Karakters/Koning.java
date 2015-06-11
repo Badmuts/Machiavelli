@@ -6,6 +6,7 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /** 
@@ -51,11 +52,18 @@ public class Koning implements Karakter, Bonusable {
     /*ontvangen bonusgoud voor monument gebouwen*/
     @Override
     public void ontvangenBonusGoud() {
-        ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
-        for(GebouwKaart gebouw: gebouwen) {
-            if (gebouw.getType() == this.type)
-                speler.getPortemonnee().ontvangenGoud(1);
-        }
+    	try
+    	{
+	        ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
+	        for(GebouwKaart gebouw: gebouwen) {
+	            if (gebouw.getType() == this.type)
+	                speler.getPortemonnee().ontvangenGoud(1);
+	        }
+    	}
+    	catch(RemoteException e)
+    	{
+    		e.printStackTrace();
+    	}
     }
     
     public int getNummer() {

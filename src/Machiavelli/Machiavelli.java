@@ -1,16 +1,16 @@
 package Machiavelli;
 
-import Machiavelli.Controllers.SpelController;
-import Machiavelli.Interfaces.Karakter;
-import Machiavelli.Models.GebouwKaart;
-import Machiavelli.Models.Karakters.Magier;
-import Machiavelli.Models.Spel;
-import Machiavelli.Models.Speler;
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.util.ArrayList;
+import Machiavelli.Controllers.SpelController;
+import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Models.GebouwKaart;
+import Machiavelli.Models.Spel;
+import Machiavelli.Models.Speler;
+import Machiavelli.Models.Karakters.Magier;
 
 /**
  * Google Java Style Guide aanhouden

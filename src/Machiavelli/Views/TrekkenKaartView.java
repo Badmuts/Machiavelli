@@ -1,5 +1,6 @@
 package Machiavelli.Views;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -99,7 +100,7 @@ public class TrekkenKaartView extends Application
 		return this.gebouwen;
 	}
 	
-	public void createGebouwView(GebouwKaart gebouw) {
+	public void createGebouwView(GebouwKaart gebouw) throws RemoteException {
 		Button newButton = new Button(gebouw.getNaam());
 		newButton.setGraphic(new ImageView(gebouw.getImage()));
 		newButton.setLayoutX(Math.random() * 111);

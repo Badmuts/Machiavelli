@@ -2,16 +2,19 @@ package Machiavelli.Models;
 
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.SpeelveldObserver;
+import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import javafx.stage.Stage;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class Speelveld {
-	private Stage secondaryStage;
+public class Speelveld implements SpeelveldRemote {
 	private ArrayList<Speler> spelers;
 	private Speler koning;
 	private Karakter karakter;
 	private SpeelveldController speelveldcontroller;
+	private ArrayList<SpeelveldObserver> observers = new ArrayList<>();
 
 	public Speelveld(ArrayList<Speler> spelers){
 		//Spelers koppeln aan speelveld
@@ -19,18 +22,33 @@ public class Speelveld {
 		//Starten karakterkiezenlijst speler 1
 		//Doorgeven karakterlijst aan andere spelers
 		this.spelers = spelers;
-		this.setKoning(spelers.get(0));		
-		//speelveldview = new SpeelveldView(new SpeelveldController(this),this,new KarakterController());
+		try {
+			this.setKoning(spelers.get(0));
+		} catch (RemoteException re) {
+			System.out.print(re);
+		}
 		speelveldcontroller = new SpeelveldController(this);
 
 	}
 
-	public void setKoning(Speler spelers) {
+	public void setKoning(Speler spelers) throws RemoteException {
 		this.koning = spelers;
+        notifyObservers();
 	}
 
-	public void toonKarakterLijst() {
+	public void toonKarakterLijst() throws RemoteException {
 		
+	}
+
+	@Override
+	public void addObserver(SpeelveldObserver observer) throws RemoteException {
+		observers.add(observer);
+	}
+
+	public void notifyObservers() throws RemoteException {
+		for (SpeelveldObserver observer: observers) {
+			observer.modelChanged(this);
+		}
 	}
 	
 	
