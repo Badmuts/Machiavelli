@@ -1,15 +1,14 @@
 package Machiavelli;
 
-import Machiavelli.Controllers.SpelController;
-import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Controllers.MenuController;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.GebouwKaart;
-import Machiavelli.Models.Karakters.Magier;
-import Machiavelli.Models.Spel;
-import Machiavelli.Models.Speler;
+import Machiavelli.Views.MainMenuView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
@@ -31,14 +30,19 @@ public class Machiavelli extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+        /**
+         * Laad MainMenuView zien
+         */
+
         // TODO Auto-generated method stub
         this.stage = primaryStage;
         this.stage.initStyle(StageStyle.UNDECORATED);
         this.stage.setResizable(false);
         this.stage.setTitle("Machiavelli");
-        Spel spel = new Spel();
-        SpelController spelController = new SpelController(spel);
-        spelController.show();
+//        Spel spel = new Spel();
+//        SpelController spelController = new SpelController(spel);
+//        spelController.show();
+        MenuController menuController = new MenuController(new MainMenuView());
 
         /**
          * Testing method for Magier karakter class
@@ -46,7 +50,7 @@ public class Machiavelli extends Application {
          * Het Magier karakter kan bepaalde kaarten uit zijn hand
          * ruilen met de gebouwstapel.
          */
-        Speler speler1 = new Speler(spel);
+        /*Speler speler1 = new Speler(spel);
         Karakter magier = new Magier();
         speler1.setKarakter(magier); // doet nu dus niks
         showHand(speler1);
@@ -61,7 +65,7 @@ public class Machiavelli extends Application {
         // magier.setRuilLijst(l);
         speler1.getKarakter().gebruikEigenschap();
         magier.gebruikEigenschap();
-        showHand(speler1);
+        showHand(speler1);*/
     }
 
     public static synchronized Machiavelli getInstance() {
@@ -69,25 +73,33 @@ public class Machiavelli extends Application {
     }
 
     // Deze method is voor testen
-    public void showHand(Speler speler) {
-        ArrayList<GebouwKaart> lst = speler.getHand().getKaartenLijst();
-        System.out.println("Kaarten in hand:");
-        for(int i = 0; i < speler.getHand().getKaartenLijst().size(); i++)
-        {
-            System.out.println(i + 1 + ") " + lst.get(i).getNaam() + " / " + lst.get(i).getType());
+    public void showHand(SpelerRemote speler) {
+        try {
+            ArrayList<GebouwKaart> lst = speler.getHand().getKaartenLijst();
+            System.out.println("Kaarten in hand:");
+            for(int i = 0; i < speler.getHand().getKaartenLijst().size(); i++)
+            {
+                System.out.println(i + 1 + ") " + lst.get(i).getNaam() + " / " + lst.get(i).getType());
+            }
+            System.out.println();
+        } catch (RemoteException re) {
+            System.out.print(re);
         }
-        System.out.println();
     }
 
     // Deze ook
-    public void showStad(Speler speler) {
-        ArrayList<GebouwKaart> lst = speler.getHand().getKaartenLijst();
-        System.out.println("Kaarten in stad:");
-        for(int i = 0; i < speler.getStad().getGebouwen().size(); i++)
-        {
-            System.out.println(i + 1 + ") " + lst.get(i).getNaam() + " / " + lst.get(i).getType());
+    public void showStad(SpelerRemote speler) {
+        try {
+            ArrayList<GebouwKaart> lst = speler.getHand().getKaartenLijst();
+            System.out.println("Kaarten in stad:");
+            for(int i = 0; i < speler.getStad().getGebouwen().size(); i++)
+            {
+                System.out.println(i + 1 + ") " + lst.get(i).getNaam() + " / " + lst.get(i).getType());
+            }
+            System.out.println();
+        } catch (RemoteException re) {
+            System.out.print(re);
         }
-        System.out.println();
     }
 
     public static void main(String[] args) {

@@ -1,8 +1,6 @@
 package Machiavelli.Views;
 
-import Machiavelli.Controllers.SpelController;
 import Machiavelli.Machiavelli;
-import Machiavelli.Models.Spel;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,8 +10,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class InvullenSpelersView extends TextField {
-	private SpelController spelcontroller;
-	private Spel spel;
+//	private SpelController spelcontroller;
+//	private Spel spel;
 	private Button okbutton;
 	private Button terugbutton;
 	private TextField textfield;
@@ -21,9 +19,9 @@ public class InvullenSpelersView extends TextField {
 	private Text invoertekst;
 	private Stage stage = Machiavelli.getInstance().getStage();
 
-	public InvullenSpelersView(SpelController spelcontroller, Spel spel){
-		this.spelcontroller = spelcontroller;
-		this.spel = spel;
+	public InvullenSpelersView(/*MainMenuView mainMenuView*/){
+//		this.spelcontroller = spelcontroller;
+//		this.spel = spel;
 		
 		StackPane stackpane = new StackPane();
 		

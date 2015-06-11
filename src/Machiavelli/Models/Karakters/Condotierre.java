@@ -56,6 +56,7 @@ public class Condotierre implements Karakter, Bonusable {
 	 */
     public void gebruikEigenschap() {
         // TODO: sloopgebouw
+
         // this.selectGebouwView.start();
         // TODO: Iets van een listener? (voor gekozen kaart (SelectGebouwView))
         // TODO: Speler, remove gold (betaalGoud)

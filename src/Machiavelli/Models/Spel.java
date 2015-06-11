@@ -9,10 +9,9 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class Spel implements SpelRemote {
-	private int aantalspelers;
 	private Speelveld speelveld;
 	private SpeelveldView speelveldview;
-	private ArrayList<Speler> speler;
+	private ArrayList<Speler> spelers = new ArrayList<>();
 	private Bank bank;
 	private GebouwFactory gebouwFactory;
 	private ArrayList<SpelObserver> observers = new ArrayList<>();
@@ -22,7 +21,7 @@ public class Spel implements SpelRemote {
 		gebouwFactory = new GebouwFactory();
 	}
 
-	public void NieuwSpel() throws RemoteException {
+	public void nieuwSpel() throws RemoteException {
 		//Minimaal aantal spelers kiezen
 		//Speelveld laden
 		//Spelers koppeln aan speelveld
@@ -30,28 +29,22 @@ public class Spel implements SpelRemote {
 		//Start spelers is koning
 		//Starten karakterkiezenlijst speler 1
 		//Doorgeven karakterlijst aan andere spelers
-		speler = new ArrayList<Speler>();
-		if(aantalspelers >= 2 && aantalspelers < 8){
-			for(int i = 0; i < aantalspelers; i++) {
-				speler.add(new Speler(this));
-			}
-		} else {
-			return;
-		}
-	
+		this.spelers.add(new Speler(this));
+
 		/*spelers.add(new Speler(this));
 		spelers.add(new Speler(this));
 		spelers.add(new Speler(this));
 		spelers.add(new Speler(this));*/
-		this.speelveld = new Speelveld(speler);
+		this.speelveld = new Speelveld(this.spelers, this.spel);
         notifyObservers();
 	}
 
-	public void EindeBeurt() throws RemoteException {
-		
-	}
-	
-	public Bank getBank() throws RemoteException {
+    @Override
+    public void removeObserver(SpelObserver observer) throws RemoteException {
+        this.observers.remove(observer);
+    }
+
+    public Bank getBank() throws RemoteException {
 		return this.bank;
 	}
 	
@@ -59,13 +52,8 @@ public class Spel implements SpelRemote {
 		return this.gebouwFactory;
 	}
 
-	public void setAantalSpelers(int aantalspelers) throws RemoteException {
-		this.aantalspelers = aantalspelers;
-        notifyObservers();
-	}
-
 	public int getAantalSpelers() throws RemoteException {
-		return aantalspelers;
+		return spelers.size();
 	}
 
 	@Override
