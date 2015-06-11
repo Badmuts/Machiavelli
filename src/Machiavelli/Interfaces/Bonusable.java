@@ -1,5 +1,7 @@
 package Machiavelli.Interfaces;
 
+import java.rmi.RemoteException;
+
 /**
  * Deze interface word gebruikt voor karakters die
  * bonus goud ontvangen voor gebouwen van het zelfde type
@@ -24,6 +26,6 @@ package Machiavelli.Interfaces;
  */
 public interface Bonusable {
 
-    void ontvangenBonusGoud();
+    void ontvangenBonusGoud() throws RemoteException;
 
 }

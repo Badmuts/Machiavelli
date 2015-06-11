@@ -6,6 +6,7 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
@@ -40,7 +41,7 @@ public class Prediker implements Karakter, Bonusable {
     }
     
     /** ontvangen bonusgoud voor Kerk gebouwen */
-    public void ontvangenBonusGoud() {
+    public void ontvangenBonusGoud() throws RemoteException {
         ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
         for(GebouwKaart gebouw: gebouwen) {
             if (gebouw.getType() == this.type)

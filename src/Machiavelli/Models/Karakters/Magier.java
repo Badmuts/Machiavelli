@@ -7,6 +7,7 @@ import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Hand;
 import Machiavelli.Models.Speler;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
@@ -49,25 +50,29 @@ public class Magier implements Karakter {
     public void gebruikEigenschap() {
         // TODO: ruilen bouwkaarten
         System.out.println("faka");
-        while (getTarget() != null) {
-            // Iets tonen/afvangen om target te setten (View aanpassen?)
-            if (getTarget().equals(speler.getSpel().getGebouwFactory())) {
-                // Als het target de stapel met gebouwkaarten is
-                // ruilen met stapelkaarten implementeren
-                // Afvangen ruil lijst
-                ruilMetStapel(speler.getHand(), ruilLijst);
-                break;
-            } 
-            else {
-                // Ruil kaarten met een speler.
-                ruilMetKarakter((Speler)getTarget(), this.speler);
-                break;
+        try {
+            while (getTarget() != null) {
+                // Iets tonen/afvangen om target te setten (View aanpassen?)
+                if (getTarget().equals(speler.getSpel().getGebouwFactory())) {
+                    // Als het target de stapel met gebouwkaarten is
+                    // ruilen met stapelkaarten implementeren
+                    // Afvangen ruil lijst
+                    ruilMetStapel(speler.getHand(), ruilLijst);
+                    break;
+                }
+                else {
+                    // Ruil kaarten met een speler.
+                    ruilMetKarakter((Speler)getTarget(), this.speler);
+                    break;
+                }
             }
+        } catch (RemoteException re) {
+            System.out.print(re);
         }
     }
 
     // Ruil alle bouwkaarten met alle bouwkaarten van een ander speler/karakter??
-    private void ruilMetKarakter(Speler target, Speler magier) {
+    private void ruilMetKarakter(Speler target, Speler magier) throws RemoteException {
         ArrayList<GebouwKaart> handTarget = target.getHand().getKaartenLijst();
         ArrayList<GebouwKaart> magierHand = magier.getHand().getKaartenLijst();
         target.getHand().setKaartenLijst(magierHand);
@@ -75,7 +80,7 @@ public class Magier implements Karakter {
     }
 
     // Leg een x aantal kaarten af op de stapel en pak een gelijk aantal nieuwe kaarten
-    private void ruilMetStapel(Hand hand, ArrayList<GebouwKaart> ruilLijst) {
+    private void ruilMetStapel(Hand hand, ArrayList<GebouwKaart> ruilLijst) throws RemoteException {
         // Afleggen en tellen gebouwkaarten.
         int count = 0;
         for (int i = 0; i < ruilLijst.size(); i++) {

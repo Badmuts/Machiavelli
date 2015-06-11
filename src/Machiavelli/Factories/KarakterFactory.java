@@ -1,6 +1,7 @@
 package Machiavelli.Factories;
 
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.KarakterFactoryObserver;
 import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
 import Machiavelli.Models.Karakters.*;
 
@@ -12,6 +13,7 @@ public class KarakterFactory implements KarakterFactoryRemote {
      * ArrayList om alle karakters op te slaan
      */
     private ArrayList<Karakter> karakters = new ArrayList<Karakter>();
+    private ArrayList<KarakterFactoryObserver> observers = new ArrayList<>();
 
     /**
      * Maakt alle karakters aan (in dit geval 8)
@@ -59,6 +61,18 @@ public class KarakterFactory implements KarakterFactoryRemote {
                 tmpKarakter = karakter;
         }
         return tmpKarakter;
+    }
+
+    @Override
+    public void addObserver(KarakterFactoryObserver karakterFactoryObserver) throws RemoteException {
+        observers.add(karakterFactoryObserver);
+    }
+
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (KarakterFactoryObserver observer: observers) {
+            observer.modelChanged(this);
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package Machiavelli.Factories;
 
 import Machiavelli.Enumerations.Type;
+import Machiavelli.Interfaces.Observers.GebouwFactoryObserver;
 import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Models.GebouwKaart;
 import javafx.scene.image.Image;
@@ -15,6 +16,7 @@ import java.util.Collections;
 public class GebouwFactory implements GebouwFactoryRemote {
 
     private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
+    private ArrayList<GebouwFactoryObserver> observers = new ArrayList<>();
 
     public GebouwFactory() {
         gebouwen.add(new GebouwKaart(6, "Bibliotheek", Type.NORMAAL, new Image("/Machiavelli/Resources/Gebouwkaarten/bibliotheek.png")));
@@ -72,5 +74,17 @@ public class GebouwFactory implements GebouwFactoryRemote {
     public ArrayList<GebouwKaart> getGebouwen() throws RemoteException
     {
         return this.gebouwen;
+    }
+
+    @Override
+    public void addObserver(GebouwFactoryObserver gebouwFactoryObserver) throws RemoteException {
+        observers.add(gebouwFactoryObserver);
+    }
+
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (GebouwFactoryObserver observer: observers) {
+            observer.modelChanged(this);
+        }
     }
 }
