@@ -1,5 +1,9 @@
 package Machiavelli.Views;
 
+/**
+ * @author Jamie Kalloe
+ */
+
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Spelregels;
 import javafx.scene.Scene;

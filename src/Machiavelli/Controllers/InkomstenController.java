@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
+import Machiavelli.Views.KiesInkomstenView;
 import Machiavelli.Views.TrekkenKaartView;
 
 /**
@@ -65,7 +66,6 @@ public class InkomstenController implements EventHandler<ActionEvent>
 //			trekkenKaartView.getButtonList().get(this.gekozenKaartIndex).setOnAction(event -> this.cmdKiezenKaart(this.gekozenKaartIndex));
 //			System.out.println("gekozenkaartindex: " + gekozenKaartIndex);
 //		}
-		
 	}
 	
 	public void cmdKiezenKaart(int gekozenKaart)
@@ -86,6 +86,8 @@ public class InkomstenController implements EventHandler<ActionEvent>
 	
 	public void weergeefTrekkenKaartView()
 	{
+		//zet het venster boven alle andere venster.
+		this.trekkenKaartView.getStage().setAlwaysOnTop(true);
 		this.trekkenKaartView.getStage().show();
 	}
 	
