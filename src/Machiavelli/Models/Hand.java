@@ -47,6 +47,10 @@ public class Hand implements HandRemote {
 		this.kaartenLijst.remove(gebouw);
         notifyObservers();
 	}
+	
+	public void addGebouwen(List<GebouwKaart> gebouwKaarten) {
+		this.kaartenLijst.addAll(gebouwKaarten);
+	}
 
 	public ArrayList<GebouwKaart> getKaartenLijst() throws RemoteException
 	{
