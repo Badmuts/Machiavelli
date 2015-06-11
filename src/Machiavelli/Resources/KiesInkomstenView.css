@@ -1,0 +1,54 @@
+.root{
+	-fx-background-color: #000000;
+}
+
+#title{
+	-fx-font: 40px Tahoma;
+    	-fx-top:0;
+    	-fx-stroke: black;
+    	-fx-stroke-width: 1;
+    	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+}
+
+#kiesInkomstenPane
+{
+	-fx-opacity: 0.80;
+}
+
+#goudButton {
+-fx-background-color: linear-gradient(#ffd65e,#febf04);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 2.5em;
+    -fx-font-weight: bold;
+}
+
+#goudButton:hover {
+	-fx-background-color: linear-gradient(#ffd65e,#febf04);
+	-fx-font-size: 3em;
+}
+
+#kaartenButton {
+-fx-background-color: linear-gradient(#ffd65e,#febf04);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 2.5em;
+    -fx-font-weight: bold;
+}
+
+#kaartenButton:hover {
+	-fx-background-color: linear-gradient(#ffd65e,#febf04);
+	-fx-font-size: 3em;
+}
+
+#kaartenImg {
+	-fx-border-radius: 8;
+}
+
+#goudImg {
+	-fx-border-radius: 8;
+}
