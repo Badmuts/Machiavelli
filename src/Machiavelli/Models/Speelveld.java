@@ -14,7 +14,6 @@ public class Speelveld {
 	private ArrayList<Speler> spelers;
 	private Speler koning;
 	private Karakter karakter;
-	@XStreamOmitField
 	private SpeelveldController speelveldcontroller;
 
 	public Speelveld(ArrayList<Speler> spelers){

@@ -2,17 +2,26 @@ package Machiavelli.Models;
 
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Views.SpeelveldView;
+import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+import javafx.scene.image.Image;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Spel {
 	private int aantalspelers;
 	private Speelveld speelveld;
-	@XStreamOmitField
 	private SpeelveldView speelveldview;
 	private ArrayList<Speler> speler;
 	private Bank bank;
@@ -69,5 +78,41 @@ public class Spel {
 
 	public ArrayList<Speler> getSpelerLijst() {
 		return this.speler;
+	}
+
+	public void saveGame(Spel spel) throws FileNotFoundException {
+		XStream xs = new XStream(new DomDriver());
+
+		// Tags hernoemen
+		xs.alias("spel", Spel.class);
+		xs.alias("speler", Speler.class);
+		xs.alias("gebouwkaart", GebouwKaart.class);
+
+		// Skippen problematische velden
+		xs.omitField(Image.class, "progress");
+		xs.omitField(Image.class, "platformImage");
+		xs.omitField(Speelveld.class, "speelveldcontroller");
+
+
+		// XML bestand wegschrijven
+		FileOutputStream fos = new FileOutputStream(createSaveLocation() + "/" + generateFileName());
+		xs.toXML(spel, fos);
+	}
+
+	private String generateFileName()
+	{
+		String name;
+		name = "saveGame_" + new Date().getTime() + ".xml";
+		return name;
+	}
+
+	public File createSaveLocation()
+	{
+		File file = new File(System.getProperty("user.home") + "/machiavelli/");
+		if (!file.exists()){
+			file.mkdir();
+		}
+
+		return file;
 	}
 }

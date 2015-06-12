@@ -49,22 +49,12 @@ public class Machiavelli extends Application {
 
         spel.setAantalSpelers(3);
         spel.NieuwSpel();
-
         showHand(spel.getSpelerLijst().get(0));
+        spel.saveGame(spel);
 
-        XStream xs = new XStream(new DomDriver());
-        xs.alias("spel", Spel.class);
-        xs.alias("speler", Speler.class);
-        xs.alias("gebouwkaart", GebouwKaart.class);
-        xs.omitField(Image.class, "progress");
-        xs.omitField(Image.class, "platformImage");
-        xs.omitField(Speelveld.class, "speelveldcontroller");
-        FileOutputStream fos = new FileOutputStream("testXML.xml");
-        xs.toXML(spel, fos);
-
-        InputStream in = new FileInputStream("testXML.xml");
-        spel = null;
-        spel = (Spel) xs.fromXML(in);
+//        InputStream in = new FileInputStream("testXML.xml");
+//        spel = null;
+//        spel = (Spel) xs.fromXML(in);
 
         showHand(spel.getSpelerLijst().get(0));
 
@@ -102,7 +92,7 @@ public class Machiavelli extends Application {
     public void showHand(Speler speler) {
         ArrayList<GebouwKaart> lst = speler.getHand().getKaartenLijst();
         System.out.println("Kaarten in hand:");
-        for(int i = 0; i < speler.getHand().getKaartenLijst().size(); i++)
+        for(int i = 0; i < -speler.getHand().getKaartenLijst().size(); i++)
         {
             System.out.println(i + 1 + ") " + lst.get(i).getNaam() + " / " + lst.get(i).getType());
         }
