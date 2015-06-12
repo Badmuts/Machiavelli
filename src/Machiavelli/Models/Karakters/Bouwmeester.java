@@ -1,5 +1,7 @@
 package Machiavelli.Models.Karakters;
 
+import java.rmi.RemoteException;
+
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.Speler;
@@ -39,10 +41,17 @@ public class Bouwmeester implements Karakter {
     /**
 	 * overriden van de methode uit de interface Karakter
 	 * ??????
+     * 
 	 */
     @Override
     public void gebruikEigenschap() {
         //TODO: 2 of 3 kaarten plaatsen in stad
+    	try {
+			this.speler.getHand().addGebouwen(this.speler.trekkenKaart(2));
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     public String getNaam() {
@@ -64,5 +73,11 @@ public class Bouwmeester implements Karakter {
     
 	public Type getType() {
 		return this.type;
+	}
+
+	@Override
+	public void setTarget(Object target) {
+		// TODO Auto-generated method stub
+		
 	}
 }

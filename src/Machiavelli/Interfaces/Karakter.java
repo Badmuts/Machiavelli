@@ -24,5 +24,6 @@ public interface Karakter {
     int getNummer();
     int getBouwLimiet();
     Type getType();
+    void setTarget(Object target);
     
 }
