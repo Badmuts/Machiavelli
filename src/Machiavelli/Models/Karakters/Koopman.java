@@ -30,7 +30,8 @@ public class Koopman implements Karakter, Bonusable {
     private final int bouwLimiet = 1; 
     private final String naam = "Koopman";
     private final Type type = Type.COMMERCIEL;
-    
+    private Object target;
+
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Koopman wordt aan de speler gekoppeld.
@@ -92,5 +93,10 @@ public class Koopman implements Karakter, Bonusable {
 	public Type getType() {
 		return this.type;
 	}
-    
+
+    @Override
+    public void setTarget(Object target) {
+        this.target = target;
+    }
+
 }

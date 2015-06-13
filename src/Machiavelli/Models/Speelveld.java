@@ -4,32 +4,33 @@ import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
 import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
+import Machiavelli.Views.SpeelveldView;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class Speelveld implements SpeelveldRemote {
-	private Spel spel;
+    private SpeelveldView speelveldView;
+    private Spel spel;
 	private ArrayList<Speler> spelers;
 	private Speler koning;
 	private Karakter karakter;
 	private SpeelveldController speelveldcontroller;
 	private ArrayList<SpeelveldObserver> observers = new ArrayList<>();
 
-	public Speelveld(ArrayList<Speler> spelers, Spel spel){
+	public Speelveld(Spel spel, SpeelveldView speelveldView){
 		//Spelers koppeln aan speelveld
 		//Start spelers is koning
 		//Starten karakterkiezenlijst speler 1
 		//Doorgeven karakterlijst aan andere spelers
-		this.spelers = spelers;
+		this.spelers = spel.getSpelers();
         this.spel = spel;
-		try {
-			this.setKoning(spelers.get(0));
-		} catch (RemoteException re) {
-			re.printStackTrace();
-		}
-		speelveldcontroller = new SpeelveldController(this);
-
+        this.speelveldView = speelveldView;
+//		try {
+//			this.setKoning(spelers.get(0));
+//		} catch (RemoteException re) {
+//			re.printStackTrace();
+//		}
 	}
 
 	public void setKoning(Speler spelers) throws RemoteException {

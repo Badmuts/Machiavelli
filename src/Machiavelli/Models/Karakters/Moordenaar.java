@@ -27,7 +27,8 @@ public class Moordenaar implements Karakter {
     private final int bouwLimiet = 1; 
     private final String naam = "Moordenaar";
     private final Type type = Type.NORMAAL;
-    
+    private Object target;
+
     /**
      * Overriden van de methode uit de interface Karakter,
      * de Moordenaar wordt aan de speler gekoppeld.
@@ -73,6 +74,11 @@ public class Moordenaar implements Karakter {
     public Type getType() {
 		return this.type;
 	}
+
+    @Override
+    public void setTarget(Object target) {
+        this.target = target;
+    }
 }
 
 

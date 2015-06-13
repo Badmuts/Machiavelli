@@ -28,15 +28,8 @@ public class Speler implements SpelerRemote {
 	private ArrayList<SpelerObserver> observers = new ArrayList<>();
 
 	// Speler toewijzen aan spel en een nieuwe portemonnee, hand en stad maken.
-	public Speler(Spel spel) {
-		this.spel = spel;
-		this.stad = new Stad(spel);
-		try {
-			this.portemonnee = new Portemonnee(this.spel.getBank());
-		} catch (RemoteException re) {
-			System.out.print(re);
-		}
-		this.hand = new Hand(this);
+	public Speler() {
+
 	}
 
 	// Haalt goud van de bank en zet het in de portemonnee
@@ -121,4 +114,35 @@ public class Speler implements SpelerRemote {
 			observer.modelChanged(this);
 		}
 	}
+
+    public void addSpel(Spel spel) {
+        this.spel = spel;
+        this.createStad();
+    }
+
+    private void createStad() {
+//        try {
+            this.stad = new Stad(this);
+            this.createHand();
+//        } catch (RemoteException re) {
+//            System.out.print(re);
+//        }
+    }
+
+    private void createHand() {
+//        try {
+            this.hand = new Hand(this);
+            this.createPortemonnee();
+//        } catch (RemoteException re) {
+//            System.out.print(re);
+//        }
+    }
+
+    private void createPortemonnee() {
+        try {
+            this.portemonnee = new Portemonnee(this.spel.getBank());
+        } catch (RemoteException re) {
+            System.out.print(re);
+        }
+    }
 }

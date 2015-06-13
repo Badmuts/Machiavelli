@@ -127,4 +127,9 @@ public class Magier implements Karakter {
     public Type getType() {
 		return this.type;
 	}
+
+    @Override
+    public void setTarget(Object target) {
+        this.target = target;
+    }
 }

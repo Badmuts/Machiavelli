@@ -102,6 +102,7 @@ public class MainMenuView{
 
 	public void show(){
 		stage.setScene(mainMenu);
+		stage.centerOnScreen();
 		stage.show();
 	}
 

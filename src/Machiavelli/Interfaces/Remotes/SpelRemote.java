@@ -12,7 +12,7 @@ import java.rmi.RemoteException;
  */
 public interface SpelRemote extends Remote {
 
-    public void nieuwSpel() throws RemoteException;
+//    public void nieuwSpel() throws RemoteException;
     public Bank getBank() throws RemoteException;
     public GebouwFactory getGebouwFactory() throws RemoteException;
     public int getAantalSpelers() throws RemoteException;

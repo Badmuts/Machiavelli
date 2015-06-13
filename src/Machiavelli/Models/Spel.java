@@ -9,35 +9,37 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class Spel implements SpelRemote {
+	private final int maxAantalSpelers;
 	private Speelveld speelveld;
 	private SpeelveldView speelveldview;
 	private ArrayList<Speler> spelers = new ArrayList<>();
 	private Bank bank;
 	private GebouwFactory gebouwFactory;
 	private ArrayList<SpelObserver> observers = new ArrayList<>();
-	
-	public Spel(){
-		bank = new Bank();
-		gebouwFactory = new GebouwFactory();
+
+	public Spel(int maxAantalSpelers){
+		this.maxAantalSpelers = maxAantalSpelers;
+		this.bank = new Bank();
+		this.gebouwFactory = new GebouwFactory();
 	}
 
-	public void nieuwSpel() throws RemoteException {
-		//Minimaal aantal spelers kiezen
-		//Speelveld laden
-		//Spelers koppeln aan speelveld
-		//Speelveld laten zien
-		//Start spelers is koning
-		//Starten karakterkiezenlijst speler 1
-		//Doorgeven karakterlijst aan andere spelers
-		this.spelers.add(new Speler(this));
-
-		/*spelers.add(new Speler(this));
-		spelers.add(new Speler(this));
-		spelers.add(new Speler(this));
-		spelers.add(new Speler(this));*/
-		this.speelveld = new Speelveld(this.spelers, this.spel);
-        notifyObservers();
-	}
+//	public void nieuwSpel() throws RemoteException {
+//		//Minimaal aantal spelers kiezen
+//		//Speelveld laden
+//		//Spelers koppeln aan speelveld
+//		//Speelveld laten zien
+//		//Start spelers is koning
+//		//Starten karakterkiezenlijst speler 1
+//		//Doorgeven karakterlijst aan andere spelers
+//		this.spelers.add(new Speler(this));
+//
+//		/*spelers.add(new Speler(this));
+//		spelers.add(new Speler(this));
+//		spelers.add(new Speler(this));
+//		spelers.add(new Speler(this));*/
+//		this.speelveld = new Speelveld(this.spelers, this);
+//        notifyObservers();
+//	}
 
     @Override
     public void removeObserver(SpelObserver observer) throws RemoteException {
@@ -66,5 +68,22 @@ public class Spel implements SpelRemote {
 			observer.modelChanged(this);
 		}
 	}
+
+    public void addSpeler(Speler speler) {
+        this.spelers.add(speler);
+        try {
+            notifyObservers();
+        } catch (RemoteException re) {
+            re.printStackTrace();
+        }
+    }
+
+    public ArrayList<Speler> getSpelers() {
+        return this.spelers;
+    }
+
+    public int getMaxAantalSpelers() {
+        return this.maxAantalSpelers;
+    }
 }
 

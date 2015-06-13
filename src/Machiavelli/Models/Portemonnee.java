@@ -1,6 +1,5 @@
 package Machiavelli.Models;
 
-import Machiavelli.Interfaces.Observers.HandObserver;
 import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
 import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
 

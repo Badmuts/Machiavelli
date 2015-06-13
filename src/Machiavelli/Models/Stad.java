@@ -10,15 +10,16 @@ import java.util.ArrayList;
  * Created by daanrosbergen on 03/06/15.
  */
 public class Stad implements StadRemote {
+	private final Speler speler;
 	private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
 	private Spel spel;
 	private int waardeStad;
 	private ArrayList<StadObserver> observers = new ArrayList<>();
 	//private StadView stadView;
 
-	public Stad(Spel spel)
+	public Stad(Speler speler)
 	{
-		this.spel = spel;
+		this.speler = speler;
 	}
 
 	public ArrayList<GebouwKaart> getGebouwen() throws RemoteException
