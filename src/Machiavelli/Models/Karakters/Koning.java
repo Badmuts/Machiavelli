@@ -30,6 +30,7 @@ public class Koning implements Karakter, Bonusable {
     private final int bouwLimiet = 1; 
     private final String naam = "Koning";
     private final Type type = Type.MONUMENT;
+    private Object target;
 
     /**
 	 * Overriden van de methode uit de interface Karakter,
@@ -80,9 +81,10 @@ public class Koning implements Karakter, Bonusable {
         return type;
     }
 
-   
+    @Override
+    public void setTarget(Object target) {
+        this.target = target;
+    }
 
-   
 
-   
 }

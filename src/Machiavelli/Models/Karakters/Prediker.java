@@ -29,7 +29,8 @@ public class Prediker implements Karakter, Bonusable {
     private final int bouwLimiet = 1; 
     private final String naam = "Prediker";
     private final Type type = Type.KERKELIJK;
-    
+    private Object target;
+
     @Override
     public void setSpeler(Speler speler) {
         this.speler = speler;
@@ -65,4 +66,9 @@ public class Prediker implements Karakter, Bonusable {
     public Type getType() {
 		return this.type;
 	}
+
+    @Override
+    public void setTarget(Object target) {
+        this.target = target;
+    }
 }

@@ -30,7 +30,8 @@ public class Dief implements Karakter {
     private final int bouwLimiet = 1; 
     private final String naam = "Dief";
     private final Type type = Type.NORMAAL;
-	
+    private Object target;
+
     /**
    	 * Overriden van de methode uit de interface Karakter,
    	 * de Dief wordt aan de speler gekoppeld.
@@ -80,5 +81,10 @@ public class Dief implements Karakter {
 	public Type getType() {
 		return this.type;
 	}
+
+    @Override
+    public void setTarget(Object target) {
+        this.target = target;
+    }
 
 }

@@ -1,5 +1,6 @@
 package Machiavelli.Views;
 
+import Machiavelli.Controllers.MenuController;
 import Machiavelli.Machiavelli;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,17 +19,18 @@ public class InvullenSpelersView extends TextField {
 	private Scene invulscene;
 	private Text invoertekst;
 	private Stage stage = Machiavelli.getInstance().getStage();
+	private MenuController menuController;
 
-	public InvullenSpelersView(/*MainMenuView mainMenuView*/){
-//		this.spelcontroller = spelcontroller;
-//		this.spel = spel;
+	public InvullenSpelersView(MenuController menuController){
+		this.menuController = menuController;
 		
 		StackPane stackpane = new StackPane();
 		
 		invoertekst = new Text("Vul hier minimaal 2 en maximaal 7 spelers in");
-		okbutton = new Button("Ok");
+		okbutton    = new Button("Ok");
 		terugbutton = new Button("Terug");
-		textfield = new TextField();
+
+        textfield   = new TextField();
 		textfield.setMaxSize(50, 10);
 		
 		stackpane.getChildren().addAll(textfield, okbutton, terugbutton,invoertekst);

@@ -79,7 +79,7 @@ public class SpeelveldView implements SpeelveldObserver {
 		portretview.setLayoutY(615);
 		
 		speelveldpane.getChildren().addAll(iv,buttonholder,karakterholder,kaartholder, gebruikEigenschap, exitbutton,spelregels, opslaanknop,placeholderbutton1,placeholderbutton2,placeholderbutton3,portretview);
-		speelveldscene = new Scene(speelveldpane, 1600, 900);
+		speelveldscene = new Scene(speelveldpane, 1440, 900);
 		speelveldpane.getStylesheets().add("Machiavelli/Resources/Speelveld.css");
 						
 		this.show();
