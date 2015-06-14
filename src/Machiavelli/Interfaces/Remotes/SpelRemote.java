@@ -19,5 +19,5 @@ public interface SpelRemote extends Remote {
     public void addObserver(SpelObserver spelObserver) throws RemoteException;
     public void removeObserver(SpelObserver observer) throws RemoteException;
     public void notifyObservers() throws RemoteException;
-
+    public void addSpeler(SpelerRemote speler) throws RemoteException;
 }

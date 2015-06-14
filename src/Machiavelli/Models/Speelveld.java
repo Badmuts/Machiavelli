@@ -4,6 +4,7 @@ import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
 import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Views.SpeelveldView;
 
 import java.rmi.RemoteException;
@@ -11,14 +12,14 @@ import java.util.ArrayList;
 
 public class Speelveld implements SpeelveldRemote {
     private SpeelveldView speelveldView;
-    private Spel spel;
+    private SpelRemote spel;
 	private Speler koning;
 	private Karakter karakter;
 	private SpeelveldController speelveldcontroller;
 	private Speler speler;
 	private ArrayList<SpeelveldObserver> observers = new ArrayList<>();
 
-	public Speelveld(Spel spel, Speler speler) {
+	public Speelveld(SpelRemote spel, Speler speler) {
 		//Spelers koppeln aan speelveld
 		//Start spelers is koning
 		//Starten karakterkiezenlijst speler 1

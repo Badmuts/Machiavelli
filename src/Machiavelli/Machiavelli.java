@@ -5,6 +5,9 @@ import Machiavelli.Views.MainMenuView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
 /**
  * Google Java Style Guide aanhouden
  */
@@ -12,6 +15,7 @@ public class Machiavelli extends Application {
 
     private static Machiavelli uniqueInstance;
     private Stage stage;
+    private Registry registry;
 
     public Machiavelli() {
         super();
@@ -30,6 +34,17 @@ public class Machiavelli extends Application {
         this.stage.setResizable(false);
         this.stage.setTitle("Machiavelli");
         MenuController menuController = new MenuController(new MainMenuView());
+
+        try {
+            System.out.println("Getting access to the registry");
+            // get access to the RMI registry on the remote server
+            registry = LocateRegistry.getRegistry("127.0.0.1"); // if server on another machine: provide that machine's IP address. Default port  1099
+            System.out.println("Getting the Calculator stub from registry");
+            System.out.println("Performing arithmetics");
+            System.out.println("Done!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static synchronized Machiavelli getInstance() {
@@ -42,6 +57,10 @@ public class Machiavelli extends Application {
 
     public Stage getStage() {
         return this.stage;
+    }
+
+    public Registry getRegistry() {
+        return this.registry;
     }
 
 }

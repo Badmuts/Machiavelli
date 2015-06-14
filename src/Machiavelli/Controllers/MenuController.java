@@ -1,15 +1,19 @@
 package Machiavelli.Controllers;
 
+import Machiavelli.Machiavelli;
 import Machiavelli.Models.Spel;
 import Machiavelli.Models.Speler;
 import Machiavelli.Views.InvullenSpelersView;
 import Machiavelli.Views.MainMenuView;
+
+import java.rmi.registry.Registry;
 
 public class MenuController {
 
     private MainMenuView mainMenuView;
     private InvullenSpelersView invullenspeler;
     private SpelController spelController;
+    private Registry registry = Machiavelli.getInstance().getRegistry();
 
     /**
      * Maakt de MainMenuView aan en koppelt de buttons aan cmd's
@@ -75,6 +79,7 @@ public class MenuController {
     public void cmdInvullenSpelersStartNewGame() {
         // TODO: Create new spel instance?
         int maxAantalSpelers = Integer.parseInt(this.invullenspeler.getTextField());
+
         this.spelController = new SpelController(new Spel(maxAantalSpelers));
         this.spelController.cmdAddSpeler(new Speler());
     }

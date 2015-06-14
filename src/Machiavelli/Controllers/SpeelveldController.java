@@ -4,24 +4,20 @@ import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Models.Speelveld;
 import Machiavelli.Models.Spel;
-import Machiavelli.Models.Speler;
 import Machiavelli.Views.SpeelveldView;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public class SpeelveldController implements SpelObserver {
+public class SpeelveldController extends UnicastRemoteObject implements SpelObserver {
 	private Speelveld speelveld;
 	private SpeelveldView speelveldview;
-	private Spel spel;
+	private SpelRemote spel;
 	
-	public SpeelveldController(Speelveld speelveld, Spel spel) {
+	public SpeelveldController(Speelveld speelveld, SpelRemote spel) throws RemoteException{
         this.speelveld = speelveld;
         this.spel = spel;
-        try {
-            this.spel.addObserver(this);
-        } catch (RemoteException re) {
-            re.printStackTrace();
-        }
+        this.spel.addObserver(this);
         this.speelveldview = new SpeelveldView(this, this.speelveld);
         this.speelveld.registratieView(this.speelveldview);
 
@@ -30,7 +26,7 @@ public class SpeelveldController implements SpelObserver {
 		this.speelveldview.show();
 	}
 
-	public Spel getSpel() {
+	public SpelRemote getSpel() {
 		return this.spel;
 	}
 

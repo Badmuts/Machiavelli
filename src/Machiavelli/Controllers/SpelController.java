@@ -1,7 +1,11 @@
 package Machiavelli.Controllers;
 
-import Machiavelli.Models.Spel;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Machiavelli;
 import Machiavelli.Models.Speler;
+import server.GamesRemote;
+
+import java.rmi.registry.Registry;
 
 /**
  * 
@@ -9,21 +13,34 @@ import Machiavelli.Models.Speler;
  *
  */
 
-public class SpelController{
+public class SpelController {
     private SpeelveldController speelveldController;
-	private Spel spel;
+	private SpelRemote spel;
+    private Registry registry = Machiavelli.getInstance().getRegistry();
 
-	public SpelController(Spel spel){
-		this.spel = spel;
-//        this.speelveldController = new SpeelveldController(spel);
+	public SpelController(SpelRemote spel){
+        try {
+            registry.bind("Spel", spel);
+            this.spel = (SpelRemote)registry.lookup("Spel");
+            GamesRemote gamesRemote = (GamesRemote)registry.lookup("Games");
+            gamesRemote.addSpelToGames(this.spel);
+        } catch (Exception re) {
+            re.printStackTrace();
+        }
 	}
 
 	public void cmdAddSpeler(Speler speler) {
-        speler.addSpel(this.spel);
-        this.spel.addSpeler(speler);
+        try {
+//            registry.bind("Speler", speler);
+//            SpelerRemote sp = (SpelerRemote)registry.lookup("Speler");
+            speler.addSpel(this.spel);
+            this.spel.addSpeler(speler);
+        } catch (Exception re) {
+            re.printStackTrace();
+        }
     }
 
-    public Spel getSpel() {
+    public SpelRemote getSpel() {
         return this.spel;
     }
 }

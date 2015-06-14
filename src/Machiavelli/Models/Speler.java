@@ -3,6 +3,7 @@ package Machiavelli.Models;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelerObserver;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 import java.rmi.RemoteException;
@@ -24,7 +25,7 @@ public class Speler implements SpelerRemote {
 	private Portemonnee portemonnee;
 	private Karakter karakter;
 	private Hand hand;
-	private Spel spel;
+	private SpelRemote spel;
 	private Stad stad;
 	private ArrayList<SpelerObserver> observers = new ArrayList<>();
 	private SpeelveldController speelveldController;
@@ -90,7 +91,7 @@ public class Speler implements SpelerRemote {
         notifyObservers();
 	}
 
-	public Spel getSpel() throws RemoteException {
+	public SpelRemote getSpel() throws RemoteException {
 		return this.spel;
 	}
 
@@ -117,7 +118,7 @@ public class Speler implements SpelerRemote {
 		}
 	}
 
-    public void addSpel(Spel spel) {
+    public void addSpel(SpelRemote spel) {
         this.spel = spel;
         this.createStad();
     }

@@ -6,17 +6,18 @@ import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Karakters.Magier;
 import Machiavelli.Models.Speelveld;
-import Machiavelli.Models.Speler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public class SpeelveldView implements SpeelveldObserver {
+public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver {
 
 	private SpeelveldController speelveldcontroller;
 	private Speelveld speelveld;
@@ -27,7 +28,7 @@ public class SpeelveldView implements SpeelveldObserver {
     private HandActionBarView handActionBarView;
     private KarakterActionBarView karakterActionBarView;
 
-    public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld){
+    public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld) throws RemoteException {
 		this.speelveld = speelveld;
 		this.speelveldcontroller = speelveldcontroller;
 
