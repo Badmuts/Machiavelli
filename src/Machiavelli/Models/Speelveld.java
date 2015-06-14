@@ -7,10 +7,11 @@ import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Views.SpeelveldView;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class Speelveld implements SpeelveldRemote {
+public class Speelveld implements SpeelveldRemote, Serializable {
     private SpeelveldView speelveldView;
     private SpelRemote spel;
 	private Speler koning;

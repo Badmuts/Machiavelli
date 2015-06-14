@@ -3,16 +3,18 @@ package Machiavelli.Models;
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Views.SpeelveldView;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class Spel implements SpelRemote {
-	private final int maxAantalSpelers;
+public class Spel implements SpelRemote, Serializable {
+	private int maxAantalSpelers;
 	private Speelveld speelveld;
 	private SpeelveldView speelveldview;
-	private ArrayList<Speler> spelers = new ArrayList<>();
+	private ArrayList<SpelerRemote> spelers = new ArrayList<>();
 	private Bank bank;
 	private GebouwFactory gebouwFactory;
 	private ArrayList<SpelObserver> observers = new ArrayList<>();
@@ -70,7 +72,12 @@ public class Spel implements SpelRemote {
 		}
 	}
 
-    public void addSpeler(Speler speler) {
+	@Override
+	public void addSpeler(SpelerRemote speler) throws RemoteException {
+		this.spelers.add(speler);
+	}
+
+	public void addSpeler(Speler speler) {
         this.spelers.add(speler);
         try {
             notifyObservers();
@@ -79,7 +86,7 @@ public class Spel implements SpelRemote {
         }
     }
 
-    public ArrayList<Speler> getSpelers() {
+    public ArrayList<SpelerRemote> getSpelers() {
         return this.spelers;
     }
 

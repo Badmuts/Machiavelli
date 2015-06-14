@@ -3,6 +3,7 @@ package Machiavelli.Models;
 import Machiavelli.Interfaces.Observers.PuntenObserver;
 import Machiavelli.Interfaces.Remotes.PuntenRemote;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  * @version 0.1
  *
  */
-public class PuntenModel implements PuntenRemote {
+public class PuntenModel implements PuntenRemote, Serializable {
 
 	private Speler winnaar;
 	private ArrayList<PuntenObserver> observers = new ArrayList<>();

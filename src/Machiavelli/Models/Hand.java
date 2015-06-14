@@ -4,6 +4,7 @@ import Machiavelli.Interfaces.Observers.BankObserver;
 import Machiavelli.Interfaces.Observers.HandObserver;
 import Machiavelli.Interfaces.Remotes.HandRemote;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.*;
 
@@ -16,7 +17,7 @@ import java.util.*;
  * @version 0.1
  *
  */
-public class Hand implements HandRemote {
+public class Hand implements HandRemote, Serializable {
 	// Variables
 	private ArrayList<GebouwKaart> kaartenLijst;
 	private Speler speler;

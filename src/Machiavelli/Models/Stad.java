@@ -3,13 +3,14 @@ package Machiavelli.Models;
 import Machiavelli.Interfaces.Observers.StadObserver;
 import Machiavelli.Interfaces.Remotes.StadRemote;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
  * Created by daanrosbergen on 03/06/15.
  */
-public class Stad implements StadRemote {
+public class Stad implements StadRemote, Serializable {
 	private final Speler speler;
 	private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
 	private Spel spel;
