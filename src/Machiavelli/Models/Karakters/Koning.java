@@ -5,6 +5,7 @@ import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
+import javafx.scene.image.Image;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -84,6 +85,11 @@ public class Koning implements Karakter, Bonusable {
     @Override
     public void setTarget(Object target) {
         this.target = target;
+    }
+
+    @Override
+    public Image getImage() {
+        return null;
     }
 
 

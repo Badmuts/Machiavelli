@@ -4,6 +4,7 @@ package Machiavelli.Models.Karakters;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.Speler;
+import javafx.scene.image.Image;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -78,6 +79,11 @@ public class Moordenaar implements Karakter {
     @Override
     public void setTarget(Object target) {
         this.target = target;
+    }
+
+    @Override
+    public Image getImage() {
+        return null;
     }
 }
 

@@ -6,6 +6,7 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 import Machiavelli.Models.Stad;
+import javafx.scene.image.Image;
 
 
 import java.rmi.RemoteException;
@@ -47,7 +48,12 @@ public class Condotierre implements Karakter, Bonusable {
     public void setTarget(Object target) {
     	this.target = (GebouwKaart) target;
     }
-    
+
+    @Override
+    public Image getImage() {
+        return null;
+    }
+
     /**
 	 * overriden van de methode uit de interface Karakter
 	 * en aanroepen van de methode selectGebouwView

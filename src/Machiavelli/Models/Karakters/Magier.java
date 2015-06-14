@@ -6,6 +6,7 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Hand;
 import Machiavelli.Models.Speler;
+import javafx.scene.image.Image;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class Magier implements Karakter {
     private Speler  speler  = null;
     private Object  target  = null;
     private ArrayList<GebouwKaart> ruilLijst = new ArrayList<GebouwKaart>();
+    private Image image = new Image("Machiavelli/Resources/Portrait-Magier.png");
 
     /**
 	 * Overriden van de methode uit de interface Karakter,
@@ -131,5 +133,10 @@ public class Magier implements Karakter {
     @Override
     public void setTarget(Object target) {
         this.target = target;
+    }
+
+    @Override
+    public Image getImage() {
+        return this.image;
     }
 }

@@ -2,6 +2,9 @@ package Machiavelli.Interfaces;
 
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Models.Speler;
+import javafx.scene.image.*;
+
+import java.awt.*;
 
 /**
  * Deze interface word geimplementeerd door alle karakters.
@@ -25,5 +28,6 @@ public interface Karakter {
     int getBouwLimiet();
     Type getType();
     void setTarget(Object target);
+    javafx.scene.image.Image getImage();
     
 }

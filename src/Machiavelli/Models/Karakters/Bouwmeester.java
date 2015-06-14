@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.Speler;
+import javafx.scene.image.Image;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -80,4 +81,9 @@ public class Bouwmeester implements Karakter {
 		// TODO Auto-generated method stub
 		
 	}
+
+    @Override
+    public Image getImage() {
+        return null;
+    }
 }
