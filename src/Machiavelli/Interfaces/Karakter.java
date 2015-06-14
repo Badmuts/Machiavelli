@@ -19,11 +19,14 @@ import Machiavelli.Models.Speler;
 public interface Karakter {
 	
 	void setSpeler(Speler speler);
+	void getSpeler();
     void gebruikEigenschap();
     String getNaam();
     int getNummer();
     int getBouwLimiet();
+    
     Type getType();
     void setTarget(Object target);
+	void beurtOverslaan();
     
 }
