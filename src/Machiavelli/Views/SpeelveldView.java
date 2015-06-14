@@ -6,6 +6,7 @@ import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Karakters.Magier;
 import Machiavelli.Models.Speelveld;
+import Machiavelli.Models.Speler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -26,7 +27,7 @@ public class SpeelveldView implements SpeelveldObserver {
     private HandActionBarView handActionBarView;
     private KarakterActionBarView karakterActionBarView;
 
-    public SpeelveldView(SpeelveldController speelveldcontroller,Speelveld speelveld){
+    public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld){
 		this.speelveld = speelveld;
 		this.speelveldcontroller = speelveldcontroller;
 
@@ -56,7 +57,11 @@ public class SpeelveldView implements SpeelveldObserver {
     }
 
     private void createKaartHolder() {
-        handActionBarView = new HandActionBarView();
+        try {
+            handActionBarView = new HandActionBarView(this.speelveld.getSpeler().getHand());
+        } catch (RemoteException re) {
+            re.printStackTrace();
+        }
     }
 
     private void createKarakterHolder() {

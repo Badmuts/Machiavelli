@@ -51,19 +51,19 @@ public class KarakterActionBarView extends Pane {
     private Circle setKarakterTypeClass(Circle circle) {
         switch (karakter.getType()) {
             case COMMERCIEL:
-                circle.getStyleClass().add("karakter-commerciel");
+                circle.getStyleClass().add("type-commerciel");
                 break;
             case KERKELIJK:
-                circle.getStyleClass().add("karakter-kerkelijk");
+                circle.getStyleClass().add("type-kerkelijk");
                 break;
             case MILITAIR:
-                circle.getStyleClass().add("karakter-militair");
+                circle.getStyleClass().add("type-militair");
                 break;
             case MONUMENT:
-                circle.getStyleClass().add("karakter-monument");
+                circle.getStyleClass().add("type-monument");
                 break;
             default:
-                circle.getStyleClass().add("karakter-normaal");
+                circle.getStyleClass().add("type-normaal");
         }
         return circle;
     }

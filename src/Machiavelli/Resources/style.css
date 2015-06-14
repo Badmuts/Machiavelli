@@ -58,32 +58,38 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 15, 0.0, 0, -10);
 }
 
-.karakter-nummer {
-    -fx-text-fill: white;
+.karakter-nummer, .gebouwkaart-score {
+    -fx-fill: white;
     -fx-font-size: 2em;
 }
 
 /* Groene kleur voor het type Commerciel */
-.karakter-commerciel {
+.type-commerciel {
     -fx-fill: linear-gradient(#DDFA61, #1CF736);
 }
 
 /* Blauwe kleur voor het type Kerkelijk */
-.karakter-kerkelijk {
+.type-kerkelijk {
     -fx-fill: linear-gradient(#61CAFA, #1C4CF7);
 }
 
 /* Rode kleur voor het type Militair */
-.karakter-militair {
+.type-militair {
     -fx-fill: linear-gradient(#EA5C32, #D2492B);
 }
 
 /* Gele kleur voor het type Monument */
-.karakter-monument {
+.type-monument {
     -fx-fill: linear-gradient(#F3EB38, #D2C12B);
 }
 
 /* Grijze kleur voor het type Normaal */
-.karakter-normaal {
+.type-normaal {
     -fx-fill: linear-gradient(#B4B4B4, #908E8D);
+}
+
+.gebouwkaart-naam {
+    -fx-fill: #FFFFFF;
+    -fx-font-size: 2em;
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 5, 0.0, 0, 1);*/
 }

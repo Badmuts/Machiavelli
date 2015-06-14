@@ -35,7 +35,7 @@ public class ButtonHolderActionBarView extends StackPane {
         initButton(placeholderbutton3, "Eigenschap", "button-primary", 1, 1, 160f, 55f);
         initButton(placeholderbutton2, "Bouwen", "button-primary", 2, 1, 160f, 55f);
         initButton(placeholderbutton1, "Bonusgoud", "button-primary", 1, 2, 160f, 55f);
-        initButton(gebruikEigenschap,"Button","button-primary", 2, 2, 160f, 55f);
+        initButton(gebruikEigenschap,"Einde beurt","button-danger", 2, 2, 160f, 55f);
         initButton(opslaanknop,"Opslaan","button-success", 1, 3, 160f, 55f);
         initButton(exitbutton,"Afsluiten","button-danger", 2, 3, 160f, 55f);
 

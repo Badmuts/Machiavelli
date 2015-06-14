@@ -34,6 +34,7 @@ public class Hand implements HandRemote {
                 System.out.print(re);
             }
 		}
+		System.out.print("Niew hand created!");
 	}
 
 	// Een gebouw toevoegen aan de hand van de speler

@@ -17,8 +17,8 @@ public class Spel implements SpelRemote {
 	private GebouwFactory gebouwFactory;
 	private ArrayList<SpelObserver> observers = new ArrayList<>();
 
-	public Spel(int maxAantalSpelers){
-		this.maxAantalSpelers = maxAantalSpelers;
+	public Spel(int aantalSpelers){
+		this.maxAantalSpelers = aantalSpelers;
 		this.bank = new Bank();
 		this.gebouwFactory = new GebouwFactory();
 	}
@@ -64,6 +64,7 @@ public class Spel implements SpelRemote {
 	}
 
 	public void notifyObservers() throws RemoteException {
+		System.out.println("Spel model changed!");
 		for (SpelObserver observer: observers) {
 			observer.modelChanged(this);
 		}

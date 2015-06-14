@@ -12,18 +12,19 @@ import java.util.ArrayList;
 public class Speelveld implements SpeelveldRemote {
     private SpeelveldView speelveldView;
     private Spel spel;
-	private ArrayList<Speler> spelers;
 	private Speler koning;
 	private Karakter karakter;
 	private SpeelveldController speelveldcontroller;
+	private Speler speler;
 	private ArrayList<SpeelveldObserver> observers = new ArrayList<>();
 
-	public Speelveld(Spel spel, SpeelveldView speelveldView){
+	public Speelveld(Spel spel, Speler speler) {
 		//Spelers koppeln aan speelveld
 		//Start spelers is koning
 		//Starten karakterkiezenlijst speler 1
 		//Doorgeven karakterlijst aan andere spelers
-		this.spelers = spel.getSpelers();
+//		this.spelers = spel.getSpelers();
+		this.speler = speler;
         this.spel = spel;
         this.speelveldView = speelveldView;
 //		try {
@@ -52,7 +53,13 @@ public class Speelveld implements SpeelveldRemote {
 			observer.modelChanged(this);
 		}
 	}
-	
-	
+
+	public void registratieView(SpeelveldView speelveldview) {
+		this.speelveldView = speelveldview;
+	}
+
+    public Speler getSpeler() {
+        return this.speler;
+    }
 }
 

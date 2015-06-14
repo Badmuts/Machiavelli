@@ -1,5 +1,6 @@
 package Machiavelli.Models;
 
+import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelerObserver;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
@@ -26,6 +27,7 @@ public class Speler implements SpelerRemote {
 	private Spel spel;
 	private Stad stad;
 	private ArrayList<SpelerObserver> observers = new ArrayList<>();
+	private SpeelveldController speelveldController;
 
 	// Speler toewijzen aan spel en een nieuwe portemonnee, hand en stad maken.
 	public Speler() {
@@ -121,26 +123,19 @@ public class Speler implements SpelerRemote {
     }
 
     private void createStad() {
-//        try {
-            this.stad = new Stad(this);
-            this.createHand();
-//        } catch (RemoteException re) {
-//            System.out.print(re);
-//        }
+		this.stad = new Stad(this);
+		this.createHand();
     }
 
     private void createHand() {
-//        try {
-            this.hand = new Hand(this);
-            this.createPortemonnee();
-//        } catch (RemoteException re) {
-//            System.out.print(re);
-//        }
+		this.hand = new Hand(this);
+		this.createPortemonnee();
     }
 
     private void createPortemonnee() {
         try {
             this.portemonnee = new Portemonnee(this.spel.getBank());
+            this.speelveldController = new SpeelveldController(new Speelveld(this.spel, this), this.spel);
         } catch (RemoteException re) {
             System.out.print(re);
         }

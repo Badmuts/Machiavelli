@@ -13,9 +13,9 @@ public class SpelController{
     private SpeelveldController speelveldController;
 	private Spel spel;
 
-	public SpelController(int maxAantalSpelers){
-		this.spel = new Spel(maxAantalSpelers);
-        this.speelveldController = new SpeelveldController(spel);
+	public SpelController(Spel spel){
+		this.spel = spel;
+//        this.speelveldController = new SpeelveldController(spel);
 	}
 
 	public void cmdAddSpeler(Speler speler) {

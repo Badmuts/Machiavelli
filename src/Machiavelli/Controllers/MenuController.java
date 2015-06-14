@@ -1,5 +1,6 @@
 package Machiavelli.Controllers;
 
+import Machiavelli.Models.Spel;
 import Machiavelli.Models.Speler;
 import Machiavelli.Views.InvullenSpelersView;
 import Machiavelli.Views.MainMenuView;
@@ -74,7 +75,7 @@ public class MenuController {
     public void cmdInvullenSpelersStartNewGame() {
         // TODO: Create new spel instance?
         int maxAantalSpelers = Integer.parseInt(this.invullenspeler.getTextField());
-        this.spelController = new SpelController(maxAantalSpelers);
+        this.spelController = new SpelController(new Spel(maxAantalSpelers));
         this.spelController.cmdAddSpeler(new Speler());
     }
 
