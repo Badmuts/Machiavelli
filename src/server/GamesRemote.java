@@ -13,5 +13,6 @@ public interface GamesRemote extends Remote {
     public void addSpelToGames(SpelRemote spel) throws RemoteException;
     public void addObserver(GameObserver gameObserver) throws RemoteException;
     public void notifyObservers() throws RemoteException;
+    public SpelRemote getSpel(SpelRemote spel) throws RemoteException;
 
 }
