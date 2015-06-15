@@ -93,10 +93,14 @@ public class Spel {
 		xs.omitField(Image.class, "platformImage");
 		xs.omitField(Speelveld.class, "speelveldcontroller");
 
-
 		// XML bestand wegschrijven
 		FileOutputStream fos = new FileOutputStream(createSaveLocation() + "/" + generateFileName());
 		xs.toXML(spel, fos);
+	}
+
+	public void loadGame()
+	{
+		
 	}
 
 	private String generateFileName()
@@ -106,7 +110,7 @@ public class Spel {
 		return name;
 	}
 
-	public File createSaveLocation()
+	private File createSaveLocation()
 	{
 		File file = new File(System.getProperty("user.home") + "/machiavelli/");
 		if (!file.exists()){
