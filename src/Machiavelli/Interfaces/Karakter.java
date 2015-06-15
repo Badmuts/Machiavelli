@@ -2,9 +2,7 @@ package Machiavelli.Interfaces;
 
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Models.Speler;
-import javafx.scene.image.*;
-
-import java.awt.*;
+import javafx.scene.image.Image;
 
 /**
  * Deze interface word geimplementeerd door alle karakters.
@@ -22,12 +20,15 @@ import java.awt.*;
 public interface Karakter {
 	
 	void setSpeler(Speler speler);
+	void getSpeler();
     void gebruikEigenschap();
     String getNaam();
     int getNummer();
     int getBouwLimiet();
+    
     Type getType();
     void setTarget(Object target);
-    javafx.scene.image.Image getImage();
-    
+    Image getImage();
+	void beurtOverslaan();
+
 }
