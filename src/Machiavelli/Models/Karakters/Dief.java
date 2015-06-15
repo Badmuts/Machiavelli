@@ -42,7 +42,12 @@ public class Dief implements Karakter {
            this.speler = speler;
        }
 
-   	/**
+    @Override
+    public Speler getSpeler() {
+        return null;
+    }
+
+    /**
 	 * overriden van de methode uit de interface Karakter
 	 * en aanroepen van de methode selectKarakterView
 	 * Er wordt gewacht op de keuze van de speler. 
@@ -91,6 +96,11 @@ public class Dief implements Karakter {
     @Override
     public Image getImage() {
         return null;
+    }
+
+    @Override
+    public void beurtOverslaan() {
+
     }
 
 }

@@ -21,7 +21,6 @@ import javafx.scene.image.Image;
 public class Moordenaar implements Karakter {
 	
 	private Speler speler = null;
-	private Karakter target = null;
     
 	/** Eigenschappen van karakter Moordenaar. */
     private final int nummer = 1;	
@@ -38,7 +37,8 @@ public class Moordenaar implements Karakter {
     public void setSpeler(Speler speler) {
     	this.speler = speler;
     }
-    @Override getSpeler() {
+    @Override
+    public Speler getSpeler() {
     	return speler;
     }
     
@@ -71,7 +71,7 @@ public class Moordenaar implements Karakter {
     }
 
     public Karakter getVermoordKarakter() {
-		return target;
+		return (Karakter)target;
 	}
 
 	public String getNaam() {
@@ -92,13 +92,13 @@ public class Moordenaar implements Karakter {
 	}
 
     @Override
-    public void setTarget(Object target) {
-        this.target = target;
+    public Image getImage() {
+        return null;
     }
 
     @Override
-    public Image getImage() {
-        return null;
+    public void beurtOverslaan() {
+
     }
 }
 

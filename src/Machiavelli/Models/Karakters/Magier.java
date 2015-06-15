@@ -48,7 +48,12 @@ public class Magier implements Karakter {
         this.speler = speler;
     }
 
-	@Override
+    @Override
+    public Speler getSpeler() {
+        return null;
+    }
+
+    @Override
     public void gebruikEigenschap() {
         // TODO: ruilen bouwkaarten
         System.out.println("faka");
@@ -138,5 +143,10 @@ public class Magier implements Karakter {
     @Override
     public Image getImage() {
         return this.image;
+    }
+
+    @Override
+    public void beurtOverslaan() {
+
     }
 }

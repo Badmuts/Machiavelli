@@ -38,6 +38,11 @@ public class Prediker implements Karakter, Bonusable {
     }
 
     @Override
+    public Speler getSpeler() {
+        return null;
+    }
+
+    @Override
     public void gebruikEigenschap() {
         // TODO: beschermt tegen karakter Condotierre
     }
@@ -76,5 +81,10 @@ public class Prediker implements Karakter, Bonusable {
     @Override
     public Image getImage() {
         return null;
+    }
+
+    @Override
+    public void beurtOverslaan() {
+
     }
 }

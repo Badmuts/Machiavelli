@@ -43,7 +43,12 @@ public class Condotierre implements Karakter, Bonusable {
     public void setSpeler(Speler speler) {
         this.speler = speler;
     }
-    
+
+    @Override
+    public Speler getSpeler() {
+        return null;
+    }
+
     @Override
     public void setTarget(Object target) {
     	this.target = (GebouwKaart) target;
@@ -52,6 +57,11 @@ public class Condotierre implements Karakter, Bonusable {
     @Override
     public Image getImage() {
         return null;
+    }
+
+    @Override
+    public void beurtOverslaan() {
+
     }
 
     /**

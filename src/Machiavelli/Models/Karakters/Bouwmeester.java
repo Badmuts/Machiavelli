@@ -1,11 +1,11 @@
 package Machiavelli.Models.Karakters;
 
-import java.rmi.RemoteException;
-
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.Speler;
 import javafx.scene.image.Image;
+
+import java.rmi.RemoteException;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -37,8 +37,13 @@ public class Bouwmeester implements Karakter {
     @Override
     public void setSpeler(Speler speler) {
         this.speler = speler;
-    }   
-   
+    }
+
+    @Override
+    public Speler getSpeler() {
+        return null;
+    }
+
     /**
 	 * overriden van de methode uit de interface Karakter
 	 * ??????
@@ -85,5 +90,10 @@ public class Bouwmeester implements Karakter {
     @Override
     public Image getImage() {
         return null;
+    }
+
+    @Override
+    public void beurtOverslaan() {
+
     }
 }
