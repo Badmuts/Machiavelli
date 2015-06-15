@@ -22,8 +22,8 @@ public interface GebouwKaartRemote extends Remote {
     public void setKosten(int kosten) throws RemoteException;
     public Stad getStad() throws RemoteException;
     public void setStad(Stad stad) throws RemoteException;
-    public Image getImage() throws RemoteException;
-    public void setImage(Image image) throws RemoteException;
+    public String getImage() throws RemoteException;
+    public void setImage(String image) throws RemoteException;
     public void addObserver(GebouwKaartObserver gebouwKaartObserver) throws RemoteException;
     public void notifyObservers() throws RemoteException;
     public GebouwKaartView getGebouwkaartView() throws RemoteException;

@@ -4,6 +4,7 @@ import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import javafx.geometry.Pos;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -12,15 +13,15 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
-public class GebouwKaartView extends StackPane implements GebouwKaartObserver {
+public class GebouwKaartView extends StackPane implements GebouwKaartObserver, Serializable {
 
     private GebouwKaartController gebouwKaartController;
     private GebouwKaartRemote gebouwKaart;
-    private ImageView gebouwKaartImage;
-    private Pane gebouwScoreView;
-    private StackPane gebouwKaartName;
+//    private Pane gebouwScoreView;
+//    private StackPane gebouwKaartName;
 
     public GebouwKaartView(GebouwKaartRemote gebouwKaart) {
         super();
@@ -29,23 +30,25 @@ public class GebouwKaartView extends StackPane implements GebouwKaartObserver {
         createImageView();
         createScoreView();
         createNameField();
-        this.getChildren().addAll(gebouwKaartImage, gebouwScoreView, gebouwKaartName);
-        StackPane.setAlignment(gebouwKaartName, Pos.CENTER);
+        this.getChildren().addAll(createImageView(), createScoreView(), createNameField());
+//        StackPane.setAlignment(gebouwKaartName, Pos.CENTER);
     }
 
-    private void createImageView() {
+    private ImageView createImageView() {
+        ImageView gebouwKaartImage = new ImageView();
         try {
-            this.gebouwKaartImage = new ImageView(gebouwKaart.getImage());
-            this.gebouwKaartImage.setFitWidth(200);
-            this.gebouwKaartImage.setFitHeight(300);
+            gebouwKaartImage = new ImageView(new Image(gebouwKaart.getImage()));
+            gebouwKaartImage.setFitWidth(200);
+            gebouwKaartImage.setFitHeight(300);
         } catch (RemoteException re) {
             re.printStackTrace();
         }
+        return gebouwKaartImage;
     }
 
-    private void createScoreView() {
+    private Pane createScoreView() {
+        Pane gebouwScoreView = new Pane();
         try {
-            gebouwScoreView = new Pane();
             Circle circle = new Circle(30);
             circle = setGebouwTypeClass(circle);
 
@@ -56,6 +59,7 @@ public class GebouwKaartView extends StackPane implements GebouwKaartObserver {
         } catch (RemoteException re) {
             re.printStackTrace();
         }
+        return gebouwScoreView;
     }
 
     private Circle setGebouwTypeClass(Circle circle) {
@@ -82,8 +86,8 @@ public class GebouwKaartView extends StackPane implements GebouwKaartObserver {
         return circle;
     }
 
-    private void createNameField() {
-        gebouwKaartName = new StackPane();
+    private StackPane createNameField() {
+        StackPane gebouwKaartName = new StackPane();
         Rectangle background = new Rectangle(200, 75);
         background.setFill(Color.rgb(0, 0, 0, 0.7));
         try {
@@ -95,6 +99,7 @@ public class GebouwKaartView extends StackPane implements GebouwKaartObserver {
         } catch (RemoteException re) {
             re.printStackTrace();
         }
+        return gebouwKaartName;
     }
 
     @Override

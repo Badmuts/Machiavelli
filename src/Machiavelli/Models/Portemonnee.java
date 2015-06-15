@@ -3,6 +3,7 @@ package Machiavelli.Models;
 import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
 import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  * @version 0.1
  *
  */
-public class Portemonnee implements PortemonneeRemote {
+public class Portemonnee implements PortemonneeRemote, Serializable {
 	// Variables
 	private int goudMunten;
 	private Bank bank;
