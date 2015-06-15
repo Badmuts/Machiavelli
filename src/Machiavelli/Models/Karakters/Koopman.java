@@ -5,7 +5,9 @@ import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
+import javafx.scene.image.Image;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /** 
@@ -29,7 +31,8 @@ public class Koopman implements Karakter, Bonusable {
     private final int bouwLimiet = 1; 
     private final String naam = "Koopman";
     private final Type type = Type.COMMERCIEL;
-    
+    private Object target;
+
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Koopman wordt aan de speler gekoppeld.
@@ -38,7 +41,12 @@ public class Koopman implements Karakter, Bonusable {
 	public void setSpeler(Speler speler) {
         this.speler = speler;
     }
-	
+
+    @Override
+    public Speler getSpeler() {
+        return null;
+    }
+
     // TODO: ontvangt 1 goudstuk
 	/**
 	 * overriden van de methode uit de interface Karakter
@@ -46,20 +54,24 @@ public class Koopman implements Karakter, Bonusable {
 	 */
 	@Override
     public void gebruikEigenschap() {	
-		ontvangenBonusGoud();
-       }
+		try {
+            ontvangenBonusGoud();
+        } catch (RemoteException re) {
+            System.out.print(re);
+        }
+    }
 	
 	/**
 	 * Deze methode wordt aangroepen door gebruikEigenschap()
 	 * de speler met het karakter koopman ontvangt 1 goudstuk
 	 */
-    public void ontvangenBonusGoud(Speler koopman){
+    public void ontvangenBonusGoud(Speler koopman) throws RemoteException {
     	koopman.getPortemonnee().ontvangenGoud(1);
     }
 
 	/** ontvangen bonusgoud voor commerciele gebouwen */
     @Override
-    public void ontvangenBonusGoud() {
+    public void ontvangenBonusGoud() throws RemoteException {
         ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
         for (GebouwKaart gebouw : gebouwen) {
             if (gebouw.getType() == this.type)
@@ -74,7 +86,12 @@ public class Koopman implements Karakter, Bonusable {
     public int getNummer() {
     	return this.nummer;
     }
-    
+
+    @Override
+    public int getBouwLimiet() {
+        return this.bouwLimiet;
+    }
+
     public int getBouwlimiet() {
     	return this.bouwLimiet;
     }
@@ -82,5 +99,20 @@ public class Koopman implements Karakter, Bonusable {
 	public Type getType() {
 		return this.type;
 	}
-    
+
+    @Override
+    public void setTarget(Object target) {
+        this.target = target;
+    }
+
+    @Override
+    public Image getImage() {
+        return null;
+    }
+
+    @Override
+    public void beurtOverslaan() {
+
+    }
+
 }

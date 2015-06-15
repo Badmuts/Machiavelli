@@ -5,7 +5,9 @@ import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
+import javafx.scene.image.Image;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
@@ -28,10 +30,16 @@ public class Prediker implements Karakter, Bonusable {
     private final int bouwLimiet = 1; 
     private final String naam = "Prediker";
     private final Type type = Type.KERKELIJK;
-    
+    private Object target;
+
     @Override
     public void setSpeler(Speler speler) {
         this.speler = speler;
+    }
+
+    @Override
+    public Speler getSpeler() {
+        return null;
     }
 
     @Override
@@ -40,7 +48,7 @@ public class Prediker implements Karakter, Bonusable {
     }
     
     /** ontvangen bonusgoud voor Kerk gebouwen */
-    public void ontvangenBonusGoud() {
+    public void ontvangenBonusGoud() throws RemoteException {
         ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
         for(GebouwKaart gebouw: gebouwen) {
             if (gebouw.getType() == this.type)
@@ -55,12 +63,28 @@ public class Prediker implements Karakter, Bonusable {
     public int getNummer() {
     	return this.nummer;
     }
-    
-    public int getBouwlimiet() {
-    	return this.bouwLimiet;
+
+    @Override
+    public int getBouwLimiet() {
+        return this.bouwLimiet;
     }
-    
-	public Type getType() {
+
+    public Type getType() {
 		return this.type;
 	}
+
+    @Override
+    public void setTarget(Object target) {
+        this.target = target;
+    }
+
+    @Override
+    public Image getImage() {
+        return null;
+    }
+
+    @Override
+    public void beurtOverslaan() {
+
+    }
 }

@@ -1,0 +1,95 @@
+.speelveld {
+    -fx-background-color: #F5EBC6;
+}
+
+/* Styling voor de gele buttons */
+.button-primary {
+    -fx-background-color: linear-gradient(#ffd65e,#febf04);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 1.5em;
+}
+.button-primary:hover {
+    -fx-background-color: #febf04;
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+}
+
+/* Styling voor de groene buttons */
+.button-success {
+    -fx-background-color: linear-gradient(#8fc800 ,#59bf00);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 1.5em;
+}
+.button-success:hover {
+    -fx-background-color: linear-gradient(#14ba1f ,#3b8400);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+}
+
+/* Styling voor de rode buttons */
+.button-danger {
+    -fx-background-color: linear-gradient(#f2825b,#e55b2b,#f07146);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 1.5em;
+}
+.button-danger:hover {
+    -fx-background-color: linear-gradient(#ff5400, #be1d00);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+}
+
+/* Styling for the action bar (containing character, cards and buttons) */
+.action-bar {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 15, 0.0, 0, -10);
+}
+
+.karakter-nummer, .gebouwkaart-score {
+    -fx-fill: white;
+    -fx-font-size: 2em;
+}
+
+/* Groene kleur voor het type Commerciel */
+.type-commerciel {
+    -fx-fill: linear-gradient(#DDFA61, #1CF736);
+}
+
+/* Blauwe kleur voor het type Kerkelijk */
+.type-kerkelijk {
+    -fx-fill: linear-gradient(#61CAFA, #1C4CF7);
+}
+
+/* Rode kleur voor het type Militair */
+.type-militair {
+    -fx-fill: linear-gradient(#EA5C32, #D2492B);
+}
+
+/* Gele kleur voor het type Monument */
+.type-monument {
+    -fx-fill: linear-gradient(#F3EB38, #D2C12B);
+}
+
+/* Grijze kleur voor het type Normaal */
+.type-normaal {
+    -fx-fill: linear-gradient(#B4B4B4, #908E8D);
+}
+
+.gebouwkaart-naam {
+    -fx-fill: #FFFFFF;
+    -fx-font-size: 2em;
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 5, 0.0, 0, 1);*/
+}

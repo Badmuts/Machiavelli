@@ -6,7 +6,9 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Hand;
 import Machiavelli.Models.Speler;
+import javafx.scene.image.Image;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
@@ -35,6 +37,7 @@ public class Magier implements Karakter {
     private Speler  speler  = null;
     private Object  target  = null;
     private ArrayList<GebouwKaart> ruilLijst = new ArrayList<GebouwKaart>();
+    private Image image = new Image("Machiavelli/Resources/Portrait-Magier.png");
 
     /**
 	 * Overriden van de methode uit de interface Karakter,
@@ -45,29 +48,38 @@ public class Magier implements Karakter {
         this.speler = speler;
     }
 
-	@Override
+    @Override
+    public Speler getSpeler() {
+        return null;
+    }
+
+    @Override
     public void gebruikEigenschap() {
         // TODO: ruilen bouwkaarten
         System.out.println("faka");
-        while (getTarget() != null) {
-            // Iets tonen/afvangen om target te setten (View aanpassen?)
-            if (getTarget().equals(speler.getSpel().getGebouwFactory())) {
-                // Als het target de stapel met gebouwkaarten is
-                // ruilen met stapelkaarten implementeren
-                // Afvangen ruil lijst
-                ruilMetStapel(speler.getHand(), ruilLijst);
-                break;
-            } 
-            else {
-                // Ruil kaarten met een speler.
-                ruilMetKarakter((Speler)getTarget(), this.speler);
-                break;
+        try {
+            while (getTarget() != null) {
+                // Iets tonen/afvangen om target te setten (View aanpassen?)
+                if (getTarget().equals(speler.getSpel().getGebouwFactory())) {
+                    // Als het target de stapel met gebouwkaarten is
+                    // ruilen met stapelkaarten implementeren
+                    // Afvangen ruil lijst
+                    ruilMetStapel(speler.getHand(), ruilLijst);
+                    break;
+                }
+                else {
+                    // Ruil kaarten met een speler.
+                    ruilMetKarakter((Speler)getTarget(), this.speler);
+                    break;
+                }
             }
+        } catch (RemoteException re) {
+            System.out.print(re);
         }
     }
 
     // Ruil alle bouwkaarten met alle bouwkaarten van een ander speler/karakter??
-    private void ruilMetKarakter(Speler target, Speler magier) {
+    private void ruilMetKarakter(Speler target, Speler magier) throws RemoteException {
         ArrayList<GebouwKaart> handTarget = target.getHand().getKaartenLijst();
         ArrayList<GebouwKaart> magierHand = magier.getHand().getKaartenLijst();
         target.getHand().setKaartenLijst(magierHand);
@@ -75,7 +87,7 @@ public class Magier implements Karakter {
     }
 
     // Leg een x aantal kaarten af op de stapel en pak een gelijk aantal nieuwe kaarten
-    private void ruilMetStapel(Hand hand, ArrayList<GebouwKaart> ruilLijst) {
+    private void ruilMetStapel(Hand hand, ArrayList<GebouwKaart> ruilLijst) throws RemoteException {
         // Afleggen en tellen gebouwkaarten.
         int count = 0;
         for (int i = 0; i < ruilLijst.size(); i++) {
@@ -113,12 +125,28 @@ public class Magier implements Karakter {
     public int getNummer() {
     	return this.nummer;
     }
-    
-    public int getBouwlimiet() {
-    	return this.bouwLimiet;
+
+    @Override
+    public int getBouwLimiet() {
+        return this.bouwLimiet;
     }
-    
-	public Type getType() {
+
+    public Type getType() {
 		return this.type;
 	}
+
+    @Override
+    public void setTarget(Object target) {
+        this.target = target;
+    }
+
+    @Override
+    public Image getImage() {
+        return this.image;
+    }
+
+    @Override
+    public void beurtOverslaan() {
+
+    }
 }

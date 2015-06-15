@@ -3,6 +3,9 @@ package Machiavelli.Models.Karakters;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.Speler;
+import javafx.scene.image.Image;
+
+import java.rmi.RemoteException;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -34,15 +37,27 @@ public class Bouwmeester implements Karakter {
     @Override
     public void setSpeler(Speler speler) {
         this.speler = speler;
-    }   
-   
+    }
+
+    @Override
+    public Speler getSpeler() {
+        return null;
+    }
+
     /**
 	 * overriden van de methode uit de interface Karakter
 	 * ??????
+     * 
 	 */
     @Override
     public void gebruikEigenschap() {
         //TODO: 2 of 3 kaarten plaatsen in stad
+    	try {
+			this.speler.getHand().addGebouwen(this.speler.trekkenKaart(2));
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     public String getNaam() {
@@ -52,7 +67,12 @@ public class Bouwmeester implements Karakter {
     public int getNummer() {
     	return this.nummer;
     }
-    
+
+    @Override
+    public int getBouwLimiet() {
+        return this.bouwLimiet;
+    }
+
     public int getBouwlimiet() {
     	return this.bouwLimiet;
     }
@@ -60,4 +80,20 @@ public class Bouwmeester implements Karakter {
 	public Type getType() {
 		return this.type;
 	}
+
+	@Override
+	public void setTarget(Object target) {
+		// TODO Auto-generated method stub
+		
+	}
+
+    @Override
+    public Image getImage() {
+        return null;
+    }
+
+    @Override
+    public void beurtOverslaan() {
+
+    }
 }

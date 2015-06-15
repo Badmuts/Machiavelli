@@ -4,6 +4,7 @@ package Machiavelli.Models.Karakters;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.Speler;
+import javafx.scene.image.Image;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -20,14 +21,14 @@ import Machiavelli.Models.Speler;
 public class Moordenaar implements Karakter {
 	
 	private Speler speler = null;
-	private Karakter vermoordKarakter = null;
     
 	/** Eigenschappen van karakter Moordenaar. */
     private final int nummer = 1;	
     private final int bouwLimiet = 1; 
     private final String naam = "Moordenaar";
     private final Type type = Type.NORMAAL;
-    
+    private Object target;
+
     /**
      * Overriden van de methode uit de interface Karakter,
      * de Moordenaar wordt aan de speler gekoppeld.
@@ -35,6 +36,15 @@ public class Moordenaar implements Karakter {
     @Override
     public void setSpeler(Speler speler) {
     	this.speler = speler;
+    }
+    @Override
+    public Speler getSpeler() {
+    	return speler;
+    }
+    
+    @Override
+    public void setTarget(Object target) {
+    	this.target = (Karakter) target;
     }
     
     /**
@@ -46,15 +56,22 @@ public class Moordenaar implements Karakter {
     @Override
     public void gebruikEigenschap() {
         // TODO: vermoord karakter
-    	getVermoordKarakter();
+    	if (target != null) {
+    		vermoordKarakter(this.getVermoordKarakter());
+    	}
+    	else {
+    		//TODO: view aanroepen
+    	}
     }
+    
+    //beurt overslaan met ifjes???
 
-    public void setVermoordKarakter(Karakter karakter) {
-        this.vermoordKarakter = karakter;
+    public void vermoordKarakter(Karakter target) {
+    	target.beurtOverslaan();
     }
 
     public Karakter getVermoordKarakter() {
-		return vermoordKarakter;
+		return (Karakter)target;
 	}
 
 	public String getNaam() {
@@ -64,14 +81,25 @@ public class Moordenaar implements Karakter {
     public int getNummer() {
     	return this.nummer;
     }
-    
-    public int getBouwlimiet() {
-    	return this.bouwLimiet;
+
+    @Override
+    public int getBouwLimiet() {
+        return this.bouwLimiet;
     }
-    
-	public Type getType() {
+
+    public Type getType() {
 		return this.type;
 	}
+
+    @Override
+    public Image getImage() {
+        return null;
+    }
+
+    @Override
+    public void beurtOverslaan() {
+
+    }
 }
 
 

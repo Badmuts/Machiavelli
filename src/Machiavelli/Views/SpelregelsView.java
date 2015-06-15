@@ -1,5 +1,7 @@
 package Machiavelli.Views;
 
+import Machiavelli.Interfaces.Observers.SpelregelsObserver;
+import Machiavelli.Interfaces.Remotes.SpelregelsRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Spelregels;
 import javafx.scene.Scene;
@@ -12,9 +14,14 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 
-public class SpelregelsView {
-	
+public class SpelregelsView implements SpelregelsObserver {
+	@Override
+	public void modelChanged(SpelregelsRemote spelregels) throws RemoteException {
+
+	}
+
 	private Spelregels spelregels;
 	private Stage stage = Machiavelli.getInstance().getStage();
 	private Button closeButton;

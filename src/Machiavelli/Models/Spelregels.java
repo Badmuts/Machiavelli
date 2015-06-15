@@ -1,8 +1,14 @@
 package Machiavelli.Models;
 
+import Machiavelli.Interfaces.Observers.SpelregelsObserver;
+import Machiavelli.Interfaces.Remotes.SpelregelsRemote;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -12,8 +18,9 @@ import java.util.Scanner;
  *
  */
 
-	public class Spelregels {
-	
+public class Spelregels implements SpelregelsRemote, Serializable {
+	private ArrayList<SpelregelsObserver> observers = new ArrayList<>();
+
 	public String getSpelregels() throws IOException {
 		return this.getSpelregelsFromResource("spelregels.txt");
 	}
@@ -31,6 +38,17 @@ import java.util.Scanner;
 		}
 		
 		return text;
+	}
+
+	@Override
+	public void addObserver(SpelregelsObserver observer) throws RemoteException {
+		observers.add(observer);
+	}
+
+	public void notifyObservers() throws RemoteException {
+		for (SpelregelsObserver observer: observers) {
+			observer.modelChanged(this);
+		}
 	}
 	
 }

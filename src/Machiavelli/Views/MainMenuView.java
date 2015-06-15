@@ -1,8 +1,7 @@
 package Machiavelli.Views;
 
-import Machiavelli.Controllers.SpelController;
+import Machiavelli.Controllers.MenuController;
 import Machiavelli.Machiavelli;
-import Machiavelli.Models.Spel;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
@@ -22,14 +21,14 @@ public class MainMenuView{
     private Button nieuwspelknop;
     private Button exitbutton2;
     private Button spelregels2;
-    private SpelController sc;
+//    private SpelController sc;
     //private Stage primaryStage;
     private Scene mainMenu;
     private Scene mainSelect;
     private Stage stage = Machiavelli.getInstance().getStage();
+	private MenuController menuController;
 	
-	public MainMenuView(SpelController sc, Spel sp){
-		this.sc = sc;
+	public MainMenuView(){
 		
 		Pane mainMenuPane = new Pane();
 		Pane mainSelectPane = new Pane();
@@ -89,6 +88,7 @@ public class MainMenuView{
 		mainMenu = new Scene(mainMenuPane, 1440, 900);
 		mainMenuPane.getStylesheets().add("Machiavelli/Resources/Menu.css");
 		mainSelectPane.getStylesheets().add("Machiavelli/Resources/Menu.css");
+        menuController = new MenuController(this);
 	}
 
     public void initButton(Button button,String tekst,String id, int posx, int posy, float sizeX, float sizeY){
@@ -102,6 +102,7 @@ public class MainMenuView{
 
 	public void show(){
 		stage.setScene(mainMenu);
+		stage.centerOnScreen();
 		stage.show();
 	}
 

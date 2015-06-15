@@ -1,6 +1,8 @@
 package Machiavelli.Interfaces;
 
+import Machiavelli.Enumerations.Type;
 import Machiavelli.Models.Speler;
+import javafx.scene.image.Image;
 
 /**
  * Deze interface word geimplementeerd door alle karakters.
@@ -18,6 +20,15 @@ import Machiavelli.Models.Speler;
 public interface Karakter {
 	
 	void setSpeler(Speler speler);
+	Speler getSpeler();
     void gebruikEigenschap();
-    
+    String getNaam();
+    int getNummer();
+    int getBouwLimiet();
+
+    Type getType();
+    void setTarget(Object target);
+    Image getImage();
+	void beurtOverslaan();
+
 }
