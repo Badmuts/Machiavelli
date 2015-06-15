@@ -22,7 +22,6 @@ import java.util.ArrayList;
  */
 public class Speler implements SpelerRemote, Serializable {
 	// Variables
-	private boolean isKoning;
 	private Portemonnee portemonnee;
 	private Karakter karakter;
 	private Hand hand;
