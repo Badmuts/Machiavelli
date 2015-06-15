@@ -1,7 +1,7 @@
 package Machiavelli.Controllers;
 
-import java.rmi.RemoteException;
-
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Spel;
 import Machiavelli.Models.Spelregels;
@@ -9,7 +9,6 @@ import Machiavelli.Views.DeelnemenSpelView;
 import Machiavelli.Views.HervattenSpelView;
 import Machiavelli.Views.InvullenSpelersView;
 import Machiavelli.Views.MainMenuView;
-import javafx.stage.Stage;
  
 /**
  * 
@@ -45,7 +44,14 @@ public class SpelController{
 		mmv.getNieuwSpelKnop().setOnAction(event -> invullenspeler.show());
 		mmv.getHervattenknop().setOnAction(event -> hervattenspel.show());
 		mmv.getDeelnemenKnop().setOnAction(event -> deelnemenview.show());
-		mmv.getSpelregelsButton().setOnAction(event -> this.spelregelsController.cmdWeergeefSpelregels());
+		mmv.getSpelregelsButton().setOnAction((event-> 
+		{ 
+			StackPane pane = new StackPane();
+//			pane.getChildren().addAll(this.spelregelsController.cmdGetPane(), Machiavelli.getInstance().get);
+			//mainMenuView, waarvandaan?
+//			Scene scene = new Scene(pane, 1600, 900);
+			this.spelregelsController.cmdWeergeefSpelregels();
+		}));
 		deelnemenview.getTerugKnop().setOnAction(event -> mmv.showSelect());
 		
 	}

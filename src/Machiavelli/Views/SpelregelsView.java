@@ -7,9 +7,11 @@ package Machiavelli.Views;
 import java.io.IOException;
 import java.rmi.RemoteException;
 
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -19,6 +21,8 @@ import Machiavelli.Machiavelli;
 import Machiavelli.Interfaces.Observers.SpelregelsObserver;
 import Machiavelli.Interfaces.Remotes.SpelregelsRemote;
 import Machiavelli.Models.Spelregels;
+
+import com.sun.corba.se.impl.orbutil.graph.Node;
 
 public class SpelregelsView implements SpelregelsObserver {
 	@Override
@@ -30,6 +34,7 @@ public class SpelregelsView implements SpelregelsObserver {
 	private Stage stage = Machiavelli.getInstance().getStage();
 	private Button closeButton;
     private Scene scene;
+    private Pane stPane;
 
 	public SpelregelsView() throws IOException {
 		this.spelregels = new Spelregels();
@@ -62,7 +67,7 @@ public class SpelregelsView implements SpelregelsObserver {
          *
          * Hier moet nog even naar gekeken worden.
          */
-		Pane stPane = new Pane();
+		this.stPane = new Pane();
 		stPane.setId("ROOTNODE");
 		stPane.getChildren().addAll(title, text, closeButton);
 		Rectangle rect = new Rectangle(1024, 768);
@@ -70,8 +75,23 @@ public class SpelregelsView implements SpelregelsObserver {
 		rect.setArcWidth(60.0);
 		stPane.setClip(rect);
         stPane.getStylesheets().add("Machiavelli/Resources/SpelregelsView.css");
+        
+        try
+        {
+//	        StackPane stackPane = new StackPane();
+//	        ObservableList<javafx.scene.Node> children = this.stage.getScene().getRoot().getChildrenUnmodifiable();
+//	        Pane p = new Pane();
+//	        p.getChildren().addAll(children);
+//	        p.getStylesheets().add("Machiavelli/Resources/SpelregelsView.css");
+//	        stackPane.getChildren().addAll(p, this.stPane);
+        }
+        catch(Exception e)
+        {
+        	System.out.println("spelregelview exception");
+        	e.printStackTrace();
+        }
 
-        this.scene = new Scene(stPane, 1024, 768);
+        this.scene = new Scene(stPane, 1600, 900);
         this.scene.setFill(Color.TRANSPARENT);
         this.stage.initStyle(StageStyle.TRANSPARENT);
 	}
@@ -88,5 +108,10 @@ public class SpelregelsView implements SpelregelsObserver {
 
 	public Button getCloseButton() {
 		return this.closeButton;
+	}
+	
+	public Pane getPane()
+	{
+		return this.stPane;
 	}
 }

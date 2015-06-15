@@ -27,6 +27,7 @@ public class SpeelveldView implements SpeelveldObserver {
 	private SpeelveldController speelveldcontroller;
 	private Speelveld speelveld;
 	private Scene speelveldscene;
+	private Pane speelveldpane;
 	private Stage stage = Machiavelli.getInstance().getStage();
 	private Rectangle buttonholder;
 	private Rectangle karakterholder;
@@ -62,7 +63,7 @@ public class SpeelveldView implements SpeelveldObserver {
 		kaartholder = new Rectangle(250, 680,925,250);
 		kaartholder.setFill(Color.GRAY);
 		
-		Pane speelveldpane = new Pane();
+		this.speelveldpane = new Pane();
 		
 		Image spelregelsbg = new Image("Machiavelli/Resources/SpelregelsBorder.png");
 		ImageView iv = new ImageView(spelregelsbg);
@@ -102,6 +103,13 @@ public class SpeelveldView implements SpeelveldObserver {
 
 	public Button getSpelregels() {
 		return spelregels;
+	}
+	
+	public Pane getPane()
+	{
+//		return this.stage.getScene().getRoot().getChildrenUnmodifiable();
+//		return this.stage.getScene().getRoot().getChildrenU
+		return this.speelveldpane;
 	}
 	
 	public Button getKiesInkomstenButton()

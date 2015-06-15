@@ -7,12 +7,13 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import Machiavelli.Machiavelli;
 import Machiavelli.Controllers.InkomstenController;
 import Machiavelli.Models.Spel;
 import Machiavelli.Models.Speler;
@@ -22,18 +23,19 @@ public class KiesInkomstenView {
 	//Variables
 	private InkomstenController inkomstenController;
 	//comment out the new stage
-//	private Stage stage = Machiavelli.getInstance().getStage();
-	private Stage stage;
+	private Stage stage = Machiavelli.getInstance().getStage();
+//	private Stage stage;
 	private Button ontvangGoud, ontvangKaarten;
 	private ImageView goudImage, kaartenImage;
 	private Text title;
 	private Scene scene;
 	private Pane pane;
+	private StackPane newpane2;
 	
 	public KiesInkomstenView() throws RemoteException
 	{
 		//comment out new stage.
-		this.stage = new Stage();
+//		this.stage = new Stage();
 		//TODO: inkomstencontroller moet de speler krijgen van beurt!
 		this.inkomstenController = new InkomstenController(new Speler(new Spel()));
 		
@@ -80,7 +82,9 @@ public class KiesInkomstenView {
 		this.ontvangGoud.setOnAction(event -> inkomstenController.cmdKiezenGoud());
 		this.ontvangKaarten.setOnAction((event) -> {
 			this.inkomstenController.weergeefTrekkenKaartView();
+			//laat het speelveld (pane) in de achtergrond zien.
 			//sluit het kiesinkomsten venster om het andere venster te laten zien.
+			//krijg de pane van de stage (singleton) scene.
 			this.stage.close();
 		});
 		
@@ -90,16 +94,24 @@ public class KiesInkomstenView {
 		pane.setClip(rect);
 		this.pane.getChildren().addAll(this.title, this.goudImage, this.kaartenImage, this.ontvangGoud, this.ontvangKaarten);
 		this.pane.getStylesheets().add("Machiavelli/Resources/KiesInkomstenView.css");
+//		Pane newPane = new Pane();
+//		Text text = new Text("test text");
+//		Button b = new Button("button");
+//		newPane.getChildren().addAll(text, b);
+//		newpane2 = new StackPane();
+//		newpane2.getChildren().addAll(this.getPane(), pane);
+//		//TODO: get pane from scene.
 		
 		//delete this line later, only give the pane to other classes, so they can add it to the scene.
-		this.scene = new Scene(pane, 1600, 900);
-        this.scene.setFill(Color.TRANSPARENT);
-        this.stage.initStyle(StageStyle.TRANSPARENT);
+//		this.scene = new Scene(pane, 1600, 900);
+//        this.scene.setFill(Color.TRANSPARENT);
+//        this.stage.initStyle(StageStyle.TRANSPARENT);
+        
 	}
 	
 	public void show()
 	{
-		//main scene gets overridden, new scene is placed in the main/current stage.
+		// new scene is placed in the main/current stage.
 		stage.setScene(this.scene);
 		stage.centerOnScreen();
 		stage.setAlwaysOnTop(true);
@@ -115,6 +127,11 @@ public class KiesInkomstenView {
 	public Pane getPane()
 	{
 		return this.pane;
+//		return ;
+//		Pane p = new Pane();
+//		p.getChildren().addAll(this.stage.getScene().getRoot().getChildrenUnmodifiable());
+////		p.getStylesheets().add("Machiavelli/Resources/KiesInkomstenView.css"); 
+//		return p;
 	}
 
 }

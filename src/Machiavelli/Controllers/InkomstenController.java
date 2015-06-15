@@ -5,7 +5,11 @@ import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import Machiavelli.Machiavelli;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 import Machiavelli.Views.KiesInkomstenView;
@@ -33,7 +37,6 @@ public class InkomstenController
 //		this.trekkenKaartView.getButtonList().get(0).setOnAction(event -> System.out.println("Kaart 1"));
 //		this.trekkenKaartView.getButtonList().get(1).setOnAction(event -> System.out.println("Kaart 2"));
 	}
-	private static int gekozenKaartIndex = 0;
 	public void cmdTrekkenKaart() throws RemoteException
 	{
 		this.trekkenKaartView = new TrekkenKaartView(this);
@@ -47,25 +50,10 @@ public class InkomstenController
 		
 		System.out.println("Buttons: " + trekkenKaartView.getButtonList().size());
 		
-//		for (Button button: trekkenKaartView.getButtonList()) {
-//			button.setOnAction(event -> this.cmdKiezenKaart(gekozenKaartIndex));
-//			System.out.println("gekozenKaartIndex: " + gekozenKaartIndex);
-//			gekozenKaartIndex++;
-//		}
-//		System.out.println(gekozenKaartIndex);
-		trekkenKaartView.getButtonList().get(0).setOnAction(event -> this.cmdKiezenKaart(0));
-		trekkenKaartView.getButtonList().get(1).setOnAction(event -> this.cmdKiezenKaart(1));
-
-		/*werkt alleen hardcoded.
-		de static int gekozenKaart, blijft na de loop altijd op 2 staan (2).
-		en vraagt zelfs na het toewijzen van het event (met lambda) altijd naar de index 2.
-		die niet bestaat in de list..*/
-		
-//		for(int i = 0; gekozenKaartIndex < trekkenKaartView.getButtonList().size(); this.gekozenKaartIndex++)
-//		{
-//			trekkenKaartView.getButtonList().get(this.gekozenKaartIndex).setOnAction(event -> this.cmdKiezenKaart(this.gekozenKaartIndex));
-//			System.out.println("gekozenkaartindex: " + gekozenKaartIndex);
-//		}
+		for (Button button: trekkenKaartView.getButtonList()) {
+															//neem de index van de arraylist per object / button
+			button.setOnAction(event -> this.cmdKiezenKaart(this.trekkenKaartView.getButtonList().indexOf(button)));
+		}
 	}
 	
 	public void cmdKiezenKaart(int gekozenKaart)
@@ -74,9 +62,8 @@ public class InkomstenController
 		{
 			System.out.println("Gekozenkaart Index: (vanuit ActionEvent" + gekozenKaart);
 			this.speler.selecterenKaart(this.trekkenKaartView.getGebouwen(), gekozenKaart);
-			//gekozenKaart -1, omdat 2 leeg is in de gekozenKaart lijst.
-			//Je moet altijd maar 1 kaart trekken,
 			showHand(this.speler);
+			
 			trekkenKaartView.getStage().close();
 			//sluit de view na het trekken van de kaart.
 		}
@@ -96,6 +83,18 @@ public class InkomstenController
 		//zet het venster boven alle andere venster.
 		this.trekkenKaartView.getStage().setAlwaysOnTop(true);
 		this.trekkenKaartView.getStage().show();
+		
+//		StackPane pane = new StackPane();
+//		Pane p = new Pane();
+//		//GET PANE FROM EXISTING SCENE.
+//		p.getChildren().add(Machiavelli.getInstance().getStage().getScene().getRoot());
+//		pane.getChildren().addAll(p, trekkenKaartView.getPane());
+//		//setpane into inkomstenview... 
+////		pane.getStylesheets().add("Machiavelli/Resources/Speelveld.css");
+//		Scene scene = new Scene(pane, 1600, 900);
+//		Machiavelli.getInstance().getStage().setScene(scene);
+		
+		//TODO: laat de main stage zien, met een trekkenkaart pane (in de nieuwe scene) en een speelveldviewpane.
 	}
 	
 	public void showHand(Speler speler) throws RemoteException

@@ -109,4 +109,9 @@ public class TrekkenKaartView extends Application
 		this.kaartenButtons.add(newButton);
 		pane.getChildren().add(newButton);
 	}
+	
+	public Pane getPane()
+	{
+		return this.pane;
+	}
 }
