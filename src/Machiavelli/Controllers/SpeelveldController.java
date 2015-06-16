@@ -2,13 +2,11 @@ package Machiavelli.Controllers;
 
 import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
-import Machiavelli.Machiavelli;
 import Machiavelli.Models.Speelveld;
 import Machiavelli.Models.Speler;
 import Machiavelli.Views.SpeelveldView;
 
 import java.rmi.RemoteException;
-import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 /**
  * 
@@ -20,10 +18,9 @@ import java.rmi.server.UnicastRemoteObject;
 public class SpeelveldController extends UnicastRemoteObject implements SpelObserver {
 	private Speelveld speelveld;
 	private SpeelveldView speelveldview;
-	private SpelRemote spel = null;
-    private Registry registry = Machiavelli.getInstance().getRegistry();
-	
-	public SpeelveldController(SpelRemote spel, Speler speler) throws RemoteException {
+	private SpelRemote spel;
+
+    public SpeelveldController(SpelRemote spel, Speler speler) throws RemoteException {
         this.spel = spel;
         this.speelveld = new Speelveld(this.spel);
         this.speelveld.addSpeler(speler);
@@ -33,15 +30,8 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
 
 		speelveldview.getExitButton().setOnAction(event -> System.exit(0));
 
-        try {
-            SpelRemote spelStub = (SpelRemote)registry.lookup("Spel");
-            spelStub.addObserver(this);
-            System.out.println("Add speelveldController to SpelStub");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("SpeelveldController: Spel: aantal spelers: " + this.spel.getAantalSpelers());
-        this.speelveldview.show();
+        this.spel.addObserver(this);
+		this.speelveldview.show();
 	}
 
 	public SpelRemote getSpel() {

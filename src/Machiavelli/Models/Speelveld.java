@@ -5,6 +5,7 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
 import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Machiavelli;
 import Machiavelli.Views.SpeelveldView;
 
 import java.io.Serializable;
@@ -28,7 +29,11 @@ public class Speelveld implements SpeelveldRemote, Serializable {
 	private ArrayList<SpeelveldObserver> observers = new ArrayList<>();
 
 	public Speelveld(SpelRemote spel) {
-        this.spel = spel;
+        try {
+            this.spel = (SpelRemote) Machiavelli.getInstance().getRegistry().lookup("Spel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 
 	public void setKoning(Speler spelers) throws RemoteException {

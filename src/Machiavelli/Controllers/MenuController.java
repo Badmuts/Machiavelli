@@ -8,6 +8,7 @@ import Machiavelli.Views.InvullenSpelersView;
 import Machiavelli.Views.MainMenuView;
 
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 public class MenuController {
 
@@ -20,7 +21,6 @@ public class MenuController {
      * Maakt de MainMenuView aan en koppelt de buttons aan cmd's
      * zodat deze kunnen worden afgehandeld.
      *
-     * @param mainMenuView
      */
     public MenuController() {
         this.mainMenuView = new MainMenuView(this);
@@ -67,7 +67,6 @@ public class MenuController {
     		SpelRemote spel = (SpelRemote)registry.lookup("Spel");
             this.spelController = new SpelController(spel);
             this.spelController.cmdAddSpeler(new Speler());
-            
     	} catch(Exception re) {
     		re.printStackTrace();
     	}
@@ -90,14 +89,14 @@ public class MenuController {
     	try {
     		int maxAantalSpelers = Integer.parseInt(this.invullenspeler.getTextField());
             SpelRemote spel = new Spel(maxAantalSpelers);
-            this.registry.rebind("Spel", spel);
-            SpelRemote spelStub = (SpelRemote)this.registry.lookup("Spel");
+            SpelRemote spelStub = (SpelRemote) UnicastRemoteObject.exportObject(spel, 0);
+            this.registry.rebind("Spel", spelStub);
+            spelStub = (SpelRemote)this.registry.lookup("Spel");
             this.spelController = new SpelController(spelStub);
             this.spelController.cmdAddSpeler(new Speler());
     	} catch(Exception e) {
     		e.printStackTrace();
     	}
-        
     }
 
     /**

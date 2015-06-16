@@ -1,6 +1,7 @@
 package Machiavelli.Controllers;
 
 import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Machiavelli;
 import Machiavelli.Models.Speler;
 
 /**
@@ -10,12 +11,11 @@ import Machiavelli.Models.Speler;
  */
 
 public class SpelController {
-    private SpeelveldController speelveldController;
 	private SpelRemote spel = null;
 
 	public SpelController(SpelRemote spel){
         try {
-            this.spel = spel;
+            this.spel = (SpelRemote)Machiavelli.getInstance().getRegistry().lookup("Spel");
             System.out.println("Added spelRemote to spelcontroller");
         } catch (Exception re) {
             re.printStackTrace();
@@ -26,13 +26,10 @@ public class SpelController {
         try {
             this.spel.addSpeler(speler);
             speler.addSpel(this.spel);
+            new SpeelveldController(this.spel, speler);
         } catch (Exception re) {
             re.printStackTrace();
         }
-    }
-
-    public SpelRemote getSpel() {
-        return this.spel;
     }
 }
 
