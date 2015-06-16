@@ -10,8 +10,6 @@ public class Server {
         try {
             Games games = new Games();
             GamesRemote gamesSkeleton = (GamesRemote) UnicastRemoteObject.exportObject(games, 0);
-//            Spel spel = new Spel(2);
-//            SpelRemote spelSkeleton = (SpelRemote) UnicastRemoteObject.exportObject(spel, 0);
             Registry registry = LocateRegistry.createRegistry(1099); // default port 1099 // run RMI registry on local host
             System.out.println("RMI Registry starter");
             registry.rebind("Games", gamesSkeleton); // bind calculator to RMI registry
