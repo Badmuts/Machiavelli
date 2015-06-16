@@ -102,7 +102,7 @@ public class Condotierre implements Karakter, Bonusable {
     }
     
     //Verwijder gebouw uit stad van een andere speler en verwijder de kosten??
-    public void vernietigGebouw(Stad stad, GebouwKaart target) {
+    private void vernietigGebouw(Stad stad, GebouwKaart target) {
     	
     	try {
     		speler.setGoudOpBank(speler.getPortemonnee(), target.getKosten()-1);
