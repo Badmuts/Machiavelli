@@ -43,7 +43,7 @@ public class Bouwmeester implements Karakter {
 
     @Override
     public Speler getSpeler() {
-        return null;
+        return speler;
     }
 
     /**

@@ -97,7 +97,7 @@ public class Dief implements Karakter {
 
     @Override
     public Image getImage() {
-        return null;
+        return this.image;
     }
 
     @Override

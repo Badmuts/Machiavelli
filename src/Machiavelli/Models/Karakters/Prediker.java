@@ -41,7 +41,7 @@ public class Prediker implements Karakter, Bonusable {
 
     @Override
     public Speler getSpeler() {
-        return null;
+        return speler;
     }
 
     @Override
