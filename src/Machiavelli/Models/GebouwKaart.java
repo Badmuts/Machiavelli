@@ -1,11 +1,12 @@
 package Machiavelli.Models;
 
 import Machiavelli.Enumerations.Type;
-import Machiavelli.Interfaces.Observers.BankObserver;
 import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
+import Machiavelli.Views.GebouwKaartView;
 import javafx.scene.image.Image;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -19,21 +20,23 @@ import java.util.ArrayList;
  * @version 0.1
  *
  */
-public class GebouwKaart implements GebouwKaartRemote {
+public class GebouwKaart implements GebouwKaartRemote, Serializable {
     // Variables
 	private int kosten;
 	private String naam;
 	private Type type;
 	private Stad stad;
-    private Image image;
+    private String image;
     private ArrayList<GebouwKaartObserver> observers = new ArrayList<>();
+    private GebouwKaartView gebouwKaartView;
 
     // Een kaart wordt aangemaakt met de meegegeven waardes
-    public GebouwKaart(int kosten, String naam, Type type, Image image) {
+    public GebouwKaart(int kosten, String naam, Type type, String image) {
         this.kosten = kosten;
         this.naam = naam;
         this.type = type;
         this.image = image;
+        this.gebouwKaartView = new GebouwKaartView(this);
     }
 
     public Type getType() throws RemoteException {
@@ -73,11 +76,11 @@ public class GebouwKaart implements GebouwKaartRemote {
         notifyObservers();
     }
 
-    public Image getImage() throws RemoteException {
+    public String getImage() throws RemoteException {
         return image;
     }
 
-    public void setImage(Image image) throws RemoteException {
+    public void setImage(String image) throws RemoteException {
         this.image = image;
         notifyObservers();
     }
@@ -91,5 +94,10 @@ public class GebouwKaart implements GebouwKaartRemote {
         for (GebouwKaartObserver observer: observers) {
             observer.modelChanged(this);
         }
+    }
+
+    @Override
+    public GebouwKaartView getGebouwkaartView() throws RemoteException {
+        return this.gebouwKaartView;
     }
 }

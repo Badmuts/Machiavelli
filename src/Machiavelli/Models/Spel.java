@@ -3,55 +3,52 @@ package Machiavelli.Models;
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Views.SpeelveldView;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class Spel implements SpelRemote {
-	private int aantalspelers;
+public class Spel implements SpelRemote, Serializable {
+	private int maxAantalSpelers;
 	private Speelveld speelveld;
 	private SpeelveldView speelveldview;
-	private ArrayList<Speler> speler;
+	private ArrayList<SpelerRemote> spelers = new ArrayList<>();
 	private Bank bank;
 	private GebouwFactory gebouwFactory;
 	private ArrayList<SpelObserver> observers = new ArrayList<>();
-	
-	public Spel(){
-		bank = new Bank();
-		gebouwFactory = new GebouwFactory();
+
+	public Spel(int aantalSpelers){
+		this.maxAantalSpelers = aantalSpelers;
+		this.bank = new Bank();
+		this.gebouwFactory = new GebouwFactory();
 	}
 
-	public void NieuwSpel() throws RemoteException {
-		//Minimaal aantal spelers kiezen
-		//Speelveld laden
-		//Spelers koppeln aan speelveld
-		//Speelveld laten zien
-		//Start spelers is koning
-		//Starten karakterkiezenlijst speler 1
-		//Doorgeven karakterlijst aan andere spelers
-		speler = new ArrayList<Speler>();
-		if(aantalspelers >= 2 && aantalspelers < 8){
-			for(int i = 0; i < aantalspelers; i++) {
-				speler.add(new Speler(this));
-			}
-		} else {
-			return;
-		}
-	
-		/*spelers.add(new Speler(this));
-		spelers.add(new Speler(this));
-		spelers.add(new Speler(this));
-		spelers.add(new Speler(this));*/
-		this.speelveld = new Speelveld(speler);
-        notifyObservers();
-	}
+//	public void nieuwSpel() throws RemoteException {
+//		//Minimaal aantal spelers kiezen
+//		//Speelveld laden
+//		//Spelers koppeln aan speelveld
+//		//Speelveld laten zien
+//		//Start spelers is koning
+//		//Starten karakterkiezenlijst speler 1
+//		//Doorgeven karakterlijst aan andere spelers
+//		this.spelers.add(new Speler(this));
+//
+//		/*spelers.add(new Speler(this));
+//		spelers.add(new Speler(this));
+//		spelers.add(new Speler(this));
+//		spelers.add(new Speler(this));*/
+//		this.speelveld = new Speelveld(this.spelers, this);
+//        notifyObservers();
+//	}
 
-	public void EindeBeurt() throws RemoteException {
-		
-	}
-	
-	public Bank getBank() throws RemoteException {
+    @Override
+    public void removeObserver(SpelObserver observer) throws RemoteException {
+        this.observers.remove(observer);
+    }
+
+    public Bank getBank() throws RemoteException {
 		return this.bank;
 	}
 	
@@ -59,13 +56,8 @@ public class Spel implements SpelRemote {
 		return this.gebouwFactory;
 	}
 
-	public void setAantalSpelers(int aantalspelers) throws RemoteException {
-		this.aantalspelers = aantalspelers;
-        notifyObservers();
-	}
-
 	public int getAantalSpelers() throws RemoteException {
-		return aantalspelers;
+		return spelers.size();
 	}
 
 	@Override
@@ -74,9 +66,32 @@ public class Spel implements SpelRemote {
 	}
 
 	public void notifyObservers() throws RemoteException {
+		System.out.println("Spel model changed!");
 		for (SpelObserver observer: observers) {
 			observer.modelChanged(this);
 		}
 	}
+
+	@Override
+	public void addSpeler(SpelerRemote speler) throws RemoteException {
+		this.spelers.add(speler);
+	}
+
+	public void addSpeler(Speler speler) {
+        this.spelers.add(speler);
+        try {
+            notifyObservers();
+        } catch (RemoteException re) {
+            re.printStackTrace();
+        }
+    }
+
+    public ArrayList<SpelerRemote> getSpelers() {
+        return this.spelers;
+    }
+
+    public int getMaxAantalSpelers() {
+        return this.maxAantalSpelers;
+    }
 }
 

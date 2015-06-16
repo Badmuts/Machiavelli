@@ -5,10 +5,11 @@ import Machiavelli.Interfaces.Observers.KarakterFactoryObserver;
 import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
 import Machiavelli.Models.Karakters.*;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class KarakterFactory implements KarakterFactoryRemote {
+public class KarakterFactory implements KarakterFactoryRemote, Serializable {
     /**
      * ArrayList om alle karakters op te slaan
      */

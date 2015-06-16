@@ -3,6 +3,7 @@ package Machiavelli.Models.Karakters;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.Speler;
+import javafx.scene.image.Image;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -30,7 +31,8 @@ public class Dief implements Karakter {
     private final int bouwLimiet = 1; 
     private final String naam = "Dief";
     private final Type type = Type.NORMAAL;
-	
+    private Object target;
+
     /**
    	 * Overriden van de methode uit de interface Karakter,
    	 * de Dief wordt aan de speler gekoppeld.
@@ -40,7 +42,12 @@ public class Dief implements Karakter {
            this.speler = speler;
        }
 
-   	/**
+    @Override
+    public Speler getSpeler() {
+        return null;
+    }
+
+    /**
 	 * overriden van de methode uit de interface Karakter
 	 * en aanroepen van de methode selectKarakterView
 	 * Er wordt gewacht op de keuze van de speler. 
@@ -80,5 +87,20 @@ public class Dief implements Karakter {
 	public Type getType() {
 		return this.type;
 	}
+
+    @Override
+    public void setTarget(Object target) {
+        this.target = target;
+    }
+
+    @Override
+    public Image getImage() {
+        return null;
+    }
+
+    @Override
+    public void beurtOverslaan() {
+
+    }
 
 }

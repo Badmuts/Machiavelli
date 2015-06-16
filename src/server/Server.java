@@ -4,33 +4,29 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
-import Machiavelli.Models.Speler;
-
 public class Server {
-	
-	public void Server(){	
-	}
-	
+
 	public void startServer(){
-		try {
-			
-//			Speler speler = new Speler();// create speelveld
-//			SpeelveldRemote speelSkeleton = 	(SpeelveldRemote) UnicastRemoteObject.exportObject(speelSkeleton, 0); // cast to remote object
-//			System.out.println("skeleton created");
-//			Registry registry = LocateRegistry.createRegistry(1099); // default port 1099 // run RMI registry on local host
-//			System.out.println("RMI Registry starter");
-//			registry.rebind("Speelveld", speelSkeleton); // bind calculator to RMI registry
-//            System.out.println("speelskeleton skeleton bound");
-//            System.out.println("Server running...");
-            
-		} catch (Exception e) {
-			System.out.println("EXCEPTION: " + e);
-		}
-	
+        try {
+            Games games = new Games();
+            GamesRemote gamesSkeleton = (GamesRemote) UnicastRemoteObject.exportObject(games, 0);
+            Registry registry = LocateRegistry.createRegistry(1099); // default port 1099 // run RMI registry on local host
+            System.out.println("RMI Registry starter");
+            registry.rebind("Games", gamesSkeleton); // bind calculator to RMI registry
+            System.out.println("Games skeleton bound");
+            System.out.println("Server running...");
+
+            // if you'd like to run rmiregistry from the command line
+            //	run it from the project's bin directory, so rmiregistry can find the necessary classes
+
+        } catch (Exception e) {
+            System.out.println("EXCEPTION: " + e);
+        }
 	}
+
 	public static void main(String args[]){
-		
+		Server server = new Server();
+        server.startServer();
 	}
-	
+
 }

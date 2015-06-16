@@ -43,7 +43,7 @@ public class SpelregelsView implements SpelregelsObserver {
 		Text title = new Text("Spelregels");
 		title.setId("title");
 		title.setFill(Color.WHITE);
-		title.setLayoutX(420);
+		title.setLayoutX(720);
 		title.setLayoutY(50);
 		
 		Text text = new Text(this.spelregels.getSpelregels());
@@ -53,7 +53,7 @@ public class SpelregelsView implements SpelregelsObserver {
 		
 		this.closeButton = new Button("X");
 		this.closeButton.setId("closeButton");
-		this.closeButton.setLayoutX(984);
+		this.closeButton.setLayoutX(1555);
 		this.closeButton.setLayoutY(15);
 
 //		text.setContentDisplay
@@ -68,40 +68,15 @@ public class SpelregelsView implements SpelregelsObserver {
          * Hier moet nog even naar gekeken worden.
          */
 		this.stPane = new Pane();
-		stPane.setId("ROOTNODE");
+		stPane.setId("spelregelview");
 		stPane.getChildren().addAll(title, text, closeButton);
-		Rectangle rect = new Rectangle(1024, 768);
-		rect.setArcHeight(60.0);
-		rect.setArcWidth(60.0);
+		Rectangle rect = new Rectangle(1600, 900);
+//		rect.setArcHeight(60.0);
+//		rect.setArcWidth(60.0);
 		stPane.setClip(rect);
         stPane.getStylesheets().add("Machiavelli/Resources/SpelregelsView.css");
-        
-        try
-        {
-//	        StackPane stackPane = new StackPane();
-//	        ObservableList<javafx.scene.Node> children = this.stage.getScene().getRoot().getChildrenUnmodifiable();
-//	        Pane p = new Pane();
-//	        p.getChildren().addAll(children);
-//	        p.getStylesheets().add("Machiavelli/Resources/SpelregelsView.css");
-//	        stackPane.getChildren().addAll(p, this.stPane);
-        }
-        catch(Exception e)
-        {
-        	System.out.println("spelregelview exception");
-        	e.printStackTrace();
-        }
-
-        this.scene = new Scene(stPane, 1600, 900);
-        this.scene.setFill(Color.TRANSPARENT);
-        this.stage.initStyle(StageStyle.TRANSPARENT);
 	}
 	
-	public void show() {
-        stage.setScene(scene);
-        stage.centerOnScreen();
-		stage.show();
-	}
-
     public void close() {
         stage.close();
     }

@@ -4,6 +4,7 @@ import Machiavelli.Interfaces.Observers.BankObserver;
 import Machiavelli.Interfaces.Observers.BeurtObserver;
 import Machiavelli.Interfaces.Remotes.BeurtRemote;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * @author Sander de Jong
  *
  */
-public class Beurt implements BeurtRemote {
+public class Beurt implements BeurtRemote, Serializable {
     // Variables
     private Spel spel;
     private ArrayList<Speler> spelerLijst;

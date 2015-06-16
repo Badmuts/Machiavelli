@@ -4,6 +4,7 @@ import Machiavelli.Interfaces.Observers.BankObserver;
 import Machiavelli.Interfaces.Observers.HandObserver;
 import Machiavelli.Interfaces.Remotes.HandRemote;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.*;
 
@@ -16,7 +17,7 @@ import java.util.*;
  * @version 0.1
  *
  */
-public class Hand implements HandRemote {
+public class Hand implements HandRemote, Serializable {
 	// Variables
 	private ArrayList<GebouwKaart> kaartenLijst;
 	private Speler speler;
@@ -34,6 +35,7 @@ public class Hand implements HandRemote {
                 System.out.print(re);
             }
 		}
+		System.out.print("Niew hand created!");
 	}
 
 	// Een gebouw toevoegen aan de hand van de speler
@@ -46,6 +48,10 @@ public class Hand implements HandRemote {
 	public void removeGebouw(GebouwKaart gebouw) throws RemoteException {
 		this.kaartenLijst.remove(gebouw);
         notifyObservers();
+	}
+	
+	public void addGebouwen(List<GebouwKaart> gebouwKaarten) {
+		this.kaartenLijst.addAll(gebouwKaarten);
 	}
 
 	public ArrayList<GebouwKaart> getKaartenLijst() throws RemoteException

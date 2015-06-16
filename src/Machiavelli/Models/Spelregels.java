@@ -6,6 +6,7 @@ import Machiavelli.Interfaces.Remotes.SpelregelsRemote;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,7 +18,7 @@ import java.util.Scanner;
  *
  */
 
-public class Spelregels implements SpelregelsRemote {
+public class Spelregels implements SpelregelsRemote, Serializable {
 	private ArrayList<SpelregelsObserver> observers = new ArrayList<>();
 
 	public String getSpelregels() throws IOException {

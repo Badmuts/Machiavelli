@@ -3,6 +3,12 @@
 }
 
 
+#spelregelview
+{
+	-fx-background-color: linear-gradient(#efefef, #e5e5e5);
+}
+
+
 #ROOTNODE {
 -fx-background-radius: 30;
 -fx-border-radius: 30;

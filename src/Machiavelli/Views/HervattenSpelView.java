@@ -2,9 +2,6 @@ package Machiavelli.Views;
 
 import java.rmi.RemoteException;
 
-import Machiavelli.Controllers.SpelController;
-import Machiavelli.Machiavelli;
-import Machiavelli.Models.Spel;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
@@ -14,6 +11,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import Machiavelli.Machiavelli;
+import Machiavelli.Controllers.SpelController;
+import Machiavelli.Models.Spel;
 
 public class HervattenSpelView {
     private SpelController sc;
@@ -66,17 +66,16 @@ public class HervattenSpelView {
         mainTx.setScaleY(6.5);
         mainTx.setLayoutX(780);
         mainTx.setLayoutY(170);
-        try
-        {
-        initButton(keuzespel1, "Spel 1", sp.getAantalSpelers(), "gamekiezen", 225, 270, 550f, 50f );
-        initButton(keuzespel2, "Spel 2", sp.getAantalSpelers(), "gamekiezen", 225, 350, 550f, 50f );
-        initButton(keuzespel3, "Spel 3", sp.getAantalSpelers(), "gamekiezen", 225, 430, 550f, 50f );
-        initButton(keuzespel4, "Spel 4", sp.getAantalSpelers(), "gamekiezen", 825, 270, 550f, 50f );
-        initButton(keuzespel5, "Spel 5", sp.getAantalSpelers(), "gamekiezen", 825, 350, 550f, 50f );
-        initButton(keuzespel6, "Spel 6", sp.getAantalSpelers(), "gamekiezen", 825, 430, 550f, 50f );
-        }
-        catch (RemoteException e) {
-        	e.printStackTrace();
+
+        try {
+            initButton(keuzespel1, "Spel 1", sp.getAantalSpelers(), "gamekiezen", 225, 270, 550f, 50f );
+            initButton(keuzespel2, "Spel 2", sp.getAantalSpelers(), "gamekiezen", 225, 350, 550f, 50f );
+            initButton(keuzespel3, "Spel 3", sp.getAantalSpelers(), "gamekiezen", 225, 430, 550f, 50f );
+            initButton(keuzespel4, "Spel 4", sp.getAantalSpelers(), "gamekiezen", 825, 270, 550f, 50f );
+            initButton(keuzespel5, "Spel 5", sp.getAantalSpelers(), "gamekiezen", 825, 350, 550f, 50f );
+            initButton(keuzespel6, "Spel 6", sp.getAantalSpelers(), "gamekiezen", 825, 430, 550f, 50f );
+        } catch (RemoteException re) {
+            System.out.print(re);
         }
 
         Pane deelnemenpane = new Pane();

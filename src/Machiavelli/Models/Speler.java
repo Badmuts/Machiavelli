@@ -1,9 +1,12 @@
 package Machiavelli.Models;
 
+import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelerObserver;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -17,26 +20,20 @@ import java.util.ArrayList;
  * @version 0.1
  *
  */
-public class Speler implements SpelerRemote {
+public class Speler implements SpelerRemote, Serializable {
 	// Variables
 	private boolean isKoning;
 	private Portemonnee portemonnee;
 	private Karakter karakter;
 	private Hand hand;
-	private Spel spel;
+	private SpelRemote spel;
 	private Stad stad;
 	private ArrayList<SpelerObserver> observers = new ArrayList<>();
+	private SpeelveldController speelveldController;
 
 	// Speler toewijzen aan spel en een nieuwe portemonnee, hand en stad maken.
-	public Speler(Spel spel) {
-		this.spel = spel;
-		this.stad = new Stad(spel);
-		try {
-			this.portemonnee = new Portemonnee(this.spel.getBank());
-		} catch (RemoteException re) {
-			System.out.print(re);
-		}
-		this.hand = new Hand(this);
+	public Speler() {
+
 	}
 
 	// Haalt goud van de bank en zet het in de portemonnee
@@ -95,7 +92,7 @@ public class Speler implements SpelerRemote {
         notifyObservers();
 	}
 
-	public Spel getSpel() throws RemoteException {
+	public SpelRemote getSpel() throws RemoteException {
 		return this.spel;
 	}
 
@@ -121,4 +118,28 @@ public class Speler implements SpelerRemote {
 			observer.modelChanged(this);
 		}
 	}
+
+    public void addSpel(SpelRemote spel) {
+        this.spel = spel;
+        this.createStad();
+    }
+
+    private void createStad() {
+		this.stad = new Stad(this);
+		this.createHand();
+    }
+
+    private void createHand() {
+		this.hand = new Hand(this);
+		this.createPortemonnee();
+    }
+
+    private void createPortemonnee() {
+        try {
+            this.portemonnee = new Portemonnee(this.spel.getBank());
+            this.speelveldController = new SpeelveldController(new Speelveld(this.spel, this), this.spel);
+        } catch (RemoteException re) {
+            System.out.print(re);
+        }
+    }
 }

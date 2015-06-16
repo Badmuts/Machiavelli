@@ -12,7 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import Machiavelli.Machiavelli;
 import Machiavelli.Controllers.InkomstenController;
 import Machiavelli.Models.Spel;
@@ -37,7 +36,8 @@ public class KiesInkomstenView {
 		//comment out new stage.
 //		this.stage = new Stage();
 		//TODO: inkomstencontroller moet de speler krijgen van beurt!
-		this.inkomstenController = new InkomstenController(new Speler(new Spel()));
+														//new speler is voor testen.
+		this.inkomstenController = new InkomstenController(new Speler());
 		
 		this.title = new Text("Maak je keuze:");
 		this.title.setId("title");

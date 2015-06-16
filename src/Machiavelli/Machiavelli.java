@@ -1,17 +1,12 @@
 package Machiavelli;
 
-import java.rmi.RemoteException;
-import java.util.ArrayList;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import Machiavelli.Controllers.SpelController;
-import Machiavelli.Interfaces.Karakter;
-import Machiavelli.Models.GebouwKaart;
-import Machiavelli.Models.Spel;
-import Machiavelli.Models.Speler;
-import Machiavelli.Models.Karakters.Magier;
+import Machiavelli.Controllers.MenuController;
+import Machiavelli.Views.MainMenuView;
 
 /**
  * Google Java Style Guide aanhouden
@@ -20,6 +15,7 @@ public class Machiavelli extends Application {
 
     private static Machiavelli uniqueInstance;
     private Stage stage;
+    private Registry registry;
 
     public Machiavelli() {
         super();
@@ -34,61 +30,25 @@ public class Machiavelli extends Application {
 	public void start(Stage primaryStage) throws Exception {
         // TODO Auto-generated method stub
         this.stage = primaryStage;
-        this.stage.initStyle(StageStyle.UNDECORATED);
+        // this.stage.initStyle(StageStyle.UNDECORATED);
         this.stage.setResizable(false);
         this.stage.setTitle("Machiavelli");
-        Spel spel = new Spel();
-        SpelController spelController = new SpelController(spel);
-        spelController.show();
+        MenuController menuController = new MenuController(new MainMenuView());
 
-        /**
-         * Testing method for Magier karakter class
-         *
-         * Het Magier karakter kan bepaalde kaarten uit zijn hand
-         * ruilen met de gebouwstapel.
-         */
-        Speler speler1 = new Speler(spel);
-        Karakter magier = new Magier();
-        speler1.setKarakter(magier); // doet nu dus niks
-        showHand(speler1);
-        ArrayList<GebouwKaart> l = new ArrayList<GebouwKaart>();
-
-        // Kaart 1 2 en 4 ruilen. 2 komt bovenaan gevolgd door 3 nieuwe kaarten.
-        l.add(speler1.getHand().getKaartenLijst().get(0));
-        l.add(speler1.getHand().getKaartenLijst().get(1));
-        l.add(speler1.getHand().getKaartenLijst().get(3));
-        // speler1.getHand(), l
-        // magier.setTarget(sp.getGebouwFactory());
-        // magier.setRuilLijst(l);
-        speler1.getKarakter().gebruikEigenschap();
-        magier.gebruikEigenschap();
-        showHand(speler1);
+        try {
+            System.out.println("Getting access to the registry");
+            // get access to the RMI registry on the remote server
+            registry = LocateRegistry.getRegistry("127.0.0.1"); // if server on another machine: provide that machine's IP address. Default port  1099
+//            System.out.println("Getting the Games stub from registry");
+//            System.out.println("Performing arithmetics");
+            System.out.println("Done!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static synchronized Machiavelli getInstance() {
         return uniqueInstance;
-    }
-
-    // Deze method is voor testen
-    public void showHand(Speler speler) throws RemoteException {
-        ArrayList<GebouwKaart> lst = speler.getHand().getKaartenLijst();
-        System.out.println("Kaarten in hand:");
-        for(int i = 0; i < speler.getHand().getKaartenLijst().size(); i++)
-        {
-            System.out.println(i + 1 + ") " + lst.get(i).getNaam() + " / " + lst.get(i).getType());
-        }
-        System.out.println();
-    }
-
-    // Deze ook
-    public void showStad(Speler speler) throws RemoteException {
-        ArrayList<GebouwKaart> lst = speler.getHand().getKaartenLijst();
-        System.out.println("Kaarten in stad:");
-        for(int i = 0; i < speler.getStad().getGebouwen().size(); i++)
-        {
-            System.out.println(i + 1 + ") " + lst.get(i).getNaam() + " / " + lst.get(i).getType());
-        }
-        System.out.println();
     }
 
     public static void main(String[] args) {
@@ -98,4 +58,9 @@ public class Machiavelli extends Application {
     public Stage getStage() {
         return this.stage;
     }
+
+    public Registry getRegistry() {
+        return this.registry;
+    }
+
 }
