@@ -8,6 +8,12 @@ import Machiavelli.Views.SpeelveldView;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+/**
+ * 
+ * Het speelveld controller maakt het speelveld view aan en kijkt of het speelveld model is veranderd
+ * doormiddel van de modelChanged method.
+ *
+ */
 
 public class SpeelveldController extends UnicastRemoteObject implements SpelObserver {
 	private Speelveld speelveld;

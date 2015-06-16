@@ -56,9 +56,7 @@ public class MenuController {
     }
 
     /**
-     * Handelt het event af voor de 'Deelnemen spel' knop. Start het
-     * spel overzicht en laat zien aan welke spellen er kan worden
-     * deelgenomen.
+     * Handelt het event af voor de 'Deelnemen spel' knop.
      */
     public void cmdDeelnemenSpel() {
         // TODO: Show new games

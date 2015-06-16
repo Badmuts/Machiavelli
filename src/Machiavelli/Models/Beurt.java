@@ -10,11 +10,10 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Sander de Jong
+ * Dit model geeft de spelers een beurt.
  *
  */
 public class Beurt implements BeurtRemote, Serializable {
-    // Variables
     private Spel spel;
     private ArrayList<Speler> spelerLijst;
     private Speler speler;
@@ -26,7 +25,9 @@ public class Beurt implements BeurtRemote, Serializable {
         this.spelerLijst = spelerLijst;
     }
 
-    // Best method naam
+    /**
+     * De speler de beurt geven om zijn acties uit te voeren
+     */
     public void geefBeurt(Speler speler) throws RemoteException
     {
         // TODO: een speler object een beurt geven.
