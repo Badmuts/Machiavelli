@@ -100,4 +100,8 @@ public class GebouwKaart implements GebouwKaartRemote, Serializable {
     public GebouwKaartView getGebouwkaartView() throws RemoteException {
         return this.gebouwKaartView;
     }
+
+    public void registratieView(GebouwKaartView gebouwKaartView) {
+        this.gebouwKaartView = gebouwKaartView;
+    }
 }

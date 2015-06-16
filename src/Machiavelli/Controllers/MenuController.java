@@ -1,5 +1,6 @@
 package Machiavelli.Controllers;
 
+import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Spel;
 import Machiavelli.Models.Speler;
@@ -7,22 +8,24 @@ import Machiavelli.Views.InvullenSpelersView;
 import Machiavelli.Views.MainMenuView;
 
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 public class MenuController {
 
     private MainMenuView mainMenuView;
     private InvullenSpelersView invullenspeler;
     private SpelController spelController;
-    private Registry registry = Machiavelli.getInstance().getRegistry();
+    private Registry registry;
 
     /**
      * Maakt de MainMenuView aan en koppelt de buttons aan cmd's
      * zodat deze kunnen worden afgehandeld.
      *
-     * @param mainMenuView
      */
-    public MenuController(MainMenuView mainMenuView) {
-        this.mainMenuView = mainMenuView;
+    public MenuController() {
+        this.mainMenuView = new MainMenuView(this);
+        this.registry = Machiavelli.getInstance().getRegistry();
+        System.out.println("Loaded Registry");
 
         // Start het overzicht met spellen (Nieuw spel, Deelnemen spel en Hervatten spel)
         mainMenuView.getStartButton().setOnAction(event -> mainMenuView.showSelect());
@@ -60,6 +63,13 @@ public class MenuController {
      */
     public void cmdDeelnemenSpel() {
         // TODO: Show new games
+    	try{
+    		SpelRemote spel = (SpelRemote)registry.lookup("Spel");
+            this.spelController = new SpelController(spel);
+            this.spelController.cmdAddSpeler(new Speler());
+    	} catch(Exception re) {
+    		re.printStackTrace();
+    	}
     }
 
     /**
@@ -76,10 +86,17 @@ public class MenuController {
      */
     public void cmdInvullenSpelersStartNewGame() {
         // TODO: Create new spel instance?
-        int maxAantalSpelers = Integer.parseInt(this.invullenspeler.getTextField());
-
-        this.spelController = new SpelController(new Spel(maxAantalSpelers));
-        this.spelController.cmdAddSpeler(new Speler());
+    	try {
+    		int maxAantalSpelers = Integer.parseInt(this.invullenspeler.getTextField());
+            SpelRemote spel = new Spel(maxAantalSpelers);
+            SpelRemote spelStub = (SpelRemote) UnicastRemoteObject.exportObject(spel, 0);
+            this.registry.rebind("Spel", spelStub);
+            spelStub = (SpelRemote)this.registry.lookup("Spel");
+            this.spelController = new SpelController(spelStub);
+            this.spelController.cmdAddSpeler(new Speler());
+    	} catch(Exception e) {
+    		e.printStackTrace();
+    	}
     }
 
     /**

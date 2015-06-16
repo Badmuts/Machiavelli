@@ -3,6 +3,7 @@ package Machiavelli.Views;
 import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
+import Machiavelli.Models.GebouwKaart;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,18 +21,12 @@ public class GebouwKaartView extends StackPane implements GebouwKaartObserver, S
 
     private GebouwKaartController gebouwKaartController;
     private GebouwKaartRemote gebouwKaart;
-//    private Pane gebouwScoreView;
-//    private StackPane gebouwKaartName;
 
-    public GebouwKaartView(GebouwKaartRemote gebouwKaart) {
+    public GebouwKaartView(GebouwKaartController gebouwkaartController, GebouwKaart gebouwKaart) {
         super();
         this.gebouwKaart = gebouwKaart;
-        this.gebouwKaartController = new GebouwKaartController(this, this.gebouwKaart);
-        createImageView();
-        createScoreView();
-        createNameField();
+        this.gebouwKaartController = gebouwkaartController;
         this.getChildren().addAll(createImageView(), createScoreView(), createNameField());
-//        StackPane.setAlignment(gebouwKaartName, Pos.CENTER);
     }
 
     private ImageView createImageView() {
