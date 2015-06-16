@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class Speelveld implements SpeelveldRemote, Serializable {
     private SpeelveldView speelveldView;
-	private Stage secondaryStage;
 	private ArrayList<Speler> spelers;
 	private SpelRemote spel;
 	private Speler koning;
@@ -73,4 +72,3 @@ public class Speelveld implements SpeelveldRemote, Serializable {
         return this.speler;
     }
 }
-

@@ -34,58 +34,11 @@ public class Spel implements SpelRemote, Serializable {
 	private ArrayList<Speler> speler;
 	private int aantalspelers;
 
-	public void NieuwSpel() {
-		//Minimaal aantal spelers kiezen
-		//Speelveld laden
-		//Spelers koppeln aan speelveld
-		//Speelveld laten zien
-		//Start spelers is koning
-		//Starten karakterkiezenlijst speler 1
-		//Doorgeven karakterlijst aan andere spelers
-		speler = new ArrayList<Speler>();
-		if (aantalspelers >= 2 && aantalspelers < 8) {
-			for (int i = 0; i < aantalspelers; i++) {
-				speler.add(new Speler());
-			}
-		} else {
-			return;
-		}
-
-		/*spelers.add(new Speler(this));
-		spelers.add(new Speler(this));
-		spelers.add(new Speler(this));
-		spelers.add(new Speler(this));*/
-		//this.speelveld = new Speelveld();
-	}
-
 	public Spel(int aantalSpelers){
 		this.maxAantalSpelers = aantalSpelers;
 		this.bank = new Bank();
 		this.gebouwFactory = new GebouwFactory();
 	}
-
-//	public void nieuwSpel() throws RemoteException {
-//		//Minimaal aantal spelers kiezen
-//		//Speelveld laden
-//		//Spelers koppeln aan speelveld
-//		//Speelveld laten zien
-//		//Start spelers is koning
-//		//Starten karakterkiezenlijst speler 1
-//		//Doorgeven karakterlijst aan andere spelers
-//		this.spelers.add(new Speler(this));
-//
-//		/*spelers.add(new Speler(this));
-//		spelers.add(new Speler(this));
-//		spelers.add(new Speler(this));
-//		spelers.add(new Speler(this));*/
-//		this.speelveld = new Speelveld(this.spelers, this);
-//        notifyObservers();
-//	}
-
-    @Override
-    public void removeObserver(SpelObserver observer) throws RemoteException {
-        this.observers.remove(observer);
-    }
 
     public Bank getBank() throws RemoteException {
 		return this.bank;
@@ -103,7 +56,13 @@ public class Spel implements SpelRemote, Serializable {
 	public void addObserver(SpelObserver observer) throws RemoteException {
 		observers.add(observer);
 	}
+    
+    @Override
+    public void removeObserver(SpelObserver observer) throws RemoteException {
+        this.observers.remove(observer);
+    }
 
+    @Override
 	public void notifyObservers() throws RemoteException {
 		System.out.println("Spel model changed!");
 		for (SpelObserver observer: observers) {
@@ -111,17 +70,30 @@ public class Spel implements SpelRemote, Serializable {
 		}
 	}
 
-	@Override
-	public void addSpeler(SpelerRemote speler) throws RemoteException {
-		this.spelers.add(speler);
-	}
-
-
 	public ArrayList<Speler> getSpelerLijst() {
 		return this.speler;
 	}
+    
+    @Override
+    public void addSpeler(SpelerRemote speler) throws RemoteException {
+		this.spelers.add(speler);
+        try {
+            notifyObservers();
+        } catch (RemoteException re) {
+            re.printStackTrace();
+        }
+	}
 
-	public void saveGame(Spel spel) throws FileNotFoundException {
+    public ArrayList<SpelerRemote> getSpelers() {
+        return this.spelers;
+    }
+
+    public int getMaxAantalSpelers() {
+        return this.maxAantalSpelers;
+    }
+    
+    
+    public void saveGame(Spel spel) throws FileNotFoundException {
 		XStream xs = new XStream(new DomDriver());
 
 		// Tags hernoemen
@@ -162,22 +134,4 @@ public class Spel implements SpelRemote, Serializable {
 
 		return file;
 	}
-
-	public void addSpeler(Speler speler) {
-        this.spelers.add(speler);
-        try {
-            notifyObservers();
-        } catch (RemoteException re) {
-            re.printStackTrace();
-        }
-    }
-
-    public ArrayList<SpelerRemote> getSpelers() {
-        return this.spelers;
-    }
-
-    public int getMaxAantalSpelers() {
-        return this.maxAantalSpelers;
-    }
 }
-
