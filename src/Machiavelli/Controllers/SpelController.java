@@ -20,10 +20,10 @@ public class SpelController {
 
 	public SpelController(SpelRemote spel){
         try {
-            registry.bind("Spel", spel);
+        	
             this.spel = (SpelRemote)registry.lookup("Spel");
-            GamesRemote gamesRemote = (GamesRemote)registry.lookup("Games");
-            gamesRemote.addSpelToGames(this.spel);
+            //GamesRemote gamesRemote = (GamesRemote)registry.lookup("Games");
+            //gamesRemote.addSpelToGames(this.spel);
         } catch (Exception re) {
             re.printStackTrace();
         }
