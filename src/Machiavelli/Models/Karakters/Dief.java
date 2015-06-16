@@ -32,6 +32,8 @@ public class Dief implements Karakter {
     private final String naam = "Dief";
     private final Type type = Type.NORMAAL;
     private Object target;
+    
+    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Dief.png");
 
     /**
    	 * Overriden van de methode uit de interface Karakter,
@@ -95,7 +97,7 @@ public class Dief implements Karakter {
 
     @Override
     public Image getImage() {
-        return null;
+        return this.image;
     }
 
     @Override

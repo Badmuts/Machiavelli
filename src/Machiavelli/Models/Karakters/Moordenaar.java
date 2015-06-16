@@ -28,6 +28,8 @@ public class Moordenaar implements Karakter {
     private final String naam = "Moordenaar";
     private final Type type = Type.NORMAAL;
     private Object target;
+    
+    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Moordenaar.png");
 
     /**
      * Overriden van de methode uit de interface Karakter,
@@ -93,7 +95,7 @@ public class Moordenaar implements Karakter {
 
     @Override
     public Image getImage() {
-        return null;
+        return this.image;
     }
 
     @Override
