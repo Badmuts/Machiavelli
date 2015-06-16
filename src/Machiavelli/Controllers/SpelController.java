@@ -24,7 +24,7 @@ public class SpelController {
         }
 	}
 
-	public void cmdAddSpeler(Speler speler) {
+    public void cmdAddSpeler(Speler speler) {
         try {
             this.spel.addSpeler(speler);
             speler.addSpel(this.spel);
