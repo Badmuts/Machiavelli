@@ -35,6 +35,8 @@ public class Condotierre implements Karakter, Bonusable {
 	private final String naam = "Condotierre";
     private final Type type = Type.MILITAIR;
     
+    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Condotierre.png");
+    
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Condotierre wordt aan de speler gekoppeld.
@@ -56,7 +58,7 @@ public class Condotierre implements Karakter, Bonusable {
 
     @Override
     public Image getImage() {
-        return null;
+        return this.image;
     }
 
     @Override
@@ -78,20 +80,25 @@ public class Condotierre implements Karakter, Bonusable {
         // TODO: Iets van een listener? (voor gekozen kaart (SelectGebouwView))
         // TODO: Speler, remove gold (betaalGoud)
         // this.vernietigGebouw.getStad().removeGebouw(vernietigGebouw);
-    	if (target != null) {
-    		try {
-				vernietigGebouw(this.target.getStad(), getTarget());
+    	try {
+			if (target != null && target.getStad().getSpeler().getKarakter().getNaam() != "Prediker") {
+				try {
+					vernietigGebouw(this.target.getStad(), getTarget());
+					
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    		
-			}
-    		else {
-    			//view aanroepen
-    			
-    		}   	
+				}
+				else {
+					//view aanroepen
+					
+				}
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   	
     }
     
     //Verwijder gebouw uit stad van een andere speler en verwijder de kosten??

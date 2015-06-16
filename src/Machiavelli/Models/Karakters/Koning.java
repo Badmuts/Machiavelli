@@ -32,6 +32,8 @@ public class Koning implements Karakter, Bonusable {
     private final String naam = "Koning";
     private final Type type = Type.MONUMENT;
     private Object target;
+    
+    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Koning.png");
 
     /**
 	 * Overriden van de methode uit de interface Karakter,
@@ -94,7 +96,7 @@ public class Koning implements Karakter, Bonusable {
 
     @Override
     public Image getImage() {
-        return null;
+        return this.image;
     }
 
     @Override

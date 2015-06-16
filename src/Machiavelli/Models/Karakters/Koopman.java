@@ -32,6 +32,8 @@ public class Koopman implements Karakter, Bonusable {
     private final String naam = "Koopman";
     private final Type type = Type.COMMERCIEL;
     private Object target;
+    
+    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Koopman.png");
 
     /**
 	 * Overriden van de methode uit de interface Karakter,
@@ -107,7 +109,7 @@ public class Koopman implements Karakter, Bonusable {
 
     @Override
     public Image getImage() {
-        return null;
+        return this.image;
     }
 
     @Override
