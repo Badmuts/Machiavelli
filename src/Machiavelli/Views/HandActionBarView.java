@@ -20,6 +20,12 @@ public class HandActionBarView extends Pane implements HandObserver {
     public HandActionBarView(Hand hand) {
         super();
         this.hand = hand;
+        System.out.println(this.hand);
+        try {
+            this.hand.addObserver(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         createBackground();
         createGebouwKaartViews();
@@ -28,35 +34,40 @@ public class HandActionBarView extends Pane implements HandObserver {
         addGebouwKaartViews();
     }
 
+    private void createBackground() {
+        kaartholder = new Rectangle(0, 0, 840, 250);
+        kaartholder.setFill(Color.GRAY);
+    }
+
+    private void createGebouwKaartViews() {
+        try {
+            for (GebouwKaart gebouwKaart: hand.getKaartenLijst()) {
+                System.out.println(gebouwKaart);
+                if (gebouwKaart.getGebouwkaartView() == null) {
+                    System.out.println("Geen gebouwkaartView gevonden!");
+                }
+                gebouwKaartViews.add(gebouwKaart.getGebouwkaartView());
+            }
+        } catch (RemoteException re) {
+            re.printStackTrace();
+        }
+    }
+
     private void addGebouwKaartViews() {
         int x = 0;
+        System.out.println("Aantal gebouwKaartViews: " + gebouwKaartViews.size());
         for (GebouwKaartView gebouwKaartView: gebouwKaartViews) {
+            System.out.println(gebouwKaartView);
             gebouwKaartView.setLayoutX(x);
             this.getChildren().add(gebouwKaartView);
             x += 100;
         }
     }
 
-    private void createBackground() {
-        kaartholder = new Rectangle(0, 0, 840, 250);
-        kaartholder.setFill(Color.GRAY);
-    }
-
     @Override
     public void modelChanged(HandRemote hand) throws RemoteException {
+        System.out.println("Hand changed!");
         this.hand = hand;
-    }
-
-    private void createGebouwKaartViews() {
-        System.out.println("Kijk die gebouwkaartviews gaan");
-        try {
-            ArrayList<GebouwKaart> kaarten = hand.getKaartenLijst();
-            for (GebouwKaart gebouwKaart: kaarten) {
-                gebouwKaartViews.add(gebouwKaart.getGebouwkaartView());
-            }
-        } catch (RemoteException re) {
-            re.printStackTrace();
-        }
     }
 
     private int calcRotation(int i, int totalLength) {

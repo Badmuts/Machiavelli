@@ -101,5 +101,15 @@ public class GebouwKaart implements GebouwKaartRemote, Serializable {
 
     public void registratieView(GebouwKaartView gebouwKaartView) {
         this.gebouwKaartView = gebouwKaartView;
+        System.out.println("GEBOUWKAART: NEW VIEW ADDED" + this.gebouwKaartView);
+    }
+
+    public String toString() {
+        try {
+            return "Gebouwkaart: " + this.getNaam() + " Punten: " + this.getKosten();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "Gebouwkaart Remote Excp";
     }
 }

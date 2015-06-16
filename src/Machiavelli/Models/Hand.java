@@ -19,18 +19,18 @@ import java.util.List;
  */
 public class Hand implements HandRemote, Serializable {
 	// Variables
-	private ArrayList<GebouwKaart> kaartenLijst;
+	private ArrayList<GebouwKaart> kaartenLijst = new ArrayList<GebouwKaart>();
 	private Speler speler;
     private ArrayList<HandObserver> observers = new ArrayList<>();
 
 	// Een speler start met 4 gebouwkaarten in zijn hand.
 	public Hand(Speler speler) {
 		this.speler = speler;
-		kaartenLijst = new ArrayList<GebouwKaart>();
 		for(int i = 0; i < 4; i ++) {
 			// Trek 4 kaarten van de stapel (gebouwFactory)
             try {
                 kaartenLijst.add(this.speler.getSpel().getGebouwFactory().trekKaart());
+				notifyObservers();
             } catch (RemoteException re) {
                 System.out.print(re);
             }
@@ -53,8 +53,7 @@ public class Hand implements HandRemote, Serializable {
 		this.kaartenLijst.addAll(gebouwKaarten);
 	}
 
-	public ArrayList<GebouwKaart> getKaartenLijst() throws RemoteException
-	{
+	public ArrayList<GebouwKaart> getKaartenLijst() throws RemoteException {
 		return this.kaartenLijst;
 	}
 
@@ -77,5 +76,13 @@ public class Hand implements HandRemote, Serializable {
 			observer.modelChanged(this);
 		}
 	}
+
+    public String toString() {
+        String str = "HAAAANDDD!!!!:     ";
+        for(GebouwKaart gebouwKaart: kaartenLijst) {
+            str += gebouwKaart + " ";
+        }
+        return str;
+    }
 
 }

@@ -28,6 +28,7 @@ public class GebouwKaartController implements Serializable {
             GebouwKaartView gebouwKaartView = new GebouwKaartView(this, gebouwKaart);
             gebouwKaart.registratieView(gebouwKaartView);
             gebouwKaartViews.add(gebouwKaartView);
+            System.out.println("Created new GebouwKaartView");
         }
         // Sla de gebouwkaarten op in de controller.
         this.gebouwKaarten = gebouwFactory.getGebouwen();

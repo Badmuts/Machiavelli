@@ -63,8 +63,10 @@ public class GebouwFactory implements GebouwFactoryRemote, Serializable {
     }
 
     public GebouwKaart trekKaart() throws RemoteException {
+        System.out.println("OLD FACTORY SIZE: " + gebouwen.size());
         GebouwKaart gebouw = gebouwen.get(0);
         this.gebouwen.remove(gebouw);
+        System.out.println("NEW FACTORY SIZE: " + gebouwen.size());
         return gebouw;
     }
 

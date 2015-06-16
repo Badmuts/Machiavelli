@@ -30,7 +30,6 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 
     public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld) throws RemoteException {
 		this.speelveld = speelveld;
-        System.out.println(this.speelveld);
 		this.speelveldcontroller = speelveldcontroller;
 
         this.createKarakterHolder();

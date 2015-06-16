@@ -18,7 +18,7 @@ public class SpelController {
 	public SpelController(SpelRemote spel){
         try {
             this.spel = spel;
-            createGebouwKaartController();
+            this.gebouwKaartController = new GebouwKaartController(spel.getGebouwFactory());
         } catch (Exception re) {
             re.printStackTrace();
         }
@@ -32,10 +32,6 @@ public class SpelController {
         } catch (Exception re) {
             re.printStackTrace();
         }
-    }
-
-    private void createGebouwKaartController() throws RemoteException {
-        this.gebouwKaartController = new GebouwKaartController(spel.getGebouwFactory());
     }
 
     public GebouwKaartController getGebouwKaartController() {

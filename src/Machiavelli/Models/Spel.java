@@ -50,7 +50,6 @@ public class Spel implements SpelRemote, Serializable {
 	@Override
 	public void addObserver(SpelObserver observer) throws RemoteException {
 		observers.add(observer);
-		System.out.println("addObserver(): Aantal Spel observers: " + observers.size());
 	}
     
     @Override
@@ -74,11 +73,7 @@ public class Spel implements SpelRemote, Serializable {
     @Override
     public void addSpeler(SpelerRemote speler) throws RemoteException {
 		this.spelers.add(speler);
-        try {
-            notifyObservers();
-        } catch (RemoteException re) {
-            re.printStackTrace();
-        }
+		notifyObservers();
 	}
 
     public ArrayList<SpelerRemote> getSpelers() {
