@@ -15,7 +15,11 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-
+/**
+ * 
+ * Model van speelveld.
+ *
+ */
 
 
 public class Speelveld implements SpeelveldRemote, Serializable {
