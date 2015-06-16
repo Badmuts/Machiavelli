@@ -27,8 +27,8 @@ public class MainMenuView{
     private Scene mainSelect;
     private Stage stage = Machiavelli.getInstance().getStage();
 	private MenuController menuController;
-	
-	public MainMenuView(){
+
+	public MainMenuView(MenuController menuController) {
 		
 		Pane mainMenuPane = new Pane();
 		Pane mainSelectPane = new Pane();
@@ -88,7 +88,7 @@ public class MainMenuView{
 		mainMenu = new Scene(mainMenuPane, 1440, 900);
 		mainMenuPane.getStylesheets().add("Machiavelli/Resources/Menu.css");
 		mainSelectPane.getStylesheets().add("Machiavelli/Resources/Menu.css");
-        menuController = new MenuController(this);
+        this.menuController = menuController;
 	}
 
     public void initButton(Button button,String tekst,String id, int posx, int posy, float sizeX, float sizeY){

@@ -2,10 +2,6 @@ package Machiavelli.Models;
 
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Karakter;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
-import javafx.stage.Stage;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
 import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
@@ -21,7 +17,6 @@ import java.util.ArrayList;
  *
  */
 
-
 public class Speelveld implements SpeelveldRemote, Serializable {
     private SpeelveldView speelveldView;
 	private ArrayList<Speler> spelers;
@@ -32,20 +27,8 @@ public class Speelveld implements SpeelveldRemote, Serializable {
 	private Speler speler;
 	private ArrayList<SpeelveldObserver> observers = new ArrayList<>();
 
-	public Speelveld(SpelRemote spel, Speler speler) {
-		//Spelers koppeln aan speelveld
-		//Start spelers is koning
-		//Starten karakterkiezenlijst speler 1
-		//Doorgeven karakterlijst aan andere spelers
-		//this.spelers = spel.getSpelers();
-		this.speler = speler;
+	public Speelveld(SpelRemote spel) {
         this.spel = spel;
-        this.speelveldView = speelveldView;
-//		try {
-//			this.setKoning(spelers.get(0));
-//		} catch (RemoteException re) {
-//			re.printStackTrace();
-//		}
 	}
 
 	public void setKoning(Speler spelers) throws RemoteException {
@@ -54,7 +37,7 @@ public class Speelveld implements SpeelveldRemote, Serializable {
 	}
 
 	public void toonKarakterLijst() throws RemoteException {
-		
+		// TODO
 	}
 
 	@Override
@@ -75,4 +58,12 @@ public class Speelveld implements SpeelveldRemote, Serializable {
     public Speler getSpeler() {
         return this.speler;
     }
+
+    public void addSpeler(Speler speler) {
+        this.speler = speler;
+    }
+
+	public String toString() {
+        return "Hoi ik ben een SpeelveldModel";
+	}
 }

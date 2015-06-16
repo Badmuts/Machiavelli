@@ -6,18 +6,12 @@ import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Views.SpeelveldView;
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import javafx.scene.image.Image;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -30,7 +24,7 @@ public class Spel implements SpelRemote, Serializable {
 	private ArrayList<SpelerRemote> spelers = new ArrayList<>();
 	private Bank bank;
 	private GebouwFactory gebouwFactory;
-	private ArrayList<SpelObserver> observers = new ArrayList<>();
+	private ArrayList<SpelObserver> observers;
 	private ArrayList<Speler> speler;
 	private int aantalspelers;
 
@@ -38,6 +32,7 @@ public class Spel implements SpelRemote, Serializable {
 		this.maxAantalSpelers = aantalSpelers;
 		this.bank = new Bank();
 		this.gebouwFactory = new GebouwFactory();
+        this.observers = new ArrayList<>();
 	}
 
     public Bank getBank() throws RemoteException {
@@ -55,6 +50,7 @@ public class Spel implements SpelRemote, Serializable {
 	@Override
 	public void addObserver(SpelObserver observer) throws RemoteException {
 		observers.add(observer);
+		System.out.println("addObserver(): Aantal Spel observers: " + observers.size());
 	}
     
     @Override
@@ -65,6 +61,7 @@ public class Spel implements SpelRemote, Serializable {
     @Override
 	public void notifyObservers() throws RemoteException {
 		System.out.println("Spel model changed!");
+		System.out.println("Aantal spelers in spel: " + this.getAantalSpelers());
 		for (SpelObserver observer: observers) {
 			observer.modelChanged(this);
 		}

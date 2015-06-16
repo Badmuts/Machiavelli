@@ -2,11 +2,13 @@ package Machiavelli.Controllers;
 
 import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Machiavelli;
 import Machiavelli.Models.Speelveld;
-import Machiavelli.Models.Spel;
+import Machiavelli.Models.Speler;
 import Machiavelli.Views.SpeelveldView;
 
 import java.rmi.RemoteException;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 /**
  * 
@@ -18,18 +20,28 @@ import java.rmi.server.UnicastRemoteObject;
 public class SpeelveldController extends UnicastRemoteObject implements SpelObserver {
 	private Speelveld speelveld;
 	private SpeelveldView speelveldview;
-	private SpelRemote spel;
+	private SpelRemote spel = null;
+    private Registry registry = Machiavelli.getInstance().getRegistry();
 	
-	public SpeelveldController(Speelveld speelveld, SpelRemote spel) throws RemoteException{
-        this.speelveld = speelveld;
+	public SpeelveldController(SpelRemote spel, Speler speler) throws RemoteException {
         this.spel = spel;
-        this.spel.addObserver(this);
+        this.speelveld = new Speelveld(this.spel);
+        this.speelveld.addSpeler(speler);
+
         this.speelveldview = new SpeelveldView(this, this.speelveld);
         this.speelveld.registratieView(this.speelveldview);
 
 		speelveldview.getExitButton().setOnAction(event -> System.exit(0));
 
-		this.speelveldview.show();
+        try {
+            SpelRemote spelStub = (SpelRemote)registry.lookup("Spel");
+            spelStub.addObserver(this);
+            System.out.println("Add speelveldController to SpelStub");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("SpeelveldController: Spel: aantal spelers: " + this.spel.getAantalSpelers());
+        this.speelveldview.show();
 	}
 
 	public SpelRemote getSpel() {
@@ -40,7 +52,6 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
     public void modelChanged(SpelRemote spel) throws RemoteException {
         // tmp casting
         System.out.println("SpeelveldController: Spel model changed!");
-        this.spel = (Spel)spel;
         System.out.println("Aantal spelers: " + this.spel.getAantalSpelers());
     }
 }

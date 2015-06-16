@@ -1,26 +1,15 @@
 package Machiavelli;
 
-
-import Machiavelli.Controllers.SpelController;
-import Machiavelli.Models.GebouwKaart;
-import Machiavelli.Models.Speelveld;
-import Machiavelli.Models.Spel;
-import Machiavelli.Models.Speler;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 import Machiavelli.Controllers.MenuController;
-import Machiavelli.Views.MainMenuView;
+import Machiavelli.Models.GebouwKaart;
+import Machiavelli.Models.Speler;
 import javafx.application.Application;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import java.io.*;
+
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-
+import java.util.ArrayList;
 
 /**
  * Google Java Style Guide aanhouden
@@ -48,18 +37,16 @@ public class Machiavelli extends Application {
         // this.stage.initStyle(StageStyle.UNDECORATED);
         this.stage.setResizable(false);
         this.stage.setTitle("Machiavelli");
-        MenuController menuController = new MenuController(new MainMenuView());
 
         try {
             System.out.println("Getting access to the registry");
             // get access to the RMI registry on the remote server
-            registry = LocateRegistry.getRegistry("127.0.0.1"); // if server on another machine: provide that machine's IP address. Default port  1099
-//            System.out.println("Getting the Games stub from registry");
-//            System.out.println("Performing arithmetics");
+            this.registry = LocateRegistry.getRegistry("127.0.0.1"); // if server on another machine: provide that machine's IP address. Default port  1099
             System.out.println("Done!");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        MenuController menuController = new MenuController();
     }
 
     public static synchronized Machiavelli getInstance() {

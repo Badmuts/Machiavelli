@@ -1,13 +1,12 @@
 package Machiavelli.Controllers;
 
-import Machiavelli.Machiavelli;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Machiavelli;
 import Machiavelli.Models.Spel;
 import Machiavelli.Models.Speler;
 import Machiavelli.Views.InvullenSpelersView;
 import Machiavelli.Views.MainMenuView;
 
-import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 
 public class MenuController {
@@ -15,7 +14,7 @@ public class MenuController {
     private MainMenuView mainMenuView;
     private InvullenSpelersView invullenspeler;
     private SpelController spelController;
-    private Registry registry = Machiavelli.getInstance().getRegistry();
+    private Registry registry;
 
     /**
      * Maakt de MainMenuView aan en koppelt de buttons aan cmd's
@@ -23,8 +22,10 @@ public class MenuController {
      *
      * @param mainMenuView
      */
-    public MenuController(MainMenuView mainMenuView) {
-        this.mainMenuView = mainMenuView;
+    public MenuController() {
+        this.mainMenuView = new MainMenuView(this);
+        this.registry = Machiavelli.getInstance().getRegistry();
+        System.out.println("Loaded Registry");
 
         // Start het overzicht met spellen (Nieuw spel, Deelnemen spel en Hervatten spel)
         mainMenuView.getStartButton().setOnAction(event -> mainMenuView.showSelect());
@@ -89,9 +90,9 @@ public class MenuController {
     	try {
     		int maxAantalSpelers = Integer.parseInt(this.invullenspeler.getTextField());
             SpelRemote spel = new Spel(maxAantalSpelers);
-            registry.rebind("Spel", spel);
-            spel = (SpelRemote) registry.lookup("Spel");
-            this.spelController = new SpelController(spel);
+            this.registry.rebind("Spel", spel);
+            SpelRemote spelStub = (SpelRemote)this.registry.lookup("Spel");
+            this.spelController = new SpelController(spelStub);
             this.spelController.cmdAddSpeler(new Speler());
     	} catch(Exception e) {
     		e.printStackTrace();
