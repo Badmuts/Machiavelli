@@ -31,6 +31,8 @@ public class Prediker implements Karakter, Bonusable {
     private final String naam = "Prediker";
     private final Type type = Type.KERKELIJK;
     private Object target;
+    
+    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Prediker.png");
 
     @Override
     public void setSpeler(Speler speler) {
@@ -80,7 +82,7 @@ public class Prediker implements Karakter, Bonusable {
 
     @Override
     public Image getImage() {
-        return null;
+        return this.image;
     }
 
     @Override

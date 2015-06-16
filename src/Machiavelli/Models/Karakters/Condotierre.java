@@ -35,6 +35,8 @@ public class Condotierre implements Karakter, Bonusable {
 	private final String naam = "Condotierre";
     private final Type type = Type.MILITAIR;
     
+    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Condotierre.png");
+    
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Condotierre wordt aan de speler gekoppeld.
@@ -56,7 +58,7 @@ public class Condotierre implements Karakter, Bonusable {
 
     @Override
     public Image getImage() {
-        return null;
+        return this.image;
     }
 
     @Override

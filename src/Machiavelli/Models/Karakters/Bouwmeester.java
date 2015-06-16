@@ -29,6 +29,8 @@ public class Bouwmeester implements Karakter {
     private final int bouwLimiet = 3; 
     private final String naam = "Bouwmeester";
     private final Type type = Type.NORMAAL;
+    
+    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Bouwmeester.png");
 	
     /**
 	 * Overriden van de methode uit de interface Karakter,
@@ -45,8 +47,9 @@ public class Bouwmeester implements Karakter {
     }
 
     /**
-	 * overriden van de methode uit de interface Karakter
-	 * ??????
+	 * overriden van de methode uit de interface Karakter.
+	 * Er worden 2 gebouwkaarten uit de Gebouwfactory in de hand van de
+	 * speler met het karakter bouwmeester geplaatst.
      * 
 	 */
     @Override
@@ -73,9 +76,6 @@ public class Bouwmeester implements Karakter {
         return this.bouwLimiet;
     }
 
-    public int getBouwlimiet() {
-    	return this.bouwLimiet;
-    }
     
 	public Type getType() {
 		return this.type;
@@ -89,7 +89,7 @@ public class Bouwmeester implements Karakter {
 
     @Override
     public Image getImage() {
-        return null;
+        return this.image;
     }
 
     @Override
