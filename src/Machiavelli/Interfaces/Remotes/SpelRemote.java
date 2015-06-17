@@ -3,6 +3,7 @@ package Machiavelli.Interfaces.Remotes;
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Models.Bank;
+import Machiavelli.Models.Speler;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -19,5 +20,6 @@ public interface SpelRemote extends Remote {
     public void addObserver(SpelObserver spelObserver) throws RemoteException;
     public void removeObserver(SpelObserver observer) throws RemoteException;
     public void notifyObservers() throws RemoteException;
-    public void addSpeler(SpelerRemote speler) throws RemoteException;
+    public void addSpeler(Speler speler) throws RemoteException;
+    public void createNewSpel(int maxAantalSpelers) throws RemoteException;
 }

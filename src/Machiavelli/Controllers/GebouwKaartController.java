@@ -23,14 +23,14 @@ public class GebouwKaartController implements Serializable {
      * @throws RemoteException
      */
     public GebouwKaartController(GebouwFactory gebouwFactory) throws RemoteException {
-        // Loop door de GebouwFactory heen en maak een nieuwe view
+        // Loop door de Gebouwen in GebouwFactory heen en maak een nieuwe view
         for (GebouwKaart gebouwKaart: gebouwFactory.getGebouwen()) {
+            // Maak een nieuwe view
             GebouwKaartView gebouwKaartView = new GebouwKaartView(this, gebouwKaart);
+            // Voeg view toe aan model
             gebouwKaart.registratieView(gebouwKaartView);
+            // Sla view op in controller
             gebouwKaartViews.add(gebouwKaartView);
-            System.out.println("Created new GebouwKaartView");
         }
-        // Sla de gebouwkaarten op in de controller.
-        this.gebouwKaarten = gebouwFactory.getGebouwen();
     }
 }

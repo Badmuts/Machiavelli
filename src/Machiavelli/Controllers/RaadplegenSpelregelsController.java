@@ -19,7 +19,7 @@ public class RaadplegenSpelregelsController {
 			this.spelRegelsView = new SpelregelsView();
 			this.spelRegelsView.getCloseButton().setOnAction(event -> this.spelRegelsView.close());
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 	}
 	

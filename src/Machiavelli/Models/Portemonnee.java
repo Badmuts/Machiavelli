@@ -28,7 +28,7 @@ public class Portemonnee implements PortemonneeRemote, Serializable {
 		try {
 			goudMunten += this.bank.gevenGoud(2);
 		} catch (RemoteException re) {
-			System.out.print(re);
+			re.printStackTrace();
 		}
 	}
 

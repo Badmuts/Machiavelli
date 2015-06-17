@@ -137,7 +137,7 @@ public class Speler implements SpelerRemote, Serializable {
         try {
             this.portemonnee = new Portemonnee(this.spel.getBank());
         } catch (RemoteException re) {
-            System.out.print(re);
+            re.printStackTrace();
         }
     }
 }

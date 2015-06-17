@@ -2,13 +2,11 @@ package Machiavelli.Controllers;
 
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Machiavelli;
-import Machiavelli.Models.Spel;
 import Machiavelli.Models.Speler;
 import Machiavelli.Views.InvullenSpelersView;
 import Machiavelli.Views.MainMenuView;
 
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 
 public class MenuController {
 
@@ -88,10 +86,8 @@ public class MenuController {
         // TODO: Create new spel instance?
     	try {
     		int maxAantalSpelers = Integer.parseInt(this.invullenspeler.getTextField());
-            SpelRemote spel = new Spel(maxAantalSpelers);
-            SpelRemote spelStub = (SpelRemote) UnicastRemoteObject.exportObject(spel, 0);
-            this.registry.rebind("Spel", spelStub);
-            spelStub = (SpelRemote)this.registry.lookup("Spel");
+            SpelRemote spelStub = (SpelRemote)this.registry.lookup("Spel");
+            spelStub.createNewSpel(maxAantalSpelers);
             this.spelController = new SpelController(spelStub);
             this.spelController.cmdAddSpeler(new Speler());
     	} catch(Exception e) {

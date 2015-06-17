@@ -101,13 +101,4 @@ public class GebouwKaartView extends StackPane implements GebouwKaartObserver, S
     public void modelChanged(GebouwKaartRemote gebouwKaart) throws RemoteException {
         this.gebouwKaart = gebouwKaart;
     }
-
-    public String toString() {
-        try {
-            return "GEBOUWKAARTVIEW: Naam: " + this.gebouwKaart.getNaam() + " Punten: " + this.gebouwKaart.getKosten();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "PLEB. GEBOUWKAARTVIEW GEBOUWKAART MODEL IS KAPOT LEEG OF IETS ANDERS";
-    }
 }

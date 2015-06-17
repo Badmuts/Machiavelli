@@ -17,35 +17,45 @@ public class HandActionBarView extends Pane implements HandObserver {
     private ArrayList<GebouwKaartView> gebouwKaartViews = new ArrayList<GebouwKaartView>();
     private Rectangle kaartholder;
 
+    /**
+     * View voor de gebouwkaarten in de hand van de speler.
+     *
+     * @param hand
+     */
     public HandActionBarView(Hand hand) {
         super();
         this.hand = hand;
-        System.out.println(this.hand);
         try {
             this.hand.addObserver(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        createBackground();
-        createGebouwKaartViews();
+        createBackground(); // Maak achtergrond aan
+        createGebouwKaartViews(); // Vul gebouwKaartViews[]
 
-        this.getChildren().addAll(kaartholder);
-        addGebouwKaartViews();
+        this.getChildren().addAll(kaartholder); // Voeg achtergrond toe
+        addGebouwKaartViews(); // Voeg views toe aan HandActionBarView (pane)
     }
 
+    /**
+     * Maak achtergrond aan waar de kaarten overheen worden
+     * geplaatst.
+     */
     private void createBackground() {
         kaartholder = new Rectangle(0, 0, 840, 250);
         kaartholder.setFill(Color.GRAY);
     }
 
+    /**
+     * Haalt alle GebouwKaartViews op van elke GebouwKaart
+     * en plaatst deze in gebouwKaartViews[].
+     */
     private void createGebouwKaartViews() {
         try {
+            // Loop door kaarten in hand
             for (GebouwKaart gebouwKaart: hand.getKaartenLijst()) {
-                System.out.println(gebouwKaart);
-                if (gebouwKaart.getGebouwkaartView() == null) {
-                    System.out.println("Geen gebouwkaartView gevonden!");
-                }
+                // Haal view op van gebouwkaart view en plaats in gebouwKaartViews[]
                 gebouwKaartViews.add(gebouwKaart.getGebouwkaartView());
             }
         } catch (RemoteException re) {
@@ -53,24 +63,28 @@ public class HandActionBarView extends Pane implements HandObserver {
         }
     }
 
+    /**
+     * Voeg gebouwKaart views toe aan de HandActionBarView.
+     * Wijzig de X coordinaat van elke GebouwKaartView zodat
+     * deze de vorige kaart overlapt.
+     */
     private void addGebouwKaartViews() {
-        int x = 0;
-        System.out.println("Aantal gebouwKaartViews: " + gebouwKaartViews.size());
+        int x = 0; // X coordinaat (voor uitlijning)
+        // Loop  door gebouwKaartViews en wijzig de X coordinaat.
         for (GebouwKaartView gebouwKaartView: gebouwKaartViews) {
-            System.out.println(gebouwKaartView);
-            gebouwKaartView.setLayoutX(x);
-            this.getChildren().add(gebouwKaartView);
-            x += 100;
+            gebouwKaartView.setLayoutX(x); // Zet X coordinaat
+            this.getChildren().add(gebouwKaartView); // Voeg view to aan Pane
+            x += 100; // Verhoog X coordinaat met 100
         }
     }
 
     @Override
     public void modelChanged(HandRemote hand) throws RemoteException {
-        System.out.println("Hand changed!");
+        // TODO: Redraw view (this)
         this.hand = hand;
     }
 
-    private int calcRotation(int i, int totalLength) {
+    private int calcRotation(int cardIndex, int totalCards) {
         // TODO: implement rotation calculation
         return 1;
     }

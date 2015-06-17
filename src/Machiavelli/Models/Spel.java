@@ -3,7 +3,6 @@ package Machiavelli.Models;
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
-import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Views.SpeelveldView;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -21,19 +20,23 @@ public class Spel implements SpelRemote, Serializable {
 	private int maxAantalSpelers;
 	private Speelveld speelveld;
 	private SpeelveldView speelveldview;
-	private ArrayList<SpelerRemote> spelers = new ArrayList<>();
+//	private ArrayList<SpelerRemote> spelers = new ArrayList<>();
 	private Bank bank;
-	private GebouwFactory gebouwFactory;
+	private GebouwFactory gebouwFactory = null;
 	private ArrayList<SpelObserver> observers;
-	private ArrayList<Speler> speler;
+	private ArrayList<Speler> spelers = new ArrayList<>();
 	private int aantalspelers;
 
-	public Spel(int aantalSpelers){
-		this.maxAantalSpelers = aantalSpelers;
-		this.bank = new Bank();
-		this.gebouwFactory = new GebouwFactory();
+	public Spel(){
+
+    }
+
+    public void createNewSpel(int maxAantalSpelers) throws RemoteException {
+        this.maxAantalSpelers = maxAantalSpelers;
+        this.bank = new Bank();
+        this.gebouwFactory = new GebouwFactory().createFactory();
         this.observers = new ArrayList<>();
-	}
+    }
 
     public Bank getBank() throws RemoteException {
 		return this.bank;
@@ -65,18 +68,14 @@ public class Spel implements SpelRemote, Serializable {
 			observer.modelChanged(this);
 		}
 	}
-
-	public ArrayList<Speler> getSpelerLijst() {
-		return this.speler;
-	}
     
     @Override
-    public void addSpeler(SpelerRemote speler) throws RemoteException {
+    public void addSpeler(Speler speler) throws RemoteException {
 		this.spelers.add(speler);
 		notifyObservers();
 	}
 
-    public ArrayList<SpelerRemote> getSpelers() {
+    public ArrayList<Speler> getSpelers() {
         return this.spelers;
     }
 
