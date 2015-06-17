@@ -43,7 +43,7 @@ public class Machiavelli extends Application {
 //            System.out.println("Performing arithmetics");
             System.out.println("Done!");
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); 
         }
     }
 

@@ -1,11 +1,21 @@
 .root{
-	-fx-background-color: linear-gradient(#efefef, #e5e5e5);	
+	-fx-background-color: linear-gradient(#efefef, #e5e5e5);		
 }
 
 
 #spelregelview
 {
 	-fx-background-color: linear-gradient(#efefef, #e5e5e5);
+
+}
+
+#spelregelwindow
+{
+	-fx-background-color: linear-gradient(#efefef, #e5e5e5);
+	-fx-background-radius: 30;
+-fx-border-radius: 30;
+-fx-border-width:5;
+-fx-border-color: #393939;
 }
 
 

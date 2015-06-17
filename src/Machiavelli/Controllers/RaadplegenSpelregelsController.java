@@ -53,46 +53,31 @@ public class RaadplegenSpelregelsController {
 	public void cmdSluitSpelregelView()
 	{
 		Pane newPane = new Pane();
-    	Scene oldScene = Machiavelli.getInstance().getStage().getScene();
-//    	for(Node node : old.getChildren())
-//    	{
-//    		if(node.getId() != null && new String(node.getId()).equals("spelregelview"))
-//    		{
-//    			System.out.println("Speelveld pane gevonden");
-//    			break;
-//    		}
-//    		newPane.getChildren().addAll(node);
-//    	}
-    	
-//    	for(Node node : old.getChildren())
-//    	{
-//    		if(node.getId() != null && new String(node.getId()).equals("spelregelview"))
-//    		{
-//    			System.out.println("Speelveld pane gevonden");
-//    			old.getChildren().remove(old.getChildren().indexOf(node));
-//    			System.out.println("removed old pane from the scene");
-//    			break;
-//    		}
-////    		newPane.getChildren().addAll(node);
-//    		System.out.println(node.getId());
-//    	}
+    	Scene currentScene = Machiavelli.getInstance().getStage().getScene();
 
-//    	System.out.println(sc.lookup("#spelregelview").idProperty());
-//    	System.out.println(sc.lookup("#spelregelview").getId());
-    	
-    	for(Node node : Machiavelli.getInstance().getStage().getScene().getRoot().getChildrenUnmodifiable())
+    	System.out.println("\nThe current scene contains the following nodes (panes): ");
+    	for(Node node : currentScene.getRoot().getChildrenUnmodifiable())
     	{
     		System.out.println(node.idProperty());
-    		if(oldScene.lookup("#spelregelview").equals(node))
+    		if(currentScene.lookup("#spelregelview").equals(node))
     		{
+    			//deletes the spelregelview pane, from the nodelist of the scene...
     			newPane.getChildren().add(node);
-    			System.out.println(node.idProperty());
+    			
+    			//java.lang.UnsupportedOperationException
+//    			currentScene.getRoot().getChildrenUnmodifiable().remove(currentScene.getRoot().getChildrenUnmodifiable().indexOf(node));
+    			System.out.println("\nVerwijderd: " + node.getId());
     			break;
     		}
     	}
+    	
     	newPane = null;
     	
-//    	Scene scene = new Scene(newPane, 1600, 900);
-//		Machiavelli.getInstance().getStage().setScene(scene);
+    	//show the nodes in the current list.
+    	System.out.println("\nThe current scene contains the following nodes (panes): ");
+    	for(Node node : currentScene.getRoot().getChildrenUnmodifiable())
+    	{
+    		System.out.println(node.idProperty());
+    	}
 	}
 }

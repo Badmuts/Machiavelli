@@ -38,6 +38,7 @@ public class MenuController {
 
         // Raadpleeg de spelregels
         mainMenuView.getSpelregelsButton().setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
+        mainMenuView.getSpelregelsButton2().setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
         
         // Start de MainMenuView
         this.cmdMainMenu();

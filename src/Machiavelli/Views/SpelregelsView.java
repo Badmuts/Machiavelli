@@ -44,17 +44,17 @@ public class SpelregelsView implements SpelregelsObserver {
 		title.setId("title");
 		title.setFill(Color.WHITE);
 		title.setLayoutX(720);
-		title.setLayoutY(50);
+		title.setLayoutY(120);
 		
 		Text text = new Text(this.spelregels.getSpelregels());
 		text.setId("regels");
-		text.setLayoutX(50);
-		text.setLayoutY(100);
+		text.setLayoutX(350);
+		text.setLayoutY(180);
 		
 		this.closeButton = new Button("X");
 		this.closeButton.setId("closeButton");
-		this.closeButton.setLayoutX(1555);
-		this.closeButton.setLayoutY(15);
+		this.closeButton.setLayoutX(1280);
+		this.closeButton.setLayoutY(90);
 
 //		text.setContentDisplay
 //		text.setFont(Font.font ("Roboto", 20));
@@ -70,9 +70,14 @@ public class SpelregelsView implements SpelregelsObserver {
 		this.stPane = new Pane();
 		stPane.setId("spelregelview");
 		stPane.getChildren().addAll(title, text, closeButton);
-		Rectangle rect = new Rectangle(1600, 900);
-//		rect.setArcHeight(60.0);
-//		rect.setArcWidth(60.0);
+		stPane.setPrefSize(1600, 900);
+		
+		Rectangle rect = new Rectangle(1024, 768);
+		rect.setId("spelregelwindow");
+		rect.setLayoutX(300);
+		rect.setLayoutY(70);
+		rect.setArcHeight(60.0);
+		rect.setArcWidth(60.0);
 		stPane.setClip(rect);
         stPane.getStylesheets().add("Machiavelli/Resources/SpelregelsView.css");
 	}

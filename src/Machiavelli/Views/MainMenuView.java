@@ -82,6 +82,7 @@ public class MainMenuView{
 		//toevoegen van elementen aan het frame
 		//voeg ID toe aan de pane.
 		mainMenuPane.setId("mainMenuPane");
+		mainSelectPane.setId("mainSelectPane");
 		mainMenuPane.getChildren().addAll(iv, startbutton,exitbutton,spelregels,mainTx);
 		mainSelectPane.getChildren().addAll(iv2, nieuwspelknop,hervattenknop,deelnemenknop,exitbutton2,spelregels2,mainTx2);
 		
@@ -124,6 +125,11 @@ public class MainMenuView{
 
 	public Button getSpelregelsButton(){
 		return spelregels;
+	}
+	
+	public Button getSpelregelsButton2()
+	{
+		return this.spelregels2;
 	}
 
 	public Button getExitButton2(){
