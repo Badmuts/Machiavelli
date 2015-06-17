@@ -1,14 +1,22 @@
 package Machiavelli.Models;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Date;
+
+import javafx.scene.image.Image;
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Views.SpeelveldView;
 
-import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class Spel implements SpelRemote, Serializable {
 	private int maxAantalSpelers;
@@ -17,36 +25,16 @@ public class Spel implements SpelRemote, Serializable {
 	private ArrayList<SpelerRemote> spelers = new ArrayList<>();
 	private Bank bank;
 	private GebouwFactory gebouwFactory;
-	private ArrayList<SpelObserver> observers = new ArrayList<>();
+	private ArrayList<SpelObserver> observers;
+	private ArrayList<Speler> speler;
+	private int aantalspelers;
 
 	public Spel(int aantalSpelers){
 		this.maxAantalSpelers = aantalSpelers;
 		this.bank = new Bank();
 		this.gebouwFactory = new GebouwFactory();
+        this.observers = new ArrayList<>();
 	}
-
-//	public void nieuwSpel() throws RemoteException {
-//		//Minimaal aantal spelers kiezen
-//		//Speelveld laden
-//		//Spelers koppeln aan speelveld
-//		//Speelveld laten zien
-//		//Start spelers is koning
-//		//Starten karakterkiezenlijst speler 1
-//		//Doorgeven karakterlijst aan andere spelers
-//		this.spelers.add(new Speler(this));
-//
-//		/*spelers.add(new Speler(this));
-//		spelers.add(new Speler(this));
-//		spelers.add(new Speler(this));
-//		spelers.add(new Speler(this));*/
-//		this.speelveld = new Speelveld(this.spelers, this);
-//        notifyObservers();
-//	}
-
-    @Override
-    public void removeObserver(SpelObserver observer) throws RemoteException {
-        this.observers.remove(observer);
-    }
 
     public Bank getBank() throws RemoteException {
 		return this.bank;
@@ -63,28 +51,36 @@ public class Spel implements SpelRemote, Serializable {
 	@Override
 	public void addObserver(SpelObserver observer) throws RemoteException {
 		observers.add(observer);
+		System.out.println("addObserver(): Aantal Spel observers: " + observers.size());
 	}
+    
+    @Override
+    public void removeObserver(SpelObserver observer) throws RemoteException {
+        this.observers.remove(observer);
+    }
 
+    @Override
 	public void notifyObservers() throws RemoteException {
 		System.out.println("Spel model changed!");
+		System.out.println("Aantal spelers in spel: " + this.getAantalSpelers());
 		for (SpelObserver observer: observers) {
 			observer.modelChanged(this);
 		}
 	}
 
-	@Override
-	public void addSpeler(SpelerRemote speler) throws RemoteException {
-		this.spelers.add(speler);
+	public ArrayList<Speler> getSpelerLijst() {
+		return this.speler;
 	}
-
-	public void addSpeler(Speler speler) {
-        this.spelers.add(speler);
+    
+    @Override
+    public void addSpeler(SpelerRemote speler) throws RemoteException {
+		this.spelers.add(speler);
         try {
             notifyObservers();
         } catch (RemoteException re) {
             re.printStackTrace();
         }
-    }
+	}
 
     public ArrayList<SpelerRemote> getSpelers() {
         return this.spelers;
@@ -93,5 +89,47 @@ public class Spel implements SpelRemote, Serializable {
     public int getMaxAantalSpelers() {
         return this.maxAantalSpelers;
     }
-}
+    
+    
+    public void saveGame(Spel spel) throws FileNotFoundException {
+		XStream xs = new XStream(new DomDriver());
 
+		// Tags hernoemen
+		xs.alias("spel", Spel.class);
+		xs.alias("speler", Speler.class);
+		xs.alias("gebouwkaart", GebouwKaart.class);
+
+		// Skippen problematische velden
+		xs.omitField(Image.class, "progress");
+		xs.omitField(Image.class, "platformImage");
+		xs.omitField(Speelveld.class, "speelveldcontroller");
+
+		// XML bestand wegschrijven
+		FileOutputStream fos = new FileOutputStream(createSaveLocation() + "/" + generateFileName());
+		xs.toXML(spel, fos);
+	}
+
+	public void loadGame()
+	{
+		//        InputStream in = new FileInputStream("testXML.xml");
+		//        spel = null;
+		//        spel = (Spel) xs.fromXML(in);
+	}
+
+	private String generateFileName()
+	{
+		String name;
+		name = "saveGame_" + new Date().getTime() + ".xml";
+		return name;
+	}
+
+	private File createSaveLocation()
+	{
+		File file = new File(System.getProperty("user.home") + "/machiavelli/");
+		if (!file.exists()){
+			file.mkdir();
+		}
+
+		return file;
+	}
+}

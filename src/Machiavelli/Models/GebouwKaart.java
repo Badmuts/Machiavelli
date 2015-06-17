@@ -4,7 +4,6 @@ import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Views.GebouwKaartView;
-import javafx.scene.image.Image;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -36,7 +35,6 @@ public class GebouwKaart implements GebouwKaartRemote, Serializable {
         this.naam = naam;
         this.type = type;
         this.image = image;
-        this.gebouwKaartView = new GebouwKaartView(this);
     }
 
     public Type getType() throws RemoteException {
@@ -99,5 +97,9 @@ public class GebouwKaart implements GebouwKaartRemote, Serializable {
     @Override
     public GebouwKaartView getGebouwkaartView() throws RemoteException {
         return this.gebouwKaartView;
+    }
+
+    public void registratieView(GebouwKaartView gebouwKaartView) {
+        this.gebouwKaartView = gebouwKaartView;
     }
 }

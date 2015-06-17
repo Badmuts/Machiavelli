@@ -1,12 +1,12 @@
 package Machiavelli.Models;
 
-import Machiavelli.Interfaces.Observers.BankObserver;
 import Machiavelli.Interfaces.Observers.HandObserver;
 import Machiavelli.Interfaces.Remotes.HandRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * De hand van de speler heeft controle over de kaarten die de speler
@@ -35,7 +35,6 @@ public class Hand implements HandRemote, Serializable {
                 System.out.print(re);
             }
 		}
-		System.out.print("Niew hand created!");
 	}
 
 	// Een gebouw toevoegen aan de hand van de speler

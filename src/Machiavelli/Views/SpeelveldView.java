@@ -32,6 +32,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 
     public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld) throws RemoteException {
 		this.speelveld = speelveld;
+        System.out.println(this.speelveld);
 		this.speelveldcontroller = speelveldcontroller;
 
         this.createKarakterHolder();
@@ -47,11 +48,10 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         BorderPane speelveldpane = new BorderPane();
         speelveldpane.setBottom(this.actionBar);
         speelveldpane.setTop(iv);
-
-		speelveldscene = new Scene(speelveldpane, 1440, 900);
-		speelveldpane.getStylesheets().add("Machiavelli/Resources/style.css");
+        speelveldpane.getStylesheets().add("Machiavelli/Resources/style.css");
         speelveldpane.getStyleClass().add("speelveld");
-						
+        speelveldscene = new Scene(speelveldpane, 1440, 900);
+
 		this.show();
 	}
 

@@ -6,6 +6,10 @@ import server.GamesRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Models.Speler;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Models.Speler;
+
+import java.rmi.RemoteException;
 
 /**
  * 
@@ -14,27 +18,23 @@ import Machiavelli.Models.Speler;
  */
 
 public class SpelController {
-    private SpeelveldController speelveldController;
-	private SpelRemote spel;
-    private Registry registry = Machiavelli.getInstance().getRegistry();
+	private SpelRemote spel = null;
+    private GebouwKaartController gebouwKaartController;
 
 	public SpelController(SpelRemote spel){
         try {
-            registry.bind("Spel", spel);
-            this.spel = (SpelRemote)registry.lookup("Spel");
-            GamesRemote gamesRemote = (GamesRemote)registry.lookup("Games");
-            gamesRemote.addSpelToGames(this.spel);
+            this.spel = spel;
+            createGebouwKaartController();
         } catch (Exception re) {
             re.printStackTrace();
         }
 	}
 
-	public void cmdAddSpeler(Speler speler) {
+    public void cmdAddSpeler(Speler speler) {
         try {
-//            registry.bind("Speler", speler);
-//            SpelerRemote sp = (SpelerRemote)registry.lookup("Speler");
-            speler.addSpel(this.spel);
             this.spel.addSpeler(speler);
+            speler.addSpel(this.spel);
+            new SpeelveldController(this.spel, speler);
         } catch (Exception re) {
             re.printStackTrace();
         }
@@ -43,6 +43,13 @@ public class SpelController {
 
     public SpelRemote getSpel() {
         return this.spel;
+    }
+    private void createGebouwKaartController() throws RemoteException {
+        this.gebouwKaartController = new GebouwKaartController(spel.getGebouwFactory());
+    }
+
+    public GebouwKaartController getGebouwKaartController() {
+        return gebouwKaartController;
     }
 }
 

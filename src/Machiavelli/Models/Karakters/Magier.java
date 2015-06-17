@@ -37,7 +37,7 @@ public class Magier implements Karakter {
     private Speler  speler  = null;
     private Object  target  = null;
     private ArrayList<GebouwKaart> ruilLijst = new ArrayList<GebouwKaart>();
-    private Image image = new Image("Machiavelli/Resources/Portrait-Magier.png");
+    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Magier.png");
 
     /**
 	 * Overriden van de methode uit de interface Karakter,

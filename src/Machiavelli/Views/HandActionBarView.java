@@ -48,6 +48,7 @@ public class HandActionBarView extends Pane implements HandObserver {
     }
 
     private void createGebouwKaartViews() {
+        System.out.println("Kijk die gebouwkaartviews gaan");
         try {
             ArrayList<GebouwKaart> kaarten = hand.getKaartenLijst();
             for (GebouwKaart gebouwKaart: kaarten) {

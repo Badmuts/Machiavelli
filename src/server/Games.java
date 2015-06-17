@@ -20,6 +20,17 @@ public class Games implements GamesRemote {
     }
 
     @Override
+    public SpelRemote getSpel(SpelRemote spel) throws RemoteException {
+        SpelRemote getGame = null;
+        for (SpelRemote game: games) {
+            if (game.equals(spel)) {
+                getGame = game;
+            }
+        }
+        return getGame;
+    }
+
+    @Override
     public void addSpelToGames(SpelRemote spel) throws RemoteException {
         this.games.add(spel);
     }

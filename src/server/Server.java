@@ -15,7 +15,6 @@ public class Server {
             registry.rebind("Games", gamesSkeleton); // bind calculator to RMI registry
             System.out.println("Games skeleton bound");
             System.out.println("Server running...");
-
             // if you'd like to run rmiregistry from the command line
             //	run it from the project's bin directory, so rmiregistry can find the necessary classes
 

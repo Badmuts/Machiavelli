@@ -1,9 +1,12 @@
 package Machiavelli.Models.Karakters;
 
 import Machiavelli.Enumerations.Type;
+import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.Speler;
 import javafx.scene.image.Image;
+
+import java.rmi.RemoteException;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -22,16 +25,17 @@ import javafx.scene.image.Image;
 
 public class Dief implements Karakter {
 	
-	private Karakter    besteelKarakter     = null;
-    @SuppressWarnings("unused")
-	private Speler      speler              = null;
+	private Speler speler = null;
+	private Karakter target = null;
     
 	/** Eigenschappen van karakter Dief. */
     private final int nummer = 2;	
     private final int bouwLimiet = 1; 
     private final String naam = "Dief";
     private final Type type = Type.NORMAAL;
-    private Object target;
+    
+    /*Afbeelding van de Dief*/
+    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Dief.png");
 
     /**
    	 * Overriden van de methode uit de interface Karakter,
@@ -44,9 +48,15 @@ public class Dief implements Karakter {
 
     @Override
     public Speler getSpeler() {
-        return null;
+        return speler;
     }
 
+    @Override
+    public void setTarget(Object target) {
+        this.target = (Karakter) target;
+        gebruikEigenschap();
+    }
+    
     /**
 	 * overriden van de methode uit de interface Karakter
 	 * en aanroepen van de methode selectKarakterView
@@ -56,15 +66,23 @@ public class Dief implements Karakter {
 	 */
     @Override
     public void gebruikEigenschap() {
-        // TODO: besteel karakter
+    	if (target != null && target.getNaam() != "Moordenaar") {
+    		BesteelKarakter(this.speler, getTarget());
+    		
+    	}
+    	else {
+    		//TODO view aanroepen om target te selecteren
+    	}
     }
     
-    public void setBesteelKarakter(Karakter besteelKarakter) {
-		this.besteelKarakter = besteelKarakter;
-	}
-    
-    public Karakter getBesteelKarakter() {
-		return besteelKarakter;
+    private void BesteelKarakter(Speler speler, Karakter target) {
+		try {
+			speler.getGoudVanBank(speler.getSpel().getBank(), target.getSpeler().getPortemonnee().getGoudMunten());
+			target.getSpeler().setGoudOpBank(target.getSpeler().getPortemonnee(), target.getSpeler().getPortemonnee().getGoudMunten());
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 
     public String getNaam() {
@@ -87,15 +105,14 @@ public class Dief implements Karakter {
 	public Type getType() {
 		return this.type;
 	}
-
-    @Override
-    public void setTarget(Object target) {
-        this.target = target;
-    }
+	
+	public Karakter getTarget() {
+		return this.target;
+	}
 
     @Override
     public Image getImage() {
-        return null;
+        return this.image;
     }
 
     @Override

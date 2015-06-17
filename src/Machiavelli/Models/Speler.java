@@ -22,7 +22,6 @@ import java.util.ArrayList;
  */
 public class Speler implements SpelerRemote, Serializable {
 	// Variables
-	private boolean isKoning;
 	private Portemonnee portemonnee;
 	private Karakter karakter;
 	private Hand hand;
@@ -137,7 +136,6 @@ public class Speler implements SpelerRemote, Serializable {
     private void createPortemonnee() {
         try {
             this.portemonnee = new Portemonnee(this.spel.getBank());
-            this.speelveldController = new SpeelveldController(new Speelveld(this.spel, this), this.spel);
         } catch (RemoteException re) {
             System.out.print(re);
         }

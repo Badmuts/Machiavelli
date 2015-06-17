@@ -73,4 +73,11 @@ public class Stad implements StadRemote, Serializable {
 		}
 	}
 
+	public Speler getSpeler() throws RemoteException {
+		// TODO Auto-generated method stub
+		return speler;
+	}
+
+	
+
 }
