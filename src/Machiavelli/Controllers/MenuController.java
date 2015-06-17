@@ -5,6 +5,7 @@ import Machiavelli.Machiavelli;
 import Machiavelli.Models.Spel;
 import Machiavelli.Models.Speler;
 import Machiavelli.Views.InvullenSpelersView;
+import Machiavelli.Views.KiesKarakterView;
 import Machiavelli.Views.MainMenuView;
 
 import java.rmi.registry.Registry;
@@ -40,7 +41,22 @@ public class MenuController {
         mainMenuView.getDeelnemenKnop().setOnAction(event -> this.cmdDeelnemenSpel());
 
         // Raadpleeg de spelregels
-        mainMenuView.getSpelregelsButton().setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
+//        mainMenuView.getSpelregelsButton().setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
+        
+        //TODO: testing purposes only! remove. the above line is correct.
+        mainMenuView.getSpelregelsButton().setOnAction((event) ->
+        		{
+        			KarakterController controller;
+					try {
+						controller = new KarakterController();
+						controller.cmdWeergeefKiesKarakterView();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+        		});
+        	
+        
         mainMenuView.getSpelregelsButton2().setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
         
         // Start de MainMenuView

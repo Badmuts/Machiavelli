@@ -16,7 +16,7 @@ public interface SpelerRemote extends Remote{
 	public ArrayList<GebouwKaart> trekkenKaart() throws RemoteException;
 	public ArrayList<GebouwKaart> trekkenKaart(int aantal) throws RemoteException;
 	public void selecterenKaart(ArrayList<GebouwKaart> lijst, int index) throws RemoteException;
-	public void setKarakter(Karakter karakter) throws RemoteException;
+	public void setKarakter(Karakter karakter);
 	public Karakter getKarakter() throws RemoteException;
 	public SpelRemote getSpel() throws RemoteException;
 	public Portemonnee getPortemonnee() throws RemoteException;

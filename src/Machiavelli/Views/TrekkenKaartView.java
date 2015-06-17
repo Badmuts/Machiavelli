@@ -26,7 +26,6 @@ public class TrekkenKaartView extends Application
 	private ArrayList<Button> kaartenButtons;
 	private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
 	private Pane pane;
-	private InkomstenController inkomstenController;
 //	private Button Kaart1, Kaart2;
 
 	public TrekkenKaartView(InkomstenController inkomstenController) {

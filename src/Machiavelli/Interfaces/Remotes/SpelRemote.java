@@ -1,6 +1,7 @@
 package Machiavelli.Interfaces.Remotes;
 
 import Machiavelli.Factories.GebouwFactory;
+import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Models.Bank;
 
@@ -15,6 +16,7 @@ public interface SpelRemote extends Remote {
 //    public void nieuwSpel() throws RemoteException;
     public Bank getBank() throws RemoteException;
     public GebouwFactory getGebouwFactory() throws RemoteException;
+    public KarakterFactory getKarakterFactory() throws RemoteException;
     public int getAantalSpelers() throws RemoteException;
     public void addObserver(SpelObserver spelObserver) throws RemoteException;
     public void removeObserver(SpelObserver observer) throws RemoteException;

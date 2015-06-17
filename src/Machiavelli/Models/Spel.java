@@ -10,6 +10,7 @@ import java.util.Date;
 
 import javafx.scene.image.Image;
 import Machiavelli.Factories.GebouwFactory;
+import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
@@ -25,6 +26,7 @@ public class Spel implements SpelRemote, Serializable {
 	private ArrayList<SpelerRemote> spelers = new ArrayList<>();
 	private Bank bank;
 	private GebouwFactory gebouwFactory;
+	private KarakterFactory karakterFactory;
 	private ArrayList<SpelObserver> observers;
 	private ArrayList<Speler> speler;
 	private int aantalspelers;
@@ -33,7 +35,9 @@ public class Spel implements SpelRemote, Serializable {
 		this.maxAantalSpelers = aantalSpelers;
 		this.bank = new Bank();
 		this.gebouwFactory = new GebouwFactory();
+		this.karakterFactory = new KarakterFactory();
         this.observers = new ArrayList<>();
+        
 	}
 
     public Bank getBank() throws RemoteException {
@@ -42,6 +46,11 @@ public class Spel implements SpelRemote, Serializable {
 	
 	public GebouwFactory getGebouwFactory() throws RemoteException {
 		return this.gebouwFactory;
+	}
+	
+	public KarakterFactory getKarakterFactory()
+	{
+		return this.karakterFactory;
 	}
 
 	public int getAantalSpelers() throws RemoteException {

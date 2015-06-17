@@ -31,14 +31,11 @@ public class SpelregelsView implements SpelregelsObserver {
 	}
 
 	private Spelregels spelregels;
-	private Stage stage = Machiavelli.getInstance().getStage();
 	private Button closeButton;
-    private Scene scene;
     private Pane stPane;
 
 	public SpelregelsView() throws IOException {
 		this.spelregels = new Spelregels();
-		stage.setTitle("Spelregels Machiavelli");
 		
 		Text title = new Text("Spelregels");
 		title.setId("title");
@@ -82,10 +79,6 @@ public class SpelregelsView implements SpelregelsObserver {
         stPane.getStylesheets().add("Machiavelli/Resources/SpelregelsView.css");
 	}
 	
-    public void close() {
-        stage.close();
-    }
-
 	public Button getCloseButton() {
 		return this.closeButton;
 	}
