@@ -1,5 +1,6 @@
 package Machiavelli.Controllers;
 
+import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Speler;
@@ -88,6 +89,10 @@ public class MenuController {
     		int maxAantalSpelers = Integer.parseInt(this.invullenspeler.getTextField());
             SpelRemote spelStub = (SpelRemote)this.registry.lookup("Spel");
             spelStub.createNewSpel(maxAantalSpelers);
+            GebouwFactory factory1 = spelStub.getGebouwFactory();
+            GebouwFactory factory2 = spelStub.getGebouwFactory();
+            GebouwFactory factory3 = spelStub.getGebouwFactory();
+            GebouwFactory factory4 = spelStub.getGebouwFactory();
             this.spelController = new SpelController(spelStub);
             this.spelController.cmdAddSpeler(new Speler());
     	} catch(Exception e) {

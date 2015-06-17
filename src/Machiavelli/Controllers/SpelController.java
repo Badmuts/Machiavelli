@@ -20,8 +20,11 @@ public class SpelController extends UnicastRemoteObject {
 	public SpelController(SpelRemote spel) throws RemoteException {
         try {
             this.spel = spel;
-            GebouwFactory factory = spel.getGebouwFactory();
-            this.gebouwKaartController = new GebouwKaartController(factory);
+            GebouwFactory factory = this.spel.getGebouwFactory();
+            this.gebouwKaartController = new GebouwKaartController(spel);
+            GebouwFactory factory2 = spel.getGebouwFactory();
+            GebouwFactory factory3 = spel.getGebouwFactory();
+            GebouwFactory factory4 = spel.getGebouwFactory();
         } catch (Exception re) {
             re.printStackTrace();
         }

@@ -24,6 +24,7 @@ public class Spel implements SpelRemote, Serializable {
         this.maxAantalSpelers = maxAantalSpelers;
         this.bank = new Bank();
         this.gebouwFactory = new GebouwFactory();
+		this.spelers = new ArrayList<Speler>();
         this.observers = new ArrayList<SpelObserver>();
     }
 
