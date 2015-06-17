@@ -20,7 +20,6 @@ public class Spel implements SpelRemote, Serializable {
 	private int maxAantalSpelers;
 	private Speelveld speelveld;
 	private SpeelveldView speelveldview;
-//	private ArrayList<SpelerRemote> spelers = new ArrayList<>();
 	private Bank bank;
 	private GebouwFactory gebouwFactory = null;
 	private ArrayList<SpelObserver> observers;

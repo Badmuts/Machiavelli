@@ -3,7 +3,6 @@ package Machiavelli.Views;
 import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
-import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Karakters.Magier;
 import Machiavelli.Models.Speelveld;
@@ -85,8 +84,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         return buttonHolderActionBarView.getExitbutton();
 	}
 
-	@Override
-	public void modelChanged(SpeelveldRemote speelveld) throws RemoteException {
+	public void modelChanged(Speelveld speelveld) throws RemoteException {
 		// Doe iets?
 	}
 

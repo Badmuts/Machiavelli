@@ -14,12 +14,12 @@ import java.rmi.RemoteException;
 public interface SpelRemote extends Remote {
 
 //    public void nieuwSpel() throws RemoteException;
-    public Bank getBank() throws RemoteException;
-    public GebouwFactory getGebouwFactory() throws RemoteException;
-    public int getAantalSpelers() throws RemoteException;
-    public void addObserver(SpelObserver spelObserver) throws RemoteException;
-    public void removeObserver(SpelObserver observer) throws RemoteException;
-    public void notifyObservers() throws RemoteException;
-    public void addSpeler(Speler speler) throws RemoteException;
-    public void createNewSpel(int maxAantalSpelers) throws RemoteException;
+Bank getBank() throws RemoteException;
+    GebouwFactory getGebouwFactory() throws RemoteException;
+    int getAantalSpelers() throws RemoteException;
+    void addObserver(SpelObserver spelObserver) throws RemoteException;
+    void removeObserver(SpelObserver observer) throws RemoteException;
+    void notifyObservers() throws RemoteException;
+    void addSpeler(Speler speler) throws RemoteException;
+    void createNewSpel(int maxAantalSpelers) throws RemoteException;
 }

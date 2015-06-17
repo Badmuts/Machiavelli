@@ -1,7 +1,6 @@
 package Machiavelli.Models;
 
 import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
-import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
  * @version 0.1
  *
  */
-public class Portemonnee implements PortemonneeRemote, Serializable {
+public class Portemonnee implements Serializable {
 	// Variables
 	private int goudMunten;
 	private Bank bank;
@@ -49,7 +48,6 @@ public class Portemonnee implements PortemonneeRemote, Serializable {
 		return this.goudMunten;
 	}
 
-	@Override
 	public void addObserver(PortemonneeOberserver observer) throws RemoteException {
 		observers.add(observer);
 	}

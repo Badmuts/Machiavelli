@@ -2,7 +2,6 @@ package Machiavelli.Views;
 
 import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Interfaces.Observers.HandObserver;
-import Machiavelli.Interfaces.Remotes.HandRemote;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Hand;
 import javafx.scene.layout.Pane;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 
 public class HandActionBarView extends Pane implements HandObserver {
 
-    private HandRemote hand;
+    private Hand hand;
     private ArrayList<GebouwKaartView> gebouwKaartViews = new ArrayList<GebouwKaartView>();
     private Rectangle kaartholder;
     private GebouwKaartController gebouwKaartController;
@@ -66,8 +65,6 @@ public class HandActionBarView extends Pane implements HandObserver {
                 for (GebouwKaartView gebouwKaartView: observers) {
                     if (gebouwKaartView.getModel().equals(gebouwKaart)) {
                         gebouwKaartViews.add(gebouwKaartView);
-                    } else {
-                        System.out.println("DIT WERKT DUS NIET");
                     }
                 }
             }
@@ -86,20 +83,19 @@ public class HandActionBarView extends Pane implements HandObserver {
         int x = 0; // X coordinaat (voor uitlijning)
         // Loop  door gebouwKaartViews en wijzig de X coordinaat.
         for (GebouwKaartView gebouwKaartView: gebouwKaartViews) {
-            gebouwKaartView.setLayoutX(x); // Zet X coordinaat
-            this.getChildren().add(gebouwKaartView); // Voeg view to aan Pane
+            gebouwKaartView.view().setLayoutX(x); // Zet X coordinaat
+            this.getChildren().add(gebouwKaartView.view()); // Voeg view to aan Pane
             x += 100; // Verhoog X coordinaat met 100
         }
-    }
-
-    @Override
-    public void modelChanged(HandRemote hand) throws RemoteException {
-        // TODO: Redraw view (this)
-        this.hand = hand;
     }
 
     private int calcRotation(int cardIndex, int totalCards) {
         // TODO: implement rotation calculation
         return 1;
+    }
+
+    @Override
+    public void modelChanged(Hand hand) throws RemoteException {
+        this.hand = hand;
     }
 }

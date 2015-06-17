@@ -30,7 +30,6 @@ public class GebouwKaartController extends UnicastRemoteObject implements Serial
             GebouwKaartView gebouwKaartView = new GebouwKaartView(this, gebouwKaart);
             // Voeg view toe aan model
             gebouwKaart.addObserver(gebouwKaartView);
-//            gebouwKaart.registratieView(gebouwKaartView);
             // Sla view op in controller
             gebouwKaartViews.add(gebouwKaartView);
         }

@@ -2,7 +2,6 @@ package Machiavelli.Models;
 
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Observers.HandObserver;
-import Machiavelli.Interfaces.Remotes.HandRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -18,7 +17,7 @@ import java.util.List;
  * @version 0.1
  *
  */
-public class Hand implements HandRemote, Serializable {
+public class Hand implements Serializable {
 	private GebouwFactory gebouwFactory;
 	// Variables
 	private ArrayList<GebouwKaart> kaartenLijst = new ArrayList<GebouwKaart>();
@@ -109,7 +108,6 @@ public class Hand implements HandRemote, Serializable {
 		return this.speler;
 	}
 
-	@Override
 	public void addObserver(HandObserver observer) throws RemoteException {
 		observers.add(observer);
 	}

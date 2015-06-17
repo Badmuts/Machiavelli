@@ -1,6 +1,6 @@
 package Machiavelli.Interfaces.Observers;
 
-import Machiavelli.Interfaces.Remotes.HandRemote;
+import Machiavelli.Models.Hand;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -10,6 +10,6 @@ import java.rmi.RemoteException;
  */
 public interface HandObserver extends Remote {
 
-    public void modelChanged(HandRemote hand) throws RemoteException;
+    void modelChanged(Hand hand) throws RemoteException;
 
 }

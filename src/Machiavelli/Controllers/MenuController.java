@@ -25,7 +25,7 @@ public class MenuController {
         this.registry = Machiavelli.getInstance().getRegistry();
         System.out.println("Loaded Registry");
 
-        // Start het overzicht met spellen (Nieuw spel, Deelnemen spel en Hervatten spel)
+        // Start het overzicht met spelknoppen (Nieuw spel, Deelnemen spel en Hervatten spel)
         mainMenuView.getStartButton().setOnAction(event -> mainMenuView.showSelect());
 
         // Sluit applicatie af bij exit buttons

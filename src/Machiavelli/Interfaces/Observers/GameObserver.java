@@ -6,6 +6,6 @@ import java.rmi.RemoteException;
 
 public interface GameObserver {
 
-    public void modelChanged(GamesRemote games) throws RemoteException;
+    void modelChanged(GamesRemote games) throws RemoteException;
 
 }

@@ -4,7 +4,6 @@ import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelerObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
-import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
  * @version 0.1
  *
  */
-public class Speler implements SpelerRemote, Serializable {
+public class Speler implements Serializable {
 	// Variables
 	private Portemonnee portemonnee;
 	private Karakter karakter;
@@ -107,7 +106,6 @@ public class Speler implements SpelerRemote, Serializable {
 		return this.stad;
 	}
 
-	@Override
 	public void addObserver(SpelerObserver observer) throws RemoteException {
 		observers.add(observer);
 	}

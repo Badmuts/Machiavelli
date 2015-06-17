@@ -1,8 +1,6 @@
 package Machiavelli.Models;
 
-import Machiavelli.Interfaces.Observers.BankObserver;
 import Machiavelli.Interfaces.Observers.BeurtObserver;
-import Machiavelli.Interfaces.Remotes.BeurtRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -13,7 +11,7 @@ import java.util.ArrayList;
  * Dit model geeft de spelers een beurt.
  *
  */
-public class Beurt implements BeurtRemote, Serializable {
+public class Beurt implements Serializable {
     private Spel spel;
     private ArrayList<Speler> spelerLijst;
     private Speler speler;
@@ -44,7 +42,6 @@ public class Beurt implements BeurtRemote, Serializable {
         notifyObservers();
     }
 
-    @Override
     public void addObserver(BeurtObserver beurtObserver) throws RemoteException {
         observers.add(beurtObserver);
     }

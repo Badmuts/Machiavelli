@@ -1,6 +1,6 @@
 package Machiavelli.Interfaces.Observers;
 
-import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
+import Machiavelli.Models.Portemonnee;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -10,6 +10,6 @@ import java.rmi.RemoteException;
  */
 public interface PortemonneeOberserver extends Remote {
 
-    public void modelChanged(PortemonneeRemote portemonnee) throws RemoteException;
+    void modelChanged(Portemonnee portemonnee) throws RemoteException;
 
 }

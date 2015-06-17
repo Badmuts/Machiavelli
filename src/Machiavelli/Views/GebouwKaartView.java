@@ -2,7 +2,6 @@ package Machiavelli.Views;
 
 import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
-import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Models.GebouwKaart;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
@@ -14,19 +13,21 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public class GebouwKaartView extends StackPane implements GebouwKaartObserver, Serializable {
+public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartObserver {
 
     private GebouwKaartController gebouwKaartController;
-    private GebouwKaartRemote gebouwKaart;
+    private GebouwKaart gebouwKaart;
+    private StackPane gebouwKaartView;
 
-    public GebouwKaartView(GebouwKaartController gebouwkaartController, GebouwKaart gebouwKaart) {
-        super();
+    public GebouwKaartView(GebouwKaartController gebouwkaartController, GebouwKaart gebouwKaart) throws RemoteException {
+//        super();
         this.gebouwKaart = gebouwKaart;
         this.gebouwKaartController = gebouwkaartController;
-        this.getChildren().addAll(createImageView(), createScoreView(), createNameField());
+        this.gebouwKaartView = new StackPane();
+        this.gebouwKaartView.getChildren().addAll(createImageView(), createScoreView(), createNameField());
     }
 
     private ImageView createImageView() {
@@ -97,8 +98,7 @@ public class GebouwKaartView extends StackPane implements GebouwKaartObserver, S
         return gebouwKaartName;
     }
 
-    @Override
-    public void modelChanged(GebouwKaartRemote gebouwKaart) throws RemoteException {
+    public void modelChanged(GebouwKaart gebouwKaart) throws RemoteException {
         this.gebouwKaart = gebouwKaart;
     }
 
@@ -106,8 +106,12 @@ public class GebouwKaartView extends StackPane implements GebouwKaartObserver, S
         return this.gebouwKaartController;
     }
 
-    public GebouwKaartRemote getModel() {
+    public GebouwKaart getModel() {
         return this.gebouwKaart;
+    }
+
+    public StackPane view() {
+        return this.gebouwKaartView;
     }
 
 }

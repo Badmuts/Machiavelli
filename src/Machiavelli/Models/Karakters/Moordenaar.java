@@ -46,7 +46,7 @@ public class Moordenaar implements Karakter {
     
     @Override
     public void setTarget(Object target) {
-    	this.target = (Karakter) target;
+    	this.target = target;
     }
     
     /**

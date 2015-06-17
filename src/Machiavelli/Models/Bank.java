@@ -2,7 +2,6 @@
 package Machiavelli.Models;
 
 import Machiavelli.Interfaces.Observers.BankObserver;
-import Machiavelli.Interfaces.Remotes.BankRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -16,12 +15,11 @@ import java.util.ArrayList;
  * @version 0.1
  *
  */
-public class Bank implements BankRemote, Serializable {
+public class Bank implements Serializable {
 	// Variables
 	private int goudMunten;
 	private ArrayList<BankObserver> observers = new ArrayList<>();
 
-	@Override
 	public void addObserver(BankObserver bankObserver) throws RemoteException {
 		observers.add(bankObserver);
 	}

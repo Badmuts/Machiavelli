@@ -2,14 +2,13 @@ package Machiavelli.Factories;
 
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterFactoryObserver;
-import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
 import Machiavelli.Models.Karakters.*;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-public class KarakterFactory implements KarakterFactoryRemote, Serializable {
+public class KarakterFactory implements Serializable {
     /**
      * ArrayList om alle karakters op te slaan
      */
@@ -64,12 +63,10 @@ public class KarakterFactory implements KarakterFactoryRemote, Serializable {
         return tmpKarakter;
     }
 
-    @Override
     public void addObserver(KarakterFactoryObserver karakterFactoryObserver) throws RemoteException {
         observers.add(karakterFactoryObserver);
     }
 
-    @Override
     public void notifyObservers() throws RemoteException {
         for (KarakterFactoryObserver observer: observers) {
             observer.modelChanged(this);

@@ -2,23 +2,23 @@ package Machiavelli.Factories;
 
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Observers.GebouwFactoryObserver;
-import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Models.GebouwKaart;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Collections;
 
 /**
  * @author Daan Rosbergen
  */
-public class GebouwFactory implements GebouwFactoryRemote, Serializable {
+public class GebouwFactory extends UnicastRemoteObject implements Serializable {
 
     private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
     private ArrayList<GebouwFactoryObserver> observers = new ArrayList<>();
 
-    public GebouwFactory() {}
+    public GebouwFactory() throws RemoteException {}
 
     public void addGebouw(GebouwKaart gebouw) throws RemoteException {
         this.gebouwen.add(gebouw);
@@ -43,12 +43,10 @@ public class GebouwFactory implements GebouwFactoryRemote, Serializable {
         this.gebouwen = gebouwen;
     }
 
-    @Override
     public void addObserver(GebouwFactoryObserver gebouwFactoryObserver) throws RemoteException {
         observers.add(gebouwFactoryObserver);
     }
 
-    @Override
     public void notifyObservers() throws RemoteException {
         for (GebouwFactoryObserver observer: observers) {
             observer.modelChanged(this);

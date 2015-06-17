@@ -1,6 +1,6 @@
 package Machiavelli.Interfaces.Observers;
 
-import Machiavelli.Interfaces.Remotes.BankRemote;
+import Machiavelli.Models.Bank;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -10,6 +10,6 @@ import java.rmi.RemoteException;
  */
 public interface BankObserver extends Remote {
 
-    public void modelChanged(BankRemote bank) throws RemoteException;
+    void modelChanged(Bank bank) throws RemoteException;
 
 }

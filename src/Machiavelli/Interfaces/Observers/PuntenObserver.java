@@ -1,6 +1,6 @@
 package Machiavelli.Interfaces.Observers;
 
-import Machiavelli.Interfaces.Remotes.PuntenRemote;
+import Machiavelli.Models.PuntenModel;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -10,6 +10,6 @@ import java.rmi.RemoteException;
  */
 public interface PuntenObserver extends Remote {
 
-    public void modelChanged(PuntenRemote punten) throws RemoteException;
+    void modelChanged(PuntenModel punten) throws RemoteException;
 
 }

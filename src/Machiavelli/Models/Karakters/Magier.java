@@ -96,7 +96,7 @@ public class Magier implements Karakter {
         }
 
         // Trek nieuwe kaarten. Misschien functie maken die een lijst van gebouwen aan hand kan toevoegen?
-        ArrayList<GebouwKaart> tempList = hand.getSpeler().trekkenKaart(count);;
+        ArrayList<GebouwKaart> tempList = hand.getSpeler().trekkenKaart(count);
         for (int i = 0; i < tempList.size(); i++) {
             hand.addGebouw(tempList.get(i));
         }

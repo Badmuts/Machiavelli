@@ -2,7 +2,6 @@ package Machiavelli.Models;
 
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
-import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Views.GebouwKaartView;
 
 import java.io.Serializable;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
  * @version 0.1
  *
  */
-public class GebouwKaart implements GebouwKaartRemote, Serializable {
+public class GebouwKaart implements Serializable {
     // Variables
 	private int kosten;
 	private String naam;
@@ -83,7 +82,6 @@ public class GebouwKaart implements GebouwKaartRemote, Serializable {
         notifyObservers();
     }
 
-    @Override
     public void addObserver(GebouwKaartObserver gebouwKaartObserver) throws RemoteException {
         observers.add(gebouwKaartObserver);
     }
@@ -94,7 +92,6 @@ public class GebouwKaart implements GebouwKaartRemote, Serializable {
         }
     }
 
-    @Override
     public ArrayList<GebouwKaartObserver> getObservers() throws RemoteException {
         return this.observers;
     }

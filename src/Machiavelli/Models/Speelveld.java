@@ -3,7 +3,6 @@ package Machiavelli.Models;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
-import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Views.SpeelveldView;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
  *
  */
 
-public class Speelveld implements SpeelveldRemote, Serializable {
+public class Speelveld implements Serializable {
     private SpeelveldView speelveldView;
 	private ArrayList<Speler> spelers;
 	private SpelRemote spel;
@@ -45,7 +44,6 @@ public class Speelveld implements SpeelveldRemote, Serializable {
 		// TODO
 	}
 
-	@Override
 	public void addObserver(SpeelveldObserver observer) throws RemoteException {
 		observers.add(observer);
 	}
