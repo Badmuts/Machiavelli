@@ -6,54 +6,18 @@ import Machiavelli.Models.GebouwKaart;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Collections;
 
 /**
  * @author Daan Rosbergen
  */
-public class GebouwFactory extends UnicastRemoteObject implements Serializable {
+public class GebouwFactory implements Serializable {
 
     private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
-    private ArrayList<GebouwFactoryObserver> observers = new ArrayList<>();
+    private ArrayList<GebouwFactoryObserver> observers = new ArrayList<GebouwFactoryObserver>();
 
-    public GebouwFactory() throws RemoteException {}
-
-    public void addGebouw(GebouwKaart gebouw) throws RemoteException {
-        this.gebouwen.add(gebouw);
-    }
-
-    public GebouwKaart trekKaart() throws RemoteException {
-        GebouwKaart gebouw = gebouwen.get(0);
-        gebouwen.remove(gebouw);
-        return gebouw;
-    }
-
-    private void schuddenKaarten() {
-        Collections.shuffle(gebouwen);
-    }
-
-    public ArrayList<GebouwKaart> getGebouwen() throws RemoteException
-    {
-        return this.gebouwen;
-    }
-
-    public void setGebouwen(ArrayList<GebouwKaart> gebouwen) {
-        this.gebouwen = gebouwen;
-    }
-
-    public void addObserver(GebouwFactoryObserver gebouwFactoryObserver) throws RemoteException {
-        observers.add(gebouwFactoryObserver);
-    }
-
-    public void notifyObservers() throws RemoteException {
-        for (GebouwFactoryObserver observer: observers) {
-            observer.modelChanged(this);
-        }
-    }
-
-    public GebouwFactory createFactory() {
+    public GebouwFactory() throws RemoteException {
         gebouwen.add(new GebouwKaart(6, "Bibliotheek", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/bibliotheek.png"));
         gebouwen.add(new GebouwKaart(5, "Werkplaats", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/werkplaats.png"));
         gebouwen.add(new GebouwKaart(6, "School voor Magiërs", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/school-voor-magiers.png"));
@@ -90,6 +54,39 @@ public class GebouwFactory extends UnicastRemoteObject implements Serializable {
             gebouwen.add(new GebouwKaart(1, "Taveerne", Type.COMMERCIEL, "/Machiavelli/Resources/Gebouwkaarten/taveerne.png"));
         }
         this.schuddenKaarten();
-        return this;
     }
+
+    public void addGebouw(GebouwKaart gebouw) throws RemoteException {
+        this.gebouwen.add(gebouw);
+    }
+
+    public GebouwKaart trekKaart() throws RemoteException {
+        GebouwKaart gebouw = gebouwen.get(0);
+        gebouwen.remove(gebouw);
+        return gebouw;
+    }
+
+    private void schuddenKaarten() {
+        Collections.shuffle(gebouwen);
+    }
+
+    public ArrayList<GebouwKaart> getGebouwen() throws RemoteException
+    {
+        return this.gebouwen;
+    }
+
+    public void setGebouwen(ArrayList<GebouwKaart> gebouwen) {
+        this.gebouwen = gebouwen;
+    }
+
+    public void addObserver(GebouwFactoryObserver gebouwFactoryObserver) throws RemoteException {
+        observers.add(gebouwFactoryObserver);
+    }
+
+    public void notifyObservers() throws RemoteException {
+        for (GebouwFactoryObserver observer: observers) {
+            observer.modelChanged(this);
+        }
+    }
+
 }

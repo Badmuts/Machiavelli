@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class GebouwKaartController extends UnicastRemoteObject implements Serializable {
     private ArrayList<GebouwKaart> gebouwKaarten;
-    private ArrayList<GebouwKaartView> gebouwKaartViews = new ArrayList<>();
+    private ArrayList<GebouwKaartView> gebouwKaartViews = new ArrayList<GebouwKaartView>();
 
     /**
      * Maakt voor elke GebouwKaart uit de factory een nieuwe

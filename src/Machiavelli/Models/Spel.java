@@ -3,25 +3,15 @@ package Machiavelli.Models;
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
-import Machiavelli.Views.SpeelveldView;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-import javafx.scene.image.Image;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Spel implements SpelRemote, Serializable {
 	private int maxAantalSpelers;
-	private Speelveld speelveld;
-	private SpeelveldView speelveldview;
 	private Bank bank;
-	private GebouwFactory gebouwFactory = null;
+	private GebouwFactory gebouwFactory;
 	private ArrayList<SpelObserver> observers;
 	private ArrayList<Speler> spelers = new ArrayList<>();
 	private int aantalspelers;
@@ -33,8 +23,8 @@ public class Spel implements SpelRemote, Serializable {
     public void createNewSpel(int maxAantalSpelers) throws RemoteException {
         this.maxAantalSpelers = maxAantalSpelers;
         this.bank = new Bank();
-        this.gebouwFactory = new GebouwFactory().createFactory();
-        this.observers = new ArrayList<>();
+        this.gebouwFactory = new GebouwFactory();
+        this.observers = new ArrayList<SpelObserver>();
     }
 
     public Bank getBank() throws RemoteException {
@@ -81,47 +71,4 @@ public class Spel implements SpelRemote, Serializable {
     public int getMaxAantalSpelers() {
         return this.maxAantalSpelers;
     }
-    
-    
-    public void saveGame(Spel spel) throws FileNotFoundException {
-		XStream xs = new XStream(new DomDriver());
-
-		// Tags hernoemen
-		xs.alias("spel", Spel.class);
-		xs.alias("speler", Speler.class);
-		xs.alias("gebouwkaart", GebouwKaart.class);
-
-		// Skippen problematische velden
-		xs.omitField(Image.class, "progress");
-		xs.omitField(Image.class, "platformImage");
-		xs.omitField(Speelveld.class, "speelveldcontroller");
-
-		// XML bestand wegschrijven
-		FileOutputStream fos = new FileOutputStream(createSaveLocation() + "/" + generateFileName());
-		xs.toXML(spel, fos);
-	}
-
-	public void loadGame()
-	{
-		//        InputStream in = new FileInputStream("testXML.xml");
-		//        spel = null;
-		//        spel = (Spel) xs.fromXML(in);
-	}
-
-	private String generateFileName()
-	{
-		String name;
-		name = "saveGame_" + new Date().getTime() + ".xml";
-		return name;
-	}
-
-	private File createSaveLocation()
-	{
-		File file = new File(System.getProperty("user.home") + "/machiavelli/");
-		if (!file.exists()){
-			file.mkdir();
-		}
-
-		return file;
-	}
 }

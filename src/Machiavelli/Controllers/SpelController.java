@@ -1,5 +1,6 @@
 package Machiavelli.Controllers;
 
+import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Models.Speler;
 
@@ -13,13 +14,14 @@ import java.rmi.server.UnicastRemoteObject;
  */
 
 public class SpelController extends UnicastRemoteObject {
-	private SpelRemote spel = null;
+	private SpelRemote spel;
     private GebouwKaartController gebouwKaartController;
 
 	public SpelController(SpelRemote spel) throws RemoteException {
         try {
             this.spel = spel;
-            this.gebouwKaartController = new GebouwKaartController(spel.getGebouwFactory());
+            GebouwFactory factory = spel.getGebouwFactory();
+            this.gebouwKaartController = new GebouwKaartController(factory);
         } catch (Exception re) {
             re.printStackTrace();
         }

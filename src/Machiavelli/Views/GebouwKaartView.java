@@ -13,10 +13,11 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartObserver {
+public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartObserver, Serializable {
 
     private GebouwKaartController gebouwKaartController;
     private GebouwKaart gebouwKaart;

@@ -25,7 +25,7 @@ public class GebouwKaart implements Serializable {
 	private Type type;
 	private Stad stad;
     private String image;
-    private ArrayList<GebouwKaartObserver> observers = new ArrayList<>();
+    private ArrayList<GebouwKaartObserver> observers = new ArrayList<GebouwKaartObserver>();
     private GebouwKaartView gebouwKaartView;
 
     // Een kaart wordt aangemaakt met de meegegeven waardes
