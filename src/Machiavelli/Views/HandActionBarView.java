@@ -1,5 +1,6 @@
 package Machiavelli.Views;
 
+import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Interfaces.Observers.HandObserver;
 import Machiavelli.Interfaces.Remotes.HandRemote;
 import Machiavelli.Models.GebouwKaart;
@@ -16,15 +17,17 @@ public class HandActionBarView extends Pane implements HandObserver {
     private HandRemote hand;
     private ArrayList<GebouwKaartView> gebouwKaartViews = new ArrayList<GebouwKaartView>();
     private Rectangle kaartholder;
+    private GebouwKaartController gebouwKaartController;
 
     /**
      * View voor de gebouwkaarten in de hand van de speler.
      *
      * @param hand
      */
-    public HandActionBarView(Hand hand) {
+    public HandActionBarView(Hand hand, GebouwKaartController gebouwKaartController) {
         super();
         this.hand = hand;
+        this.gebouwKaartController = gebouwKaartController;
         try {
             this.hand.addObserver(this);
         } catch (Exception e) {
@@ -53,11 +56,22 @@ public class HandActionBarView extends Pane implements HandObserver {
      */
     private void createGebouwKaartViews() {
         try {
-            // Loop door kaarten in hand
+            // Hand heeft GebouwKaarten.
+            // GebouwKaarten hebben observers
+            // GebouwController heeft GebouwKaartViews wat GebouwkaartObservers zijn
+            // Haal de GebouwkaartObserver op.
+            // Help?!
+            ArrayList<GebouwKaartView> observers = gebouwKaartController.getObservers();
             for (GebouwKaart gebouwKaart: hand.getKaartenLijst()) {
-                // Haal view op van gebouwkaart view en plaats in gebouwKaartViews[]
-                gebouwKaartViews.add(gebouwKaart.getGebouwkaartView());
+                for (GebouwKaartView gebouwKaartView: observers) {
+                    if (gebouwKaartView.getModel().equals(gebouwKaart)) {
+                        gebouwKaartViews.add(gebouwKaartView);
+                    } else {
+                        System.out.println("DIT WERKT DUS NIET");
+                    }
+                }
             }
+
         } catch (RemoteException re) {
             re.printStackTrace();
         }

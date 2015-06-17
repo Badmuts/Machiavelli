@@ -1,5 +1,6 @@
 package Machiavelli.Views;
 
+import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
 import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
@@ -19,7 +20,8 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver {
 
-	private SpeelveldController speelveldcontroller;
+    private GebouwKaartController gebouwKaartController;
+    private SpeelveldController speelveldcontroller;
 	private Speelveld speelveld;
 	private Scene speelveldscene;
 	private Stage stage = Machiavelli.getInstance().getStage();
@@ -28,9 +30,10 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     private HandActionBarView handActionBarView;
     private KarakterActionBarView karakterActionBarView;
 
-    public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld) throws RemoteException {
+    public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController) throws RemoteException {
 		this.speelveld = speelveld;
 		this.speelveldcontroller = speelveldcontroller;
+        this.gebouwKaartController = gebouwKaartController;
 
         this.createKarakterHolder();
         this.createKaartHolder();
@@ -58,7 +61,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 
     private void createKaartHolder() {
         try {
-            handActionBarView = new HandActionBarView(this.speelveld.getSpeler().getHand());
+            handActionBarView = new HandActionBarView(this.speelveld.getSpeler().getHand(), this.gebouwKaartController);
         } catch (RemoteException re) {
             re.printStackTrace();
         }

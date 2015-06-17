@@ -95,12 +95,8 @@ public class GebouwKaart implements GebouwKaartRemote, Serializable {
     }
 
     @Override
-    public GebouwKaartView getGebouwkaartView() throws RemoteException {
-        return this.gebouwKaartView;
-    }
-
-    public void registratieView(GebouwKaartView gebouwKaartView) {
-        this.gebouwKaartView = gebouwKaartView;
+    public ArrayList<GebouwKaartObserver> getObservers() throws RemoteException {
+        return this.observers;
     }
 
     public String toString() {

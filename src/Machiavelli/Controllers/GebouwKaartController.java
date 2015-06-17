@@ -6,12 +6,13 @@ import Machiavelli.Views.GebouwKaartView;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
  * Created by badmuts on 14-6-15.
  */
-public class GebouwKaartController implements Serializable {
+public class GebouwKaartController extends UnicastRemoteObject implements Serializable {
     private ArrayList<GebouwKaart> gebouwKaarten;
     private ArrayList<GebouwKaartView> gebouwKaartViews = new ArrayList<>();
 
@@ -28,9 +29,14 @@ public class GebouwKaartController implements Serializable {
             // Maak een nieuwe view
             GebouwKaartView gebouwKaartView = new GebouwKaartView(this, gebouwKaart);
             // Voeg view toe aan model
-            gebouwKaart.registratieView(gebouwKaartView);
+            gebouwKaart.addObserver(gebouwKaartView);
+//            gebouwKaart.registratieView(gebouwKaartView);
             // Sla view op in controller
             gebouwKaartViews.add(gebouwKaartView);
         }
+    }
+
+    public ArrayList<GebouwKaartView> getObservers() {
+        return this.gebouwKaartViews;
     }
 }

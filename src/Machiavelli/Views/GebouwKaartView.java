@@ -101,4 +101,13 @@ public class GebouwKaartView extends StackPane implements GebouwKaartObserver, S
     public void modelChanged(GebouwKaartRemote gebouwKaart) throws RemoteException {
         this.gebouwKaart = gebouwKaart;
     }
+
+    public GebouwKaartController gebouwKaartController() {
+        return this.gebouwKaartController;
+    }
+
+    public GebouwKaartRemote getModel() {
+        return this.gebouwKaart;
+    }
+
 }
