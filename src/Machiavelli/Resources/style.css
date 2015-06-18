@@ -91,5 +91,21 @@
 .gebouwkaart-naam {
     -fx-fill: #FFFFFF;
     -fx-font-size: 2em;
-    /*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 5, 0.0, 0, 1);*/
+}
+
+.gebouwkaart {
+    -fx-effect: dropshadow(three-pass-box, black, 15, 0.1, 0, 0);
+}
+
+.gebouwkaart:hover {
+    -fx-effect: dropshadow(three-pass-box, orange, 15, 0.1, 0, 0);
+    -fx-cursor: hand;
+}
+
+.gebouwkaart-image {
+    -fx-effect: innershadow(three-pass-box, black, 5, 1.0, 0, 0);;
+}
+
+.gebouwkaart-circle {
+    -fx-effect: innershadow(three-pass-box, orange, 5, 1.0, 0, 0);
 }

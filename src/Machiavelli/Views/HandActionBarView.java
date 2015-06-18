@@ -22,6 +22,7 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
     private Rectangle kaartholder;
     private GebouwKaartController gebouwKaartController;
     private Pane pane = new Pane();
+    private Rectangle clip;
 
     /**
      * View voor de gebouwkaarten in de hand van de speler.
@@ -51,6 +52,8 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
     private void createBackground() {
         kaartholder = new Rectangle(0, 0, 840, 250);
         kaartholder.setFill(Color.GRAY);
+        clip = new Rectangle(0, 0, 840, 250);
+        this.pane.setClip(clip);
     }
 
     /**
@@ -79,17 +82,23 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
      */
     private void addGebouwKaartViews() {
         int x = 0; // X coordinaat (voor uitlijning)
+        double y = 50.0;
+        int index = 0;
         // Loop  door gebouwKaartViews en wijzig de X coordinaat.
         for (GebouwKaartView gebouwKaartView: gebouwKaartViews) {
             gebouwKaartView.view().setLayoutX(x); // Zet X coordinaat
+            gebouwKaartView.view().setLayoutY(y);
+            gebouwKaartView.view().setRotate(calcRotation(index, gebouwKaartViews.size()));
             this.pane.getChildren().add(gebouwKaartView.view()); // Voeg view to aan Pane
-            x += 100; // Verhoog X coordinaat met 100
+            x += 130; // Verhoog X coordinaat met 100
+            index++;
         }
     }
 
     private int calcRotation(int cardIndex, int totalCards) {
         // TODO: implement rotation calculation
-        return 1;
+//        int middle = totalCards/2;
+        return 0;
     }
 
     @Override

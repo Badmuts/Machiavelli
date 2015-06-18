@@ -7,11 +7,15 @@ import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Karakters.Magier;
 import Machiavelli.Models.Speelveld;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -25,7 +29,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 	private Speelveld speelveld;
 	private Scene speelveldscene;
 	private Stage stage = Machiavelli.getInstance().getStage();
-    private HBox actionBar;
+    private GridPane actionBar;
     private ButtonHolderActionBarView buttonHolderActionBarView;
     private HandActionBarView handActionBarView;
     private KarakterActionBarView karakterActionBarView;
@@ -90,8 +94,10 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 	}
 
     private void createActionBar() {
-        actionBar = new HBox(0);
-        actionBar.getChildren().addAll(this.karakterActionBarView.getPane(), this.handActionBarView.getPane(), this.buttonHolderActionBarView);
+        actionBar = new GridPane();
+        actionBar.add(this.karakterActionBarView.getPane(), 1, 1);
+        actionBar.add(this.handActionBarView.getPane(), 2, 1);
+        actionBar.add(this.buttonHolderActionBarView, 3, 1);
         actionBar.getStyleClass().add("action-bar");
     }
 

@@ -3,9 +3,11 @@ package Machiavelli.Views;
 import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -37,6 +39,7 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
             gebouwKaartImage = new ImageView(new Image(gebouwKaart.getImage()));
             gebouwKaartImage.setFitWidth(200);
             gebouwKaartImage.setFitHeight(300);
+            gebouwKaartImage.getStyleClass().add("gebouwkaart-image");
         } catch (RemoteException re) {
             re.printStackTrace();
         }
@@ -48,9 +51,10 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         try {
             Circle circle = new Circle(30);
             circle = setGebouwTypeClass(circle);
+            circle.getStyleClass().add("gebouwkaart-circle");
 
             Text gebouwScore = new Text(String.valueOf(gebouwKaart.getKosten()));
-            gebouwScore.getStyleClass().add("gebouwkaart-score");
+            gebouwScore.getStyleClass().add("gebouwkaart-naam");
 
             gebouwScoreView.getChildren().addAll(circle, gebouwScore);
         } catch (RemoteException re) {
@@ -91,8 +95,8 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
             Text name = new Text(gebouwKaart.getNaam());
             name.getStyleClass().add("gebouwkaart-naam");
             gebouwKaartName.getChildren().addAll(background, name);
-            StackPane.setAlignment(name, Pos.CENTER);
-            StackPane.setAlignment(background, Pos.CENTER);
+//            StackPane.setAlignment(name, Pos.CENTER);
+//            StackPane.setAlignment(background, Pos.CENTER);
         } catch (RemoteException re) {
             re.printStackTrace();
         }
@@ -109,6 +113,10 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
     }
 
     public StackPane view() {
+        this.gebouwKaartView.getStyleClass().add("gebouwkaart");
+        this.gebouwKaartView.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            System.out.println("KLIK: Gebouwkaartview");
+        });
         return this.gebouwKaartView;
     }
 
