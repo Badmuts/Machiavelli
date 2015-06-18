@@ -1,6 +1,5 @@
 package Machiavelli.Controllers;
 
-import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Models.Speler;
 
@@ -20,11 +19,7 @@ public class SpelController extends UnicastRemoteObject {
 	public SpelController(SpelRemote spel) throws RemoteException {
         try {
             this.spel = spel;
-            GebouwFactory factory = this.spel.getGebouwFactory();
-            this.gebouwKaartController = new GebouwKaartController(spel);
-            GebouwFactory factory2 = spel.getGebouwFactory();
-            GebouwFactory factory3 = spel.getGebouwFactory();
-            GebouwFactory factory4 = spel.getGebouwFactory();
+            this.gebouwKaartController = new GebouwKaartController(this.spel);
         } catch (Exception re) {
             re.printStackTrace();
         }

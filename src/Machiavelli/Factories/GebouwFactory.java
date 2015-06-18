@@ -76,6 +76,7 @@ public class GebouwFactory implements Serializable {
     }
 
     public void setGebouwen(ArrayList<GebouwKaart> gebouwen) {
+        this.gebouwen.clear();
         this.gebouwen = gebouwen;
     }
 

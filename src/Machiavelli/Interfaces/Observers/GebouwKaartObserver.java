@@ -1,6 +1,6 @@
 package Machiavelli.Interfaces.Observers;
 
-import Machiavelli.Models.GebouwKaart;
+import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -10,6 +10,6 @@ import java.rmi.RemoteException;
  */
 public interface GebouwKaartObserver extends Remote {
 
-    void modelChanged(GebouwKaart gebouwKaart) throws RemoteException;
+    void modelChanged(GebouwKaartRemote gebouwKaart) throws RemoteException;
 
 }

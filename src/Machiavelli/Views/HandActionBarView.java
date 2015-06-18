@@ -62,13 +62,10 @@ public class HandActionBarView extends Pane implements HandObserver {
             // Help?!
             ArrayList<GebouwKaartView> observers = gebouwKaartController.getObservers();
             for (GebouwKaart gebouwKaart: hand.getKaartenLijst()) {
-                for (GebouwKaartView gebouwKaartView: observers) {
-                    if (gebouwKaartView.getModel().equals(gebouwKaart)) {
-                        gebouwKaartViews.add(gebouwKaartView);
-                    } else {
-
-                    }
-                }
+                System.out.println(gebouwKaart);
+//                for (GebouwKaartObserver observer: gebouwKaart.getObservers()) {
+//                    gebouwKaartViews.add((GebouwKaartView)observer);
+//                }
             }
 
         } catch (RemoteException re) {

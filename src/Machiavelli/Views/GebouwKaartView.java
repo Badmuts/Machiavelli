@@ -2,7 +2,7 @@ package Machiavelli.Views;
 
 import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
-import Machiavelli.Models.GebouwKaart;
+import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,10 +20,10 @@ import java.rmi.server.UnicastRemoteObject;
 public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartObserver, Serializable {
 
     private GebouwKaartController gebouwKaartController;
-    private GebouwKaart gebouwKaart;
+    private GebouwKaartRemote gebouwKaart;
     private StackPane gebouwKaartView;
 
-    public GebouwKaartView(GebouwKaartController gebouwkaartController, GebouwKaart gebouwKaart) throws RemoteException {
+    public GebouwKaartView(GebouwKaartController gebouwkaartController, GebouwKaartRemote gebouwKaart) throws RemoteException {
 //        super();
         this.gebouwKaart = gebouwKaart;
         this.gebouwKaartController = gebouwkaartController;
@@ -99,16 +99,13 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         return gebouwKaartName;
     }
 
-    public void modelChanged(GebouwKaart gebouwKaart) throws RemoteException {
+    public void modelChanged(GebouwKaartRemote gebouwKaart) throws RemoteException {
+        System.out.println("Gebouwkaart model changed! NEW KOSTEN: " + gebouwKaart.getKosten());
         this.gebouwKaart = gebouwKaart;
     }
 
     public GebouwKaartController gebouwKaartController() {
         return this.gebouwKaartController;
-    }
-
-    public GebouwKaart getModel() {
-        return this.gebouwKaart;
     }
 
     public StackPane view() {
