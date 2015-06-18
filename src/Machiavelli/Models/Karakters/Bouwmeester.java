@@ -2,10 +2,12 @@ package Machiavelli.Models.Karakters;
 
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Models.Speler;
 import javafx.scene.image.Image;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -31,7 +33,8 @@ public class Bouwmeester implements Karakter {
     private final Type type = Type.NORMAAL;
     
     private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Bouwmeester.png");
-	
+    private ArrayList<KarakterObserver> observers = new ArrayList<>();
+
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Bouwmeester wordt aan de speler gekoppeld.
@@ -90,6 +93,18 @@ public class Bouwmeester implements Karakter {
     @Override
     public Image getImage() throws RemoteException {
         return this.image;
+    }
+
+    @Override
+    public void addObserver(KarakterObserver observer) throws RemoteException {
+        observers.add(observer);
+    }
+
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (KarakterObserver observer: observers) {
+            observer.modelChanged(this);
+        }
     }
 
     @Override

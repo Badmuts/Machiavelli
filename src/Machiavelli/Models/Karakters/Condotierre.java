@@ -3,6 +3,7 @@ package Machiavelli.Models.Karakters;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 import Machiavelli.Models.Stad;
@@ -36,7 +37,8 @@ public class Condotierre implements Karakter, Bonusable {
     private final Type type = Type.MILITAIR;
     
     private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Condotierre.png");
-    
+    private ArrayList<KarakterObserver> observers = new ArrayList<>();
+
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Condotierre wordt aan de speler gekoppeld.
@@ -150,5 +152,17 @@ public class Condotierre implements Karakter, Bonusable {
 	public Type getType() throws RemoteException {
 		return this.type;
 	}
+
+    @Override
+    public void addObserver(KarakterObserver observer) throws RemoteException {
+        observers.add(observer);
+    }
+
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (KarakterObserver observer: observers) {
+            observer.modelChanged(this);
+        }
+    }
 
 }

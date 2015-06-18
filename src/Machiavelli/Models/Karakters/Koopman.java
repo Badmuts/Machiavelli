@@ -3,6 +3,7 @@ package Machiavelli.Models.Karakters;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 import javafx.scene.image.Image;
@@ -34,6 +35,7 @@ public class Koopman implements Karakter, Bonusable {
     private Object target;
     
     private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Koopman.png");
+    private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
     /**
 	 * Overriden van de methode uit de interface Karakter,
@@ -106,6 +108,18 @@ public class Koopman implements Karakter, Bonusable {
     @Override
     public Image getImage() throws RemoteException {
         return this.image;
+    }
+
+    @Override
+    public void addObserver(KarakterObserver observer) throws RemoteException {
+        observers.add(observer);
+    }
+
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (KarakterObserver observer: observers) {
+            observer.modelChanged(this);
+        }
     }
 
     @Override

@@ -3,6 +3,7 @@ package Machiavelli.Models.Karakters;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Hand;
@@ -39,6 +40,7 @@ public class Magier implements Karakter {
     private Object  target  = null;
     private ArrayList<GebouwKaart> ruilLijst = new ArrayList<GebouwKaart>();
     private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Magier.png");
+    private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
     /**
 	 * Overriden van de methode uit de interface Karakter,
@@ -144,6 +146,18 @@ public class Magier implements Karakter {
     @Override
     public Image getImage() throws RemoteException {
         return this.image;
+    }
+
+    @Override
+    public void addObserver(KarakterObserver observer) throws RemoteException {
+        observers.add(observer);
+    }
+
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (KarakterObserver observer: observers) {
+            observer.modelChanged(this);
+        }
     }
 
     @Override

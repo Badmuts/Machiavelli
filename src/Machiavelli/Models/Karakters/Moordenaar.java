@@ -3,10 +3,12 @@ package Machiavelli.Models.Karakters;
 
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Models.Speler;
 import javafx.scene.image.Image;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -32,6 +34,7 @@ public class Moordenaar implements Karakter {
     private Object target;
     
     private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Moordenaar.png");
+    private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
     /**
      * Overriden van de methode uit de interface Karakter,
@@ -98,6 +101,18 @@ public class Moordenaar implements Karakter {
     @Override
     public Image getImage() throws RemoteException {
         return this.image;
+    }
+
+    @Override
+    public void addObserver(KarakterObserver observer) throws RemoteException {
+        observers.add(observer);
+    }
+
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (KarakterObserver observer: observers) {
+            observer.modelChanged(this);
+        }
     }
 
     @Override
