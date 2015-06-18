@@ -3,6 +3,7 @@ package Machiavelli.Models.Karakters;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Hand;
 import Machiavelli.Models.Speler;
@@ -80,8 +81,8 @@ public class Magier implements Karakter {
 
     // Ruil alle bouwkaarten met alle bouwkaarten van een ander speler/karakter??
     private void ruilMetKarakter(Speler target, Speler magier) throws RemoteException {
-        ArrayList<GebouwKaart> handTarget = target.getHand().getKaartenLijst();
-        ArrayList<GebouwKaart> magierHand = magier.getHand().getKaartenLijst();
+        ArrayList<GebouwKaartRemote> handTarget = target.getHand().getKaartenLijst();
+        ArrayList<GebouwKaartRemote> magierHand = magier.getHand().getKaartenLijst();
         target.getHand().setKaartenLijst(magierHand);
         magier.getHand().setKaartenLijst(handTarget);
     }
@@ -96,7 +97,7 @@ public class Magier implements Karakter {
         }
 
         // Trek nieuwe kaarten. Misschien functie maken die een lijst van gebouwen aan hand kan toevoegen?
-        ArrayList<GebouwKaart> tempList = hand.getSpeler().trekkenKaart(count);
+        ArrayList<GebouwKaartRemote> tempList = hand.getSpeler().trekkenKaart(count);
         for (int i = 0; i < tempList.size(); i++) {
             hand.addGebouw(tempList.get(i));
         }

@@ -2,6 +2,7 @@ package Machiavelli.Models;
 
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Observers.HandObserver;
+import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -20,7 +21,7 @@ import java.util.List;
 public class Hand implements Serializable {
 	private GebouwFactory gebouwFactory;
 	// Variables
-	private ArrayList<GebouwKaart> kaartenLijst = new ArrayList<GebouwKaart>();
+	private ArrayList<GebouwKaartRemote> kaartenLijst = new ArrayList<GebouwKaartRemote>();
 	private Speler speler;
     private ArrayList<HandObserver> observers = new ArrayList<>();
 
@@ -52,7 +53,7 @@ public class Hand implements Serializable {
      * @param kaart
      * @throws RemoteException
      */
-	public void addGebouw(GebouwKaart kaart) throws RemoteException {
+	public void addGebouw(GebouwKaartRemote kaart) throws RemoteException {
 		kaartenLijst.add(kaart);
         notifyObservers();
 	}
@@ -74,7 +75,7 @@ public class Hand implements Serializable {
      * @param gebouwKaarten
      * @throws RemoteException
      */
-	public void addGebouwen(List<GebouwKaart> gebouwKaarten) throws RemoteException {
+	public void addGebouwen(List<GebouwKaartRemote> gebouwKaarten) throws RemoteException {
 		this.kaartenLijst.addAll(gebouwKaarten);
         notifyObservers();
 	}
@@ -84,7 +85,7 @@ public class Hand implements Serializable {
      * @return
      * @throws RemoteException
      */
-	public ArrayList<GebouwKaart> getKaartenLijst() throws RemoteException {
+	public ArrayList<GebouwKaartRemote> getKaartenLijst() throws RemoteException {
 		return this.kaartenLijst;
 	}
 
@@ -93,7 +94,7 @@ public class Hand implements Serializable {
      * @param lijst
      * @throws RemoteException
      */
-	public void setKaartenLijst(ArrayList<GebouwKaart> lijst) throws RemoteException {
+	public void setKaartenLijst(ArrayList<GebouwKaartRemote> lijst) throws RemoteException {
 		this.kaartenLijst = lijst;
         notifyObservers();
 	}
@@ -120,7 +121,7 @@ public class Hand implements Serializable {
 
     public String toString() {
         String str = "KAARTEN IN HAND: ";
-        for(GebouwKaart gebouwKaart: kaartenLijst) {
+        for(GebouwKaartRemote gebouwKaart: kaartenLijst) {
             str += gebouwKaart + " ";
         }
         return str;

@@ -2,6 +2,7 @@
 package Machiavelli.Models;
 
 import Machiavelli.Interfaces.Observers.BankObserver;
+import Machiavelli.Interfaces.Remotes.BankRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -15,10 +16,15 @@ import java.util.ArrayList;
  * @version 0.1
  *
  */
-public class Bank implements Serializable {
+public class Bank implements BankRemote, Serializable {
 	// Variables
 	private int goudMunten;
 	private ArrayList<BankObserver> observers = new ArrayList<>();
+
+	// De bank begint met 30 goudmunten
+	public Bank() {
+		this.goudMunten = 30;
+	}
 
 	public void addObserver(BankObserver bankObserver) throws RemoteException {
 		observers.add(bankObserver);
@@ -28,11 +34,6 @@ public class Bank implements Serializable {
 		for (BankObserver observer: observers) {
 			observer.modelChanged(this);
 		}
-	}
-
-	// De bank begint met 30 goudmunten
-	public Bank() {
-		this.goudMunten = 30;
 	}
 
 	// De bank ontvangt een x aantal goud

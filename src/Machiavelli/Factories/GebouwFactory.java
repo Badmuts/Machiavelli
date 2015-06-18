@@ -2,6 +2,7 @@ package Machiavelli.Factories;
 
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Observers.GebouwFactoryObserver;
+import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Models.GebouwKaart;
 
 import java.io.Serializable;
@@ -14,7 +15,7 @@ import java.util.Collections;
  */
 public class GebouwFactory implements Serializable {
 
-    private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
+    private ArrayList<GebouwKaartRemote> gebouwen = new ArrayList<GebouwKaartRemote>();
     private ArrayList<GebouwFactoryObserver> observers = new ArrayList<GebouwFactoryObserver>();
 
     public GebouwFactory() throws RemoteException {
@@ -56,28 +57,23 @@ public class GebouwFactory implements Serializable {
         this.schuddenKaarten();
     }
 
-    public void addGebouw(GebouwKaart gebouw) throws RemoteException {
-        this.gebouwen.add(gebouw);
-    }
-
-    public GebouwKaart trekKaart() throws RemoteException {
-        GebouwKaart gebouw = gebouwen.get(0);
-        gebouwen.remove(gebouw);
-        return gebouw;
-    }
-
     private void schuddenKaarten() {
         Collections.shuffle(gebouwen);
     }
 
-    public ArrayList<GebouwKaart> getGebouwen() throws RemoteException
-    {
-        return this.gebouwen;
+    public void addGebouw(GebouwKaart gebouw) throws RemoteException {
+        this.gebouwen.add(gebouw);
     }
 
-    public void setGebouwen(ArrayList<GebouwKaart> gebouwen) {
-        this.gebouwen.clear();
-        this.gebouwen = gebouwen;
+    public GebouwKaartRemote trekKaart() throws RemoteException {
+        GebouwKaartRemote gebouw = gebouwen.get(0);
+        gebouwen.remove(gebouw);
+        return gebouw;
+    }
+
+    public ArrayList<GebouwKaartRemote> getGebouwen() throws RemoteException
+    {
+        return this.gebouwen;
     }
 
     public void addObserver(GebouwFactoryObserver gebouwFactoryObserver) throws RemoteException {

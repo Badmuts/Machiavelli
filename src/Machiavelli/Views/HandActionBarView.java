@@ -2,7 +2,6 @@ package Machiavelli.Views;
 
 import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Interfaces.Observers.HandObserver;
-import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Hand;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -54,23 +53,11 @@ public class HandActionBarView extends Pane implements HandObserver {
      * en plaatst deze in gebouwKaartViews[].
      */
     private void createGebouwKaartViews() {
-        try {
-            // Hand heeft GebouwKaarten.
-            // GebouwKaarten hebben observers
-            // GebouwController heeft GebouwKaartViews wat GebouwkaartObservers zijn
-            // Haal de GebouwkaartObserver op.
-            // Help?!
-            ArrayList<GebouwKaartView> observers = gebouwKaartController.getObservers();
-            for (GebouwKaart gebouwKaart: hand.getKaartenLijst()) {
-                System.out.println(gebouwKaart);
-//                for (GebouwKaartObserver observer: gebouwKaart.getObservers()) {
-//                    gebouwKaartViews.add((GebouwKaartView)observer);
-//                }
-            }
-
-        } catch (RemoteException re) {
-            re.printStackTrace();
-        }
+        // Hand heeft GebouwKaarten.
+        // GebouwKaarten hebben observers
+        // GebouwController heeft GebouwKaartViews wat GebouwkaartObservers zijn
+        // Haal de GebouwkaartObserver op.
+        // Help?!
     }
 
     /**
