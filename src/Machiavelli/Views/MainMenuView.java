@@ -2,6 +2,7 @@ package Machiavelli.Views;
 
 import Machiavelli.Controllers.MenuController;
 import Machiavelli.Machiavelli;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
@@ -29,6 +30,12 @@ public class MainMenuView{
 	private MenuController menuController;
 
 	public MainMenuView(MenuController menuController) {
+
+		Text versieNummer = new Text();
+		versieNummer.setText("V. 1.0");
+		versieNummer.setFill(Color.WHITE);
+		versieNummer.setLayoutX(1580);
+		versieNummer.setLayoutY(910);
 		
 		Pane mainMenuPane = new Pane();
 		Pane mainSelectPane = new Pane();
@@ -83,12 +90,13 @@ public class MainMenuView{
 		//voeg ID toe aan de pane.
 		mainMenuPane.setId("mainMenuPane");
 		mainSelectPane.setId("mainSelectPane");
-		mainMenuPane.getChildren().addAll(iv, startbutton,exitbutton,spelregels,mainTx);
+		mainMenuPane.getChildren().addAll(iv, startbutton,exitbutton,spelregels,mainTx, versieNummer);
 		mainSelectPane.getChildren().addAll(iv2, nieuwspelknop,hervattenknop,deelnemenknop,exitbutton2,spelregels2,mainTx2);
 		
 		//Instellen wat er weergeven moet worden
-		mainSelect = new Scene(mainSelectPane, 1440, 900);
-		mainMenu = new Scene(mainMenuPane, 1440, 900);
+		//TODO: verander resolutie.
+		mainSelect = new Scene(mainSelectPane, 1600, 900);
+		mainMenu = new Scene(mainMenuPane, 1600, 900);
 		mainMenuPane.getStylesheets().add("Machiavelli/Resources/Menu.css");
 		mainSelectPane.getStylesheets().add("Machiavelli/Resources/Menu.css");
         this.menuController = menuController;
