@@ -100,7 +100,7 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
     }
 
     public void modelChanged(GebouwKaartRemote gebouwKaart) throws RemoteException {
-        System.out.println("Gebouwkaart model changed! NEW KOSTEN: " + gebouwKaart.getKosten());
+        // TODO: UPDATE VIEW
         this.gebouwKaart = gebouwKaart;
     }
 

@@ -3,6 +3,7 @@ package Machiavelli.Views;
 import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
+import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Karakters.Magier;
 import Machiavelli.Models.Speelveld;
@@ -67,7 +68,11 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     }
 
     private void createKarakterHolder() {
-        karakterActionBarView = new KarakterActionBarView(new Magier());
+        try {                                              // TESTING ONLY
+            karakterActionBarView = new KarakterActionBarView(new Magier());
+        } catch (RemoteException re) {
+            re.printStackTrace();
+        }
     }
 
 	public void show(){
@@ -84,13 +89,14 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         return buttonHolderActionBarView.getExitbutton();
 	}
 
-	public void modelChanged(Speelveld speelveld) throws RemoteException {
-		// Doe iets?
-	}
-
     private void createActionBar() {
         actionBar = new HBox(0);
-        actionBar.getChildren().addAll(this.karakterActionBarView, this.handActionBarView, this.buttonHolderActionBarView);
+        actionBar.getChildren().addAll(this.karakterActionBarView.getPane(), this.handActionBarView.getPane(), this.buttonHolderActionBarView);
         actionBar.getStyleClass().add("action-bar");
+    }
+
+    @Override
+    public void modelChanged(SpeelveldRemote speelveld) throws RemoteException {
+        // TODO: update view
     }
 }

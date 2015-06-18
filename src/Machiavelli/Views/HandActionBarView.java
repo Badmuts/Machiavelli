@@ -1,29 +1,34 @@
 package Machiavelli.Views;
 
 import Machiavelli.Controllers.GebouwKaartController;
+import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
 import Machiavelli.Interfaces.Observers.HandObserver;
+import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
+import Machiavelli.Interfaces.Remotes.HandRemote;
+import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Hand;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class HandActionBarView extends Pane implements HandObserver {
+public class HandActionBarView extends UnicastRemoteObject implements HandObserver {
 
-    private Hand hand;
+    private HandRemote hand;
     private ArrayList<GebouwKaartView> gebouwKaartViews = new ArrayList<GebouwKaartView>();
     private Rectangle kaartholder;
     private GebouwKaartController gebouwKaartController;
+    private Pane pane = new Pane();
 
     /**
      * View voor de gebouwkaarten in de hand van de speler.
      *
      * @param hand
      */
-    public HandActionBarView(Hand hand, GebouwKaartController gebouwKaartController) {
-        super();
+    public HandActionBarView(HandRemote hand, GebouwKaartController gebouwKaartController) throws RemoteException {
         this.hand = hand;
         this.gebouwKaartController = gebouwKaartController;
         try {
@@ -33,9 +38,9 @@ public class HandActionBarView extends Pane implements HandObserver {
         }
 
         createBackground(); // Maak achtergrond aan
-        createGebouwKaartViews(); // Vul gebouwKaartViews[]
+        buildGebouwKaartViewsArray(); // Vul gebouwKaartViews[]
 
-        this.getChildren().addAll(kaartholder); // Voeg achtergrond toe
+        this.pane.getChildren().addAll(kaartholder); // Voeg achtergrond toe
         addGebouwKaartViews(); // Voeg views toe aan HandActionBarView (pane)
     }
 
@@ -52,12 +57,19 @@ public class HandActionBarView extends Pane implements HandObserver {
      * Haalt alle GebouwKaartViews op van elke GebouwKaart
      * en plaatst deze in gebouwKaartViews[].
      */
-    private void createGebouwKaartViews() {
+    private void buildGebouwKaartViewsArray() throws RemoteException {
         // Hand heeft GebouwKaarten.
         // GebouwKaarten hebben observers
         // GebouwController heeft GebouwKaartViews wat GebouwkaartObservers zijn
         // Haal de GebouwkaartObserver op.
         // Help?!
+        for (GebouwKaartRemote gebouwKaartRemote: hand.getKaartenLijst()) {
+            GebouwKaartView gebouwKaartView = new GebouwKaartView(this.gebouwKaartController, gebouwKaartRemote);
+            gebouwKaartRemote.addObserver(gebouwKaartView); // Add view (observer) to remote
+            this.gebouwKaartController.addView(gebouwKaartView); // Add view to controller
+            this.gebouwKaartController.addModel(gebouwKaartRemote); // Add model to controller
+            this.gebouwKaartViews.add(gebouwKaartView); // Add view to local gebouwKaartView[]
+        }
     }
 
     /**
@@ -70,7 +82,7 @@ public class HandActionBarView extends Pane implements HandObserver {
         // Loop  door gebouwKaartViews en wijzig de X coordinaat.
         for (GebouwKaartView gebouwKaartView: gebouwKaartViews) {
             gebouwKaartView.view().setLayoutX(x); // Zet X coordinaat
-            this.getChildren().add(gebouwKaartView.view()); // Voeg view to aan Pane
+            this.pane.getChildren().add(gebouwKaartView.view()); // Voeg view to aan Pane
             x += 100; // Verhoog X coordinaat met 100
         }
     }
@@ -82,6 +94,11 @@ public class HandActionBarView extends Pane implements HandObserver {
 
     @Override
     public void modelChanged(Hand hand) throws RemoteException {
+        // TODO: update hand
         this.hand = hand;
+    }
+
+    public Pane getPane() {
+        return this.pane;
     }
 }
