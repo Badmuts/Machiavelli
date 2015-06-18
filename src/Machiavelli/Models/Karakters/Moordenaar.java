@@ -6,6 +6,8 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.Speler;
 import javafx.scene.image.Image;
 
+import java.rmi.RemoteException;
+
 /** 
  * Created by daanrosbergen on 03/06/15.
  * Edit by Bernd Oostrum
@@ -36,16 +38,16 @@ public class Moordenaar implements Karakter {
      * de Moordenaar wordt aan de speler gekoppeld.
      */
     @Override
-    public void setSpeler(Speler speler) {
+    public void setSpeler(Speler speler) throws RemoteException {
     	this.speler = speler;
     }
     @Override
-    public Speler getSpeler() {
+    public Speler getSpeler() throws RemoteException {
     	return speler;
     }
     
     @Override
-    public void setTarget(Object target) {
+    public void setTarget(Object target) throws RemoteException {
     	this.target = target;
     }
     
@@ -56,7 +58,7 @@ public class Moordenaar implements Karakter {
 	 */
     
     @Override
-    public void gebruikEigenschap() {
+    public void gebruikEigenschap() throws RemoteException {
         // TODO: vermoord karakter
     	if (target != null) {
     		vermoordKarakter(this.getVermoordKarakter());
@@ -68,38 +70,38 @@ public class Moordenaar implements Karakter {
     
     //beurt overslaan met ifjes???
 
-    public void vermoordKarakter(Karakter target) {
+    public void vermoordKarakter(Karakter target) throws RemoteException {
     	target.beurtOverslaan();
     }
 
-    public Karakter getVermoordKarakter() {
+    public Karakter getVermoordKarakter() throws RemoteException {
 		return (Karakter)target;
 	}
 
-	public String getNaam() {
+	public String getNaam() throws RemoteException {
     	return this.naam;
     }
    
-    public int getNummer() {
+    public int getNummer() throws RemoteException {
     	return this.nummer;
     }
 
     @Override
-    public int getBouwLimiet() {
+    public int getBouwLimiet() throws RemoteException {
         return this.bouwLimiet;
     }
 
-    public Type getType() {
+    public Type getType() throws RemoteException {
 		return this.type;
 	}
 
     @Override
-    public Image getImage() {
+    public Image getImage() throws RemoteException {
         return this.image;
     }
 
     @Override
-    public void beurtOverslaan() {
+    public void beurtOverslaan() throws RemoteException {
 
     }
 }

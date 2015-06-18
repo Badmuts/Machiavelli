@@ -42,17 +42,17 @@ public class Dief implements Karakter {
    	 * de Dief wordt aan de speler gekoppeld.
    	 */
    	@Override
-   	public void setSpeler(Speler speler) {
+   	public void setSpeler(Speler speler) throws RemoteException {
            this.speler = speler;
        }
 
     @Override
-    public Speler getSpeler() {
+    public Speler getSpeler() throws RemoteException {
         return speler;
     }
 
     @Override
-    public void setTarget(Object target) {
+    public void setTarget(Object target) throws RemoteException {
         this.target = (Karakter) target;
         gebruikEigenschap();
     }
@@ -65,7 +65,7 @@ public class Dief implements Karakter {
 	 * al zijn goudstukken op het moment dat deze aan de beurt is. 
 	 */
     @Override
-    public void gebruikEigenschap() {
+    public void gebruikEigenschap() throws RemoteException {
     	if (target != null && target.getNaam() != "Moordenaar") {
     		BesteelKarakter(this.speler, getTarget());
     		
@@ -85,38 +85,34 @@ public class Dief implements Karakter {
 		}	
 	}
 
-    public String getNaam() {
+    public String getNaam() throws RemoteException {
     	return this.naam;
     }
    
-    public int getNummer() {
+    public int getNummer() throws RemoteException {
     	return this.nummer;
     }
 
     @Override
-    public int getBouwLimiet() {
+    public int getBouwLimiet() throws RemoteException {
         return this.bouwLimiet;
     }
 
-    public int getBouwlimiet() {
-    	return this.bouwLimiet;
-    }
-    
-	public Type getType() {
+	public Type getType() throws RemoteException {
 		return this.type;
 	}
 	
-	public Karakter getTarget() {
+	public Karakter getTarget() throws RemoteException {
 		return this.target;
 	}
 
     @Override
-    public Image getImage() {
+    public Image getImage() throws RemoteException {
         return this.image;
     }
 
     @Override
-    public void beurtOverslaan() {
+    public void beurtOverslaan() throws RemoteException {
 
     }
 

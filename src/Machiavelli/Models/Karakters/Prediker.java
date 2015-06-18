@@ -35,17 +35,17 @@ public class Prediker implements Karakter, Bonusable {
     private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Prediker.png");
 
     @Override
-    public void setSpeler(Speler speler) {
+    public void setSpeler(Speler speler) throws RemoteException {
         this.speler = speler;
     }
 
     @Override
-    public Speler getSpeler() {
+    public Speler getSpeler() throws RemoteException {
         return speler;
     }
 
     @Override
-    public void gebruikEigenschap() {
+    public void gebruikEigenschap() throws RemoteException {
         // TODO: beschermt tegen karakter Condotierre
     }
     
@@ -58,35 +58,35 @@ public class Prediker implements Karakter, Bonusable {
         }
     }
 
-    public String getNaam() {
+    public String getNaam() throws RemoteException {
     	return this.naam;
     }
    
-    public int getNummer() {
+    public int getNummer() throws RemoteException {
     	return this.nummer;
     }
 
     @Override
-    public int getBouwLimiet() {
+    public int getBouwLimiet() throws RemoteException {
         return this.bouwLimiet;
     }
 
-    public Type getType() {
+    public Type getType() throws RemoteException {
 		return this.type;
 	}
 
     @Override
-    public void setTarget(Object target) {
+    public void setTarget(Object target) throws RemoteException {
         this.target = target;
     }
 
     @Override
-    public Image getImage() {
+    public Image getImage() throws RemoteException {
         return this.image;
     }
 
     @Override
-    public void beurtOverslaan() {
+    public void beurtOverslaan() throws RemoteException {
 
     }
 }

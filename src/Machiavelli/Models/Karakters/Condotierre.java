@@ -42,27 +42,27 @@ public class Condotierre implements Karakter, Bonusable {
 	 * de Condotierre wordt aan de speler gekoppeld.
 	 */
     @Override
-    public void setSpeler(Speler speler) {
+    public void setSpeler(Speler speler) throws RemoteException {
         this.speler = speler;
     }
 
     @Override
-    public Speler getSpeler() {
+    public Speler getSpeler() throws RemoteException {
         return null;
     }
 
     @Override
-    public void setTarget(Object target) {
+    public void setTarget(Object target) throws RemoteException {
     	this.target = (GebouwKaart) target;
     }
 
     @Override
-    public Image getImage() {
+    public Image getImage() throws RemoteException {
         return this.image;
     }
 
     @Override
-    public void beurtOverslaan() {
+    public void beurtOverslaan() throws RemoteException {
 
     }
 
@@ -73,7 +73,7 @@ public class Condotierre implements Karakter, Bonusable {
 	 * Vervolgens wordt het het gekozen gebouw verwijderd 
 	 * uit de stad van de speler waarin dit gebouw gekozen is
 	 */
-    public void gebruikEigenschap() {
+    public void gebruikEigenschap() throws RemoteException {
         // TODO: sloopgebouw
 
         // this.selectGebouwView.start();
@@ -131,29 +131,24 @@ public class Condotierre implements Karakter, Bonusable {
     } */
     
     @Override
-    public int getBouwLimiet() {
+    public int getBouwLimiet() throws RemoteException {
         return this.bouwLimiet;
     }
     
-    public GebouwKaart getTarget() {
+    public GebouwKaart getTarget() throws RemoteException {
     	return target;
     }
 	
-	public String getNaam() {
+	public String getNaam() throws RemoteException {
     	return this.naam;
     }
    
-    public int getNummer() {
+    public int getNummer() throws RemoteException {
     	return this.nummer;
     }
-    
-    public int getBouwlimiet() {
-    	return this.bouwLimiet;
-    }
-    
-	public Type getType() {
+
+	public Type getType() throws RemoteException {
 		return this.type;
 	}
 
-	
 }

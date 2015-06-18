@@ -2,6 +2,7 @@ package Machiavelli.Factories;
 
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Observers.GebouwFactoryObserver;
+import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Models.GebouwKaart;
 
@@ -13,7 +14,7 @@ import java.util.Collections;
 /**
  * @author Daan Rosbergen
  */
-public class GebouwFactory implements Serializable {
+public class GebouwFactory implements GebouwFactoryRemote, Serializable {
 
     private ArrayList<GebouwKaartRemote> gebouwen = new ArrayList<GebouwKaartRemote>();
     private ArrayList<GebouwFactoryObserver> observers = new ArrayList<GebouwFactoryObserver>();

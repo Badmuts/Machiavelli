@@ -3,6 +3,7 @@ package Machiavelli.Models;
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Observers.HandObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
+import Machiavelli.Interfaces.Remotes.HandRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -18,7 +19,7 @@ import java.util.List;
  * @version 0.1
  *
  */
-public class Hand implements Serializable {
+public class Hand implements HandRemote, Serializable {
 	private GebouwFactory gebouwFactory;
 	// Variables
 	private ArrayList<GebouwKaartRemote> kaartenLijst = new ArrayList<GebouwKaartRemote>();

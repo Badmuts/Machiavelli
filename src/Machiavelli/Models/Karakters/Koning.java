@@ -40,12 +40,12 @@ public class Koning implements Karakter, Bonusable {
 	 * de Koning wordt aan de speler gekoppeld.
 	 */
 	@Override
-	public void setSpeler(Speler speler) {
+	public void setSpeler(Speler speler) throws RemoteException {
         this.speler = speler;
     }
 
     @Override
-    public Speler getSpeler() {
+    public Speler getSpeler() throws RemoteException {
         return null;
     }
 
@@ -54,13 +54,13 @@ public class Koning implements Karakter, Bonusable {
 	 *  en aanroepen van de methode beginBeurt
 	 */
     @Override
-    public void gebruikEigenschap() {
+    public void gebruikEigenschap() throws RemoteException {
         // TODO: begint beurt
     }
 
     /*ontvangen bonusgoud voor monument gebouwen*/
     @Override
-    public void ontvangenBonusGoud() {
+    public void ontvangenBonusGoud() throws RemoteException {
         try {
             ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
             for(GebouwKaart gebouw: gebouwen) {
@@ -73,34 +73,34 @@ public class Koning implements Karakter, Bonusable {
         }
     }
     
-    public int getNummer() {
+    public int getNummer() throws RemoteException {
         return nummer;
     }
     
-    public int getBouwLimiet() {
+    public int getBouwLimiet() throws RemoteException {
         return bouwLimiet;
     }
     
-    public String getNaam() {
+    public String getNaam() throws RemoteException {
         return naam;
     }
 
-    public Type getType() {
+    public Type getType() throws RemoteException {
         return type;
     }
 
     @Override
-    public void setTarget(Object target) {
+    public void setTarget(Object target) throws RemoteException {
         this.target = target;
     }
 
     @Override
-    public Image getImage() {
+    public Image getImage() throws RemoteException {
         return this.image;
     }
 
     @Override
-    public void beurtOverslaan() {
+    public void beurtOverslaan() throws RemoteException {
 
     }
 

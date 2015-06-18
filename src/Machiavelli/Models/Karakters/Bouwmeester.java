@@ -37,12 +37,12 @@ public class Bouwmeester implements Karakter {
 	 * de Bouwmeester wordt aan de speler gekoppeld.
 	 */
     @Override
-    public void setSpeler(Speler speler) {
+    public void setSpeler(Speler speler) throws RemoteException {
         this.speler = speler;
     }
 
     @Override
-    public Speler getSpeler() {
+    public Speler getSpeler() throws RemoteException {
         return speler;
     }
 
@@ -53,7 +53,7 @@ public class Bouwmeester implements Karakter {
      * 
 	 */
     @Override
-    public void gebruikEigenschap() {
+    public void gebruikEigenschap() throws RemoteException {
         //TODO: 2 of 3 kaarten plaatsen in stad
     	try {
 			this.speler.getHand().addGebouwen(this.speler.trekkenKaart(2));
@@ -63,37 +63,37 @@ public class Bouwmeester implements Karakter {
 		}
     }
 
-    public String getNaam() {
+    public String getNaam() throws RemoteException {
     	return this.naam;
     }
    
-    public int getNummer() {
+    public int getNummer() throws RemoteException {
     	return this.nummer;
     }
 
     @Override
-    public int getBouwLimiet() {
+    public int getBouwLimiet() throws RemoteException {
         return this.bouwLimiet;
     }
 
     
-	public Type getType() {
+	public Type getType() throws RemoteException {
 		return this.type;
 	}
 
 	@Override
-	public void setTarget(Object target) {
+	public void setTarget(Object target) throws RemoteException {
 		// TODO Auto-generated method stub
 		
 	}
 
     @Override
-    public Image getImage() {
+    public Image getImage() throws RemoteException {
         return this.image;
     }
 
     @Override
-    public void beurtOverslaan() {
+    public void beurtOverslaan() throws RemoteException {
 
     }
 }
