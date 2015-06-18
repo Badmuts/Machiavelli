@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import Machiavelli.Machiavelli;
+import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.Spel;
 import Machiavelli.Models.Speler;
@@ -42,30 +43,38 @@ public class KarakterController {
     
     public void cmdTrekkenKaart() throws RemoteException
     {
-    	ArrayList<Karakter> karakterLijst = this.speler.getSpel().getKarakterFactory().getKarakters();
+//    	ArrayList<Karakter> karakterLijst = this.speler.getSpel().getKarakterFactory().getKarakters();
+    	KarakterFactory karakterFactory = this.speler.getSpel().getKarakterFactory();
     	
-    	for (Karakter karakter : karakterLijst) {
+    	for (Karakter karakter : karakterFactory.getKarakters()) {
 			karakterView.createKarakterView(karakter);
 		}
+    	
+    	this.karakterView.addButtonsToView();
     	
     	for (Button button: karakterView.getButtonList()) 
     	{
     		try 
     		{
     			int buttonNumber = karakterView.getButtonList().indexOf(button);
-    			Karakter karakter = karakterLijst.get(buttonNumber);
+    			Karakter karakter = karakterFactory.getKarakters().get(buttonNumber);
     			
     			button.setOnAction((event) -> 
     			{
-    				this.speler.setKarakter(karakter);
-    				cmdSluitKiesKarakterView();
-    				
-    				//test gekozen karakter
-    				try {
-						System.out.println("\nGekozen karakter: " + this.speler.getKarakter().getNaam());
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+    				try
+    				{
+//    					Karakter selectedKarakter = karakterFactory.getKarakterByNumber(buttonNumber); 
+	    				this.speler.setKarakter(karakter);
+	    				karakterFactory.getKarakters().remove(karakter);
+	    				System.out.println("Verwijderd karakter:" + karakter.getNaam());
+	    				
+	    				//TODO: tijdelijke oplossing, mag niet nog een keer loopen in de factory.
+	    				cmdSluitKiesKarakterView();
+    				}
+    				catch(Exception e)
+    				{
+    					e.printStackTrace();
+    				}
     			});
 			} 
     		catch (Exception e) {
