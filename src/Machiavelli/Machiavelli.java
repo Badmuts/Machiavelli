@@ -9,6 +9,8 @@ import java.rmi.registry.Registry;
 
 /**
  * Google Java Style Guide aanhouden
+ *
+ * @author Daan Rosbergen
  */
 
 public class Machiavelli extends Application {
