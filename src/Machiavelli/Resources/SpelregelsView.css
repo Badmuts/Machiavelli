@@ -9,6 +9,11 @@
 
 }
 
+#spelregelwindowbg
+{
+	-fx-background-color: rgba(0,0,0,0.8);
+}
+
 #spelregelwindow
 {
 	-fx-background-color: linear-gradient(#efefef, #e5e5e5);

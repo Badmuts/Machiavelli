@@ -67,7 +67,7 @@ public class SpelregelsView implements SpelregelsObserver {
 		this.stPane = new Pane();
 		stPane.setId("spelregelview");
 		stPane.getChildren().addAll(title, text, closeButton);
-		stPane.setPrefSize(1600, 900);
+		stPane.setPrefSize(1440, 900);
 		
 		Rectangle rect = new Rectangle(1024, 768);
 		rect.setId("spelregelwindow");
@@ -77,6 +77,8 @@ public class SpelregelsView implements SpelregelsObserver {
 		rect.setArcWidth(60.0);
 		stPane.setClip(rect);
         stPane.getStylesheets().add("Machiavelli/Resources/SpelregelsView.css");
+        
+        
 	}
 	
 	public Button getCloseButton() {

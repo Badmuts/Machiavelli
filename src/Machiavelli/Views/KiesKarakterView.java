@@ -36,7 +36,7 @@ public class KiesKarakterView {
 		
 		this.pane = new Pane();
 		this.pane.setId("kieskarakterview");
-		Rectangle rect = new Rectangle(1600, 900);
+		Rectangle rect = new Rectangle(1440, 900);
 		pane.setClip(rect);
 		this.pane.getStylesheets().add("Machiavelli/Resources/KiesKarakterView.css");
 		
@@ -57,15 +57,13 @@ public class KiesKarakterView {
 		Button newButton = new Button(karakter.getNaam());
 //		newButton.setGraphic(new ImageView(karakter.getImage())); //TODO: set graphic later!
 
-//		this.karakters.add(karakter);
-
 		newButton.setId("goudButton");
 		this.karakterButtons.add(newButton);
-//		this.pane.getChildren().add(newButton);
 	}
 	
 	public void addButtonsToView()
 	{
+		@SuppressWarnings("deprecation")
 		HBox hBox = HBoxBuilder.create()
                 .spacing(5.0) //In case you are using HBoxBuilder
                 .padding(new Insets(1, 1, 1, 1))

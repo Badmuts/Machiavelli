@@ -31,11 +31,18 @@ public class MainMenuView{
 
 	public MainMenuView(MenuController menuController) {
 
+		//Versienummer, voorkomt het glitchen van het achtergrond bij het openen van een nieuwe pane, in de scene.
 		Text versieNummer = new Text();
 		versieNummer.setText("V. 1.0");
 		versieNummer.setFill(Color.WHITE);
-		versieNummer.setLayoutX(1580);
+		versieNummer.setLayoutX(1420);
 		versieNummer.setLayoutY(910);
+		
+		Text versieNummer2 = new Text();
+		versieNummer2.setText("V. 1.0");
+		versieNummer2.setFill(Color.WHITE);
+		versieNummer2.setLayoutX(1420);
+		versieNummer2.setLayoutY(910);
 		
 		Pane mainMenuPane = new Pane();
 		Pane mainSelectPane = new Pane();
@@ -91,12 +98,12 @@ public class MainMenuView{
 		mainMenuPane.setId("mainMenuPane");
 		mainSelectPane.setId("mainSelectPane");
 		mainMenuPane.getChildren().addAll(iv, startbutton,exitbutton,spelregels,mainTx, versieNummer);
-		mainSelectPane.getChildren().addAll(iv2, nieuwspelknop,hervattenknop,deelnemenknop,exitbutton2,spelregels2,mainTx2);
+		mainSelectPane.getChildren().addAll(iv2, nieuwspelknop,hervattenknop,deelnemenknop,exitbutton2,spelregels2,mainTx2, versieNummer2);
 		
 		//Instellen wat er weergeven moet worden
 		//TODO: verander resolutie.
-		mainSelect = new Scene(mainSelectPane, 1600, 900);
-		mainMenu = new Scene(mainMenuPane, 1600, 900);
+		mainSelect = new Scene(mainSelectPane, 1440, 900);
+		mainMenu = new Scene(mainMenuPane, 1440, 900);
 		mainMenuPane.getStylesheets().add("Machiavelli/Resources/Menu.css");
 		mainSelectPane.getStylesheets().add("Machiavelli/Resources/Menu.css");
         this.menuController = menuController;

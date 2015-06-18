@@ -5,6 +5,7 @@ import Machiavelli.Machiavelli;
 import Machiavelli.Models.Spel;
 import Machiavelli.Models.Speler;
 import Machiavelli.Views.InvullenSpelersView;
+import Machiavelli.Views.KiesInkomstenView;
 import Machiavelli.Views.KiesKarakterView;
 import Machiavelli.Views.MainMenuView;
 
@@ -46,10 +47,11 @@ public class MenuController {
         //TODO: testing purposes only! remove. the above line is correct.
         mainMenuView.getSpelregelsButton().setOnAction((event) ->
         		{
-        			KarakterController controller;
 					try {
-						controller = new KarakterController();
-						controller.cmdWeergeefKiesKarakterView();
+						KiesInkomstenView view = new KiesInkomstenView();
+						view.show();
+//						controller = new KarakterController();
+//						controller.cmdWeergeefKiesKarakterView();
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

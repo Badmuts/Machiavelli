@@ -41,7 +41,7 @@ public class RaadplegenSpelregelsController {
     	pane.getChildren().addAll(old, cmdGetPane());
 
     	
-    	Scene scene = new Scene(pane, 1600, 900);
+    	Scene scene = new Scene(pane, 1440, 900);
 		Machiavelli.getInstance().getStage().setScene(scene);
 	}
 	

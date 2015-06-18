@@ -57,18 +57,13 @@ public class KarakterController {
     		try 
     		{
     			int buttonNumber = karakterView.getButtonList().indexOf(button);
-    			Karakter karakter = karakterFactory.getKarakters().get(buttonNumber);
     			
     			button.setOnAction((event) -> 
     			{
     				try
     				{
-//    					Karakter selectedKarakter = karakterFactory.getKarakterByNumber(buttonNumber); 
-	    				this.speler.setKarakter(karakter);
-	    				karakterFactory.getKarakters().remove(karakter);
-	    				System.out.println("Verwijderd karakter:" + karakter.getNaam());
+	    				this.speler.setKarakter(karakterFactory.getKarakterByNumber(buttonNumber));
 	    				
-	    				//TODO: tijdelijke oplossing, mag niet nog een keer loopen in de factory.
 	    				cmdSluitKiesKarakterView();
     				}
     				catch(Exception e)
@@ -91,7 +86,7 @@ public class KarakterController {
     	old.getChildren().add(Machiavelli.getInstance().getStage().getScene().getRoot());
     	pane.getChildren().addAll(old, karakterView.getPane());
     	
-    	Scene scene = new Scene(pane, 1600, 900);
+    	Scene scene = new Scene(pane, 1440, 900);
 		Machiavelli.getInstance().getStage().setScene(scene);
     }
     
@@ -109,8 +104,6 @@ public class KarakterController {
     			//deletes the spelregelview pane, from the nodelist of the scene...
     			newPane.getChildren().add(node);
     			
-    			//java.lang.UnsupportedOperationException
-//    			currentScene.getRoot().getChildrenUnmodifiable().remove(currentScene.getRoot().getChildrenUnmodifiable().indexOf(node));
     			System.out.println("\nVerwijderd: " + node.getId());
     			break;
     		}
