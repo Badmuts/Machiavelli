@@ -78,12 +78,9 @@ public class TrekkenKaartView
 	
 	public void addButtonsToView()
 	{
-		@SuppressWarnings("deprecation")
-		HBox hBox = HBoxBuilder.create()
-                .spacing(30.0) 
-                .padding(new Insets(15, 15, 15, 15))
-                .build();
-
+		HBox hBox = new HBox();
+		hBox.setSpacing(30.0);
+		hBox.setPadding(new Insets(15, 15, 15, 15));
         hBox.setSpacing(90.0);
         
         for(Button button : this.kaartenButtons)

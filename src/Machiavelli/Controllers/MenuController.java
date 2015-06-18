@@ -49,8 +49,8 @@ public class MenuController {
         		{
 					try {
 						KiesInkomstenView view = new KiesInkomstenView();
-						view.show();
-//						controller = new KarakterController();
+						view.weergeefKiesInkomstenView();
+//						KarakterController controller = new KarakterController();
 //						controller.cmdWeergeefKiesKarakterView();
 					} catch (Exception e) {
 						// TODO Auto-generated catch block

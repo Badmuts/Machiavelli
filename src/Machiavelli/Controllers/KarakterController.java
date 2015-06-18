@@ -43,7 +43,6 @@ public class KarakterController {
     
     public void cmdTrekkenKaart() throws RemoteException
     {
-//    	ArrayList<Karakter> karakterLijst = this.speler.getSpel().getKarakterFactory().getKarakters();
     	KarakterFactory karakterFactory = this.speler.getSpel().getKarakterFactory();
     	
     	for (Karakter karakter : karakterFactory.getKarakters()) {
@@ -101,7 +100,7 @@ public class KarakterController {
     		System.out.println(node.idProperty());
     		if(currentScene.lookup("#kieskarakterview").equals(node))
     		{
-    			//deletes the spelregelview pane, from the nodelist of the scene...
+    			//deletes the kieskarakterview pane, from the nodelist of the scene...
     			newPane.getChildren().add(node);
     			
     			System.out.println("\nVerwijderd: " + node.getId());

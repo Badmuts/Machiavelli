@@ -93,7 +93,7 @@ public class KiesInkomstenView {
         
 	}
 	
-	public void show()
+	public void weergeefKiesInkomstenView()
 	{
 		StackPane pane = new StackPane();
     	

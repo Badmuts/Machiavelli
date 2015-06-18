@@ -95,10 +95,7 @@ public class InkomstenController
 	
 	public void weergeefTrekkenKaartView()
 	{
-		//TODO: moet zijn:
 		this.trekkenKaartView.cmdWeergeefTrekkenKaartView();
-//		this.trekkenKaartView.getStage().setAlwaysOnTop(true);
-//		this.trekkenKaartView.getStage().show();
 	}
 	
 	public void showHand(Speler speler) throws RemoteException

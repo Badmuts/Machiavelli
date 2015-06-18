@@ -63,12 +63,9 @@ public class KiesKarakterView {
 	
 	public void addButtonsToView()
 	{
-		@SuppressWarnings("deprecation")
-		HBox hBox = HBoxBuilder.create()
-                .spacing(5.0) //In case you are using HBoxBuilder
-                .padding(new Insets(1, 1, 1, 1))
-                .build();
-
+		HBox hBox = new HBox();
+		hBox.setSpacing(5.0);
+		hBox.setPadding(new Insets(1, 1, 1, 1));
         hBox.setSpacing(5.0);
         
         for(Button button : this.karakterButtons)
