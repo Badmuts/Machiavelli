@@ -37,17 +37,8 @@ public class PuntenModel implements Serializable {
 		}
 
 		scoreLijst = this.spel.getSpelers();
-		Collections.sort(scoreLijst, new Comparator<Speler>() {
-			@Override
-			public int compare(Speler o1, Speler o2) {
-				try {
-					return o1.getStad().getWaardeStad() + o2.getStad().getWaardeStad();
-				} catch (RemoteException e) {
-					e.printStackTrace();
-				}
-				return 0;
-			}
-		});
+		sortList(scoreLijst);
+		checkDraw(scoreLijst);
 	}
 
 
@@ -78,17 +69,35 @@ public class PuntenModel implements Serializable {
 	}
 
 	// Als er gelijjkspel is worden alleen de gebouwkaarten geteld.
-	private void checkDraw(ArrayList<Speler> lijst)
-	{
+	private void checkDraw(ArrayList<Speler> lijst) throws RemoteException {
 		if (lijst.get(0).equals(lijst.get(1)))
 		{
-			// Berekenen winnaar met alleen gebouwkaarten.
+			for(Speler speler: this.spel.getSpelers())
+			{
+				speler.getStad().setWaardeStad(getStadBonus(speler.getStad()));
+			}
 		}
 	}
 
-	public String scoreLijst()
+	private ArrayList<Speler> sortList(ArrayList<Speler> list)
 	{
-		//TODO lijst geven met scores.
+		ArrayList<Speler> winnaarsLijst = list;
+		Collections.sort(winnaarsLijst, new Comparator<Speler>() {
+			@Override
+			public int compare(Speler o1, Speler o2) {
+				try {
+					return o1.getStad().getWaardeStad() + o2.getStad().getWaardeStad();
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+				return 0;
+			}
+		});
+		return winnaarsLijst;
+	}
+
+	public String scoreLijst() throws RemoteException {
+		berekenWinnaar();
 		return null;
 	}
 
