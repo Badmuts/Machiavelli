@@ -2,6 +2,7 @@ package Machiavelli.Models.Karakters;
 
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Hand;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
  * factory terugstoppen en dezelfde hoeveelheid weer trekken
  */
 
+
 public class Magier implements Karakter {
 
     // Variables
@@ -44,17 +46,22 @@ public class Magier implements Karakter {
 	 * de Magier wordt aan de speler gekoppeld.
 	 */
 	@Override
-	public void setSpeler(Speler speler) {
+	public void setSpeler(Speler speler) throws RemoteException {
         this.speler = speler;
     }
 
     @Override
-    public Speler getSpeler() {
+    public Speler getSpeler() throws RemoteException {
         return null;
     }
 
+    /**
+     *Ruil kaarten met de stapel of met een andere speler.
+     *
+     */
+    
     @Override
-    public void gebruikEigenschap() {
+    public void gebruikEigenschap() throws RemoteException {
         // TODO: ruilen bouwkaarten
         System.out.println("faka");
         try {
@@ -112,7 +119,14 @@ public class Magier implements Karakter {
         observers.add(observer);
     }
 
-    // Ruil alle bouwkaarten met alle bouwkaarten van een ander speler/karakter??
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (KarakterObserver observer: observers) {
+            observer.modelChanged(this);
+        }
+    }
+    
+ // Ruil alle bouwkaarten met alle bouwkaarten van een ander speler/karakter??
     private void ruilMetKarakter(Speler target, Speler magier) throws RemoteException {
         ArrayList<GebouwKaartRemote> handTarget = target.getHand().getKaartenLijst();
         ArrayList<GebouwKaartRemote> magierHand = magier.getHand().getKaartenLijst();
@@ -136,8 +150,13 @@ public class Magier implements Karakter {
         }
     }
 
-    @Override
-    public void beurtOverslaan() {
+    public void beurtOverslaan() throws RemoteException {}
 
+    public Object getTarget() throws RemoteException {
+        return target;
+    }
+
+    public void setRuilLijst(ArrayList<GebouwKaart> ruilLijst) throws RemoteException {
+        this.ruilLijst = ruilLijst;
     }
 }

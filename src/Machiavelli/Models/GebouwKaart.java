@@ -28,7 +28,6 @@ public class GebouwKaart extends UnicastRemoteObject implements Serializable, Ge
 	private Stad stad;
     private String image;
     private ArrayList<GebouwKaartObserver> observers = new ArrayList<GebouwKaartObserver>();
-    private GebouwKaartView gebouwKaartView;
 
     // Een kaart wordt aangemaakt met de meegegeven waardes
     public GebouwKaart(int kosten, String naam, Type type, String image) throws RemoteException {

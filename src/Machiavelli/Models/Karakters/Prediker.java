@@ -3,6 +3,7 @@ package Machiavelli.Models.Karakters;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 
@@ -29,27 +30,29 @@ public class Prediker implements Karakter, Bonusable {
     private final int bouwLimiet = 1; 
     private final String naam = "Prediker";
     private final Type type = Type.KERKELIJK;
-    private Object target;
+    @SuppressWarnings("unused")
+	private Object target;
     
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Prediker.png";
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
     @Override
-    public void setSpeler(Speler speler) {
+    public void setSpeler(Speler speler) throws RemoteException {
         this.speler = speler;
     }
 
     @Override
-    public Speler getSpeler() {
+    public Speler getSpeler() throws RemoteException {
         return speler;
     }
 
     @Override
-    public void gebruikEigenschap() {
+    public void gebruikEigenschap() throws RemoteException {
         // TODO: beschermt tegen karakter Condotierre
     }
     
     /** ontvangen bonusgoud voor Kerk gebouwen */
+    @Override
     public void ontvangenBonusGoud() throws RemoteException {
         ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
         for(GebouwKaart gebouw: gebouwen) {
@@ -57,26 +60,28 @@ public class Prediker implements Karakter, Bonusable {
                 speler.getPortemonnee().ontvangenGoud(1);
         }
     }
-
-    public String getNaam() {
+    @Override
+    public String getNaam() throws RemoteException {
     	return this.naam;
     }
    
-    public int getNummer() {
+    @Override
+    public int getNummer() throws RemoteException {
     	return this.nummer;
     }
 
     @Override
-    public int getBouwLimiet() {
+    public int getBouwLimiet() throws RemoteException {
         return this.bouwLimiet;
     }
 
-    public Type getType() {
+    @Override
+    public Type getType() throws RemoteException {
 		return this.type;
 	}
 
     @Override
-    public void setTarget(Object target) {
+    public void setTarget(Object target) throws RemoteException {
         this.target = target;
     }
 
@@ -86,7 +91,14 @@ public class Prediker implements Karakter, Bonusable {
     }
 
     @Override
-    public void beurtOverslaan() {
+    public void addObserver(KarakterObserver observer) throws RemoteException {
+        observers.add(observer);
+    }
 
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (KarakterObserver observer: observers) {
+            observer.modelChanged(this);
+        }
     }
 }

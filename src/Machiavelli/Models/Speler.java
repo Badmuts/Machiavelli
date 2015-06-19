@@ -5,6 +5,7 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelerObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  * @version 0.1
  *
  */
-public class Speler implements Serializable {
+public class Speler implements SpelerRemote, Serializable {
 	// Variables
 	private Portemonnee portemonnee;
 	private Karakter karakter;

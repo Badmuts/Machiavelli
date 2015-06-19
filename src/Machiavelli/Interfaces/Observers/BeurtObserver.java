@@ -1,5 +1,6 @@
 package Machiavelli.Interfaces.Observers;
 
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
 import Machiavelli.Models.Beurt;
 
 import java.rmi.Remote;
@@ -10,6 +11,6 @@ import java.rmi.RemoteException;
  */
 public interface BeurtObserver extends Remote {
 
-    void modelChanged(Beurt beurt) throws RemoteException;
+    void modelChanged(BeurtRemote beurt) throws RemoteException;
 
 }

@@ -1,5 +1,6 @@
 package Machiavelli.Interfaces.Observers;
 
+import Machiavelli.Interfaces.Remotes.SpelregelsRemote;
 import Machiavelli.Models.Spelregels;
 
 import java.rmi.Remote;
@@ -10,6 +11,6 @@ import java.rmi.RemoteException;
  */
 public interface SpelregelsObserver extends Remote {
 
-    void modelChanged(Spelregels spelregels) throws RemoteException;
+    void modelChanged(SpelregelsRemote spelregels) throws RemoteException;
 
 }

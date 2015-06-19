@@ -1,6 +1,7 @@
 package Machiavelli.Views;
 
 import Machiavelli.Interfaces.Observers.SpelregelsObserver;
+import Machiavelli.Interfaces.Remotes.SpelregelsRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Spelregels;
 import javafx.scene.Scene;
@@ -82,7 +83,7 @@ public class SpelregelsView implements SpelregelsObserver {
 	}
 
 	@Override
-	public void modelChanged(Spelregels spelregels) throws RemoteException {
-		this.spelregels = spelregels;
+	public void modelChanged(SpelregelsRemote spelregels) throws RemoteException {
+		// TODO: update view
 	}
 }

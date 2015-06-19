@@ -1,6 +1,6 @@
 package Machiavelli.Interfaces.Observers;
 
-import Machiavelli.Factories.GebouwFactory;
+import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -10,6 +10,6 @@ import java.rmi.RemoteException;
  */
 public interface GebouwFactoryObserver extends Remote {
 
-    void modelChanged(GebouwFactory gebouwFactory) throws RemoteException;
+    void modelChanged(GebouwFactoryRemote gebouwFactory) throws RemoteException;
 
 }

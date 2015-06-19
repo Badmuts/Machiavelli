@@ -3,6 +3,7 @@ package Machiavelli.Models.Karakters;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 
@@ -40,35 +41,26 @@ public class Koopman implements Karakter, Bonusable {
 	 * de Koopman wordt aan de speler gekoppeld.
 	 */
 	@Override
-	public void setSpeler(Speler speler) {
+	public void setSpeler(Speler speler) throws RemoteException {
         this.speler = speler;
     }
 
     @Override
-    public Speler getSpeler() {
+    public Speler getSpeler() throws RemoteException {
         return null;
     }
 
-    // TODO: ontvangt 1 goudstuk
 	/**
 	 * overriden van de methode uit de interface Karakter
 	 * en aanroepen van de methode ontvangenBonusGoud
 	 */
 	@Override
-    public void gebruikEigenschap() {	
+    public void gebruikEigenschap() throws RemoteException {
 		try {
             ontvangenBonusGoud();
         } catch (RemoteException re) {
             System.out.print(re);
         }
-    }
-	
-	/**
-	 * Deze methode wordt aangroepen door gebruikEigenschap()
-	 * de speler met het karakter koopman ontvangt 1 goudstuk
-	 */
-    public void ontvangenBonusGoud(Speler koopman) throws RemoteException {
-    	koopman.getPortemonnee().ontvangenGoud(1);
     }
 
 	/** ontvangen bonusgoud voor commerciele gebouwen */
@@ -81,29 +73,27 @@ public class Koopman implements Karakter, Bonusable {
         }
     }
     
-    public String getNaam() {
+    @Override
+    public String getNaam() throws RemoteException {
     	return this.naam;
     }
    
-    public int getNummer() {
+    @Override
+    public int getNummer() throws RemoteException {
     	return this.nummer;
     }
 
     @Override
-    public int getBouwLimiet() {
+    public int getBouwLimiet() throws RemoteException {
         return this.bouwLimiet;
     }
 
-    public int getBouwlimiet() {
-    	return this.bouwLimiet;
-    }
-    
-	public Type getType() {
+	public Type getType() throws RemoteException {
 		return this.type;
 	}
 
     @Override
-    public void setTarget(Object target) {
+    public void setTarget(Object target) throws RemoteException {
         this.target = target;
     }
 
@@ -113,8 +103,23 @@ public class Koopman implements Karakter, Bonusable {
     }
 
     @Override
-    public void beurtOverslaan() {
+    public void addObserver(KarakterObserver observer) throws RemoteException {
+        observers.add(observer);
+    }
 
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (KarakterObserver observer: observers) {
+            observer.modelChanged(this);
+        }
+    }
+
+    /**
+	 * Deze methode wordt aangroepen door gebruikEigenschap()
+	 * de speler met het karakter koopman ontvangt 1 goudstuk
+	 */
+    public void ontvangenBonusGoud(Speler koopman) throws RemoteException {
+    	koopman.getPortemonnee().ontvangenGoud(1);
     }
 
 }

@@ -3,14 +3,19 @@ package Machiavelli.Views;
 import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
+import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Karakters.Koopman;
 import Machiavelli.Models.Speelveld;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -25,7 +30,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 	private Speelveld speelveld;
 	private Scene speelveldscene;
 	private Stage stage = Machiavelli.getInstance().getStage();
-    private HBox actionBar;
+    private GridPane actionBar;
     private ButtonHolderActionBarView buttonHolderActionBarView;
     private HandActionBarView handActionBarView;
     private KarakterActionBarView karakterActionBarView;
@@ -97,17 +102,40 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 		return buttonHolderActionBarView.getSpelregels();
 	}
 
-	public Button getExitButton(){
+	public Button getExitButton() {
         return buttonHolderActionBarView.getExitbutton();
 	}
-
-	public void modelChanged(Speelveld speelveld) throws RemoteException {
-		// Doe iets?
+	
+	public Button getEindeButton() {
+		return buttonHolderActionBarView.getEindeBeurtButton();
+	}
+	
+	public Button getBouwButton() {
+		return buttonHolderActionBarView.getBouwButton();
+	}
+	
+	public Button getOpslaanButton() {
+		return buttonHolderActionBarView.getOpslaanButton();
+	}
+	
+	public Button getEigenschapButton() {
+		return buttonHolderActionBarView.getEigenschapButton();
+	}
+	
+	public Button getGoudButton() {
+		return buttonHolderActionBarView.getGoudbutton();
 	}
 
     private void createActionBar() {
-        actionBar = new HBox(0);
-        actionBar.getChildren().addAll(this.karakterActionBarView, this.handActionBarView, this.buttonHolderActionBarView);
+        actionBar = new GridPane();
+        actionBar.add(this.karakterActionBarView.getPane(), 1, 1);
+        actionBar.add(this.handActionBarView.getPane(), 2, 1);
+        actionBar.add(this.buttonHolderActionBarView, 3, 1);
         actionBar.getStyleClass().add("action-bar");
+    }
+
+    @Override
+    public void modelChanged(SpeelveldRemote speelveld) throws RemoteException {
+        // TODO: update view
     }
 }
