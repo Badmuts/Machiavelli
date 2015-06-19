@@ -89,8 +89,28 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 		return buttonHolderActionBarView.getSpelregels();
 	}
 
-	public Button getExitButton(){
+	public Button getExitButton() {
         return buttonHolderActionBarView.getExitbutton();
+	}
+	
+	public Button getEindeButton() {
+		return buttonHolderActionBarView.getEindeBeurtButton();
+	}
+	
+	public Button getBouwButton() {
+		return buttonHolderActionBarView.getBouwButton();
+	}
+	
+	public Button getOpslaanButton() {
+		return buttonHolderActionBarView.getOpslaanButton();
+	}
+	
+	public Button getEigenschapButton() {
+		return buttonHolderActionBarView.getEigenschapButton();
+	}
+	
+	public Button getGoudButton() {
+		return buttonHolderActionBarView.getGoudbutton();
 	}
 
     private void createActionBar() {
