@@ -14,9 +14,9 @@ public class ButtonHolderActionBarView extends StackPane {
     private Button exitbutton;
     private Button spelregels;
     private Button opslaanknop;
-    private Button placeholderbutton1;
-    private Button placeholderbutton2;
-    private Button placeholderbutton3;
+    private Button goudbutton;
+    private Button bouwbutton;
+    private Button eindebeurtbutton;
     private Rectangle buttonholder;
 
     public ButtonHolderActionBarView() {
@@ -24,18 +24,18 @@ public class ButtonHolderActionBarView extends StackPane {
         exitbutton = new Button();
         spelregels = new Button();
         opslaanknop = new Button();
-        placeholderbutton1 = new Button();
-        placeholderbutton2 = new Button();
-        placeholderbutton3 = new Button();
+        goudbutton = new Button();
+        bouwbutton = new Button();
+        eindebeurtbutton= new Button();
 
         this.buttonGrid.setHgap(10);
         this.buttonGrid.setVgap(10);
         this.buttonGrid.setPadding(new Insets(22.5, 0, 22.5, 0));
 
-        initButton(placeholderbutton3, "Eigenschap", "button-primary", 1, 1, 160f, 55f);
-        initButton(placeholderbutton2, "Bouwen", "button-primary", 2, 1, 160f, 55f);
-        initButton(placeholderbutton1, "Bonusgoud", "button-primary", 1, 2, 160f, 55f);
-        initButton(gebruikEigenschap,"Einde beurt","button-danger", 2, 2, 160f, 55f);
+        initButton(gebruikEigenschap, "Eigenschap", "button-primary", 1, 1, 160f, 55f);
+        initButton(bouwbutton, "Bouwen", "button-primary", 2, 1, 160f, 55f);
+        initButton(goudbutton, "Bonusgoud", "button-primary", 1, 2, 160f, 55f);
+        initButton(eindebeurtbutton,"Einde beurt","button-danger", 2, 2, 160f, 55f);
         initButton(opslaanknop,"Opslaan","button-success", 1, 3, 160f, 55f);
         initButton(exitbutton,"Afsluiten","button-danger", 2, 3, 160f, 55f);
 
@@ -59,6 +59,25 @@ public class ButtonHolderActionBarView extends StackPane {
     public Button getExitbutton() {
         return this.exitbutton;
     }
-
+    
+    public Button getGoudbutton() {
+    	return this.goudbutton;
+    }
+    
+    public Button getEigenschapButton() {
+    	return this.gebruikEigenschap;
+    }
+    
+    public Button getBouwButton() {
+    	return this.bouwbutton;
+    }
+    
+    public Button getOpslaanButton() {
+    	return this.opslaanknop;
+    }
+    
+    public Button getEindeBeurtButton() {
+    	return this.eindebeurtbutton;
+    }
 
 }
