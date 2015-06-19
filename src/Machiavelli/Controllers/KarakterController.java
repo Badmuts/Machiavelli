@@ -23,6 +23,7 @@ public class KarakterController {
 	//TODO: krijg speler van beurt..
     private Speler speler = new Speler();
     private KiesKarakterView karakterView = new KiesKarakterView();
+    private Karakter target;
     
     
     public KarakterController() throws RemoteException
@@ -61,7 +62,10 @@ public class KarakterController {
     			{
     				try
     				{
-	    				this.speler.setKarakter(karakterFactory.getKarakterByNumber(buttonNumber));
+    					this.target = karakterFactory.getKarakterByNumber(buttonNumber);
+	    				this.speler.setKarakter(target);
+	    				
+	    				System.out.println("gekozen karakter: " + target.getNaam());
 	    				
 	    				cmdSluitKiesKarakterView();
     				}
@@ -87,6 +91,11 @@ public class KarakterController {
     	
     	Scene scene = new Scene(pane, 1440, 900);
 		Machiavelli.getInstance().getStage().setScene(scene);
+    }
+    
+    public Karakter setTarget()
+    {
+    	return this.target;
     }
     
     public void cmdSluitKiesKarakterView()

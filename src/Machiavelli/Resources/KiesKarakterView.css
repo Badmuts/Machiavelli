@@ -28,5 +28,5 @@
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-fill: white;
-    -fx-font-size: 2.05em;
+    -fx-font-size: 2.03em;
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.sun.corba.se.impl.oa.poa.AOMEntry;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,7 +23,7 @@ public class KiesKarakterView {
 	
 	private Text title;
 	private ArrayList<Button> karakterButtons;
-	private ArrayList<Karakter> karakters;
+	private ArrayList<Image> karakterImages;
 	private Pane pane;
 	
 	public KiesKarakterView() throws RemoteException
@@ -30,12 +31,12 @@ public class KiesKarakterView {
 		this.title = new Text();
 		this.title.setId("title");
 		this.title.setFill(Color.WHITE);
-		this.title.setLayoutX(640);
+		this.title.setLayoutX(590);
 		this.title.setLayoutY(50);
 		this.title.setText("Kies een karakter:");
 		
 		this.karakterButtons = new ArrayList<Button>();
-		this.karakters = new ArrayList<Karakter>();
+		this.karakterImages = new ArrayList<Image>();
 		
 		this.pane = new Pane();
 		this.pane.setId("kieskarakterview");
@@ -51,14 +52,10 @@ public class KiesKarakterView {
 		return this.karakterButtons;
 	}
 	
-	public ArrayList<Karakter> getKarakters()
-	{
-		return this.karakters;
-	}
-	
 	public void createKarakterView(Karakter karakter) {
 		Button newButton = new Button(karakter.getNaam());
 //		newButton.setGraphic(new ImageView(karakter.getImage())); //TODO: set graphic later!
+		this.karakterImages.add(karakter.getImage());
 
 		newButton.setId("goudButton");
 		newButton.setMinWidth(215f);
@@ -74,45 +71,34 @@ public class KiesKarakterView {
 		int amountTop = (this.karakterButtons.size() / 2);
 		int amountBottom = this.karakterButtons.size();
 		
-//		ImageView karakterImage = new ImageView(new Image("Machiavelli/Resources/placeholderimg.gif"));
-////		karakterImage.setId("goudImg");
-////		karakterImage.setLayoutX(300);
-////		karakterImage.setLayoutY(200);
-//		Rectangle karakterRect = new Rectangle(200, 200);
-//		karakterRect.setArcHeight(200);
-//		karakterRect.setArcWidth(200);
-//		karakterImage.setClip(karakterRect);
-		
 		HBox kaartenBoxTop = new HBox();
-//		kaartenBoxTop.setSpacing(1.0);
-//		kaartenBoxTop.setPadding(new Insets(1, 1, 1, 1));
+		kaartenBoxTop.setSpacing(180.0);
+		kaartenBoxTop.setPadding(new Insets(1, 1, 1, 1));
 		
 		HBox kaartenBoxBottom = new HBox();
-//		kaartenBoxBottom.setSpacing(1.0);
-//		kaartenBoxBottom.setPadding(new Insets(1, 1, 1, 1));
+		kaartenBoxBottom.setSpacing(180.0);
+		kaartenBoxBottom.setPadding(new Insets(1, 1, 1, 1));
 		
 		VBox buttonOrder = new VBox();
-		buttonOrder.setSpacing(160.0);
+		buttonOrder.setSpacing(230.0);
 		buttonOrder.setPadding(new Insets(1, 1, 1, 1));
 		
         
 		for(int i = 0; i < amountTop; i++)
 		{
-			//TODO: get image from karakter (list) and place it in this image.
-			Image image = new Image("Machiavelli/Resources/placeholderimg.gif");
+			Image image = karakterImages.get(i);
 			Button button = this.karakterButtons.get(i);
 			kaartenBoxTop.getChildren().addAll(this.createGridItem(image, button));
 		}
 		
 		for(int i = amountTop; i < amountBottom; i++)
 		{
-			//TODO: get image from karakter (list) and place it in this image.
-			Image image = new Image("Machiavelli/Resources/placeholderimg.gif");
+			Image image = karakterImages.get(i);
 			Button button = this.karakterButtons.get(i);
 			kaartenBoxBottom.getChildren().add(this.createGridItem(image, button));
 		}
         
-		buttonLayout.setLayoutY(160);
+		buttonLayout.setLayoutY(200);
 		buttonLayout.setLayoutX(160);
         
         buttonOrder.getChildren().addAll(kaartenBoxTop, kaartenBoxBottom);
@@ -124,17 +110,20 @@ public class KiesKarakterView {
 	
 	private VBox createGridItem(Image image, Button button)
 	{
-//		ImageView karakterImage = new ImageView(new Image("Machiavelli/Resources/placeholderimg.gif"));
-//		image = new ImageView("Machiavelli/Resources/placeholderimg.gif");
+		double imageWidth = image.getWidth();
+		double imageHeight = image.getHeight();
+		
 		ImageView karakterImage = new ImageView(image);
-		Rectangle karakterRect = new Rectangle(214, 214);
-		karakterRect.setArcHeight(214);
-		karakterRect.setArcWidth(214);
+		Rectangle karakterRect = new Rectangle(imageWidth, imageHeight);
+		karakterRect.setArcHeight(imageHeight);
+		karakterRect.setArcWidth(imageWidth);
 		karakterImage.setClip(karakterRect);
 		
 		VBox gridItem = new VBox();
-		gridItem.setSpacing(-150.0);
+		gridItem.setSpacing(30.0);
 		gridItem.setPadding(new Insets(-40, -40, -40, -40));
+		
+		gridItem.setAlignment(Pos.CENTER);
 		
 		gridItem.getChildren().addAll(karakterImage, button);
 		
