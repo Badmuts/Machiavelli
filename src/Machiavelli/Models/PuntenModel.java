@@ -17,10 +17,23 @@ public class PuntenModel implements Serializable {
 
 	private Speler winnaar;
 	private ArrayList<PuntenObserver> observers = new ArrayList<>();
-	
-	public Speler berekenWinnaar() throws RemoteException {
-		return this.winnaar;
+	private Spel spel;
+
+	public PuntenModel(Spel spel)
+	{
+		this.spel = spel;
 	}
+
+	public void berekenWinnaar() throws RemoteException {
+		;
+		for (int i = 0;  i < this.spel.getSpelers().size(); i++) {
+			if (winnaar.getStad().getWaardeStad())
+			winnaar = this.spel.getSpelers().get(i);
+
+		}
+	}
+
+
 
 	public void addObserver(PuntenObserver observer) throws RemoteException {
 		observers.add(observer);
