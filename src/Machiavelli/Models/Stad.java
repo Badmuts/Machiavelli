@@ -46,20 +46,14 @@ public class Stad implements Serializable {
 	
 	public int getWaardeStad() throws RemoteException
 	{
-		berekenWaarde(gebouwen);
 		return this.waardeStad;
 	}
-	
-	private void berekenWaarde(ArrayList<GebouwKaart> lijst) throws RemoteException
+
+	public void setWaardeStad(int waarde)
 	{
-		int waarde = 0;
-		for(int i = 0; i < lijst.size(); i++)
-		{
-			waarde += lijst.get(i).getKosten();
-		}
 		this.waardeStad = waarde;
-		notifyObservers();
 	}
+
 
 	public void addObserver(StadObserver observer) throws RemoteException {
 		observers.add(observer);
