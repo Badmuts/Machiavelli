@@ -65,7 +65,7 @@ public class KarakterController {
     					this.target = karakterFactory.getKarakterByNumber(buttonNumber);
 	    				this.speler.setKarakter(target);
 	    				
-	    				System.out.println("gekozen karakter: " + target.getNaam());
+	    				System.out.println("gekozen karakter: " + this.setTarget().getNaam());
 	    				
 	    				cmdSluitKiesKarakterView();
     				}

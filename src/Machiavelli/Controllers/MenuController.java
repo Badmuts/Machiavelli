@@ -50,8 +50,14 @@ public class MenuController {
 					try {
 //						KiesInkomstenView view = new KiesInkomstenView();
 //						view.weergeefKiesInkomstenView();
-						KarakterController controller = new KarakterController();
-						controller.cmdWeergeefKiesKarakterView();
+						
+//						KarakterController controller = new KarakterController();
+//						controller.cmdWeergeefKiesKarakterView();
+						
+//						MeldingController melding = new MeldingController();
+//						melding.cmdSetMelding("Dit is een test melding.");
+//						melding.cmdWeergeefMeldingView();
+						new MeldingController().build("<MELDING SCHERM>").cmdWeergeefMeldingView();
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

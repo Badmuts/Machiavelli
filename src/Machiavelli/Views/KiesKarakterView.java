@@ -54,11 +54,10 @@ public class KiesKarakterView {
 	
 	public void createKarakterView(Karakter karakter) {
 		Button newButton = new Button(karakter.getNaam());
-//		newButton.setGraphic(new ImageView(karakter.getImage())); //TODO: set graphic later!
 		this.karakterImages.add(karakter.getImage());
 
 		newButton.setId("goudButton");
-		newButton.setMinWidth(215f);
+		newButton.setMinWidth(230f);
 		newButton.setMinHeight(50f);
 		this.karakterButtons.add(newButton);
 	}
@@ -82,7 +81,6 @@ public class KiesKarakterView {
 		VBox buttonOrder = new VBox();
 		buttonOrder.setSpacing(230.0);
 		buttonOrder.setPadding(new Insets(1, 1, 1, 1));
-		
         
 		for(int i = 0; i < amountTop; i++)
 		{
@@ -99,7 +97,7 @@ public class KiesKarakterView {
 		}
         
 		buttonLayout.setLayoutY(200);
-		buttonLayout.setLayoutX(160);
+		buttonLayout.setLayoutX(140);
         
         buttonOrder.getChildren().addAll(kaartenBoxTop, kaartenBoxBottom);
         

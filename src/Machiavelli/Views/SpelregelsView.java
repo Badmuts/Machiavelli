@@ -18,6 +18,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import Machiavelli.Machiavelli;
+import Machiavelli.Controllers.RaadplegenSpelregelsController;
 import Machiavelli.Interfaces.Observers.SpelregelsObserver;
 import Machiavelli.Interfaces.Remotes.SpelregelsRemote;
 import Machiavelli.Models.Spelregels;

@@ -6,12 +6,12 @@
     	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
 }
 
-#kieskarakterview
+#meldingview
 {
 	-fx-background-color: rgba(0,0,0,0.8);	
 }
 
-#goudButton {
+#okButton {
 -fx-background-color: linear-gradient(#ffd65e,#febf04);
     -fx-background-radius: 6, 5;
     -fx-background-insets: 0, 1;
@@ -22,7 +22,7 @@
 	-fx-padding: 3 30 3 30;
 }
 
-#goudButton:hover {
+#okButton:hover {
 		-fx-background-color: #febf04;
     -fx-background-radius: 6, 5;
     -fx-background-insets: 0, 1;
