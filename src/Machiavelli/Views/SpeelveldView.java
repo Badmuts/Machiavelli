@@ -7,16 +7,13 @@ import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Karakters.Koopman;
 import Machiavelli.Models.Speelveld;
-import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -131,6 +128,9 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         actionBar.add(this.karakterActionBarView.getPane(), 1, 1);
         actionBar.add(this.handActionBarView.getPane(), 2, 1);
         actionBar.add(this.buttonHolderActionBarView, 3, 1);
+        GridPane.setValignment(this.karakterActionBarView.getPane(), VPos.BOTTOM);
+        GridPane.setValignment(this.handActionBarView.getPane(), VPos.BOTTOM);
+        GridPane.setValignment(this.buttonHolderActionBarView, VPos.BOTTOM);
         actionBar.getStyleClass().add("action-bar");
     }
 
