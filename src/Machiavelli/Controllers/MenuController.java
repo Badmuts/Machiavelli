@@ -48,8 +48,8 @@ public class MenuController {
         mainMenuView.getSpelregelsButton().setOnAction((event) ->
         		{
 					try {
-//						KiesInkomstenView view = new KiesInkomstenView();
-//						view.weergeefKiesInkomstenView();
+						KiesInkomstenView view = new KiesInkomstenView();
+						view.weergeefKiesInkomstenView();
 						
 //						KarakterController controller = new KarakterController();
 //						controller.cmdWeergeefKiesKarakterView();
@@ -57,9 +57,8 @@ public class MenuController {
 //						MeldingController melding = new MeldingController();
 //						melding.cmdSetMelding("Dit is een test melding.");
 //						melding.cmdWeergeefMeldingView();
-						new MeldingController().build("<MELDING SCHERM>").cmdWeergeefMeldingView();
+//						new MeldingController().build("<MELDING SCHERM>").cmdWeergeefMeldingView();
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
         		});

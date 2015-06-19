@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -36,6 +37,7 @@ public class RaadplegenSpelregelsController {
     	StackPane pane = new StackPane();
 //    	StackPane old = (StackPane) Machiavelli.getInstance().getStage().getScene().getRoot();
     	
+    	
     	Pane old = new Pane();
     	old.getChildren().add(Machiavelli.getInstance().getStage().getScene().getRoot());
     	pane.getChildren().addAll(old, cmdGetPane());
@@ -52,9 +54,10 @@ public class RaadplegenSpelregelsController {
 	
 	public void cmdSluitSpelregelView()
 	{
+
 		Pane newPane = new Pane();
     	Scene currentScene = Machiavelli.getInstance().getStage().getScene();
-
+    	
     	System.out.println("\nThe current scene contains the following nodes (panes): ");
     	for(Node node : currentScene.getRoot().getChildrenUnmodifiable())
     	{
@@ -64,8 +67,6 @@ public class RaadplegenSpelregelsController {
     			//deletes the spelregelview pane, from the nodelist of the scene...
     			newPane.getChildren().add(node);
     			
-    			//java.lang.UnsupportedOperationException
-//    			currentScene.getRoot().getChildrenUnmodifiable().remove(currentScene.getRoot().getChildrenUnmodifiable().indexOf(node));
     			System.out.println("\nVerwijderd: " + node.getId());
     			break;
     		}

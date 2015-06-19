@@ -1,13 +1,15 @@
 package Machiavelli.Controllers;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 
+import javafx.animation.FadeTransition;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 import Machiavelli.Machiavelli;
 import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Karakter;
@@ -65,9 +67,9 @@ public class KarakterController {
     					this.target = karakterFactory.getKarakterByNumber(buttonNumber);
 	    				this.speler.setKarakter(target);
 	    				
-	    				System.out.println("gekozen karakter: " + this.setTarget().getNaam());
-	    				
 	    				cmdSluitKiesKarakterView();
+	    				
+	    				new MeldingController().build("Je bent deze ronde een " + this.getTarget().getNaam()).cmdWeergeefMeldingView();
     				}
     				catch(Exception e)
     				{
@@ -89,11 +91,16 @@ public class KarakterController {
     	old.getChildren().add(Machiavelli.getInstance().getStage().getScene().getRoot());
     	pane.getChildren().addAll(old, karakterView.getPane());
     	
+    	FadeTransition ft = new FadeTransition(Duration.millis(700), pane);
+    	ft.setFromValue(0.7);
+    	ft.setToValue(1.0);
+    	ft.play();
+    	
     	Scene scene = new Scene(pane, 1440, 900);
 		Machiavelli.getInstance().getStage().setScene(scene);
     }
     
-    public Karakter setTarget()
+    public Karakter getTarget()
     {
     	return this.target;
     }
@@ -102,7 +109,7 @@ public class KarakterController {
     {
     	Pane newPane = new Pane();
     	Scene currentScene = Machiavelli.getInstance().getStage().getScene();
-
+    	
     	System.out.println("\nThe current scene contains the following nodes (panes): ");
     	for(Node node : currentScene.getRoot().getChildrenUnmodifiable())
     	{

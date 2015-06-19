@@ -60,6 +60,7 @@ public class InkomstenController
 			{
 				this.cmdKiezenKaart(this.trekkenKaartView.getButtonList().indexOf(button));
 				trekkenKaartView.cmdSluitTrekkenKaartView();
+				new MeldingController().build("Je hebt een nieuwe kaart getrokken").cmdWeergeefMeldingView();
 			});
 		}
 	}
@@ -87,6 +88,8 @@ public class InkomstenController
 			
 			System.out.println("Aantal goudmunten in speler portomonee: " + this.speler.getPortemonnee().getGoudMunten());
 			System.out.println("Aantal goudmunten in de bank: " + bank.getGoudMunten());
+			
+			new MeldingController().build("Je portomonee bevat nu " + this.speler.getPortemonnee().getGoudMunten() + " goudstukken").cmdWeergeefMeldingView();
 		} 
 		catch (RemoteException e) 
 		{

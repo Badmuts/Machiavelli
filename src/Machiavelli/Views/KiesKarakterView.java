@@ -1,10 +1,12 @@
 package Machiavelli.Views;
 
 import java.rmi.RemoteException;
+import java.time.Duration;
 import java.util.ArrayList;
 
 import com.sun.corba.se.impl.oa.poa.AOMEntry;
 
+import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
