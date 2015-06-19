@@ -32,7 +32,6 @@ public class Koning implements Karakter, Bonusable {
     private final int bouwLimiet = 1; 
     private final String naam = "Koning";
     private final Type type = Type.MONUMENT;
-    private Object target;
     
     private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Koning.png");
 
@@ -49,7 +48,7 @@ public class Koning implements Karakter, Bonusable {
 
     @Override
     public Speler getSpeler() throws RemoteException {
-        return null;
+        return speler;
     }
 
     /**
@@ -93,11 +92,6 @@ public class Koning implements Karakter, Bonusable {
     }
 
     @Override
-    public void setTarget(Object target) throws RemoteException {
-        this.target = target;
-    }
-
-    @Override
     public Image getImage() throws RemoteException {
         return this.image;
     }
@@ -114,10 +108,11 @@ public class Koning implements Karakter, Bonusable {
         }
     }
 
-    @Override
-    public void beurtOverslaan() throws RemoteException {
-
-    }
+	@Override
+	public void setTarget(Object target) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }

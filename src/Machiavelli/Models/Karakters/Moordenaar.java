@@ -74,9 +74,10 @@ public class Moordenaar implements Karakter {
     //beurt overslaan met ifjes???
 
     public void vermoordKarakter(Karakter target) throws RemoteException {
-    	target.beurtOverslaan();
-    }
-
+    	//target.getSpeler()
+    	//methode eindigenbeurt van de target aanroepen.
+    	}
+    
     public Karakter getVermoordKarakter() throws RemoteException {
 		return (Karakter)target;
 	}
@@ -113,11 +114,6 @@ public class Moordenaar implements Karakter {
         for (KarakterObserver observer: observers) {
             observer.modelChanged(this);
         }
-    }
-
-    @Override
-    public void beurtOverslaan() throws RemoteException {
-
     }
 }
 

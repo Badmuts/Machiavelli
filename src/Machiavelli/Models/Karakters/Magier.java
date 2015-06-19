@@ -28,6 +28,7 @@ import java.util.ArrayList;
  * factory terugstoppen en dezelfde hoeveelheid weer trekken
  */
 
+
 public class Magier implements Karakter {
 
     // Variables
@@ -56,6 +57,11 @@ public class Magier implements Karakter {
         return null;
     }
 
+    /**
+     *Ruil kaarten met de stapel of met een andere speler.
+     *
+     */
+    
     @Override
     public void gebruikEigenschap() throws RemoteException {
         // TODO: ruilen bouwkaarten
@@ -80,51 +86,13 @@ public class Magier implements Karakter {
             System.out.print(re);
         }
     }
-
-    // Ruil alle bouwkaarten met alle bouwkaarten van een ander speler/karakter??
-    private void ruilMetKarakter(Speler target, Speler magier) throws RemoteException {
-        ArrayList<GebouwKaartRemote> handTarget = target.getHand().getKaartenLijst();
-        ArrayList<GebouwKaartRemote> magierHand = magier.getHand().getKaartenLijst();
-        target.getHand().setKaartenLijst(magierHand);
-        magier.getHand().setKaartenLijst(handTarget);
-    }
-
-    // Leg een x aantal kaarten af op de stapel en pak een gelijk aantal nieuwe kaarten
-    private void ruilMetStapel(Hand hand, ArrayList<GebouwKaart> ruilLijst) throws RemoteException {
-        // Afleggen en tellen gebouwkaarten.
-        int count = 0;
-        for (int i = 0; i < ruilLijst.size(); i++) {
-            hand.removeGebouw(ruilLijst.get(i));
-            count ++;
-        }
-
-        // Trek nieuwe kaarten. Misschien functie maken die een lijst van gebouwen aan hand kan toevoegen?
-        ArrayList<GebouwKaartRemote> tempList = hand.getSpeler().trekkenKaart(count);
-        for (int i = 0; i < tempList.size(); i++) {
-            hand.addGebouw(tempList.get(i));
-        }
-    }
-
-    public Object getTarget() throws RemoteException {
-        return target;
-    }
-
-    public void setTarget(GebouwFactory target) throws RemoteException {
-        this.target = target;
-    }
-
-    public void setTarget(Speler target) throws RemoteException {
-        this.target = target;
-    }
-
-    public void setRuilLijst(ArrayList<GebouwKaart> ruilLijst) throws RemoteException {
-        this.ruilLijst = ruilLijst;
-    }
     
+    @Override
     public String getNaam() throws RemoteException {
     	return this.naam;
     }
    
+    @Override
     public int getNummer() throws RemoteException {
     	return this.nummer;
     }
@@ -159,9 +127,36 @@ public class Magier implements Karakter {
             observer.modelChanged(this);
         }
     }
+    
+ // Ruil alle bouwkaarten met alle bouwkaarten van een ander speler/karakter??
+    private void ruilMetKarakter(Speler target, Speler magier) throws RemoteException {
+        ArrayList<GebouwKaartRemote> handTarget = target.getHand().getKaartenLijst();
+        ArrayList<GebouwKaartRemote> magierHand = magier.getHand().getKaartenLijst();
+        target.getHand().setKaartenLijst(magierHand);
+        magier.getHand().setKaartenLijst(handTarget);
+    }
 
-    @Override
-    public void beurtOverslaan() throws RemoteException {
+    // Leg een x aantal kaarten af op de stapel en pak een gelijk aantal nieuwe kaarten
+    private void ruilMetStapel(Hand hand, ArrayList<GebouwKaart> ruilLijst) throws RemoteException {
+        // Afleggen en tellen gebouwkaarten.
+        int count = 0;
+        for (int i = 0; i < ruilLijst.size(); i++) {
+            hand.removeGebouw(ruilLijst.get(i));
+            count ++;
+        }
 
+        // Trek nieuwe kaarten. Misschien functie maken die een lijst van gebouwen aan hand kan toevoegen?
+        ArrayList<GebouwKaartRemote> tempList = hand.getSpeler().trekkenKaart(count);
+        for (int i = 0; i < tempList.size(); i++) {
+            hand.addGebouw(tempList.get(i));
+        }
+    }
+
+    public Object getTarget() throws RemoteException {
+        return target;
+    }
+
+    public void setRuilLijst(ArrayList<GebouwKaart> ruilLijst) throws RemoteException {
+        this.ruilLijst = ruilLijst;
     }
 }

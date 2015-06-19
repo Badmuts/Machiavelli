@@ -23,7 +23,6 @@ import java.util.ArrayList;
  */
 public class Bouwmeester implements Karakter {
 	
-	@SuppressWarnings("unused")
 	private Speler speler = null;
 	
 	/** Eigenschappen van karakter Bouwmeester */
@@ -65,11 +64,12 @@ public class Bouwmeester implements Karakter {
 			e.printStackTrace();
 		}
     }
-
+    
+    @Override
     public String getNaam() throws RemoteException {
     	return this.naam;
     }
-   
+   @Override
     public int getNummer() throws RemoteException {
     	return this.nummer;
     }
@@ -79,7 +79,7 @@ public class Bouwmeester implements Karakter {
         return this.bouwLimiet;
     }
 
-    
+    @Override
 	public Type getType() throws RemoteException {
 		return this.type;
 	}
@@ -105,10 +105,5 @@ public class Bouwmeester implements Karakter {
         for (KarakterObserver observer: observers) {
             observer.modelChanged(this);
         }
-    }
-
-    @Override
-    public void beurtOverslaan() throws RemoteException {
-
     }
 }

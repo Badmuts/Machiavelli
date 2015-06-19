@@ -26,7 +26,6 @@ public interface Karakter extends Remote {
 	void setSpeler(Speler speler) throws RemoteException;
     void gebruikEigenschap() throws RemoteException;
     void setTarget(Object target) throws RemoteException;
-    void beurtOverslaan() throws RemoteException;
     Speler getSpeler() throws RemoteException;
     String getNaam() throws RemoteException;
     int getNummer() throws RemoteException;

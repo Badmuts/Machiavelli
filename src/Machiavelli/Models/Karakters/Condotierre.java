@@ -56,18 +56,14 @@ public class Condotierre implements Karakter, Bonusable {
     @Override
     public void setTarget(Object target) throws RemoteException {
     	this.target = (GebouwKaart) target;
+    	gebruikEigenschap();
     }
 
     @Override
     public Image getImage() throws RemoteException {
         return this.image;
     }
-
-    @Override
-    public void beurtOverslaan() throws RemoteException {
-
-    }
-
+    
     /**
 	 * overriden van de methode uit de interface Karakter
 	 * en aanroepen van de methode selectGebouwView
@@ -76,27 +72,14 @@ public class Condotierre implements Karakter, Bonusable {
 	 * uit de stad van de speler waarin dit gebouw gekozen is
 	 */
     public void gebruikEigenschap() throws RemoteException {
-        // TODO: sloopgebouw
-
-        // this.selectGebouwView.start();
-        // TODO: Iets van een listener? (voor gekozen kaart (SelectGebouwView))
-        // TODO: Speler, remove gold (betaalGoud)
-        // this.vernietigGebouw.getStad().removeGebouw(vernietigGebouw);
     	try {
 			if (target != null && target.getStad().getSpeler().getKarakter().getNaam() != "Prediker") {
-				try {
 					vernietigGebouw(this.target.getStad(), getTarget());
+				}
+			else {
+				//TODO speelveldview aanroepen met klikbare gebouwen in steden
+			}
 					
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				}
-				else {
-					//view aanroepen
-					
-				}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

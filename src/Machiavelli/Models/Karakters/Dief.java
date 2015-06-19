@@ -74,24 +74,16 @@ public class Dief implements Karakter {
     		
     	}
     	else {
-    		//TODO view aanroepen om target te selecteren
+    		//TODO KiezenKarakterView aanroepen om een target te selecteren
     	}
     }
     
-    private void BesteelKarakter(Speler speler, Karakter target) {
-		try {
-			speler.getGoudVanBank(speler.getSpel().getBank(), target.getSpeler().getPortemonnee().getGoudMunten());
-			target.getSpeler().setGoudOpBank(target.getSpeler().getPortemonnee(), target.getSpeler().getPortemonnee().getGoudMunten());
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-	}
-
+    @Override
     public String getNaam() throws RemoteException {
     	return this.naam;
     }
-   
+    
+    @Override
     public int getNummer() throws RemoteException {
     	return this.nummer;
     }
@@ -100,11 +92,11 @@ public class Dief implements Karakter {
     public int getBouwLimiet() throws RemoteException {
         return this.bouwLimiet;
     }
-
+    
+    @Override
 	public Type getType() throws RemoteException {
 		return this.type;
 	}
-	
 	public Karakter getTarget() throws RemoteException {
 		return this.target;
 	}
@@ -125,10 +117,16 @@ public class Dief implements Karakter {
             observer.modelChanged(this);
         }
     }
+    
+    private void BesteelKarakter(Speler speler, Karakter target) {
+		try {
+			speler.getGoudVanBank(speler.getSpel().getBank(), target.getSpeler().getPortemonnee().getGoudMunten());
+			target.getSpeler().setGoudOpBank(target.getSpeler().getPortemonnee(), target.getSpeler().getPortemonnee().getGoudMunten());
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
 
-    @Override
-    public void beurtOverslaan() throws RemoteException {
-
-    }
 
 }

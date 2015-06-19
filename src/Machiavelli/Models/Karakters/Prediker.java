@@ -31,7 +31,8 @@ public class Prediker implements Karakter, Bonusable {
     private final int bouwLimiet = 1; 
     private final String naam = "Prediker";
     private final Type type = Type.KERKELIJK;
-    private Object target;
+    @SuppressWarnings("unused")
+	private Object target;
     
     private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Prediker.png");
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
@@ -52,6 +53,7 @@ public class Prediker implements Karakter, Bonusable {
     }
     
     /** ontvangen bonusgoud voor Kerk gebouwen */
+    @Override
     public void ontvangenBonusGoud() throws RemoteException {
         ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
         for(GebouwKaart gebouw: gebouwen) {
@@ -59,11 +61,12 @@ public class Prediker implements Karakter, Bonusable {
                 speler.getPortemonnee().ontvangenGoud(1);
         }
     }
-
+    @Override
     public String getNaam() throws RemoteException {
     	return this.naam;
     }
    
+    @Override
     public int getNummer() throws RemoteException {
     	return this.nummer;
     }
@@ -73,6 +76,7 @@ public class Prediker implements Karakter, Bonusable {
         return this.bouwLimiet;
     }
 
+    @Override
     public Type getType() throws RemoteException {
 		return this.type;
 	}
@@ -97,10 +101,5 @@ public class Prediker implements Karakter, Bonusable {
         for (KarakterObserver observer: observers) {
             observer.modelChanged(this);
         }
-    }
-
-    @Override
-    public void beurtOverslaan() throws RemoteException {
-
     }
 }

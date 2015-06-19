@@ -32,7 +32,9 @@ public class Koopman implements Karakter, Bonusable {
     private final int bouwLimiet = 1; 
     private final String naam = "Koopman";
     private final Type type = Type.COMMERCIEL;
-    private Object target;
+   
+    @SuppressWarnings("unused")
+	private Object target;
     
     private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Koopman.png");
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
@@ -51,7 +53,6 @@ public class Koopman implements Karakter, Bonusable {
         return null;
     }
 
-    // TODO: ontvangt 1 goudstuk
 	/**
 	 * overriden van de methode uit de interface Karakter
 	 * en aanroepen van de methode ontvangenBonusGoud
@@ -64,14 +65,6 @@ public class Koopman implements Karakter, Bonusable {
             System.out.print(re);
         }
     }
-	
-	/**
-	 * Deze methode wordt aangroepen door gebruikEigenschap()
-	 * de speler met het karakter koopman ontvangt 1 goudstuk
-	 */
-    public void ontvangenBonusGoud(Speler koopman) throws RemoteException {
-    	koopman.getPortemonnee().ontvangenGoud(1);
-    }
 
 	/** ontvangen bonusgoud voor commerciele gebouwen */
     @Override
@@ -83,10 +76,12 @@ public class Koopman implements Karakter, Bonusable {
         }
     }
     
+    @Override
     public String getNaam() throws RemoteException {
     	return this.naam;
     }
    
+    @Override
     public int getNummer() throws RemoteException {
     	return this.nummer;
     }
@@ -122,9 +117,12 @@ public class Koopman implements Karakter, Bonusable {
         }
     }
 
-    @Override
-    public void beurtOverslaan() throws RemoteException {
-
+    /**
+	 * Deze methode wordt aangroepen door gebruikEigenschap()
+	 * de speler met het karakter koopman ontvangt 1 goudstuk
+	 */
+    public void ontvangenBonusGoud(Speler koopman) throws RemoteException {
+    	koopman.getPortemonnee().ontvangenGoud(1);
     }
 
 }
