@@ -4,7 +4,7 @@ import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
 import Machiavelli.Machiavelli;
-import Machiavelli.Models.Karakters.Magier;
+import Machiavelli.Models.Karakters.Koopman;
 import Machiavelli.Models.Speelveld;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.rmi.RemoteException;
@@ -39,14 +40,26 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         this.createButtonHolder();
         this.createActionBar();
 
+        Pane topBar = new Pane();
+
         Image spelregelsbg = new Image("Machiavelli/Resources/SpelregelsBorder.png");
         ImageView iv = new ImageView(spelregelsbg);
         iv.setCache(true);
-        iv.setFitWidth(200);
+        iv.setFitWidth(205);
+        iv.setFitHeight(74);
+
+        Image topStatusImage = new Image("Machiavelli/Resources/top-status.png");
+        ImageView topStatus = new ImageView(topStatusImage);
+        topStatus.setCache(true);
+        topStatus.setFitWidth(307);
+        topStatus.setFitHeight(74);
+        topStatus.setLayoutX(566.5);
+
+        topBar.getChildren().addAll(iv, topStatus);
 
         BorderPane speelveldpane = new BorderPane();
         speelveldpane.setBottom(this.actionBar);
-        speelveldpane.setTop(iv);
+        speelveldpane.setTop(topBar);
         speelveldpane.getStylesheets().add("Machiavelli/Resources/style.css");
         speelveldpane.getStyleClass().add("speelveld");
         speelveldscene = new Scene(speelveldpane, 1440, 900);
@@ -67,7 +80,11 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     }
 
     private void createKarakterHolder() {
-        karakterActionBarView = new KarakterActionBarView(new Magier());
+        try {                                              // TESTING ONLY
+            karakterActionBarView = new KarakterActionBarView(new Koopman());
+        } catch (RemoteException re) {
+            re.printStackTrace();
+        }
     }
 
 	public void show(){

@@ -70,14 +70,16 @@ public class MainMenuView{
 		initButton(deelnemenknop,"Deelnemen", "gamekiezen", 700,450,200f,75f);
 		initButton(exitbutton2,"Afsluiten", "buttonexit", 700,530,200f,75f);
 		initButton(spelregels2,"Spelregels", "buttonregels", 15,10,125f,50f);
-		
+
 		Image spelregelsbg = new Image("Machiavelli/Resources/SpelregelsBorder.png");
-		ImageView iv = new ImageView(spelregelsbg);
+        ImageView iv = new ImageView(spelregelsbg);
 		ImageView iv2 = new ImageView(spelregelsbg);
 		iv.setCache(true);
-		iv.setFitWidth(200);
+		iv.setFitWidth(205);
+		iv.setFitHeight(74);
 		iv2.setCache(true);
-		iv2.setFitWidth(200);
+		iv2.setFitWidth(205);
+		iv2.setFitHeight(74);
 		
 		//toevoegen van elementen aan het frame
 		mainMenuPane.getChildren().addAll(iv, startbutton,exitbutton,spelregels,mainTx);

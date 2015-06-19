@@ -2,6 +2,8 @@ package Machiavelli.Views;
 
 import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Interfaces.Observers.HandObserver;
+import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
+import Machiavelli.Interfaces.Remotes.HandRemote;
 import Machiavelli.Models.Hand;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -37,6 +39,7 @@ public class HandActionBarView extends Pane implements HandObserver {
 
         this.getChildren().addAll(kaartholder); // Voeg achtergrond toe
         addGebouwKaartViews(); // Voeg views toe aan HandActionBarView (pane)
+        this.pane.setPrefHeight(250);
     }
 
     /**
@@ -45,7 +48,9 @@ public class HandActionBarView extends Pane implements HandObserver {
      */
     private void createBackground() {
         kaartholder = new Rectangle(0, 0, 840, 250);
-        kaartholder.setFill(Color.GRAY);
+        kaartholder.setFill(Color.rgb(74, 74, 74));
+        clip = new Rectangle(0, 0, 840, 250);
+        this.pane.setClip(clip);
     }
 
     /**
@@ -67,6 +72,8 @@ public class HandActionBarView extends Pane implements HandObserver {
      */
     private void addGebouwKaartViews() {
         int x = 0; // X coordinaat (voor uitlijning)
+        double y = -50.0;
+        int index = 0;
         // Loop  door gebouwKaartViews en wijzig de X coordinaat.
         for (GebouwKaartView gebouwKaartView: gebouwKaartViews) {
             gebouwKaartView.view().setLayoutX(x); // Zet X coordinaat

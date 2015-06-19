@@ -5,7 +5,6 @@ import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
-import javafx.scene.image.Image;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -32,8 +31,7 @@ public class Koning implements Karakter, Bonusable {
     private final String naam = "Koning";
     private final Type type = Type.MONUMENT;
     private Object target;
-    
-    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Koning.png");
+    private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Koning.png";
 
     /**
 	 * Overriden van de methode uit de interface Karakter,
@@ -90,8 +88,13 @@ public class Koning implements Karakter, Bonusable {
     }
 
     @Override
+<<<<<<< Updated upstream
     public void setTarget(Object target) {
         this.target = target;
+=======
+    public String getImage() throws RemoteException {
+        return this.image;
+>>>>>>> Stashed changes
     }
 
     @Override

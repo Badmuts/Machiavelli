@@ -1,12 +1,11 @@
 package Machiavelli.Models.Karakters;
 
 import Machiavelli.Enumerations.Type;
-import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.Speler;
-import javafx.scene.image.Image;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -35,7 +34,8 @@ public class Dief implements Karakter {
     private final Type type = Type.NORMAAL;
     
     /*Afbeelding van de Dief*/
-    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Dief.png");
+    private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Dief.png";
+    private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
     /**
    	 * Overriden van de methode uit de interface Karakter,
@@ -111,7 +111,7 @@ public class Dief implements Karakter {
 	}
 
     @Override
-    public Image getImage() {
+    public String getImage() throws RemoteException {
         return this.image;
     }
 

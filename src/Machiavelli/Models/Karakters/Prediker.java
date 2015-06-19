@@ -5,7 +5,6 @@ import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
-import javafx.scene.image.Image;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -32,7 +31,8 @@ public class Prediker implements Karakter, Bonusable {
     private final Type type = Type.KERKELIJK;
     private Object target;
     
-    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Prediker.png");
+    private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Prediker.png";
+    private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
     @Override
     public void setSpeler(Speler speler) {
@@ -81,7 +81,7 @@ public class Prediker implements Karakter, Bonusable {
     }
 
     @Override
-    public Image getImage() {
+    public String getImage() throws RemoteException {
         return this.image;
     }
 

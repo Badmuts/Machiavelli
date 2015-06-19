@@ -40,7 +40,7 @@ public class ButtonHolderActionBarView extends StackPane {
         initButton(exitbutton,"Afsluiten","button-danger", 2, 3, 160f, 55f);
 
         buttonholder = new Rectangle(0, 0, 350, 250);
-        buttonholder.setFill(Color.DIMGRAY);
+        buttonholder.setFill(Color.rgb(57, 57, 57));
         this.getChildren().addAll(buttonholder, buttonGrid);
     }
 

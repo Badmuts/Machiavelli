@@ -1,6 +1,8 @@
 package Machiavelli.Views;
 
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.KarakterObserver;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -8,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 public class KarakterActionBarView extends Pane {
 
@@ -16,17 +19,28 @@ public class KarakterActionBarView extends Pane {
     public KarakterActionBarView(Karakter karakter) {
         super();
         this.karakter = karakter;
-        this.getChildren().addAll(this.createBackground(), this.createPortrait(), this.createNumber());
+        this.pane = new Pane();
+        this.pane.getChildren().addAll(this.createBackground(), this.createPortrait(), this.createNumber(), this.createNameField());
     }
 
     private Rectangle createBackground() {
         Rectangle karakterholder = new Rectangle(0, 0, 250, 250);
-        karakterholder.setFill(Color.DIMGRAY);
+        karakterholder.setFill(Color.rgb(57, 57, 57));
         return karakterholder;
     }
 
     private ImageView createPortrait() {
-        ImageView portretview = new ImageView(this.karakter.getImage());
+        Rectangle clip = new Rectangle(150, 150);
+        clip.setArcHeight(20);
+        clip.setArcWidth(20);
+        ImageView portretview = new ImageView();
+        try {
+            portretview = new ImageView(new Image(this.karakter.getImage()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        portretview.setClip(clip);
+        portretview.getStyleClass().add("karakter-portrait");
         portretview.setCache(true);
         portretview.setLayoutX(50);
         portretview.setLayoutY(50);
@@ -68,5 +82,19 @@ public class KarakterActionBarView extends Pane {
         return circle;
     }
 
+    private Pane createNameField() {
+        Pane namePane = new Pane();
+        try {
+            Text name = new Text(this.karakter.getNaam());
+            name.getStyleClass().add("karakter-naam");
+            name.setWrappingWidth(250);
+            name.setLayoutY(185);
+            name.setTextAlignment(TextAlignment.CENTER);
+            namePane.getChildren().add(name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return namePane;
+    }
 
 }

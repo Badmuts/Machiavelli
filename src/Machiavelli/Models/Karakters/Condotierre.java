@@ -6,8 +6,6 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 import Machiavelli.Models.Stad;
-import javafx.scene.image.Image;
-
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -34,9 +32,10 @@ public class Condotierre implements Karakter, Bonusable {
 	private final int bouwLimiet = 1; 
 	private final String naam = "Condotierre";
     private final Type type = Type.MILITAIR;
-    
-    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Condotierre.png");
-    
+    private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Condotierre.png";
+
+    private ArrayList<KarakterObserver> observers = new ArrayList<>();
+
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Condotierre wordt aan de speler gekoppeld.
@@ -57,7 +56,7 @@ public class Condotierre implements Karakter, Bonusable {
     }
 
     @Override
-    public Image getImage() {
+    public String getImage() throws RemoteException {
         return this.image;
     }
 
