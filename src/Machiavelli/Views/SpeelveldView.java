@@ -7,13 +7,12 @@ import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Karakters.Koopman;
 import Machiavelli.Models.Speelveld;
-import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -27,7 +26,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 	private Speelveld speelveld;
 	private Scene speelveldscene;
 	private Stage stage = Machiavelli.getInstance().getStage();
-    private GridPane actionBar;
+    private AnchorPane actionBar;
     private ButtonHolderActionBarView buttonHolderActionBarView;
     private HandActionBarView handActionBarView;
     private KarakterActionBarView karakterActionBarView;
@@ -124,13 +123,15 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 	}
 
     private void createActionBar() {
-        actionBar = new GridPane();
-        actionBar.add(this.karakterActionBarView.getPane(), 1, 1);
-        actionBar.add(this.handActionBarView.getPane(), 2, 1);
-        actionBar.add(this.buttonHolderActionBarView, 3, 1);
-        GridPane.setValignment(this.karakterActionBarView.getPane(), VPos.BOTTOM);
-        GridPane.setValignment(this.handActionBarView.getPane(), VPos.BOTTOM);
-        GridPane.setValignment(this.buttonHolderActionBarView, VPos.BOTTOM);
+        actionBar = new AnchorPane();
+        actionBar.getChildren().add(this.karakterActionBarView.getPane());
+        actionBar.getChildren().add(this.handActionBarView.getPane());
+        actionBar.getChildren().add(this.buttonHolderActionBarView);
+        AnchorPane.setBottomAnchor(this.karakterActionBarView.getPane(), 0.0);
+        AnchorPane.setLeftAnchor(this.karakterActionBarView.getPane(), 0.0);
+        AnchorPane.setBottomAnchor(this.handActionBarView.getPane(), 0.0);
+        AnchorPane.setBottomAnchor(this.buttonHolderActionBarView, 0.0);
+        AnchorPane.setRightAnchor(this.buttonHolderActionBarView, 0.0);
         actionBar.getStyleClass().add("action-bar");
     }
 

@@ -5,6 +5,7 @@ import Machiavelli.Interfaces.Observers.HandObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.HandRemote;
 import Machiavelli.Models.Hand;
+import javafx.geometry.Pos;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -20,7 +21,7 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
     private ArrayList<GebouwKaartView> gebouwKaartViews = new ArrayList<GebouwKaartView>();
     private Rectangle kaartholder;
     private GebouwKaartController gebouwKaartController;
-    private Pane pane = new StackPane();
+    private StackPane pane = new StackPane();
     private Rectangle clip;
 
     /**
@@ -31,6 +32,7 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
     public HandActionBarView(HandRemote hand, GebouwKaartController gebouwKaartController) throws RemoteException {
         this.hand = hand;
         this.gebouwKaartController = gebouwKaartController;
+        this.pane.setPrefSize(840, 275);
         try {
             this.hand.addObserver(this);
         } catch (Exception e) {
@@ -42,8 +44,7 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
 
         this.pane.getChildren().addAll(kaartholder); // Voeg achtergrond toe
         addGebouwKaartViews(); // Voeg views toe aan HandActionBarView (pane)
-//        this.pane.setPrefHeight(250);
-//        StackPane.setAlignment(kaartholder, Pos.BOTTOM_CENTER);
+        this.pane.setLayoutX(250);
     }
 
     /**
@@ -53,8 +54,10 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
     private void createBackground() {
         kaartholder = new Rectangle(0, 0, 840, 250);
         kaartholder.setFill(Color.rgb(74, 74, 74));
-        clip = new Rectangle(0, 0, 840, 250);
-        this.pane.setClip(clip);
+//        clip = new Rectangle(0, 0, 840, 250);
+//        this.pane.setClip(clip);
+//        AnchorPane.setBottomAnchor(kaartholder, 0.0);
+        StackPane.setAlignment(kaartholder, Pos.BOTTOM_CENTER);
     }
 
     /**
@@ -84,18 +87,21 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
     private void addGebouwKaartViews() {
         Pane handPane = new Pane();
         int x = 0; // X coordinaat (voor uitlijning)
-        double y = -40.0;
+        int totalWidth = 0;
         int index = 0;
         // Loop  door gebouwKaartViews en wijzig de X coordinaat.
         for (GebouwKaartView gebouwKaartView: gebouwKaartViews) {
             gebouwKaartView.view().setLayoutX(x); // Zet X coordinaat
-            gebouwKaartView.view().setLayoutY(y);
             gebouwKaartView.view().setRotate(calcRotation(index, gebouwKaartViews.size()));
             handPane.getChildren().add(gebouwKaartView.view()); // Voeg view to aan Pane
             x += 130; // Verhoog X coordinaat met 100
+            totalWidth += gebouwKaartView.view().getPrefWidth();
             index++;
         }
+//        totalWidth = totalWidth - x;
+        handPane.setMaxWidth(totalWidth);
         this.pane.getChildren().add(handPane);
+        StackPane.setAlignment(handPane, Pos.TOP_CENTER);
     }
 
     private int calcRotation(int cardIndex, int totalCards) {

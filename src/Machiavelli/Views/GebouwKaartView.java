@@ -3,8 +3,6 @@ package Machiavelli.Views;
 import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -31,6 +29,7 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         this.gebouwKaartController = gebouwkaartController;
         this.gebouwKaartView = new StackPane();
         this.gebouwKaartView.getChildren().addAll(createImageView(), createScoreView(), createNameField());
+        this.gebouwKaartView.setPrefSize(150, 250);
     }
 
     private ImageView createImageView() {
