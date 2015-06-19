@@ -18,6 +18,7 @@ import java.util.*;
 public class PuntenModel implements Serializable {
 
 	private ArrayList<PuntenObserver> observers = new ArrayList<>();
+	private ArrayList<Speler> scoreLijst = new ArrayList<>();
 	private Spel spel;
 
 
@@ -33,6 +34,7 @@ public class PuntenModel implements Serializable {
 			totalScore = getStadBonus(speler.getStad()) + getKleurBonus(speler.getStad());
 			speler.getStad().setWaardeStad(totalScore);
 		}
+		// Scorelijst maken van hoog naar laag.
 	}
 
 	// De waarde van alle gebouwen in een stad
@@ -48,8 +50,7 @@ public class PuntenModel implements Serializable {
 	// Als je 5 verschillende kleuren in je stad hebt krijg je 3 punten
 	private int getKleurBonus(Stad stad) throws RemoteException {
 		int bonus = 0;
-		Set differentTypes = new TreeSet<>();
-
+		HashSet<Type> differentTypes = new HashSet<>();
 		for (GebouwKaart kaart: stad.getGebouwen())
 		{
 			differentTypes.add(kaart.getType());
@@ -62,11 +63,18 @@ public class PuntenModel implements Serializable {
 		return bonus;
 	}
 
+	// Als er gelijjkspel is worden alleen de gebouwkaarten geteld.
 	private void gelijkSpel()
 	{
 		//TODO: wat als er gelijk spel is?
 	}
-	
+
+	public String scoreLijst()
+	{
+		//TODO lijst geven met scores.
+		return null;
+	}
+
 	// RMI
 	public void addObserver(PuntenObserver observer) throws RemoteException {
 		observers.add(observer);

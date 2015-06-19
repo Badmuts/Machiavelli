@@ -11,6 +11,10 @@ import java.util.ArrayList;
  */
 public class Stad implements Serializable {
 	private final Speler speler;
+
+	// met deze list checken of er al 8 (of meer)
+	// gebouwen zijn geplaatst, zo ja:
+	// ronde stoppen en dan scores berekenen.
 	private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
 	private Spel spel;
 	private int waardeStad;
