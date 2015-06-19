@@ -92,10 +92,8 @@
 
 .gebouwkaart-naam {
     -fx-fill: #FFFFFF;
-    -fx-font-size: 2em;
+    -fx-font-size: 1.7em;
     -fx-effect: dropshadow(three-pass-box, black, 1, 1.0, 1, 1);
-    -fx-translate-x: -6;
-    -fx-translate-y: 8;
 }
 
 .gebouwkaart {
@@ -124,4 +122,12 @@
     -fx-fill: white;
     -fx-font-size: 1.8em;
     -fx-effect: dropshadow(three-pass-box, black, 0, 0.0, 1, 1);
+}
+
+.gebouwkaart-score {
+    -fx-fill: #FFFFFF;
+    -fx-font-size: 2em;
+    -fx-effect: dropshadow(three-pass-box, black, 1, 1.0, 1, 1);
+    -fx-translate-x: -6;
+    -fx-translate-y: 8;
 }

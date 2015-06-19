@@ -53,7 +53,7 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
             circle.getStyleClass().add("gebouwkaart-circle");
 
             Text gebouwScore = new Text(String.valueOf(gebouwKaart.getKosten()));
-            gebouwScore.getStyleClass().add("gebouwkaart-naam");
+            gebouwScore.getStyleClass().add("gebouwkaart-score");
 
             gebouwScoreView.getChildren().addAll(circle, gebouwScore);
         } catch (RemoteException re) {
@@ -88,7 +88,7 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
 
     private StackPane createNameField() {
         StackPane gebouwKaartName = new StackPane();
-        Rectangle background = new Rectangle(200, 75);
+        Rectangle background = new Rectangle(200, 50);
         background.setFill(Color.rgb(0, 0, 0, 0.7));
         try {
             Text name = new Text(gebouwKaart.getNaam());

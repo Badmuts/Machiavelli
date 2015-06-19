@@ -98,7 +98,6 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
             totalWidth += gebouwKaartView.view().getPrefWidth();
             index++;
         }
-//        totalWidth = totalWidth - x;
         handPane.setMaxWidth(totalWidth);
         this.pane.getChildren().add(handPane);
         StackPane.setAlignment(handPane, Pos.TOP_CENTER);
@@ -106,7 +105,7 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
 
     private int calcRotation(int cardIndex, int totalCards) {
         // TODO: implement rotation calculation
-//        int middle = totalCards/2;
+        // int middle = totalCards/2;
         return 0;
     }
 
