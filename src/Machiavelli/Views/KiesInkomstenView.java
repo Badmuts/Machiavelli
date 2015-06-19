@@ -80,8 +80,16 @@ public class KiesInkomstenView {
 		});
 		
 		this.ontvangKaarten.setOnAction((event) -> {
-			this.cmdSluitKiesInkomstenView();
-			this.inkomstenController.weergeefTrekkenKaartView();
+			try
+			{
+				this.cmdSluitKiesInkomstenView();
+				this.inkomstenController.cmdTrekkenKaart();
+				this.inkomstenController.weergeefTrekkenKaartView();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 		});
 		
 		this.pane = new Pane();

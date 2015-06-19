@@ -48,10 +48,10 @@ public class MenuController {
         mainMenuView.getSpelregelsButton().setOnAction((event) ->
         		{
 					try {
-						KiesInkomstenView view = new KiesInkomstenView();
-						view.weergeefKiesInkomstenView();
-//						KarakterController controller = new KarakterController();
-//						controller.cmdWeergeefKiesKarakterView();
+//						KiesInkomstenView view = new KiesInkomstenView();
+//						view.weergeefKiesInkomstenView();
+						KarakterController controller = new KarakterController();
+						controller.cmdWeergeefKiesKarakterView();
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

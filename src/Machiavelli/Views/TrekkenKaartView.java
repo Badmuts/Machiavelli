@@ -125,7 +125,7 @@ public class TrekkenKaartView
     	newPane = null;
     	
     	//show the nodes in the current list.
-    	System.out.println("\nThe current scene contains the following nodes (panes): ");
+    	System.out.println("\nThe current scene contains the following  nodes (panes): ");
     	for(Node node : currentScene.getRoot().getChildrenUnmodifiable())
     	{
     		System.out.println(node.idProperty());
