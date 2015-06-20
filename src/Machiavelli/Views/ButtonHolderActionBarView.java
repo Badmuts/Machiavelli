@@ -12,8 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public class ButtonHolderActionBarView extends StackPane implements SpelerObserver {
+public class ButtonHolderActionBarView extends UnicastRemoteObject implements SpelerObserver {
 
     private SpeelveldController speelveldController;
     private GridPane buttonGrid = new GridPane();
@@ -26,10 +27,12 @@ public class ButtonHolderActionBarView extends StackPane implements SpelerObserv
     private Button eindebeurtbutton;
     private Rectangle buttonholder;
     private SpelerRemote speler;
+    private StackPane container;
 
-    public ButtonHolderActionBarView(SpeelveldController speelveldController) {
+    public ButtonHolderActionBarView(SpeelveldController speelveldController) throws RemoteException {
         this.speelveldController = speelveldController;
         this.speler = speelveldController.getSpeler();
+        this.container = new StackPane();
         gebruikEigenschap = new Button();
         exitbutton = new Button();
         spelregels = new Button();
@@ -57,7 +60,7 @@ public class ButtonHolderActionBarView extends StackPane implements SpelerObserv
 
         buttonholder = new Rectangle(0, 0, 350, 250);
         buttonholder.setFill(Color.rgb(57, 57, 57));
-        this.getChildren().addAll(buttonholder, buttonGrid);
+        this.container.getChildren().addAll(buttonholder, buttonGrid);
     }
 
     /**
@@ -115,5 +118,12 @@ public class ButtonHolderActionBarView extends StackPane implements SpelerObserv
     @Override
     public void modelChanged(SpelerRemote speler) throws RemoteException {
         this.speler = speler;
+        this.container.getChildren().clear();
+        isKarakterBonusable();
+        this.container.getChildren().addAll(buttonholder, buttonGrid);
+    }
+
+    public StackPane getPane() {
+        return this.container;
     }
 }
