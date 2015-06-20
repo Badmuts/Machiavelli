@@ -1,5 +1,6 @@
 package Machiavelli.Controllers;
 
+import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Models.Speelveld;
@@ -18,6 +19,7 @@ import java.rmi.server.UnicastRemoteObject;
  */
 
 public class SpeelveldController extends UnicastRemoteObject implements SpelObserver, Serializable {
+    private Speler speler;
     private GebouwKaartController gebouwKaartController;
     private Speelveld speelveld;
 	private SpeelveldView speelveldview;
@@ -25,6 +27,7 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
 
     public SpeelveldController(SpelRemote spel, Speler speler, GebouwKaartController gebouwKaartController) throws RemoteException {
         this.spel = spel;
+        this.speler = speler;
         this.speelveld = new Speelveld(this.spel);
         this.speelveld.addSpeler(speler);
         this.gebouwKaartController = gebouwKaartController;
@@ -44,8 +47,17 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
 
     @Override
     public void modelChanged(SpelRemote spel) throws RemoteException {
-        // tmp casting
         System.out.println("SpeelveldController: Spel model changed!");
         System.out.println("Aantal spelers: " + this.spel.getAantalSpelers());
+    }
+
+    public void cmdBonusGoud() {
+        try {
+            Bonusable karakter = (Bonusable)this.speler.getKarakter();
+            karakter.ontvangenBonusGoud();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

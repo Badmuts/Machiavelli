@@ -131,3 +131,13 @@
     -fx-translate-x: -6;
     -fx-translate-y: 8;
 }
+
+.portemonnee {
+    -fx-fill: #FFFFFF;
+    -fx-font-size: 1.8em;
+    -fx-effect: dropshadow(three-pass-box, black, 1, 1.0, 1, 1);
+    -fx-translate-x: 630;
+    -fx-translate-y: 35;
+    -fx-text-alignment: right;
+    -fx-min-width: 25;
+}

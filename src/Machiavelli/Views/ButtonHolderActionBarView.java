@@ -1,5 +1,6 @@
 package Machiavelli.Views;
 
+import Machiavelli.Controllers.SpeelveldController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -9,6 +10,7 @@ import javafx.scene.shape.Rectangle;
 
 public class ButtonHolderActionBarView extends StackPane {
 
+    private SpeelveldController speelveldController;
     private GridPane buttonGrid = new GridPane();
     private Button gebruikEigenschap;
     private Button exitbutton;
@@ -19,7 +21,8 @@ public class ButtonHolderActionBarView extends StackPane {
     private Button eindebeurtbutton;
     private Rectangle buttonholder;
 
-    public ButtonHolderActionBarView() {
+    public ButtonHolderActionBarView(SpeelveldController speelveldController) {
+        this.speelveldController = speelveldController;
         gebruikEigenschap = new Button();
         exitbutton = new Button();
         spelregels = new Button();
@@ -38,6 +41,8 @@ public class ButtonHolderActionBarView extends StackPane {
         initButton(eindebeurtbutton,"Einde beurt","button-danger", 2, 2, 160f, 55f);
         initButton(opslaanknop,"Opslaan","button-success", 1, 3, 160f, 55f);
         initButton(exitbutton,"Afsluiten","button-danger", 2, 3, 160f, 55f);
+
+        goudbutton.setOnAction(event -> this.speelveldController.cmdBonusGoud());
 
         buttonholder = new Rectangle(0, 0, 350, 250);
         buttonholder.setFill(Color.rgb(57, 57, 57));
