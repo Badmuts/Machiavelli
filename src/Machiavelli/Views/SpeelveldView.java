@@ -104,7 +104,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         try {                                      // TESTING ONLY
             this.speelveld.getSpeler().setKarakter(new Koopman()); // TESTING
             this.speelveld.getSpeler().getKarakter().setSpeler(this.speelveld.getSpeler()); // TESTING
-            karakterActionBarView = new KarakterActionBarView(this.speelveld.getSpeler().getKarakter());
+            karakterActionBarView = new KarakterActionBarView(this.speelveld.getSpeler().getKarakter(), this.speelveld.getSpeler());
         } catch (RemoteException re) {
             re.printStackTrace();
         }

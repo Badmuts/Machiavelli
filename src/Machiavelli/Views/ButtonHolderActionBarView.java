@@ -51,6 +51,7 @@ public class ButtonHolderActionBarView extends StackPane implements SpelerObserv
 
         goudbutton.setOnAction(event -> this.speelveldController.cmdBonusGoud());
         bouwbutton.setOnAction(event -> this.speelveldController.cmdBouwGebouw());
+        eindebeurtbutton.setOnAction(event -> this.speelveldController.cmdEindeBeurt());
 
         isKarakterBonusable();
 

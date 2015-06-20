@@ -68,4 +68,8 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
     public void cmdBouwGebouw() {
         // TODO: Implement gebouwbouwen method
     }
+
+    public void cmdEindeBeurt() {
+        // TODO: Implement eindeBeurt method
+    }
 }

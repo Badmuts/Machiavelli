@@ -1,7 +1,9 @@
 package Machiavelli.Views;
 
 import Machiavelli.Interfaces.Karakter;
-import Machiavelli.Interfaces.Observers.KarakterObserver;
+import Machiavelli.Interfaces.Observers.SpelerObserver;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
+import Machiavelli.Models.Speler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -15,13 +17,18 @@ import javafx.scene.text.TextAlignment;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class KarakterActionBarView extends UnicastRemoteObject implements KarakterObserver {
+public class KarakterActionBarView extends UnicastRemoteObject implements SpelerObserver {
 
     private Karakter karakter;
     private Pane pane;
+    private SpelerRemote speler;
 
-    public KarakterActionBarView(Karakter karakter) throws RemoteException {
+    public KarakterActionBarView(Karakter karakter, Speler speler) throws RemoteException {
         this.karakter = karakter;
+        this.speler = speler;
+
+        this.speler.addObserver(this);
+
         this.pane = new Pane();
         this.pane.getChildren().addAll(this.createBackground(), this.createPortrait(), this.createNumber(), this.createNameField());
     }
@@ -109,13 +116,16 @@ public class KarakterActionBarView extends UnicastRemoteObject implements Karakt
         return namePane;
     }
 
-    @Override
-    public void modelChanged(Karakter karakter) {
-        this.karakter = karakter;
-        // TODO: update view
-    }
-
     public Pane getPane() {
         return this.pane;
+    }
+
+    @Override
+    public void modelChanged(SpelerRemote speler) throws RemoteException {
+        this.speler = speler;
+        this.karakter = this.speler.getKarakter();
+        this.pane.getChildren().clear(); // Leeg het pane (de view)
+        // Vul pane met nieuwe waardes
+        this.pane.getChildren().addAll(this.createBackground(), this.createPortrait(), this.createNumber(), this.createNameField());
     }
 }
