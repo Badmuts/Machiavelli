@@ -8,7 +8,6 @@ import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
 import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Karakters.Koopman;
-import Machiavelli.Models.Karakters.Moordenaar;
 import Machiavelli.Models.Speelveld;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,8 +16,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -104,9 +101,9 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     }
 
     private void createKarakterHolder() {
-        try {                                              // TESTING ONLY
-            this.speelveld.getSpeler().setKarakter(new Moordenaar());
-            this.speelveld.getSpeler().getKarakter().setSpeler(this.speelveld.getSpeler());
+        try {                                      // TESTING ONLY
+            this.speelveld.getSpeler().setKarakter(new Koopman()); // TESTING
+            this.speelveld.getSpeler().getKarakter().setSpeler(this.speelveld.getSpeler()); // TESTING
             karakterActionBarView = new KarakterActionBarView(this.speelveld.getSpeler().getKarakter());
         } catch (RemoteException re) {
             re.printStackTrace();
@@ -168,6 +165,6 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     @Override
     public void modelChanged(PortemonneeRemote portemonnee) throws RemoteException {
         this.portemonnee = portemonnee;
-        this.createPortemonnee();
+        this.portemonneeView.setText(String.valueOf(portemonnee.getGoudMunten()));
     }
 }

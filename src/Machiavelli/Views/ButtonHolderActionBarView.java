@@ -1,6 +1,8 @@
 package Machiavelli.Views;
 
 import Machiavelli.Controllers.SpeelveldController;
+import Machiavelli.Interfaces.Bonusable;
+import Machiavelli.Interfaces.Karakter;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -43,6 +45,19 @@ public class ButtonHolderActionBarView extends StackPane {
         initButton(exitbutton,"Afsluiten","button-danger", 2, 3, 160f, 55f);
 
         goudbutton.setOnAction(event -> this.speelveldController.cmdBonusGoud());
+
+        try {
+            Karakter karakter = speelveldController.getSpeler().getKarakter();
+            Bonusable bonusable = (Bonusable)karakter;
+        } catch (Exception e) {
+            if (e instanceof ClassCastException) {
+                // TODO: Disable bonusgoud button.
+                goudbutton.setDisable(true);
+            } else {
+                goudbutton.setDisable(false);
+            }
+        }
+
 
         buttonholder = new Rectangle(0, 0, 350, 250);
         buttonholder.setFill(Color.rgb(57, 57, 57));
