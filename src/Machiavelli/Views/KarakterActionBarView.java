@@ -23,7 +23,7 @@ public class KarakterActionBarView extends UnicastRemoteObject implements Speler
     private Pane pane;
     private SpelerRemote speler;
 
-    public KarakterActionBarView(Karakter karakter, Speler speler) throws RemoteException {
+    public KarakterActionBarView(Karakter karakter, SpelerRemote speler) throws RemoteException {
         this.karakter = karakter;
         this.speler = speler;
 

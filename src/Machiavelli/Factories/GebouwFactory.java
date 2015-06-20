@@ -16,7 +16,7 @@ import java.util.Collections;
  */
 public class GebouwFactory implements GebouwFactoryRemote, Serializable {
 
-    private ArrayList<GebouwKaartRemote> gebouwen = new ArrayList<GebouwKaartRemote>();
+    private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
     private ArrayList<GebouwFactoryObserver> observers = new ArrayList<GebouwFactoryObserver>();
 
     public GebouwFactory() throws RemoteException {
@@ -66,13 +66,13 @@ public class GebouwFactory implements GebouwFactoryRemote, Serializable {
         this.gebouwen.add(gebouw);
     }
 
-    public GebouwKaartRemote trekKaart() throws RemoteException {
-        GebouwKaartRemote gebouw = gebouwen.get(0);
+    public GebouwKaart trekKaart() throws RemoteException {
+        GebouwKaart gebouw = gebouwen.get(0);
         gebouwen.remove(gebouw);
         return gebouw;
     }
 
-    public ArrayList<GebouwKaartRemote> getGebouwen() throws RemoteException
+    public ArrayList<GebouwKaart> getGebouwen() throws RemoteException
     {
         return this.gebouwen;
     }

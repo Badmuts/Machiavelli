@@ -1,9 +1,7 @@
 package Machiavelli.Models;
 
-import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelerObserver;
-import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
@@ -29,7 +27,6 @@ public class Speler implements SpelerRemote, Serializable {
 	private SpelRemote spel;
 	private Stad stad;
 	private ArrayList<SpelerObserver> observers = new ArrayList<>();
-	private SpeelveldController speelveldController;
 
 	// Speler toewijzen aan spel en een nieuwe portemonnee, hand en stad maken.
 	public Speler() {
@@ -56,8 +53,8 @@ public class Speler implements SpelerRemote, Serializable {
 	}
 
 	// Trekken van twee kaarten uit de stapel
-	public ArrayList<GebouwKaartRemote> trekkenKaart() throws RemoteException {
-		ArrayList<GebouwKaartRemote> tempList = new ArrayList<GebouwKaartRemote>();
+	public ArrayList<GebouwKaart> trekkenKaart() throws RemoteException {
+		ArrayList<GebouwKaart> tempList = new ArrayList<GebouwKaart>();
 		for (int i = 0; i < 2; i++)
 		{
 			tempList.add(this.spel.getGebouwFactory().trekKaart());
@@ -66,8 +63,8 @@ public class Speler implements SpelerRemote, Serializable {
 	}
 
 	// Trekken van een x aantal kaarten van de stapel
-	public ArrayList<GebouwKaartRemote> trekkenKaart(int aantal) throws RemoteException {
-		ArrayList<GebouwKaartRemote>tempList = new ArrayList<GebouwKaartRemote>();
+	public ArrayList<GebouwKaart> trekkenKaart(int aantal) throws RemoteException {
+		ArrayList<GebouwKaart>tempList = new ArrayList<GebouwKaart>();
 		for (int i = 0; i < aantal; i++)
 		{
 			tempList.add(this.spel.getGebouwFactory().trekKaart());

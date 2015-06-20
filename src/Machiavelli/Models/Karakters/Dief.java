@@ -5,6 +5,7 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Models.Speler;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ import java.util.ArrayList;
  * aan de beurt is
  */
 
-public class Dief implements Karakter {
+public class Dief implements Karakter, Serializable {
 	
 	private Speler speler = null;
 	private Karakter target = null;

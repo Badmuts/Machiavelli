@@ -7,6 +7,7 @@ import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ import java.util.ArrayList;
  * zijn eigenschap en ontvangt 1 goudstuk voor elk 
  * commericiel gebouw in zijn stad.
  */
-public class Koopman implements Karakter, Bonusable {
+public class Koopman implements Karakter, Bonusable, Serializable {
 	
 	private Speler speler = null; 
 	

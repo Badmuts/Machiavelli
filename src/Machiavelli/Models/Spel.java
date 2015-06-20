@@ -3,6 +3,7 @@ package Machiavelli.Models;
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Models.Karakters.Prediker;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -14,7 +15,6 @@ public class Spel implements SpelRemote, Serializable {
 	private GebouwFactory gebouwFactory;
 	private ArrayList<SpelObserver> observers;
 	private ArrayList<Speler> spelers = new ArrayList<>();
-	private int aantalspelers;
 
 	public Spel(){
 
@@ -72,4 +72,12 @@ public class Spel implements SpelRemote, Serializable {
     public int getMaxAantalSpelers() {
         return this.maxAantalSpelers;
     }
+
+	public void createNewSpeler() throws RemoteException{
+		Speler speler = new Speler();
+        speler.addSpel(this);
+        speler.setKarakter(new Prediker()); // TESTING ONLY
+        speler.getKarakter().setSpeler(speler); // TESTING ONLY
+		this.spelers.add(speler);
+	}
 }

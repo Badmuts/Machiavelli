@@ -2,6 +2,7 @@ package Machiavelli.Interfaces;
 
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speler;
 
 import java.rmi.Remote;

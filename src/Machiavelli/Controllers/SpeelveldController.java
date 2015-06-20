@@ -20,13 +20,13 @@ import java.rmi.server.UnicastRemoteObject;
  */
 
 public class SpeelveldController extends UnicastRemoteObject implements SpelObserver, Serializable {
-    private Speler speler;
+    private SpelerRemote speler;
     private GebouwKaartController gebouwKaartController;
     private Speelveld speelveld;
 	private SpeelveldView speelveldview;
 	private SpelRemote spel;
 
-    public SpeelveldController(SpelRemote spel, Speler speler, GebouwKaartController gebouwKaartController) throws RemoteException {
+    public SpeelveldController(SpelRemote spel, SpelerRemote speler, GebouwKaartController gebouwKaartController) throws RemoteException {
         this.spel = spel;
         this.speler = speler;
         this.speelveld = new Speelveld(this.spel);

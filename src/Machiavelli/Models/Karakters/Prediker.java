@@ -7,6 +7,7 @@ import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ import java.util.ArrayList;
  * Uit de stad van de prediker kunnen geen gebouwen worden
  * verwijderd.
  */
-public class Prediker implements Karakter, Bonusable {
+public class Prediker implements Karakter, Bonusable, Serializable {
 	
 	private Speler speler = null;
 

@@ -5,6 +5,7 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Models.Speler;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  * in zijn beurt 3 gebouwen bouwen.
  * 
  */
-public class Bouwmeester implements Karakter {
+public class Bouwmeester implements Karakter, Serializable {
 	
 	private Speler speler = null;
 	

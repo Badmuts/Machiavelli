@@ -1,6 +1,7 @@
 package Machiavelli.Controllers;
 
 import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speler;
 
 import java.rmi.RemoteException;
@@ -25,12 +26,9 @@ public class SpelController extends UnicastRemoteObject {
         }
 	}
 
-    public void cmdAddSpeler(Speler speler) {
+    public void cmdAddSpeler() {
         try {
-            // Voeg speler toe aan spel
-            this.spel.addSpeler(speler);
-            // Voeg spel toe aan speler
-            speler.addSpel(this.spel);
+            Speler speler = this.spel.getSpelers().get(this.spel.getSpelers().size()-1);
             // Start nieuwe SpeelveldController
             new SpeelveldController(this.spel, speler, this.gebouwKaartController);
         } catch (Exception re) {

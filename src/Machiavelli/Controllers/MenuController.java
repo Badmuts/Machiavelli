@@ -62,9 +62,10 @@ public class MenuController {
     public void cmdDeelnemenSpel() {
         // TODO: Show new games
     	try{
-    		SpelRemote spel = (SpelRemote)registry.lookup("Spel");
-            this.spelController = new SpelController(spel);
-            this.spelController.cmdAddSpeler(new Speler());
+    		SpelRemote spelStub = (SpelRemote)registry.lookup("Spel");
+            spelStub.createNewSpeler();
+            this.spelController = new SpelController(spelStub);
+            this.spelController.cmdAddSpeler();
     	} catch(Exception re) {
     		re.printStackTrace();
     	}
@@ -88,8 +89,9 @@ public class MenuController {
     		int maxAantalSpelers = Integer.parseInt(this.invullenspeler.getTextField());
             SpelRemote spelStub = (SpelRemote)this.registry.lookup("Spel");
             spelStub.createNewSpel(maxAantalSpelers);
+            spelStub.createNewSpeler();
             this.spelController = new SpelController(spelStub);
-            this.spelController.cmdAddSpeler(new Speler());
+            this.spelController.cmdAddSpeler();
     	} catch(Exception e) {
     		e.printStackTrace();
     	}

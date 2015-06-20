@@ -6,6 +6,7 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Models.Speler;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ import java.util.ArrayList;
  * karakter vermoorden. Het vermoorde karakter speelt
  * deze ronde niet mee. 
  */
-public class Moordenaar implements Karakter {
+public class Moordenaar implements Karakter, Serializable {
 	
 	private Speler speler = null;
     

@@ -11,11 +11,11 @@ import java.rmi.RemoteException;
  */
 public interface SpeelveldRemote extends Remote {
 
-    public void setKoning(Speler spelers) throws RemoteException;
+    public void setKoning(SpelerRemote spelers) throws RemoteException;
     public void toonKarakterLijst() throws RemoteException;
     public void addObserver(SpeelveldObserver observer) throws RemoteException;
     public void notifyObservers() throws RemoteException;
-    public Speler getSpeler() throws RemoteException;
-    public void addSpeler(Speler speler) throws RemoteException;
+    public SpelerRemote getSpeler() throws RemoteException;
+    public void addSpeler(SpelerRemote speler) throws RemoteException;
 
 }

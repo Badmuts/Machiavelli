@@ -24,4 +24,5 @@ public interface SpelRemote extends Remote {
     int getMaxAantalSpelers() throws RemoteException;
     Bank getBank() throws RemoteException;
     GebouwFactory getGebouwFactory() throws RemoteException;
+    void createNewSpeler() throws RemoteException;
 }

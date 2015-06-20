@@ -20,9 +20,8 @@ import java.util.List;
  *
  */
 public class Hand implements HandRemote, Serializable {
-	private GebouwFactory gebouwFactory;
 	// Variables
-	private ArrayList<GebouwKaartRemote> kaartenLijst = new ArrayList<GebouwKaartRemote>();
+	private ArrayList<GebouwKaart> kaartenLijst = new ArrayList<GebouwKaart>();
 	private Speler speler;
     private ArrayList<HandObserver> observers = new ArrayList<>();
 
@@ -54,7 +53,7 @@ public class Hand implements HandRemote, Serializable {
      * @param kaart
      * @throws RemoteException
      */
-	public void addGebouw(GebouwKaartRemote kaart) throws RemoteException {
+	public void addGebouw(GebouwKaart kaart) throws RemoteException {
 		kaartenLijst.add(kaart);
         notifyObservers();
 	}
@@ -65,7 +64,7 @@ public class Hand implements HandRemote, Serializable {
      * @param gebouw
      * @throws RemoteException
      */
-	public void removeGebouw(GebouwKaartRemote gebouw) throws RemoteException {
+	public void removeGebouw(GebouwKaart gebouw) throws RemoteException {
 		this.kaartenLijst.remove(gebouw);
         notifyObservers();
 	}
@@ -76,7 +75,7 @@ public class Hand implements HandRemote, Serializable {
      * @param gebouwKaarten
      * @throws RemoteException
      */
-	public void addGebouwen(List<GebouwKaartRemote> gebouwKaarten) throws RemoteException {
+	public void addGebouwen(List<GebouwKaart> gebouwKaarten) throws RemoteException {
 		this.kaartenLijst.addAll(gebouwKaarten);
         notifyObservers();
 	}
@@ -86,7 +85,7 @@ public class Hand implements HandRemote, Serializable {
      * @return
      * @throws RemoteException
      */
-	public ArrayList<GebouwKaartRemote> getKaartenLijst() throws RemoteException {
+	public ArrayList<GebouwKaart> getKaartenLijst() throws RemoteException {
 		return this.kaartenLijst;
 	}
 
@@ -95,7 +94,7 @@ public class Hand implements HandRemote, Serializable {
      * @param lijst
      * @throws RemoteException
      */
-	public void setKaartenLijst(ArrayList<GebouwKaartRemote> lijst) throws RemoteException {
+	public void setKaartenLijst(ArrayList<GebouwKaart> lijst) throws RemoteException {
 		this.kaartenLijst = lijst;
         notifyObservers();
 	}

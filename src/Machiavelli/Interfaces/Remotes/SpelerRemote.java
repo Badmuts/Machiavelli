@@ -31,8 +31,8 @@ public interface SpelerRemote extends Remote {
     public Hand getHand() throws RemoteException;
     public Stad getStad() throws RemoteException;
     // Trekken van een x aantal kaarten van de stapel
-    public ArrayList<GebouwKaartRemote> trekkenKaart(int aantal) throws RemoteException;
+    public ArrayList<GebouwKaart> trekkenKaart(int aantal) throws RemoteException;
     // Trekken van twee kaarten uit de stapel
-    public ArrayList<GebouwKaartRemote> trekkenKaart() throws RemoteException;
+    public ArrayList<GebouwKaart> trekkenKaart() throws RemoteException;
 
 }

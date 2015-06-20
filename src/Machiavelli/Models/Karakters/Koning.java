@@ -7,6 +7,7 @@ import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ import java.util.ArrayList;
  * Ook ontvangt de koning 1 goudstuk voor elk monument gebouw
  * in zijn stad.
  */
-public class Koning implements Karakter, Bonusable {
+public class Koning implements Karakter, Bonusable, Serializable {
 	
 	private Speler speler = null;
 

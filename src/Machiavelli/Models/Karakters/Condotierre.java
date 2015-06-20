@@ -8,6 +8,7 @@ import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 import Machiavelli.Models.Stad;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ import java.util.ArrayList;
  * andere speler vernietigen. Ook ontvangt hij 1 goudstuk
  * voor elk militair gebouw in zijn stad.
  */
-public class Condotierre implements Karakter, Bonusable {
+public class Condotierre implements Karakter, Bonusable, Serializable {
 
 	private GebouwKaart target = null;
 	private Speler speler = null;

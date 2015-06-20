@@ -106,8 +106,8 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 
     private void createKarakterHolder() {
         try {                                      // TESTING ONLY
-            this.speelveld.getSpeler().setKarakter(new Prediker()); // TESTING
-            this.speelveld.getSpeler().getKarakter().setSpeler(this.speelveld.getSpeler()); // TESTING
+            //this.speelveld.getSpeler().setKarakter(new Prediker()); // TESTING
+            //this.speelveld.getSpeler().getKarakter().setSpeler(this.speelveld.getSpeler()); // TESTING
             karakterActionBarView = new KarakterActionBarView(this.speelveld.getSpeler().getKarakter(), this.speelveld.getSpeler());
         } catch (RemoteException re) {
             re.printStackTrace();
