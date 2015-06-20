@@ -30,7 +30,7 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
         this.gebouwKaartController = gebouwKaartController;
 
         this.speelveldview = new SpeelveldView(this, this.speelveld, this.gebouwKaartController);
-        this.speelveld.registratieView(this.speelveldview);
+        this.speelveld.addObserver(this.speelveldview);
 
 		speelveldview.getExitButton().setOnAction(event -> System.exit(0));
 
