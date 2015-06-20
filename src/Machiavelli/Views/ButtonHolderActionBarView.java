@@ -2,7 +2,8 @@ package Machiavelli.Views;
 
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Bonusable;
-import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.SpelerObserver;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -10,7 +11,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class ButtonHolderActionBarView extends StackPane {
+import java.rmi.RemoteException;
+
+public class ButtonHolderActionBarView extends StackPane implements SpelerObserver {
 
     private SpeelveldController speelveldController;
     private GridPane buttonGrid = new GridPane();
@@ -22,9 +25,11 @@ public class ButtonHolderActionBarView extends StackPane {
     private Button bouwbutton;
     private Button eindebeurtbutton;
     private Rectangle buttonholder;
+    private SpelerRemote speler;
 
     public ButtonHolderActionBarView(SpeelveldController speelveldController) {
         this.speelveldController = speelveldController;
+        this.speler = speelveldController.getSpeler();
         gebruikEigenschap = new Button();
         exitbutton = new Button();
         spelregels = new Button();
@@ -46,22 +51,27 @@ public class ButtonHolderActionBarView extends StackPane {
 
         goudbutton.setOnAction(event -> this.speelveldController.cmdBonusGoud());
 
-        try {
-            Karakter karakter = speelveldController.getSpeler().getKarakter();
-            Bonusable bonusable = (Bonusable)karakter;
-        } catch (Exception e) {
-            if (e instanceof ClassCastException) {
-                // TODO: Disable bonusgoud button.
-                goudbutton.setDisable(true);
-            } else {
-                goudbutton.setDisable(false);
-            }
-        }
-
+        isKarakterBonusable();
 
         buttonholder = new Rectangle(0, 0, 350, 250);
         buttonholder.setFill(Color.rgb(57, 57, 57));
         this.getChildren().addAll(buttonholder, buttonGrid);
+    }
+
+    /**
+     * Controleer of Karakter bonusable is. Wanneer karakter
+     * niet bonusable is word de 'Bonusgoud' knop uitgezet.
+     */
+    private void isKarakterBonusable() {
+        try {
+            Bonusable bonusable = (Bonusable)speelveldController.getSpeler().getKarakter();
+        } catch (Exception e) {
+            if (e instanceof ClassCastException) {
+                goudbutton.setDisable(true); // Disable button
+            } else {
+                goudbutton.setDisable(false); // Enable button
+            }
+        }
     }
 
     private void initButton(Button button, String tekst, String styleClass, int columnIndex, int rowIndex, float sizeX, float sizeY){
@@ -100,4 +110,8 @@ public class ButtonHolderActionBarView extends StackPane {
     	return this.eindebeurtbutton;
     }
 
+    @Override
+    public void modelChanged(SpelerRemote speler) throws RemoteException {
+        this.speler = speler;
+    }
 }
