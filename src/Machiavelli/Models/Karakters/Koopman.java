@@ -68,8 +68,9 @@ public class Koopman implements Karakter, Bonusable {
     public void ontvangenBonusGoud() throws RemoteException {
         ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
         for (GebouwKaart gebouw : gebouwen) {
-            if (gebouw.getType() == this.type)
+            if (gebouw.getType() == this.type) {
                 speler.getPortemonnee().ontvangenGoud(1);
+            }
         }
     }
     
