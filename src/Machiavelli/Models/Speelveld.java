@@ -55,10 +55,6 @@ public class Speelveld implements SpeelveldRemote, Serializable {
 		}
 	}
 
-	public void registratieView(SpeelveldView speelveldview) {
-		this.speelveldView = speelveldview;
-	}
-
     public Speler getSpeler() {
         return this.speler;
     }
