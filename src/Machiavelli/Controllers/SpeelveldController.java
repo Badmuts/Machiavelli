@@ -64,4 +64,8 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
     public SpelerRemote getSpeler() {
         return this.speler;
     }
+
+    public void cmdBouwGebouw() {
+        // TODO: Implement gebouwbouwen method
+    }
 }

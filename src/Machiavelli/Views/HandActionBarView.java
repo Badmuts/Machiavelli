@@ -4,7 +4,6 @@ import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Interfaces.Observers.HandObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.HandRemote;
-import Machiavelli.Models.Hand;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -22,7 +21,6 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
     private Rectangle kaartholder;
     private GebouwKaartController gebouwKaartController;
     private StackPane pane = new StackPane();
-    private Rectangle clip;
 
     /**
      * View voor de gebouwkaarten in de hand van de speler.
@@ -33,11 +31,8 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
         this.hand = hand;
         this.gebouwKaartController = gebouwKaartController;
         this.pane.setPrefSize(840, 275);
-        try {
-            this.hand.addObserver(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        this.hand.addObserver(this);
 
         createBackground(); // Maak achtergrond aan
         buildGebouwKaartViewsArray(); // Vul gebouwKaartViews[]
@@ -54,9 +49,6 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
     private void createBackground() {
         kaartholder = new Rectangle(0, 0, 840, 250);
         kaartholder.setFill(Color.rgb(74, 74, 74));
-//        clip = new Rectangle(0, 0, 840, 250);
-//        this.pane.setClip(clip);
-//        AnchorPane.setBottomAnchor(kaartholder, 0.0);
         StackPane.setAlignment(kaartholder, Pos.BOTTOM_CENTER);
     }
 
@@ -65,11 +57,6 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
      * en plaatst deze in gebouwKaartViews[].
      */
     private void buildGebouwKaartViewsArray() throws RemoteException {
-        // Hand heeft GebouwKaarten.
-        // GebouwKaarten hebben observers
-        // GebouwController heeft GebouwKaartViews wat GebouwkaartObservers zijn
-        // Haal de GebouwkaartObserver op.
-        // Help?!
         for (GebouwKaartRemote gebouwKaartRemote: hand.getKaartenLijst()) {
             GebouwKaartView gebouwKaartView = new GebouwKaartView(this.gebouwKaartController, gebouwKaartRemote);
             gebouwKaartRemote.addObserver(gebouwKaartView); // Add view (observer) to remote
@@ -110,9 +97,14 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
     }
 
     @Override
-    public void modelChanged(Hand hand) throws RemoteException {
+    public void modelChanged(HandRemote hand) throws RemoteException {
         // TODO: update hand
         this.hand = hand;
+        this.gebouwKaartViews.clear(); // Leeg gebouwKaartViews[]
+        this.pane.getChildren().clear(); // Leeg het pane
+        this.pane.getChildren().add(kaartholder); // Maak view leeg en vul met kaartholder
+        buildGebouwKaartViewsArray(); // Vul gebouwKaarViews[] met nieuwe views
+        addGebouwKaartViews(); // Voeg views toe aan pane
     }
 
     public Pane getPane() {

@@ -65,7 +65,7 @@ public class Hand implements HandRemote, Serializable {
      * @param gebouw
      * @throws RemoteException
      */
-	public void removeGebouw(GebouwKaart gebouw) throws RemoteException {
+	public void removeGebouw(GebouwKaartRemote gebouw) throws RemoteException {
 		this.kaartenLijst.remove(gebouw);
         notifyObservers();
 	}

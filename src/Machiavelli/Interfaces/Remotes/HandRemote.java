@@ -1,7 +1,6 @@
 package Machiavelli.Interfaces.Remotes;
 
 import Machiavelli.Interfaces.Observers.HandObserver;
-import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 
 import java.rmi.Remote;
@@ -28,7 +27,7 @@ public interface HandRemote extends Remote {
      * @param gebouw
      * @throws RemoteException
      */
-    public void removeGebouw(GebouwKaart gebouw) throws RemoteException;
+    public void removeGebouw(GebouwKaartRemote gebouw) throws RemoteException;
 
     /**
      * Voeg meerderen gebouwen toe aan Hand. (Redundant?)
