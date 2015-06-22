@@ -36,6 +36,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     private PortemonneeRemote portemonnee;
     private Text portemonneeView;
     private Pane topBar;
+    private Pane steden;
 
     public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController) throws RemoteException {
 		this.speelveld = speelveld;
@@ -51,17 +52,26 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         this.createActionBar();
         this.createPortemonnee();
         this.createTopStatusBar();
-//        this.createStedenHolder();
+        this.createStedenHolder();
 
         BorderPane speelveldpane = new BorderPane();
         speelveldpane.setBottom(this.actionBar);
         speelveldpane.setTop(topBar);
+        speelveldpane.setCenter(steden);
         speelveldpane.getStylesheets().add("Machiavelli/Resources/style.css");
         speelveldpane.getStyleClass().add("speelveld");
         speelveldscene = new Scene(speelveldpane, 1440, 900);
 
 		this.show();
 	}
+
+    private void createStedenHolder() {
+        try {
+            this.steden = new StedenGrid(this.speelveldcontroller.getSpel(), this.gebouwKaartController).getPane();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private void createTopStatusBar() {
         this.topBar = new Pane();

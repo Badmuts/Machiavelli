@@ -150,3 +150,20 @@
 .gebouwkaart-active:hover {
     -fx-effect: dropshadow(three-pass-box, lime, 15, 0.1, 0, 0);
 }
+
+.speler-portrait {
+    -fx-effect: innershadow(three-pass-box, rgb(44, 44, 44), 6, 1.0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 9, 1.0, 2, 4);
+}
+
+.speler-naam {
+    -fx-fill: white;
+    -fx-font-size: 1.8em;
+    -fx-effect: dropshadow(three-pass-box, black, 0, 0.0, 1, 1);
+}
+
+.speler-nummer {
+    -fx-fill: white;
+    -fx-font-size: 2em;
+    -fx-effect: dropshadow(three-pass-box, black, 1, 1.0, 1, 1);
+}
