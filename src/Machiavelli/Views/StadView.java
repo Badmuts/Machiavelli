@@ -60,6 +60,7 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
     private void createSpelerPortraitNumber() {
         numberPane = new StackPane();
         numberPane.setPrefSize(40, 40);
+        numberPane.setMaxSize(40, 40);
 
         Circle circle = new Circle(20);
         circle = setKarakterTypeClass(circle);
@@ -72,8 +73,6 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
         }
         numberField.getStyleClass().add("speler-nummer");
         numberPane.getChildren().addAll(circle, numberField);
-        StackPane.setAlignment(circle, Pos.TOP_CENTER);
-        StackPane.setAlignment(numberField, Pos.TOP_CENTER);
         portretPane.getChildren().add(numberPane);
         StackPane.setAlignment(numberPane, Pos.TOP_LEFT);
     }
@@ -119,6 +118,7 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
     private void createSpelerPortrait() {
         portretPane = new StackPane();
         portretPane.setPrefSize(80, 80);
+        portretPane.setMaxSize(80, 80);
         Rectangle clip = new Rectangle(80, 80);
         clip.setArcWidth(80);
         clip.setArcHeight(80);
