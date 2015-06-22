@@ -46,18 +46,18 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 
         this.portemonnee.addObserver(this);
 
+        this.createStedenHolder();
+        this.createPortemonnee();
+        this.createTopStatusBar();
         this.createKarakterHolder();
         this.createKaartHolder();
         this.createButtonHolder();
         this.createActionBar();
-        this.createPortemonnee();
-        this.createTopStatusBar();
-        this.createStedenHolder();
 
         BorderPane speelveldpane = new BorderPane();
-        speelveldpane.setBottom(this.actionBar);
-        speelveldpane.setTop(topBar);
         speelveldpane.setCenter(steden);
+        speelveldpane.setTop(topBar);
+        speelveldpane.setBottom(this.actionBar);
         speelveldpane.getStylesheets().add("Machiavelli/Resources/style.css");
         speelveldpane.getStyleClass().add("speelveld");
         speelveldscene = new Scene(speelveldpane, 1440, 900);

@@ -107,7 +107,7 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
             Text name = new Text(this.speler.getKarakter().getNaam());
             name.getStyleClass().add("speler-naam");
             name.setWrappingWidth(400);
-            name.setLayoutY(100);
+            name.setLayoutY(95);
             name.setTextAlignment(TextAlignment.CENTER);
             namePane.getChildren().add(name);
         } catch (Exception e) {
@@ -117,8 +117,8 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
 
     private void createSpelerPortrait() {
         portretPane = new StackPane();
-        portretPane.setPrefSize(80, 80);
-        portretPane.setMaxSize(80, 80);
+        portretPane.setPrefSize(95, 95);
+        portretPane.setMaxSize(95, 95);
         Rectangle clip = new Rectangle(80, 80);
         clip.setArcWidth(80);
         clip.setArcHeight(80);
@@ -136,7 +136,7 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
         portretview.getStyleClass().add("speler-portrait");
         portretview.setCache(true);
         portretPane.getChildren().add(portretview);
-        StackPane.setAlignment(portretview, Pos.TOP_CENTER);
+        StackPane.setAlignment(portretview, Pos.CENTER);
     }
 
     private void buildGebouwKaartViewArray() throws RemoteException {
