@@ -92,7 +92,7 @@
 
 .gebouwkaart-naam {
     -fx-fill: #FFFFFF;
-    -fx-font-size: 1.7em;
+    -fx-font-size: 1.3em;
     -fx-effect: dropshadow(three-pass-box, black, 1, 1.0, 1, 1);
 }
 
@@ -152,6 +152,11 @@
 }
 
 .speler-portrait {
+    -fx-effect: innershadow(three-pass-box, rgb(44, 44, 44), 6, 1.0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 9, 1.0, 2, 4);
+}
+
+.speler-portait-clip {
     -fx-effect: innershadow(three-pass-box, rgb(44, 44, 44), 6, 1.0, 0, 0);
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 9, 1.0, 2, 4);
 }

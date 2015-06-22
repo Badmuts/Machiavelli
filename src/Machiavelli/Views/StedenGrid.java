@@ -5,6 +5,7 @@ import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Models.Speler;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
@@ -20,6 +21,7 @@ public class StedenGrid extends UnicastRemoteObject implements SpelObserver {
 
     public StedenGrid(SpelRemote spel, GebouwKaartController gebouwKaartController) throws RemoteException {
         pane = new GridPane();
+        pane.setPadding(new Insets(0, 0, 0, 0));
         this.gebouwKaartController = gebouwKaartController;
         this.spelers = spel.getSpelers();
         spel.addObserver(this);
@@ -31,12 +33,11 @@ public class StedenGrid extends UnicastRemoteObject implements SpelObserver {
         int columnIndex = 1;
         for (Speler speler: spelers) {
             pane.add(new StadView(speler.getStad(), this.gebouwKaartController).getPane(), columnIndex, rowIndex);
-            if (columnIndex >= 4 || rowIndex >= 2) {
+            if (columnIndex >= 4) {
                 columnIndex = 1;
-                rowIndex = 1;
+                rowIndex++;
             } else {
                 columnIndex++;
-                rowIndex++;
             }
         }
     }

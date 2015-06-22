@@ -19,6 +19,8 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartObserver, Serializable {
 
+    private int height;
+    private int width;
     private GebouwKaartController gebouwKaartController;
     private GebouwKaartRemote gebouwKaart;
     private StackPane gebouwKaartView;
@@ -31,12 +33,27 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         this.gebouwKaartView.setPrefSize(150, 250);
     }
 
+    public GebouwKaartView(GebouwKaartController gebouwkaartController, GebouwKaartRemote gebouwKaart, int width, int height) throws RemoteException {
+        this.gebouwKaart = gebouwKaart;
+        this.width = width;
+        this.height = height;
+        this.gebouwKaartController = gebouwkaartController;
+        this.gebouwKaartView = new StackPane();
+        this.gebouwKaartView.getChildren().addAll(createImageView(), createScoreView(), createNameField());
+        this.gebouwKaartView.setPrefSize(width, height);
+    }
+
     private ImageView createImageView() {
         ImageView gebouwKaartImage = new ImageView();
         try {
             gebouwKaartImage = new ImageView(new Image(gebouwKaart.getImage()));
-            gebouwKaartImage.setFitWidth(200);
-            gebouwKaartImage.setFitHeight(300);
+            if (width > 1 && height > 1) {
+                gebouwKaartImage.setFitWidth(width);
+                gebouwKaartImage.setFitHeight(height);
+            } else {
+                gebouwKaartImage.setFitWidth(200);
+                gebouwKaartImage.setFitHeight(300);
+            }
             gebouwKaartImage.getStyleClass().add("gebouwkaart-image");
         } catch (RemoteException re) {
             re.printStackTrace();
@@ -47,7 +64,13 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
     private Pane createScoreView() {
         Pane gebouwScoreView = new Pane();
         try {
-            Circle circle = new Circle(30);
+            Circle circle = new Circle();
+            if (width > 1 && height > 1) {
+                circle.setRadius(width/4);
+            } else {
+                circle.setRadius(30);
+            }
+
             circle = setGebouwTypeClass(circle);
             circle.getStyleClass().add("gebouwkaart-circle");
 
@@ -87,7 +110,14 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
 
     private StackPane createNameField() {
         StackPane gebouwKaartName = new StackPane();
-        Rectangle background = new Rectangle(200, 50);
+        Rectangle background = new Rectangle();
+        if (width > 1 && height > 1) {
+            background.setWidth(width);
+            background.setHeight(40);
+        } else {
+            background.setWidth(200);
+            background.setHeight(50);
+        }
         background.setFill(Color.rgb(0, 0, 0, 0.7));
         try {
             Text name = new Text(gebouwKaart.getNaam());

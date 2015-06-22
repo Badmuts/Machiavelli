@@ -11,12 +11,11 @@ import java.util.ArrayList;
  * Created by daanrosbergen on 03/06/15.
  */
 public class Stad implements StadRemote, Serializable {
-	private final Speler speler;
+	private Speler speler;
 	private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
 	private Spel spel;
 	private int waardeStad;
 	private ArrayList<StadObserver> observers = new ArrayList<>();
-	//private StadView stadView;
 
 	public Stad(Speler speler)
 	{

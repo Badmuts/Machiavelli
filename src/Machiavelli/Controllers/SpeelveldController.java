@@ -5,7 +5,6 @@ import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speelveld;
-import Machiavelli.Models.Speler;
 import Machiavelli.Views.SpeelveldView;
 
 import java.io.Serializable;

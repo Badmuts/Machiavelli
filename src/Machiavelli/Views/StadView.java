@@ -7,12 +7,16 @@ import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Interfaces.Remotes.StadRemote;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
@@ -24,19 +28,19 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
     private SpelerRemote speler;
     private GebouwKaartController gebouwKaartController;
     private StadRemote stad;
-    private Pane pane;
+    private StackPane pane;
     private ArrayList<GebouwKaartView> gebouwKaartViews = new ArrayList<>();
     private ImageView portretview;
     private StackPane numberPane;
     private Pane namePane;
-    private Pane stadPane;
+    private FlowPane stadPane;
+    private StackPane portretPane;
 
     public StadView(StadRemote stad, GebouwKaartController gebouwKaartController) throws RemoteException{
         this.stad = stad;
         this.speler = stad.getSpeler();
         this.gebouwKaartController = gebouwKaartController;
         this.pane = new StackPane();
-        this.pane.setMaxSize(321, 312);
 
         this.stad.addObserver(this);
         this.speler.addObserver(this);
@@ -47,12 +51,15 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
         this.createNameField();
         this.createStad();
 
-        this.pane.getChildren().addAll(portretview, numberPane, namePane, stadPane);
-        StackPane.setAlignment(stadPane, Pos.TOP_CENTER);
+        this.pane.getChildren().addAll(portretPane, namePane, stadPane);
+        StackPane.setAlignment(portretPane, Pos.TOP_CENTER);
+        StackPane.setAlignment(namePane, Pos.CENTER);
+        StackPane.setAlignment(stadPane, Pos.BOTTOM_CENTER);
     }
 
     private void createSpelerPortraitNumber() {
-       numberPane = new StackPane();
+        numberPane = new StackPane();
+        numberPane.setPrefSize(40, 40);
 
         Circle circle = new Circle(20);
         circle = setKarakterTypeClass(circle);
@@ -64,10 +71,11 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
             e.printStackTrace();
         }
         numberField.getStyleClass().add("speler-nummer");
-
         numberPane.getChildren().addAll(circle, numberField);
-        numberPane.setLayoutX(0);
-        numberPane.setLayoutY(0);
+        StackPane.setAlignment(circle, Pos.TOP_CENTER);
+        StackPane.setAlignment(numberField, Pos.TOP_CENTER);
+        portretPane.getChildren().add(numberPane);
+        StackPane.setAlignment(numberPane, Pos.TOP_LEFT);
     }
 
     private Circle setKarakterTypeClass(Circle circle) {
@@ -99,8 +107,8 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
         try {
             Text name = new Text(this.speler.getKarakter().getNaam());
             name.getStyleClass().add("speler-naam");
-            name.setWrappingWidth(250);
-            name.setLayoutY(185);
+            name.setWrappingWidth(400);
+            name.setLayoutY(100);
             name.setTextAlignment(TextAlignment.CENTER);
             namePane.getChildren().add(name);
         } catch (Exception e) {
@@ -109,46 +117,48 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
     }
 
     private void createSpelerPortrait() {
-        Circle clip = new Circle(40);
+        portretPane = new StackPane();
+        portretPane.setPrefSize(80, 80);
+        Rectangle clip = new Rectangle(80, 80);
+        clip.setArcWidth(80);
+        clip.setArcHeight(80);
         portretview = new ImageView();
         try {
             portretview = new ImageView(new Image(this.speler.getKarakter().getImage()));
         } catch (Exception e) {
             e.printStackTrace();
         }
+        clip.setFill(Color.BLACK);
+        clip.getStyleClass().add("speler-portait-clip");
         portretview.setFitHeight(80);
         portretview.setFitWidth(80);
         portretview.setClip(clip);
         portretview.getStyleClass().add("speler-portrait");
         portretview.setCache(true);
+        portretPane.getChildren().add(portretview);
+        StackPane.setAlignment(portretview, Pos.TOP_CENTER);
     }
 
     private void buildGebouwKaartViewArray() throws RemoteException {
         for (GebouwKaartRemote gebouwKaartRemote: this.stad.getGebouwen()) {
-            GebouwKaartView gebouwKaartView = new GebouwKaartView(this.gebouwKaartController, gebouwKaartRemote);
+            GebouwKaartView gebouwKaartView = new GebouwKaartView(this.gebouwKaartController, gebouwKaartRemote, 65, 90);
             gebouwKaartRemote.addObserver(gebouwKaartView); // Add view (observer) to remote
             this.gebouwKaartController.addView(gebouwKaartView); // Add view to controller
             this.gebouwKaartController.addModel(gebouwKaartRemote); // Add model to controller
-            gebouwKaartView.view().setMaxSize(75, 100);
-            gebouwKaartView.view().setPrefSize(75, 100);
             this.gebouwKaartViews.add(gebouwKaartView); // Add view to local gebouwKaartView[]
         }
     }
 
     private void createStad() {
-        stadPane = new Pane();
-        int x = 0; // X coordinaat (voor uitlijning)
-        int totalWidth = 0;
-        int index = 0;
-        // Loop  door gebouwKaartViews en wijzig de X coordinaat.
+        stadPane = new FlowPane();
+        stadPane.setPadding(new Insets(125, 0, 5, 50));
+        stadPane.setVgap(-40);
+        stadPane.setHgap(-15);
+        stadPane.setPrefWrapLength(360);
+        // Loop  door gebouwKaartViews en voeg ze toe aan het FlowPane
         for (GebouwKaartView gebouwKaartView: gebouwKaartViews) {
-            gebouwKaartView.view().setLayoutX(x); // Zet X coordinaat
             stadPane.getChildren().add(gebouwKaartView.view()); // Voeg view to aan Pane
-            x += 130; // Verhoog X coordinaat met 100
-            totalWidth += gebouwKaartView.view().getPrefWidth();
-            index++;
         }
-        stadPane.setMaxWidth(totalWidth);
     }
 
     public Pane getPane() {
@@ -169,8 +179,10 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
             //if you change the UI, do it here !
             this.speler = speler;
             this.pane.getChildren().clear();
-            this.pane.getChildren().addAll(portretview, numberPane, namePane, stadPane);
-            StackPane.setAlignment(stadPane, Pos.TOP_CENTER);
+            this.pane.getChildren().addAll(portretPane, namePane, stadPane);
+            StackPane.setAlignment(portretPane, Pos.TOP_CENTER);
+            StackPane.setAlignment(namePane, Pos.CENTER);
+            StackPane.setAlignment(stadPane, Pos.BOTTOM_CENTER);
         });
     }
 }
