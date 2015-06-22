@@ -24,7 +24,6 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
     private StackPane gebouwKaartView;
 
     public GebouwKaartView(GebouwKaartController gebouwkaartController, GebouwKaartRemote gebouwKaart) throws RemoteException {
-//        super();
         this.gebouwKaart = gebouwKaart;
         this.gebouwKaartController = gebouwkaartController;
         this.gebouwKaartView = new StackPane();
@@ -114,7 +113,12 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
     public StackPane view() {
         this.gebouwKaartView.getStyleClass().add("gebouwkaart");
         this.gebouwKaartView.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            System.out.println("KLIK: Gebouwkaartview");
+            StackPane view = (StackPane)event.getSource();
+            if (view.getStyleClass().contains("gebouwkaart-active")) {
+                view.getStyleClass().remove("gebouwkaart-active");
+            } else {
+                view.getStyleClass().add("gebouwkaart-active");
+            }
         });
         return this.gebouwKaartView;
     }
