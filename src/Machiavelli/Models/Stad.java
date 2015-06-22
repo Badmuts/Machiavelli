@@ -63,9 +63,11 @@ public class Stad implements StadRemote, Serializable {
 
 	public void addObserver(StadObserver observer) throws RemoteException {
 		observers.add(observer);
+        System.out.println("Stad observer added! Observers: " + observers.size());
 	}
 
 	public void notifyObservers() throws RemoteException {
+        System.out.println("Stad model changed! Observers: " + observers.size());
 		for (StadObserver observer: observers) {
 			observer.modelChanged(this);
 		}

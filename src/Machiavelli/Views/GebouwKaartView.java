@@ -31,6 +31,20 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         this.gebouwKaartView = new StackPane();
         this.gebouwKaartView.getChildren().addAll(createImageView(), createScoreView(), createNameField());
         this.gebouwKaartView.setPrefSize(150, 250);
+        this.addClickHandler();
+    }
+
+    private void addClickHandler() {
+        this.gebouwKaartView.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            StackPane view = (StackPane)event.getSource();
+            if (view.getStyleClass().contains("gebouwkaart-active")) {
+                view.getStyleClass().remove("gebouwkaart-active");
+                this.gebouwKaartController.removeActiveCard(this.gebouwKaart);
+            } else {
+                view.getStyleClass().add("gebouwkaart-active");
+                this.gebouwKaartController.setActiveCard(this.gebouwKaart);
+            }
+        });
     }
 
     public GebouwKaartView(GebouwKaartController gebouwkaartController, GebouwKaartRemote gebouwKaart, int width, int height) throws RemoteException {
@@ -41,6 +55,7 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         this.gebouwKaartView = new StackPane();
         this.gebouwKaartView.getChildren().addAll(createImageView(), createScoreView(), createNameField());
         this.gebouwKaartView.setPrefSize(width, height);
+        this.addClickHandler();
     }
 
     private ImageView createImageView() {
@@ -140,14 +155,6 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
 
     public StackPane view() {
         this.gebouwKaartView.getStyleClass().add("gebouwkaart");
-        this.gebouwKaartView.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            StackPane view = (StackPane)event.getSource();
-            if (view.getStyleClass().contains("gebouwkaart-active")) {
-                view.getStyleClass().remove("gebouwkaart-active");
-            } else {
-                view.getStyleClass().add("gebouwkaart-active");
-            }
-        });
         return this.gebouwKaartView;
     }
 

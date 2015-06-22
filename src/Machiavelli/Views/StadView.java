@@ -28,19 +28,17 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
     private SpelerRemote speler;
     private GebouwKaartController gebouwKaartController;
     private StadRemote stad;
-    private StackPane pane;
+    private Pane pane = new StackPane();
     private ArrayList<GebouwKaartView> gebouwKaartViews = new ArrayList<>();
-    private ImageView portretview;
     private StackPane numberPane;
     private Pane namePane;
     private FlowPane stadPane;
     private StackPane portretPane;
 
-    public StadView(StadRemote stad, GebouwKaartController gebouwKaartController) throws RemoteException{
+    public StadView(StadRemote stad, GebouwKaartController gebouwKaartController) throws RemoteException {
         this.stad = stad;
         this.speler = stad.getSpeler();
         this.gebouwKaartController = gebouwKaartController;
-        this.pane = new StackPane();
 
         this.stad.addObserver(this);
         this.speler.addObserver(this);
@@ -122,7 +120,7 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
         Rectangle clip = new Rectangle(80, 80);
         clip.setArcWidth(80);
         clip.setArcHeight(80);
-        portretview = new ImageView();
+        ImageView portretview = new ImageView();
         try {
             portretview = new ImageView(new Image(this.speler.getKarakter().getImage()));
         } catch (Exception e) {
@@ -167,10 +165,12 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
 
     @Override
     public void modelChanged(StadRemote stad) throws RemoteException {
-        this.stad = stad;
-        this.pane.getChildren().clear();
-        this.pane.getChildren().addAll(portretview, numberPane, namePane, stadPane);
-        StackPane.setAlignment(stadPane, Pos.TOP_CENTER);
+        Platform.runLater(() -> {
+            this.stad = stad;
+            this.pane.getChildren().clear();
+            this.pane.getChildren().addAll(portretPane, namePane, stadPane);
+            StackPane.setAlignment(stadPane, Pos.TOP_CENTER);
+        });
     }
 
     @Override
@@ -180,9 +180,6 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
             this.speler = speler;
             this.pane.getChildren().clear();
             this.pane.getChildren().addAll(portretPane, namePane, stadPane);
-            StackPane.setAlignment(portretPane, Pos.TOP_CENTER);
-            StackPane.setAlignment(namePane, Pos.CENTER);
-            StackPane.setAlignment(stadPane, Pos.BOTTOM_CENTER);
         });
     }
 }

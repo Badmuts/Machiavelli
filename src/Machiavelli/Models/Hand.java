@@ -111,9 +111,11 @@ public class Hand implements HandRemote, Serializable {
 
 	public void addObserver(HandObserver observer) throws RemoteException {
 		observers.add(observer);
+        System.out.println("Hand observer added!: Observers: " + this.observers.size());
 	}
 
 	public void notifyObservers() throws RemoteException {
+        System.out.println("Hand changed!: Observers: " + this.observers.size());
 		for (HandObserver observer: observers) {
 			observer.modelChanged(this);
 		}
