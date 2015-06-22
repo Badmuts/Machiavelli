@@ -79,5 +79,6 @@ public class Spel implements SpelRemote, Serializable {
         speler.setKarakter(new Prediker()); // TESTING ONLY
         speler.getKarakter().setSpeler(speler); // TESTING ONLY
 		this.spelers.add(speler);
+		notifyObservers();
 	}
 }
