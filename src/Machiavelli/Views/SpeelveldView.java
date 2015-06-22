@@ -55,12 +55,17 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         this.createActionBar();
 
         BorderPane speelveldpane = new BorderPane();
+        speelveldpane.setPrefSize(1440, 900);
         speelveldpane.setCenter(steden);
         speelveldpane.setTop(topBar);
         speelveldpane.setBottom(this.actionBar);
         speelveldpane.getStylesheets().add("Machiavelli/Resources/style.css");
         speelveldpane.getStyleClass().add("speelveld");
-        speelveldscene = new Scene(speelveldpane, 1440, 900);
+        Pane container = new Pane();
+        container.setMinSize(1440, 900);
+        container.setPrefSize(1440, 900);
+        container.getChildren().add(speelveldpane);
+        speelveldscene = new Scene(container, 1440, 900);
 
 		this.show();
 	}

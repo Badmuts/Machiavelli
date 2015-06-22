@@ -2,7 +2,6 @@ package Machiavelli.Controllers;
 
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Machiavelli;
-import Machiavelli.Models.Speler;
 import Machiavelli.Views.InvullenSpelersView;
 import Machiavelli.Views.MainMenuView;
 
@@ -39,6 +38,7 @@ public class MenuController {
 
         // Raadpleeg de spelregels
         mainMenuView.getSpelregelsButton().setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
+        mainMenuView.getSpelregelsButton2().setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
 
         // Start de MainMenuView
         this.cmdMainMenu();

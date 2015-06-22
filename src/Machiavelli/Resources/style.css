@@ -172,3 +172,7 @@
     -fx-font-size: 2em;
     -fx-effect: dropshadow(three-pass-box, black, 1, 1.0, 1, 1);
 }
+
+.menu {
+    -fx-background-color: #48443c;
+}
