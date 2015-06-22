@@ -1,13 +1,13 @@
 package Machiavelli.Views;
 
 import Machiavelli.Controllers.GebouwKaartController;
+import Machiavelli.Controllers.RaadplegenSpelregelsController;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
 import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
 import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Machiavelli;
-import Machiavelli.Models.Karakters.Prediker;
 import Machiavelli.Models.Speelveld;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -35,6 +35,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     private KarakterActionBarView karakterActionBarView;
     private PortemonneeRemote portemonnee;
     private Text portemonneeView;
+    private Pane topBar;
 
     public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController) throws RemoteException {
 		this.speelveld = speelveld;
@@ -49,23 +50,8 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         this.createButtonHolder();
         this.createActionBar();
         this.createPortemonnee();
-
-        Pane topBar = new Pane();
-
-        Image spelregelsbg = new Image("Machiavelli/Resources/SpelregelsBorder.png");
-        ImageView iv = new ImageView(spelregelsbg);
-        iv.setCache(true);
-        iv.setFitWidth(205);
-        iv.setFitHeight(74);
-
-        Image topStatusImage = new Image("Machiavelli/Resources/top-status.png");
-        ImageView topStatus = new ImageView(topStatusImage);
-        topStatus.setCache(true);
-        topStatus.setFitWidth(307);
-        topStatus.setFitHeight(74);
-        topStatus.setLayoutX(566.5);
-
-        topBar.getChildren().addAll(iv, topStatus, portemonneeView);
+        this.createTopStatusBar();
+//        this.createStedenHolder();
 
         BorderPane speelveldpane = new BorderPane();
         speelveldpane.setBottom(this.actionBar);
@@ -76,6 +62,33 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 
 		this.show();
 	}
+
+    private void createTopStatusBar() {
+        this.topBar = new Pane();
+
+        Image spelregelsbg = new Image("Machiavelli/Resources/SpelregelsBorder.png");
+        ImageView iv = new ImageView(spelregelsbg);
+        iv.setCache(true);
+        iv.setFitWidth(205);
+        iv.setFitHeight(74);
+
+        Button spelregelsButton = new Button("Spelregels");
+        spelregelsButton.setOnAction(event -> {
+            new RaadplegenSpelregelsController().cmdWeergeefSpelregels();
+        });
+        spelregelsButton.setLayoutY(10);
+        spelregelsButton.setLayoutX(10);
+        spelregelsButton.getStyleClass().add("button-primary");
+
+        Image topStatusImage = new Image("Machiavelli/Resources/top-status.png");
+        ImageView topStatus = new ImageView(topStatusImage);
+        topStatus.setCache(true);
+        topStatus.setFitWidth(307);
+        topStatus.setFitHeight(74);
+        topStatus.setLayoutX(566.5);
+
+        topBar.getChildren().addAll(iv, spelregelsButton, topStatus, portemonneeView);
+    }
 
     private void createPortemonnee() {
         this.portemonneeView = new Text();
@@ -105,9 +118,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     }
 
     private void createKarakterHolder() {
-        try {                                      // TESTING ONLY
-            //this.speelveld.getSpeler().setKarakter(new Prediker()); // TESTING
-            //this.speelveld.getSpeler().getKarakter().setSpeler(this.speelveld.getSpeler()); // TESTING
+        try {
             karakterActionBarView = new KarakterActionBarView(this.speelveld.getSpeler().getKarakter(), this.speelveld.getSpeler());
         } catch (RemoteException re) {
             re.printStackTrace();

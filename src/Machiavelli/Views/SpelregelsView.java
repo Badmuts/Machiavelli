@@ -65,7 +65,7 @@ public class SpelregelsView implements SpelregelsObserver {
 
         this.scene = new Scene(stPane, 1024, 768);
         this.scene.setFill(Color.TRANSPARENT);
-        this.stage.initStyle(StageStyle.TRANSPARENT);
+//        this.stage.initStyle(StageStyle.TRANSPARENT);
 	}
 	
 	public void show() {
