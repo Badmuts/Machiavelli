@@ -93,8 +93,6 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
             Text name = new Text(gebouwKaart.getNaam());
             name.getStyleClass().add("gebouwkaart-naam");
             gebouwKaartName.getChildren().addAll(background, name);
-//            StackPane.setAlignment(name, Pos.CENTER);
-//            StackPane.setAlignment(background, Pos.CENTER);
         } catch (RemoteException re) {
             re.printStackTrace();
         }
