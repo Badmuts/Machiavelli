@@ -13,6 +13,7 @@ import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
 import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
 import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Speelveld;
 import Machiavelli.Models.Speler;
@@ -34,6 +35,7 @@ import Machiavelli.Models.Karakters.Magier;
 
 public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver {
 
+    private SpelerRemote speler;
     private GebouwKaartController gebouwKaartController;
     private SpeelveldController speelveldcontroller;
 	private Speelveld speelveld;
@@ -49,8 +51,9 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     private Pane topBar;
     private Pane steden;
 
-    public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController) throws RemoteException {
+    public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController, SpelerRemote speler) throws RemoteException {
 		this.speelveld = speelveld;
+        this.speler = speler;
 		this.speelveldcontroller = speelveldcontroller;
         this.gebouwKaartController = gebouwKaartController;
         this.portemonnee = this.speelveld.getSpeler().getPortemonnee();
@@ -137,7 +140,8 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 
     private void createKaartHolder() {
         try {
-            handActionBarView = new HandActionBarView(this.speelveld.getSpeler().getHand(), this.gebouwKaartController);
+            this.speler.getHand();
+            handActionBarView = new HandActionBarView(this.speler.getHand(), this.gebouwKaartController);
         } catch (Exception re) {
             re.printStackTrace();
         }

@@ -28,7 +28,7 @@ public interface SpelerRemote extends Remote {
     public Karakter getKarakter() throws RemoteException;
     public SpelRemote getSpel() throws RemoteException;
     public Portemonnee getPortemonnee() throws RemoteException;
-    public Hand getHand() throws RemoteException;
+    public HandRemote getHand() throws RemoteException;
     public Stad getStad() throws RemoteException;
     // Trekken van een x aantal kaarten van de stapel
     public ArrayList<GebouwKaart> trekkenKaart(int aantal) throws RemoteException;

@@ -3,9 +3,9 @@ package Machiavelli.Models.Karakters;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
-import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
+import Machiavelli.Interfaces.Remotes.HandRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.GebouwKaart;
-import Machiavelli.Models.Hand;
 import Machiavelli.Models.Speler;
 
 import java.io.Serializable;
@@ -36,7 +36,7 @@ public class Magier implements Karakter, Serializable {
     private final int bouwLimiet = 1;
     private final Type type = Type.NORMAAL;
 
-    private Speler  speler  = null;
+    private SpelerRemote speler  = null;
     private Object  target  = null;
     private ArrayList<GebouwKaart> ruilLijst = new ArrayList<GebouwKaart>();
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Magier.png";
@@ -47,12 +47,12 @@ public class Magier implements Karakter, Serializable {
 	 * de Magier wordt aan de speler gekoppeld.
 	 */
 	@Override
-	public void setSpeler(Speler speler) throws RemoteException {
+	public void setSpeler(SpelerRemote speler) throws RemoteException {
         this.speler = speler;
     }
 
     @Override
-    public Speler getSpeler() throws RemoteException {
+    public SpelerRemote getSpeler() throws RemoteException {
         return null;
     }
 
@@ -128,7 +128,7 @@ public class Magier implements Karakter, Serializable {
     }
     
  // Ruil alle bouwkaarten met alle bouwkaarten van een ander speler/karakter??
-    private void ruilMetKarakter(Speler target, Speler magier) throws RemoteException {
+    private void ruilMetKarakter(SpelerRemote target, SpelerRemote magier) throws RemoteException {
         ArrayList<GebouwKaart> handTarget = target.getHand().getKaartenLijst();
         ArrayList<GebouwKaart> magierHand = magier.getHand().getKaartenLijst();
         target.getHand().setKaartenLijst(magierHand);
@@ -136,7 +136,7 @@ public class Magier implements Karakter, Serializable {
     }
 
     // Leg een x aantal kaarten af op de stapel en pak een gelijk aantal nieuwe kaarten
-    private void ruilMetStapel(Hand hand, ArrayList<GebouwKaart> ruilLijst) throws RemoteException {
+    private void ruilMetStapel(HandRemote hand, ArrayList<GebouwKaart> ruilLijst) throws RemoteException {
         // Afleggen en tellen gebouwkaarten.
         int count = 0;
         for (int i = 0; i < ruilLijst.size(); i++) {

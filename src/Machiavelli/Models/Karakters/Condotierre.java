@@ -4,8 +4,8 @@ import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.GebouwKaart;
-import Machiavelli.Models.Speler;
 import Machiavelli.Models.Stad;
 
 import java.io.Serializable;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class Condotierre implements Karakter, Bonusable, Serializable {
 
 	private GebouwKaart target = null;
-	private Speler speler = null;
+	private SpelerRemote speler = null;
 	
 	/** Eigenschappen van karakter Condotierre */
 	private final int nummer = 8;	
@@ -42,12 +42,12 @@ public class Condotierre implements Karakter, Bonusable, Serializable {
 	 * de Condotierre wordt aan de speler gekoppeld.
 	 */
     @Override
-    public void setSpeler(Speler speler) throws RemoteException {
+    public void setSpeler(SpelerRemote speler) throws RemoteException {
         this.speler = speler;
     }
 
     @Override
-    public Speler getSpeler() throws RemoteException {
+    public SpelerRemote getSpeler() throws RemoteException {
         return null;
     }
 

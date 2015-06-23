@@ -4,6 +4,7 @@ import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Interfaces.Observers.HandObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.HandRemote;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -97,13 +98,19 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
 
     @Override
     public void modelChanged(HandRemote hand) throws RemoteException {
-        // TODO: update hand
-        this.hand = hand;
-        this.gebouwKaartViews.clear(); // Leeg gebouwKaartViews[]
-        this.pane.getChildren().clear(); // Leeg het pane
-        this.pane.getChildren().add(kaartholder); // Maak view leeg en vul met kaartholder
-        buildGebouwKaartViewsArray(); // Vul gebouwKaarViews[] met nieuwe views
-        addGebouwKaartViews(); // Voeg views toe aan pane
+        Platform.runLater(() -> {
+            // TODO: update hand
+            try {
+                this.hand = hand;
+                this.gebouwKaartViews.clear(); // Leeg gebouwKaartViews[]
+                this.pane.getChildren().clear(); // Leeg het pane
+                this.pane.getChildren().add(kaartholder); // Maak view leeg en vul met kaartholder
+                buildGebouwKaartViewsArray(); // Vul gebouwKaarViews[] met nieuwe views
+                addGebouwKaartViews(); // Voeg views toe aan pane
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public Pane getPane() {

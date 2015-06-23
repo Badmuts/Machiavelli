@@ -3,6 +3,7 @@ package Machiavelli.Views;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelerObserver;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -121,10 +122,16 @@ public class KarakterActionBarView extends UnicastRemoteObject implements Speler
 
     @Override
     public void modelChanged(SpelerRemote speler) throws RemoteException {
-        this.speler = speler;
-        this.karakter = this.speler.getKarakter();
-        this.pane.getChildren().clear(); // Leeg het pane (de view)
-        // Vul pane met nieuwe waardes
-        this.pane.getChildren().addAll(this.createBackground(), this.createPortrait(), this.createNumber(), this.createNameField());
+        Platform.runLater(() -> {
+            try {
+                this.speler = speler;
+                this.karakter = this.speler.getKarakter();
+                this.pane.getChildren().clear(); // Leeg het pane (de view)
+                // Vul pane met nieuwe waardes
+                this.pane.getChildren().addAll(this.createBackground(), this.createPortrait(), this.createNumber(), this.createNameField());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
