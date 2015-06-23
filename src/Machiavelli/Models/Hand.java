@@ -1,8 +1,6 @@
 package Machiavelli.Models;
 
-import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Observers.HandObserver;
-import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.HandRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
@@ -74,6 +72,7 @@ public class Hand extends UnicastRemoteObject implements HandRemote, Serializabl
             if (kaart.getNaam().equals(String.valueOf(gebouw.getNaam()))) {
                 iterator.remove();
                 notifyObservers();
+                break;
             }
         }
     }
