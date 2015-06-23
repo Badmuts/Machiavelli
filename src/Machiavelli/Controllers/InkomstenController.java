@@ -33,7 +33,9 @@ public class InkomstenController
 		this.speler = speler;
 		
 		//TODO: Dit is alleen bedoeld voor testing, krijg de speler vanuit beurt.
-		this.speler.addSpel(new Spel());
+		Spel spel = new Spel();
+		spel.createNewSpel(2);
+		this.speler.addSpel(spel);
 //		this.cmdTrekkenKaart();
 	}
 	public void cmdTrekkenKaart() throws RemoteException

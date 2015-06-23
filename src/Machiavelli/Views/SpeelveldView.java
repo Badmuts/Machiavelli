@@ -4,6 +4,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import Machiavelli.Controllers.GebouwKaartController;
+import Machiavelli.Controllers.InkomstenController;
+import Machiavelli.Controllers.KarakterController;
 import Machiavelli.Controllers.RaadplegenSpelregelsController;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
@@ -12,6 +14,7 @@ import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
 import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Speelveld;
+import Machiavelli.Models.Speler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -97,6 +100,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         Button spelregelsButton = new Button("Spelregels");
         spelregelsButton.setOnAction(event -> {
             new RaadplegenSpelregelsController().cmdWeergeefSpelregels();
+        	
         });
         spelregelsButton.setLayoutY(10);
         spelregelsButton.setLayoutX(10);

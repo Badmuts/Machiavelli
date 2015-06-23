@@ -38,6 +38,7 @@ public class Spel implements SpelRemote, Serializable {
         this.gebouwFactory = new GebouwFactory();
 		this.spelers = new ArrayList<Speler>();
         this.observers = new ArrayList<SpelObserver>();
+        this.karakterFactory = new KarakterFactory();
     }
 
     public Bank getBank() throws RemoteException {

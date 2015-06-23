@@ -38,12 +38,12 @@ public class KiesInkomstenView {
 		this.title = new Text("Maak je keuze:");
 		this.title.setId("title");
 		this.title.setFill(Color.WHITE);
-		this.title.setLayoutX(660);
+		this.title.setLayoutX(580);
 		this.title.setLayoutY(50);
 		
 		this.goudImage = new ImageView(new Image("Machiavelli/Resources/placeholderimg.gif"));
 		this.goudImage.setId("goudImg");
-		this.goudImage.setLayoutX(300);
+		this.goudImage.setLayoutX(200);
 		this.goudImage.setLayoutY(200);
 		Rectangle goudRect = new Rectangle(400, 400);
 		goudRect.setArcHeight(400);
@@ -52,7 +52,7 @@ public class KiesInkomstenView {
 		
 		this.kaartenImage = new ImageView(new Image("Machiavelli/Resources/placeholderimg.gif"));
 		this.kaartenImage.setId("kaartenImg");
-		this.kaartenImage.setLayoutX(900);
+		this.kaartenImage.setLayoutX(800);
 		this.kaartenImage.setLayoutY(200);
 		Rectangle kaartenRect = new Rectangle(400, 400);
 		kaartenRect.setArcHeight(400);
@@ -61,14 +61,14 @@ public class KiesInkomstenView {
 		
 		this.ontvangGoud = new Button("Ontvang goud");
 		this.ontvangGoud.setId("goudButton");
-		this.ontvangGoud.setLayoutX(300);
+		this.ontvangGoud.setLayoutX(200);
 		this.ontvangGoud.setLayoutY(700);
 		this.ontvangGoud.setMinWidth(400f);
 		this.ontvangGoud.setMinHeight(80f);
 		
 		this.ontvangKaarten = new Button("Ontvang kaarten");
 		this.ontvangKaarten.setId("kaartenButton");
-		this.ontvangKaarten.setLayoutX(900);
+		this.ontvangKaarten.setLayoutX(800);
 		this.ontvangKaarten.setLayoutY(700);
 		this.ontvangKaarten.setMinWidth(400f);
 		this.ontvangKaarten.setMinHeight(80f);

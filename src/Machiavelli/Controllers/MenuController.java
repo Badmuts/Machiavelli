@@ -38,31 +38,9 @@ public class MenuController {
         mainMenuView.getDeelnemenKnop().setOnAction(event -> this.cmdDeelnemenSpel());
 
         // Raadpleeg de spelregels
-//        mainMenuView.getSpelregelsButton().setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
-        mainMenuView.getSpelregelsButton().setOnAction((event) -> 
-        {
-        	try
-        	{
-	        	KarakterController controller = new KarakterController();
-	        	controller.cmdTrekkenKaart();
-	        	controller.cmdWeergeefKiesKarakterView();
-        	}
-        	catch(Exception e)
-        	{
-        		e.printStackTrace();
-        	}
-        });
+        mainMenuView.getSpelregelsButton().setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
         mainMenuView.getSpelregelsButton2().setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
 
-//        KiesInkomstenView view = new KiesInkomstenView();
-//		view.weergeefKiesInkomstenView();
-
-//		KarakterController controller = new KarakterController();
-//		controller.cmdTrekkenKaart();
-//		controller.cmdWeergeefKiesKarakterView();
-		
-		System.out.println("we zijn nu hier..");
-        
         // Start de MainMenuView
         this.cmdMainMenu();
     }

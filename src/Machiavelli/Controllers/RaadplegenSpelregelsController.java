@@ -2,12 +2,14 @@ package Machiavelli.Controllers;
 
 import java.rmi.RemoteException;
 
+import javafx.animation.FadeTransition;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Spelregels;
 import Machiavelli.Views.KiesInkomstenView;
@@ -33,14 +35,16 @@ public class RaadplegenSpelregelsController {
 	}
 	
 	public void cmdWeergeefSpelregels() {
-    	StackPane pane = new StackPane();
-//    	StackPane old = (StackPane) Machiavelli.getInstance().getStage().getScene().getRoot();
-    	
-    	
+		StackPane pane = new StackPane();
     	Pane old = new Pane();
+    	
     	old.getChildren().add(Machiavelli.getInstance().getStage().getScene().getRoot());
     	pane.getChildren().addAll(old, cmdGetPane());
-
+    	
+    	FadeTransition ft = new FadeTransition(Duration.millis(700), pane);
+    	ft.setFromValue(0.7);
+    	ft.setToValue(1.0);
+    	ft.play();
     	
     	Scene scene = new Scene(pane, 1440, 900);
 		Machiavelli.getInstance().getStage().setScene(scene);

@@ -31,7 +31,10 @@ public class KarakterController {
     {
     	this.target = null;
     	this.speler = new Speler();
-    	this.speler.addSpel(new Spel());
+    	Spel spel = new Spel();
+    	spel.createNewSpel(1);
+    	this.speler.addSpel(spel);
+    	
 //    	cmdTrekkenKaart();
     }
 //

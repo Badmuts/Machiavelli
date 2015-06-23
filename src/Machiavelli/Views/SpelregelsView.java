@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -32,11 +33,13 @@ public class SpelregelsView implements SpelregelsObserver {
     private Scene scene;
     private StackPane holder;
     private final Scene oldScene;
+    private StackPane returnPane;
 
     public SpelregelsView(RaadplegenSpelregelsController raadplegenSpelregelsController) throws IOException {
         oldScene = stage.getScene();
         this.raadplegenSpelregelsController = raadplegenSpelregelsController;
 		this.spelregels = new Spelregels();
+		returnPane = new StackPane();
 
         Rectangle bg = new Rectangle(1440, 900);
         bg.setFill(Color.rgb(0, 0, 0, 0.7));
@@ -79,6 +82,7 @@ public class SpelregelsView implements SpelregelsObserver {
         stPane = new StackPane();
         stPane.getChildren().addAll(bg, modal);
         stPane.getStyleClass().add("Machiavelli/Resources/SpelregelsView.css");
+        stPane.setId("spelregelview");
         StackPane.setAlignment(modal, Pos.CENTER);
 	}
 
@@ -94,14 +98,39 @@ public class SpelregelsView implements SpelregelsObserver {
     
     public Pane getPane()
     {
-    	return holder;
+    	return this.stPane;
     }
 
     public void close() {
-        holder.getChildren().remove(stPane);
-        holder.getStylesheets().add("Machiavelli/Resources/style.css");
-        stage.setScene(scene);
-        stage.show();
+//        holder.getChildren().remove(stPane);
+//        holder.getStylesheets().add("Machiavelli/Resources/style.css");
+//        stage.setScene(scene);
+//        stage.show();
+    	Pane newPane = new Pane();
+    	Scene currentScene = Machiavelli.getInstance().getStage().getScene();
+    	
+    	System.out.println("\nThe current scene contains the following nodes (panes): ");
+    	for(Node node : currentScene.getRoot().getChildrenUnmodifiable())
+    	{
+    		System.out.println(node.idProperty());
+    		if(currentScene.lookup("#spelregelview").equals(node))
+    		{
+    			//deletes the kieskarakterview pane, from the nodelist of the scene...
+    			newPane.getChildren().add(node);
+    			
+    			System.out.println("\nVerwijderd: " + node.getId());
+    			break;
+    		}
+    	}
+    	
+    	newPane = null;
+//    	
+    	//show the nodes in the current list.
+    	System.out.println("\nThe current scene contains the following nodes (panes): ");
+    	for(Node node : currentScene.getRoot().getChildrenUnmodifiable())
+    	{
+    		System.out.println(node.idProperty());
+    	}
     }
 
 	public Button getCloseButton() {
