@@ -33,13 +33,12 @@ public class InkomstenController
 	{
 		this.speler = speler;
 		this.inkomstenView = new KiesInkomstenView();
-		initializeInkomstenViewButtons();
+		this.initializeInkomstenViewButtons();
 		
 		//TODO: Dit is alleen bedoeld voor testing, krijg de speler vanuit beurt.
 		Spel spel = new Spel();
 		spel.createNewSpel(2);
 		this.speler.addSpel(spel);
-//		this.cmdTrekkenKaart();
 	}
 	public void cmdTrekkenKaart() throws RemoteException
 	{
@@ -132,25 +131,6 @@ public class InkomstenController
 	
 	public void initializeInkomstenViewButtons()
 	{
-//		this.ontvangGoud.setOnAction((event) -> 
-//		{
-//			this.cmdSluitKiesInkomstenView();
-//			inkomstenController.cmdKiezenGoud();
-//		});
-//		
-//		this.ontvangKaarten.setOnAction((event) -> {
-//			try
-//			{
-//				this.cmdSluitKiesInkomstenView();
-//				this.inkomstenController.cmdTrekkenKaart();
-//				this.inkomstenController.weergeefTrekkenKaartView();
-//			}
-//			catch(Exception e)
-//			{
-//				e.printStackTrace();
-//			}
-//		});
-		
 		Button goudButton, kaartenButton;
 		
 		goudButton = this.inkomstenView.getOntvangGoudButton();
@@ -162,7 +142,7 @@ public class InkomstenController
 			cmdKiezenGoud();
 		});
 		
-		this.inkomstenView.getOntvangKaartenButton().setOnAction((event) ->
+		kaartenButton.setOnAction((event) ->
 		{
 			try
 			{
@@ -174,8 +154,6 @@ public class InkomstenController
 			{
 				e.printStackTrace();
 			}
-			
-//			this.inkomstenView.getPane().getChildren().addAll(goudButton, kaartenButton);
 		});
 	}
 

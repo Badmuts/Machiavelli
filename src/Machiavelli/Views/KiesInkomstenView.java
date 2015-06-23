@@ -24,8 +24,6 @@ public class KiesInkomstenView {
 	
 	//Variables
 	private InkomstenController inkomstenController;
-	//comment out the new stage
-//	private Stage stage;
 	private Button ontvangGoud, ontvangKaarten;
 	private ImageView goudImage, kaartenImage;
 	private Text title;
@@ -33,11 +31,6 @@ public class KiesInkomstenView {
 	
 	public KiesInkomstenView() throws RemoteException
 	{
-		//TODO: inkomstencontroller moet de speler krijgen van beurt!
-														//new speler is voor testen.
-//		this.inkomstenController = new InkomstenController(new Speler());
-		//moet speler krijgen. controller krijgt de trekkenkaart methods.
-		
 		this.title = new Text("Maak je keuze:");
 		this.title.setId("title");
 		this.title.setFill(Color.WHITE);
@@ -75,25 +68,6 @@ public class KiesInkomstenView {
 		this.ontvangKaarten.setLayoutY(700);
 		this.ontvangKaarten.setMinWidth(400f);
 		this.ontvangKaarten.setMinHeight(80f);
-		
-//		this.ontvangGoud.setOnAction((event) -> 
-//		{
-//			this.cmdSluitKiesInkomstenView();
-//			inkomstenController.cmdKiezenGoud();
-//		});
-//		
-//		this.ontvangKaarten.setOnAction((event) -> {
-//			try
-//			{
-//				this.cmdSluitKiesInkomstenView();
-//				this.inkomstenController.cmdTrekkenKaart();
-//				this.inkomstenController.weergeefTrekkenKaartView();
-//			}
-//			catch(Exception e)
-//			{
-//				e.printStackTrace();
-//			}
-//		});
 		
 		this.pane = new Pane();
 		this.pane.setId("kiesInkomstenPane");
