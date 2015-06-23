@@ -1,5 +1,11 @@
 package Machiavelli.Controllers;
 
+import java.rmi.registry.Registry;
+
+import server.GamesRemote;
+import Machiavelli.Machiavelli;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Models.Speler;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Models.Speler;
 

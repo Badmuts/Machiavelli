@@ -88,9 +88,16 @@ public class Speler implements SpelerRemote, Serializable {
 		return this.karakter;
 	}
 	
-	public void setKarakter(Karakter karakter) throws RemoteException {
-		this.karakter = karakter;
-        notifyObservers();
+	public void setKarakter(Karakter karakter) {
+		try
+		{
+			this.karakter = karakter;
+	        notifyObservers();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	public SpelRemote getSpel() throws RemoteException {

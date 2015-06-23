@@ -99,14 +99,20 @@ public class Condotierre implements Karakter, Bonusable, Serializable {
 
     /** ontvangen bonusgoud voor militaire gebouwen */
     @Override
-    public void ontvangenBonusGoud() throws RemoteException {
-        ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
-        for(GebouwKaart gebouw: gebouwen) {
-            if (gebouw.getType() == this.type)
-                speler.getPortemonnee().ontvangenGoud(1);
-        }
+    public void ontvangenBonusGoud() {
+    	try
+    	{
+	        ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
+	        for(GebouwKaart gebouw: gebouwen) {
+	            if (gebouw.getType() == this.type)
+	                speler.getPortemonnee().ontvangenGoud(1);
+	        }
+    	}
+    	catch(RemoteException e)
+    	{
+    		e.printStackTrace();
+    	}
     }
-
     /*
     TODO: implement registerSelectGebouwView
     public void registerSelectGebouwView(SelecteGebouwView selecteGebouwView) {

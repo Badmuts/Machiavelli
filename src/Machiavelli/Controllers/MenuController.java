@@ -1,11 +1,12 @@
 package Machiavelli.Controllers;
 
-import Machiavelli.Interfaces.Remotes.SpelRemote;
-import Machiavelli.Machiavelli;
-import Machiavelli.Views.InvullenSpelersView;
-import Machiavelli.Views.MainMenuView;
-
 import java.rmi.registry.Registry;
+
+import Machiavelli.Machiavelli;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Views.InvullenSpelersView;
+import Machiavelli.Views.KiesInkomstenView;
+import Machiavelli.Views.MainMenuView;
 
 public class MenuController {
 

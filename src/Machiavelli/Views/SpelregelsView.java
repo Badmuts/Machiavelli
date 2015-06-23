@@ -5,6 +5,7 @@ import Machiavelli.Interfaces.Observers.SpelregelsObserver;
 import Machiavelli.Interfaces.Remotes.SpelregelsRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Spelregels;
+import javafx.animation.FadeTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -82,6 +84,12 @@ public class SpelregelsView implements SpelregelsObserver {
         holder.getChildren().addAll(stage.getScene().getRoot().getChildrenUnmodifiable());
         holder.getChildren().add(stPane);
         holder.getStylesheets().add("Machiavelli/Resources/style.css");
+        
+        FadeTransition ft = new FadeTransition(Duration.millis(700), holder);
+    	ft.setFromValue(0.7);
+    	ft.setToValue(1.0);
+    	ft.play();
+        
         this.scene = new Scene(holder, 1440, 900);
         stage.setScene(scene);
 		stage.show();

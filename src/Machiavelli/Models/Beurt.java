@@ -44,6 +44,11 @@ public class Beurt implements BeurtRemote, Serializable {
     	return this.speler;
     }
     
+    public ArrayList<Speler> getSpelerLijst()
+    {
+    	return this.spelerLijst;
+    }
+    
     public void setSpeler(Speler speler) throws RemoteException {
     	this.speler = speler;
         notifyObservers();

@@ -9,10 +9,22 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import javafx.scene.image.Image;
+import Machiavelli.Factories.GebouwFactory;
+import Machiavelli.Factories.KarakterFactory;
+import Machiavelli.Interfaces.Observers.SpelObserver;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
+import Machiavelli.Views.SpeelveldView;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
 public class Spel implements SpelRemote, Serializable {
 	private int maxAantalSpelers;
 	private Bank bank;
 	private GebouwFactory gebouwFactory;
+	private KarakterFactory karakterFactory;
 	private ArrayList<SpelObserver> observers;
 	private ArrayList<Speler> spelers = new ArrayList<>();
 
@@ -26,6 +38,7 @@ public class Spel implements SpelRemote, Serializable {
         this.gebouwFactory = new GebouwFactory();
 		this.spelers = new ArrayList<Speler>();
         this.observers = new ArrayList<SpelObserver>();
+        this.karakterFactory = new KarakterFactory();
     }
 
     public Bank getBank() throws RemoteException {
@@ -34,6 +47,11 @@ public class Spel implements SpelRemote, Serializable {
 	
 	public GebouwFactory getGebouwFactory() throws RemoteException {
 		return this.gebouwFactory;
+	}
+	
+	public KarakterFactory getKarakterFactory()
+	{
+		return this.karakterFactory;
 	}
 
 	public int getAantalSpelers() throws RemoteException {

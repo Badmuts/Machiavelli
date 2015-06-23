@@ -11,6 +11,11 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import Machiavelli.Enumerations.Type;
+import Machiavelli.Interfaces.Observers.GebouwFactoryObserver;
+import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
+import Machiavelli.Models.GebouwKaart;
+
 /**
  * @author Daan Rosbergen
  */

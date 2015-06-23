@@ -1,14 +1,14 @@
 package Machiavelli.Controllers;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speelveld;
 import Machiavelli.Views.SpeelveldView;
-
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
 /**
  * 
@@ -22,6 +22,7 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
     private GebouwKaartController gebouwKaartController;
     private Speelveld speelveld;
 	private SpeelveldView speelveldview;
+
 	private SpelRemote spel;
 
     public SpeelveldController(SpelRemote spel, SpelerRemote speler, GebouwKaartController gebouwKaartController) throws RemoteException {
@@ -34,6 +35,12 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
         this.speelveldview = new SpeelveldView(this, this.speelveld, this.gebouwKaartController);
 
 		speelveldview.getExitButton().setOnAction(event -> System.exit(0));
+        
+//		speelveldview.getSpelregels().setOnAction((event) ->
+//		{
+//			RaadplegenSpelregelsController spelregelscontroller = new RaadplegenSpelregelsController();
+//			spelregelscontroller.cmdSluitSpelregelView();
+//		});
 
         this.spel.addObserver(this);
 		this.speelveldview.show();
