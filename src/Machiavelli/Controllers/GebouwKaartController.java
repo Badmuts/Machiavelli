@@ -14,10 +14,10 @@ import java.util.ArrayList;
  * Created by badmuts on 14-6-15.
  */
 public class GebouwKaartController extends UnicastRemoteObject {
-    private final SpelerRemote speler;
     private SpelRemote spel;
-    private ArrayList<GebouwKaartRemote> gebouwKaarten = new ArrayList<GebouwKaartRemote>();
-    private ArrayList<GebouwKaartView> gebouwKaartViews = new ArrayList<GebouwKaartView>();
+    private SpelerRemote speler;
+    private ArrayList<GebouwKaartRemote> gebouwKaarten = new ArrayList<>();
+    private ArrayList<GebouwKaartView> gebouwKaartViews = new ArrayList<>();
     private ArrayList<GebouwKaartRemote> activeCards = new ArrayList<>();
 
     /**

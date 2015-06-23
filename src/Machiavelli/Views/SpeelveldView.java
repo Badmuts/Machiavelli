@@ -127,7 +127,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     private void createKaartHolder() {
         try {
             handActionBarView = new HandActionBarView(this.speelveld.getSpeler().getHand(), this.gebouwKaartController);
-        } catch (RemoteException re) {
+        } catch (Exception re) {
             re.printStackTrace();
         }
     }
