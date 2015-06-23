@@ -9,9 +9,6 @@ import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speelveld;
 import Machiavelli.Views.SpeelveldView;
-import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
 /**
  * 
@@ -20,7 +17,7 @@ import java.rmi.server.UnicastRemoteObject;
  *
  */
 
-public class SpeelveldController extends UnicastRemoteObject implements SpelObserver, Serializable {
+public class SpeelveldController extends UnicastRemoteObject implements SpelObserver {
     private SpelerRemote speler;
     private GebouwKaartController gebouwKaartController;
     private Speelveld speelveld;
@@ -36,7 +33,6 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
         this.gebouwKaartController = gebouwKaartController;
 
         this.speelveldview = new SpeelveldView(this, this.speelveld, this.gebouwKaartController);
-        this.speelveld.addObserver(this.speelveldview);
 
 		speelveldview.getExitButton().setOnAction(event -> System.exit(0));
         

@@ -32,14 +32,13 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
         this.gebouwKaartController = gebouwKaartController;
         this.pane.setPrefSize(840, 275);
 
-        this.hand.addObserver(this);
-
         createBackground(); // Maak achtergrond aan
         buildGebouwKaartViewsArray(); // Vul gebouwKaartViews[]
 
         this.pane.getChildren().addAll(kaartholder); // Voeg achtergrond toe
         addGebouwKaartViews(); // Voeg views toe aan HandActionBarView (pane)
         this.pane.setLayoutX(250);
+        this.hand.addObserver(this);
     }
 
     /**

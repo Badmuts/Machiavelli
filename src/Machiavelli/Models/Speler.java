@@ -47,9 +47,13 @@ public class Speler implements SpelerRemote, Serializable {
 
 	// Plaats een gebouwkaart in de stad van de speler
 	public void bouwenGebouw(GebouwKaart gebouw) throws RemoteException {
-		this.stad.addGebouw(gebouw);
-		this.hand.removeGebouw(gebouw);
-        notifyObservers();
+		int kosten = gebouw.getKosten();
+        int saldo = portemonnee.getGoudMunten();
+        if ((saldo-kosten) >= 0) {
+            this.stad.addGebouw(gebouw);
+            this.hand.removeGebouw(gebouw);
+            notifyObservers();
+        }
 	}
 
 	// Trekken van twee kaarten uit de stapel

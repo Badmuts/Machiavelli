@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class MainMenuView{
+public class MainMenuView {
     private Button startbutton;
     private Button exitbutton;
     private Button spelregels;
@@ -76,7 +76,7 @@ public class MainMenuView{
 		mainTx2.setLayoutY(170);
 		
 		//Knoppen defini�ren
-		initButton(startbutton,"Kies spel", "buttonstart", 700,450,200f,75f, "button-primary");
+		initButton(startbutton,"Kies spel", "buttonstart", 700,450,200f,75f, "button-success");
 		initButton(exitbutton,"Afsluiten", "buttonexit", 700,530,200f,75f, "button-danger");
 		initButton(spelregels,"Spelregels", "buttonregels", 15,10,125f,50f, "button-primary");
 		initButton(nieuwspelknop,"Nieuw spel", "gamekiezen", 700,290,200f,75f, "button-primary");
