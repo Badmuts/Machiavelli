@@ -12,7 +12,7 @@ import java.util.*;
  * Hier wordt bepaald wie de winnaar is van het spel.
  *
  * @author Bernd Oostrum, Sander de Jong
- * @version 0.1
+ * @version 0.2
  *
  */
 public class PuntenModel implements Serializable {
@@ -77,6 +77,7 @@ public class PuntenModel implements Serializable {
 		return bonus;
 	}
 
+	// Lijst sorteren van hoogste punten naar laagste punten
 	private ArrayList<Speler> sortList(ArrayList<Speler> list)
 	{
 		ArrayList<Speler> winnaarsLijst = list;
@@ -94,8 +95,10 @@ public class PuntenModel implements Serializable {
 		return winnaarsLijst;
 	}
 
-	public String scoreLijst() throws RemoteException {
-		return null;
+	// Geeft lijst terug met spelers van hoog naar laag
+	public ArrayList<Speler> scoreLijst() throws RemoteException {
+		calculateWinner();
+		return this.scoreLijst;
 	}
 
 	// RMI
