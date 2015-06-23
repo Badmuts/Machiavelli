@@ -55,10 +55,10 @@ public class GebouwKaartController extends UnicastRemoteObject {
         for (GebouwKaartRemote gebouwKaartRemote: activeCards) {
             try {
                 this.speler.bouwenGebouw(gebouwKaartRemote);
-                this.activeCards.clear();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        this.activeCards.clear();
     }
 }
