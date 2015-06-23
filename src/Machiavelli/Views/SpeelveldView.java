@@ -6,6 +6,7 @@ import java.rmi.server.UnicastRemoteObject;
 import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Controllers.InkomstenController;
 import Machiavelli.Controllers.KarakterController;
+import Machiavelli.Controllers.MeldingController;
 import Machiavelli.Controllers.RaadplegenSpelregelsController;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
@@ -99,7 +100,30 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 
         Button spelregelsButton = new Button("Spelregels");
         spelregelsButton.setOnAction(event -> {
-            new RaadplegenSpelregelsController().cmdWeergeefSpelregels();
+//            new RaadplegenSpelregelsController().cmdWeergeefSpelregels();
+        	//test of de andere views werken op het speelveldview.
+        	try
+        	{
+//	        	KarakterController controller = new KarakterController(new Speler());
+//	        	controller.cmdKiesKarakter();
+//	        	controller.cmdWeergeefKiesKarakterView();
+        		
+//        		MeldingController melding = new MeldingController();
+//        		melding.cmdSetMelding("Het spel is afgelopen");
+//        		melding.cmdWeergeefMeldingView();
+//        		melding.getSluitButton().setOnAction((e) -> 
+//        		{
+////        			new MeldingController().build("OK knop is overridden").cmdWeergeefMeldingView();
+//        			Machiavelli.getInstance().getStage().close();
+//        		});
+        		
+        		InkomstenController controller = new InkomstenController(new Speler());
+        		controller.weergeefKiesInkomstenView();
+        	}
+        	catch(Exception e)
+        	{
+        		e.printStackTrace();
+        	}
         });
         spelregelsButton.setLayoutY(10);
         spelregelsButton.setLayoutX(10);

@@ -37,7 +37,7 @@ public class KiesInkomstenView {
 		this.title.setLayoutX(580);
 		this.title.setLayoutY(50);
 		
-		this.goudImage = new ImageView(new Image("Machiavelli/Resources/placeholderimg.gif"));
+		this.goudImage = new ImageView(new Image("Machiavelli/Resources/goudImage.png"));
 		this.goudImage.setId("goudImg");
 		this.goudImage.setLayoutX(200);
 		this.goudImage.setLayoutY(200);
@@ -46,7 +46,7 @@ public class KiesInkomstenView {
 		goudRect.setArcWidth(400);
 		this.goudImage.setClip(goudRect);
 		
-		this.kaartenImage = new ImageView(new Image("Machiavelli/Resources/placeholderimg.gif"));
+		this.kaartenImage = new ImageView(new Image("Machiavelli/Resources/kaartenImage.png"));
 		this.kaartenImage.setId("kaartenImg");
 		this.kaartenImage.setLayoutX(800);
 		this.kaartenImage.setLayoutY(200);

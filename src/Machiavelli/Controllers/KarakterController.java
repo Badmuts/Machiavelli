@@ -47,7 +47,7 @@ public class KarakterController {
 //        karakter.gebruikEigenschap();
 //    }
     
-    public void cmdTrekkenKaart() throws RemoteException
+    public void cmdKiesKarakter() throws RemoteException
     {
     	KarakterFactory karakterFactory = this.speler.getSpel().getKarakterFactory();
     	

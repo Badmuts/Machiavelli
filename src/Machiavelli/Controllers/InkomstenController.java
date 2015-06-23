@@ -65,7 +65,17 @@ public class InkomstenController
 			{
 				this.cmdKiezenKaart(this.trekkenKaartView.getButtonList().indexOf(button));
 				trekkenKaartView.cmdSluitTrekkenKaartView();
-				new MeldingController().build("Je hebt een nieuwe kaart getrokken").cmdWeergeefMeldingView();
+				
+				try
+				{
+					ArrayList<GebouwKaart> spelersKaarten = this.speler.getHand().getKaartenLijst();
+					String getrokkenKaart = spelersKaarten.get(spelersKaarten.size() -1).getNaam();
+					new MeldingController().build("De kaart '" + getrokkenKaart + "' is in je hand geplaatst").cmdWeergeefMeldingView();
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
 			});
 		}
 	}

@@ -2,6 +2,7 @@ package Machiavelli.Controllers;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import Machiavelli.Machiavelli;
@@ -88,4 +89,8 @@ public class MeldingController {
 		return this.meldingView.getPane();
 	}
 	
+	public Button getSluitButton()
+	{
+		return this.meldingView.getSluitButton();
+	}
 }
