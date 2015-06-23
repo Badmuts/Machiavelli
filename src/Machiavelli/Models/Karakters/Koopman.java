@@ -4,6 +4,7 @@ import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
+import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
@@ -68,8 +69,8 @@ public class Koopman implements Karakter, Bonusable, Serializable {
 	/** ontvangen bonusgoud voor commerciele gebouwen */
     @Override
     public void ontvangenBonusGoud() throws RemoteException {
-        ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
-        for (GebouwKaart gebouw : gebouwen) {
+        ArrayList<GebouwKaartRemote> gebouwen = speler.getStad().getGebouwen();
+        for (GebouwKaartRemote gebouw : gebouwen) {
             if (gebouw.getType() == this.type) {
                 speler.getPortemonnee().ontvangenGoud(1);
             }

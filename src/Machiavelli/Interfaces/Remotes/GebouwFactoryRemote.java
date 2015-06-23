@@ -12,9 +12,9 @@ import java.util.ArrayList;
  */
 public interface GebouwFactoryRemote extends Remote {
 
-    public void addGebouw(GebouwKaart gebouw) throws RemoteException;
+    public void addGebouw(GebouwKaartRemote gebouw) throws RemoteException;
     public GebouwKaartRemote trekKaart() throws RemoteException;
-    public ArrayList<GebouwKaart> getGebouwen() throws RemoteException;
+    public ArrayList<GebouwKaartRemote> getGebouwen() throws RemoteException;
     public void addObserver(GebouwFactoryObserver gebouwFactoryObserver) throws RemoteException;
     public void notifyObservers() throws RemoteException;
 

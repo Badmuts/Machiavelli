@@ -11,6 +11,7 @@ import Machiavelli.Views.SpeelveldView;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  *
  */
 
-public class Speelveld implements SpeelveldRemote, Serializable {
+public class Speelveld extends UnicastRemoteObject implements SpeelveldRemote, Serializable {
     private SpeelveldView speelveldView;
 	private ArrayList<Speler> spelers;
 	private SpelRemote spel;
@@ -29,7 +30,7 @@ public class Speelveld implements SpeelveldRemote, Serializable {
 	private SpelerRemote speler;
 	private ArrayList<SpeelveldObserver> observers = new ArrayList<>();
 
-	public Speelveld(SpelRemote spel) {
+	public Speelveld(SpelRemote spel) throws RemoteException {
         try {
             this.spel = (SpelRemote) Machiavelli.getInstance().getRegistry().lookup("Spel");
         } catch (Exception e) {

@@ -2,13 +2,16 @@ package Machiavelli.Models;
 
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Observers.HandObserver;
+import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.HandRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -21,12 +24,12 @@ import java.util.List;
  */
 public class Hand extends UnicastRemoteObject implements HandRemote, Serializable {
     // Variables
-    private ArrayList<GebouwKaart> kaartenLijst = new ArrayList<GebouwKaart>();
-    private Speler speler;
+    private ArrayList<GebouwKaartRemote> kaartenLijst = new ArrayList<>();
+    private SpelerRemote speler;
     private ArrayList<HandObserver> observers = new ArrayList<>();
 
     // Een speler start met 4 gebouwkaarten in zijn hand.
-    public Hand(Speler speler) throws RemoteException {
+    public Hand(SpelerRemote speler) throws RemoteException {
         this.speler = speler;
         trekKaarten();
     }
@@ -38,9 +41,9 @@ public class Hand extends UnicastRemoteObject implements HandRemote, Serializabl
     private void trekKaarten() {
         try {
             // Haal gebouwFactory op vanuit het spel.
-            GebouwFactory factory = this.speler.getSpel().getGebouwFactory();
+//            GebouwFactoryRemote factory =
             for (int i = 0; i < 4; i++) { // Trek 4 kaarten.
-                addGebouw(factory.trekKaart()); // Voeg kaart toe aan hand
+                addGebouw(this.speler.getSpel().getGebouwFactory().trekKaart()); // Voeg kaart toe aan hand
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,7 +56,7 @@ public class Hand extends UnicastRemoteObject implements HandRemote, Serializabl
      * @param kaart
      * @throws RemoteException
      */
-    public void addGebouw(GebouwKaart kaart) throws RemoteException {
+    public void addGebouw(GebouwKaartRemote kaart) throws RemoteException {
         kaartenLijst.add(kaart);
         notifyObservers();
     }
@@ -64,9 +67,15 @@ public class Hand extends UnicastRemoteObject implements HandRemote, Serializabl
      * @param gebouw
      * @throws RemoteException
      */
-    public void removeGebouw(GebouwKaart gebouw) throws RemoteException {
-        this.kaartenLijst.remove(gebouw);
-        notifyObservers();
+    public void removeGebouw(GebouwKaartRemote gebouw) throws RemoteException {
+        Iterator<GebouwKaartRemote> iterator = this.kaartenLijst.iterator();
+        while (iterator.hasNext()) {
+            GebouwKaartRemote kaart = iterator.next();
+            if (kaart.getNaam().equals(String.valueOf(gebouw.getNaam()))) {
+                iterator.remove();
+                notifyObservers();
+            }
+        }
     }
 
     /**
@@ -75,7 +84,7 @@ public class Hand extends UnicastRemoteObject implements HandRemote, Serializabl
      * @param gebouwKaarten
      * @throws RemoteException
      */
-    public void addGebouwen(List<GebouwKaart> gebouwKaarten) throws RemoteException {
+    public void addGebouwen(List<GebouwKaartRemote> gebouwKaarten) throws RemoteException {
         this.kaartenLijst.addAll(gebouwKaarten);
         notifyObservers();
     }
@@ -86,7 +95,7 @@ public class Hand extends UnicastRemoteObject implements HandRemote, Serializabl
      * @return
      * @throws RemoteException
      */
-    public ArrayList<GebouwKaart> getKaartenLijst() throws RemoteException {
+    public ArrayList<GebouwKaartRemote> getKaartenLijst() throws RemoteException {
         return this.kaartenLijst;
     }
 
@@ -96,7 +105,7 @@ public class Hand extends UnicastRemoteObject implements HandRemote, Serializabl
      * @param lijst
      * @throws RemoteException
      */
-    public void setKaartenLijst(ArrayList<GebouwKaart> lijst) throws RemoteException {
+    public void setKaartenLijst(ArrayList<GebouwKaartRemote> lijst) throws RemoteException {
         this.kaartenLijst = lijst;
         notifyObservers();
     }
@@ -107,7 +116,7 @@ public class Hand extends UnicastRemoteObject implements HandRemote, Serializabl
      * @return
      * @throws RemoteException
      */
-    public Speler getSpeler() throws RemoteException {
+    public SpelerRemote getSpeler() throws RemoteException {
         return this.speler;
     }
 

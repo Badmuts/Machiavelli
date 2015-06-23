@@ -55,7 +55,7 @@ public class GebouwKaartController extends UnicastRemoteObject {
     public void cmdBouwGebouw() {
         for (GebouwKaartRemote gebouwKaartRemote: activeCards) {
             try {
-                this.speler.bouwenGebouw((GebouwKaart) gebouwKaartRemote);
+                this.speler.bouwenGebouw(gebouwKaartRemote);
             } catch (Exception e) {
                 e.printStackTrace();
             }

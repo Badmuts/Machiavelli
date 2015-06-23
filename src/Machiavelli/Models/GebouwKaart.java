@@ -3,9 +3,13 @@ package Machiavelli.Models;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
+import Machiavelli.Interfaces.Remotes.StadRemote;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
@@ -18,17 +22,17 @@ import java.util.ArrayList;
  * @version 0.1
  *
  */
-public class GebouwKaart implements Serializable, GebouwKaartRemote {
+public class GebouwKaart extends UnicastRemoteObject implements Serializable, GebouwKaartRemote {
     // Variables
 	private int kosten;
 	private String naam;
 	private Type type;
-	private Stad stad;
+	private StadRemote stad;
     private String image;
     private ArrayList<GebouwKaartObserver> observers = new ArrayList<GebouwKaartObserver>();
 
     // Een kaart wordt aangemaakt met de meegegeven waardes
-    public GebouwKaart(int kosten, String naam, Type type, String image) {
+    public GebouwKaart(int kosten, String naam, Type type, String image) throws RemoteException {
         this.kosten = kosten;
         this.naam = naam;
         this.type = type;
@@ -63,11 +67,11 @@ public class GebouwKaart implements Serializable, GebouwKaartRemote {
         notifyObservers();
     }
 
-    public Stad getStad() throws RemoteException {
+    public StadRemote getStad() throws RemoteException {
         return stad;
     }
 
-    public void setStad(Stad stad) throws RemoteException {
+    public void setStad(StadRemote stad) throws RemoteException {
         this.stad = stad;
         notifyObservers();
     }
@@ -103,4 +107,36 @@ public class GebouwKaart implements Serializable, GebouwKaartRemote {
         }
         return "Gebouwkaart Remote Excp";
     }
+
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (!(obj instanceof GebouwKaart))
+//            return false;
+//        if (obj == this)
+//            return true;
+//
+//        GebouwKaart rhs = (GebouwKaart) obj;
+//        return new EqualsBuilder().
+////                appendSuper(super.equals(obj)).
+//                append(kosten, rhs.kosten).
+//                append(naam, rhs.naam).
+//                append(type, rhs.type).
+//                append(stad, rhs.stad).
+//                append(image, rhs.image).
+//                append(observers, rhs.observers).
+//                isEquals();
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return new HashCodeBuilder(17, 31). // two randomly chosen prime numbers
+////                appendSuper(super.hashCode()).
+//                append(kosten).
+//                append(naam).
+//                append(type).
+//                append(stad).
+//                append(image).
+//                append(observers).
+//                toHashCode();
+//    }
 }

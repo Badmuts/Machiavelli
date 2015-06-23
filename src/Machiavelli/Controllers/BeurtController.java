@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import Machiavelli.Interfaces.Remotes.BeurtRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speler;
 
 public class BeurtController extends UnicastRemoteObject {
@@ -20,7 +21,7 @@ public class BeurtController extends UnicastRemoteObject {
 		beurt.geefBeurt(cmdGetSpeler());
 	}
 	
-	public Speler cmdGetSpeler() throws RemoteException {
+	public SpelerRemote cmdGetSpeler() throws RemoteException {
 		return beurt.getSpeler();
 	}
 		

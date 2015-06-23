@@ -19,12 +19,12 @@ public interface SpelRemote extends Remote {
     void addObserver(SpelObserver spelObserver) throws RemoteException;
     void removeObserver(SpelObserver observer) throws RemoteException;
     void notifyObservers() throws RemoteException;
-    void addSpeler(Speler speler) throws RemoteException;
+    void addSpeler(SpelerRemote speler) throws RemoteException;
     void createNewSpel(int maxAantalSpelers) throws RemoteException;
-    ArrayList<Speler> getSpelers() throws RemoteException;
+    ArrayList<SpelerRemote> getSpelers() throws RemoteException;
     int getMaxAantalSpelers() throws RemoteException;
-    Bank getBank() throws RemoteException;
-    GebouwFactory getGebouwFactory() throws RemoteException;
+    BankRemote getBank() throws RemoteException;
+    GebouwFactoryRemote getGebouwFactory() throws RemoteException;
     void createNewSpeler() throws RemoteException;
     KarakterFactory getKarakterFactory() throws RemoteException;
 }

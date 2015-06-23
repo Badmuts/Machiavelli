@@ -166,10 +166,22 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
     @Override
     public void modelChanged(StadRemote stad) throws RemoteException {
         Platform.runLater(() -> {
-            this.stad = stad;
-            this.pane.getChildren().clear();
-            this.pane.getChildren().addAll(portretPane, namePane, stadPane);
-            StackPane.setAlignment(stadPane, Pos.TOP_CENTER);
+            try {
+                System.out.println("Stad view changed!");
+                this.stad = stad;
+                this.pane.getChildren().clear();
+                this.buildGebouwKaartViewArray();
+                this.createSpelerPortrait();
+                this.createSpelerPortraitNumber();
+                this.createNameField();
+                this.createStad();
+                this.pane.getChildren().addAll(portretPane, namePane, stadPane);
+                StackPane.setAlignment(portretPane, Pos.TOP_CENTER);
+                StackPane.setAlignment(namePane, Pos.CENTER);
+                StackPane.setAlignment(stadPane, Pos.BOTTOM_CENTER);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 

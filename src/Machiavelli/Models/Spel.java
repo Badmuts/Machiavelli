@@ -2,6 +2,8 @@ package Machiavelli.Models;
 
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Observers.SpelObserver;
+import Machiavelli.Interfaces.Remotes.BankRemote;
+import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Models.Karakters.Prediker;
 
@@ -9,24 +11,16 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import javafx.scene.image.Image;
-import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Factories.KarakterFactory;
-import Machiavelli.Interfaces.Observers.SpelObserver;
-import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Views.SpeelveldView;
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class Spel implements SpelRemote, Serializable {
 	private int maxAantalSpelers;
-	private Bank bank;
-	private GebouwFactory gebouwFactory;
+	private BankRemote bank;
+	private GebouwFactoryRemote gebouwFactory;
 	private KarakterFactory karakterFactory;
 	private ArrayList<SpelObserver> observers;
-	private ArrayList<Speler> spelers = new ArrayList<>();
+	private ArrayList<SpelerRemote> spelers = new ArrayList<>();
 
 	public Spel(){
 
@@ -36,16 +30,16 @@ public class Spel implements SpelRemote, Serializable {
         this.maxAantalSpelers = maxAantalSpelers;
         this.bank = new Bank();
         this.gebouwFactory = new GebouwFactory();
-		this.spelers = new ArrayList<Speler>();
+		this.spelers = new ArrayList<>();
         this.observers = new ArrayList<SpelObserver>();
         this.karakterFactory = new KarakterFactory();
     }
 
-    public Bank getBank() throws RemoteException {
+    public BankRemote getBank() throws RemoteException {
 		return this.bank;
 	}
 	
-	public GebouwFactory getGebouwFactory() throws RemoteException {
+	public GebouwFactoryRemote getGebouwFactory() throws RemoteException {
 		return this.gebouwFactory;
 	}
 	
@@ -78,12 +72,12 @@ public class Spel implements SpelRemote, Serializable {
 	}
     
     @Override
-    public void addSpeler(Speler speler) throws RemoteException {
+    public void addSpeler(SpelerRemote speler) throws RemoteException {
 		this.spelers.add(speler);
 		notifyObservers();
 	}
 
-    public ArrayList<Speler> getSpelers() {
+    public ArrayList<SpelerRemote> getSpelers() {
         return this.spelers;
     }
 
@@ -92,7 +86,7 @@ public class Spel implements SpelRemote, Serializable {
     }
 
 	public void createNewSpeler() throws RemoteException{
-		Speler speler = new Speler();
+		SpelerRemote speler = new Speler();
         speler.addSpel(this);
         speler.setKarakter(new Prediker()); // TESTING ONLY
         speler.getKarakter().setSpeler(speler); // TESTING ONLY

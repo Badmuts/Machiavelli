@@ -31,15 +31,19 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
     public HandActionBarView(HandRemote hand, GebouwKaartController gebouwKaartController) throws RemoteException {
         this.hand = hand;
         this.gebouwKaartController = gebouwKaartController;
+        this.hand.addObserver(this);
         this.pane.setPrefSize(840, 275);
 
+        createView();
+    }
+
+    private void createView() throws RemoteException {
         createBackground(); // Maak achtergrond aan
         buildGebouwKaartViewsArray(); // Vul gebouwKaartViews[]
 
         this.pane.getChildren().addAll(kaartholder); // Voeg achtergrond toe
         addGebouwKaartViews(); // Voeg views toe aan HandActionBarView (pane)
         this.pane.setLayoutX(250);
-        this.hand.addObserver(this);
     }
 
     /**
@@ -57,7 +61,8 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
      * en plaatst deze in gebouwKaartViews[].
      */
     private void buildGebouwKaartViewsArray() throws RemoteException {
-        for (GebouwKaartRemote gebouwKaartRemote: hand.getKaartenLijst()) {
+        ArrayList<GebouwKaartRemote> kaartenLijst = this.hand.getKaartenLijst();
+        for (GebouwKaartRemote gebouwKaartRemote: kaartenLijst) {
             GebouwKaartView gebouwKaartView = new GebouwKaartView(this.gebouwKaartController, gebouwKaartRemote);
             gebouwKaartRemote.addObserver(gebouwKaartView); // Add view (observer) to remote
             this.gebouwKaartController.addView(gebouwKaartView); // Add view to controller
@@ -101,12 +106,11 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
         Platform.runLater(() -> {
             // TODO: update hand
             try {
+                System.out.println("Hand view changed!");
                 this.hand = hand;
                 this.gebouwKaartViews.clear(); // Leeg gebouwKaartViews[]
                 this.pane.getChildren().clear(); // Leeg het pane
-                this.pane.getChildren().add(kaartholder); // Maak view leeg en vul met kaartholder
-                buildGebouwKaartViewsArray(); // Vul gebouwKaarViews[] met nieuwe views
-                addGebouwKaartViews(); // Voeg views toe aan pane
+                createView();
             } catch (Exception e) {
                 e.printStackTrace();
             }

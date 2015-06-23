@@ -17,6 +17,7 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Speelveld;
 import Machiavelli.Models.Speler;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -56,7 +57,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         this.speler = speler;
 		this.speelveldcontroller = speelveldcontroller;
         this.gebouwKaartController = gebouwKaartController;
-        this.portemonnee = this.speelveld.getSpeler().getPortemonnee();
+        this.portemonnee = speler.getPortemonnee();
 
         this.portemonnee.addObserver(this);
 
@@ -209,7 +210,14 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 
     @Override
     public void modelChanged(PortemonneeRemote portemonnee) throws RemoteException {
-        this.portemonnee = portemonnee;
-        this.portemonneeView.setText(String.valueOf(portemonnee.getGoudMunten()));
+        Platform.runLater(() -> {
+            System.out.println("Portemonnee view changed!");
+            try {
+                this.portemonnee = portemonnee;
+                this.portemonneeView.setText(String.valueOf(portemonnee.getGoudMunten()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

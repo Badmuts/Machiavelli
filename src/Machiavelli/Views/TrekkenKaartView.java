@@ -3,6 +3,7 @@ package Machiavelli.Views;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -29,7 +30,7 @@ import Machiavelli.Models.GebouwKaart;
 public class TrekkenKaartView
 {
 	private ArrayList<Button> kaartenButtons;
-	private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
+	private ArrayList<GebouwKaartRemote> gebouwen = new ArrayList<>();
 	private Pane pane;
 
 	public TrekkenKaartView(InkomstenController inkomstenController) {
@@ -59,11 +60,11 @@ public class TrekkenKaartView
 		return this.kaartenButtons;
 	}
 	
-	public ArrayList<GebouwKaart> getGebouwen() {
+	public ArrayList<GebouwKaartRemote> getGebouwen() {
 		return this.gebouwen;
 	}
 	
-	public void createGebouwView(GebouwKaart gebouw) throws RemoteException {
+	public void createGebouwView(GebouwKaartRemote gebouw) throws RemoteException {
 		Button newButton = new Button();
 		newButton.setGraphic(new ImageView(gebouw.getImage()));
 		newButton.setLayoutX(Math.random() * 111);
