@@ -40,6 +40,7 @@ public class InkomstenController
 		spel.createNewSpel(2);
 		this.speler.addSpel(spel);
 	}
+	
 	public void cmdTrekkenKaart() throws RemoteException
 	{
 		this.trekkenKaartView = new TrekkenKaartView(this);

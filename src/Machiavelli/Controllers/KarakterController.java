@@ -27,10 +27,10 @@ public class KarakterController {
     private KiesKarakterView karakterView = new KiesKarakterView();
     private Karakter target;
     
-    public KarakterController() throws RemoteException
+    public KarakterController(Speler speler) throws RemoteException
     {
     	this.target = null;
-    	this.speler = new Speler();
+    	this.speler = speler;
     	Spel spel = new Spel();
     	spel.createNewSpel(1);
     	this.speler.addSpel(spel);
