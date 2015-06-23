@@ -99,8 +99,21 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 
         Button spelregelsButton = new Button("Spelregels");
         spelregelsButton.setOnAction(event -> {
-            new RaadplegenSpelregelsController().cmdWeergeefSpelregels();
-        	
+//            new RaadplegenSpelregelsController().cmdWeergeefSpelregels();
+        	//test of de andere views werken op het speelveldview.
+        	try
+        	{
+//	        	KarakterController controller = new KarakterController();
+//	        	controller.cmdTrekkenKaart();
+//	        	controller.cmdWeergeefKiesKarakterView();
+        		
+        		KiesInkomstenView inkomstenView = new KiesInkomstenView();
+        		inkomstenView.weergeefKiesInkomstenView();
+        	}
+        	catch(Exception e)
+        	{
+        		e.printStackTrace();
+        	}
         });
         spelregelsButton.setLayoutY(10);
         spelregelsButton.setLayoutX(10);
