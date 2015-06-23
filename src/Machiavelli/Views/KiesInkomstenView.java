@@ -2,6 +2,7 @@ package Machiavelli.Views;
 
 import java.rmi.RemoteException;
 
+import javafx.animation.FadeTransition;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import Machiavelli.Machiavelli;
 import Machiavelli.Controllers.InkomstenController;
 import Machiavelli.Models.Spel;
@@ -109,6 +111,10 @@ public class KiesInkomstenView {
     	old.getChildren().add(Machiavelli.getInstance().getStage().getScene().getRoot());
     	pane.getChildren().addAll(old, this.pane);
 
+    	FadeTransition ft = new FadeTransition(Duration.millis(700), pane);
+    	ft.setFromValue(0.7);
+    	ft.setToValue(1.0);
+    	ft.play();
     	
     	Scene scene = new Scene(pane, 1440, 900);
 		Machiavelli.getInstance().getStage().setScene(scene);
