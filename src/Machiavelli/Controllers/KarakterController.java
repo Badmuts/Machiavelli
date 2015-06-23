@@ -23,16 +23,16 @@ import Machiavelli.Views.KiesKarakterView;
 public class KarakterController {
 
 	//TODO: krijg speler van beurt..
-    private Speler speler = new Speler();
+    private Speler speler;
     private KiesKarakterView karakterView = new KiesKarakterView();
     private Karakter target;
     
-    
     public KarakterController() throws RemoteException
     {
-    	//delete the new spel, this is for testing only.
+    	this.target = null;
+    	this.speler = new Speler();
     	this.speler.addSpel(new Spel(1));
-    	cmdTrekkenKaart();
+//    	cmdTrekkenKaart();
     }
 //
 //    public KarakterController(Speler speler) {
@@ -66,14 +66,32 @@ public class KarakterController {
     				{
     					this.target = karakterFactory.getKarakterByNumber(buttonNumber);
 	    				this.speler.setKarakter(target);
-	    				
-	    				cmdSluitKiesKarakterView();
-	    				
-	    				new MeldingController().build("Je bent deze ronde een " + this.getTarget().getNaam()).cmdWeergeefMeldingView();
     				}
     				catch(Exception e)
     				{
     					e.printStackTrace();
+    				}
+    				
+    				//test if the karakter is deleted from the factory.
+    				finally
+    				{
+    					try 
+    					{
+							for(Karakter karakter : karakterFactory.getKarakters())
+							{
+								System.out.println(karakter.getNaam() + " " + karakterFactory.getKarakters().indexOf(karakter));
+							}
+							
+							System.out.println("De speler is een: " + this.speler.getKarakter().getNaam());
+							
+							cmdSluitKiesKarakterView();
+		    				
+		    				new MeldingController().build("Je bent deze ronde een " + this.getTarget().getNaam()).cmdWeergeefMeldingView();
+						} 
+    					catch (Exception e) 
+    					{
+							e.printStackTrace();
+						}
     				}
     			});
 			} 
@@ -103,6 +121,11 @@ public class KarakterController {
     public Karakter getTarget()
     {
     	return this.target;
+    }
+    
+    public Speler getSpeler()
+    {
+    	return this.speler;
     }
     
     public void cmdSluitKiesKarakterView()

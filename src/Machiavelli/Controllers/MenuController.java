@@ -1,16 +1,14 @@
 package Machiavelli.Controllers;
 
-import Machiavelli.Interfaces.Remotes.SpelRemote;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+
 import Machiavelli.Machiavelli;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Models.Spel;
 import Machiavelli.Models.Speler;
 import Machiavelli.Views.InvullenSpelersView;
-import Machiavelli.Views.KiesInkomstenView;
-import Machiavelli.Views.KiesKarakterView;
 import Machiavelli.Views.MainMenuView;
-
-import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 
 public class MenuController {
 
@@ -48,11 +46,14 @@ public class MenuController {
         mainMenuView.getSpelregelsButton().setOnAction((event) ->
         		{
 					try {
-						KiesInkomstenView view = new KiesInkomstenView();
-						view.weergeefKiesInkomstenView();
+//						KiesInkomstenView view = new KiesInkomstenView();
+//						view.weergeefKiesInkomstenView();
+
+						KarakterController controller = new KarakterController();
+						controller.cmdTrekkenKaart();
+						controller.cmdWeergeefKiesKarakterView();
 						
-//						KarakterController controller = new KarakterController();
-//						controller.cmdWeergeefKiesKarakterView();
+						System.out.println("we zijn nu hier..");
 						
 //						MeldingController melding = new MeldingController();
 //						melding.cmdSetMelding("Dit is een test melding.");
@@ -61,6 +62,7 @@ public class MenuController {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
+					
         		});
         	
         
