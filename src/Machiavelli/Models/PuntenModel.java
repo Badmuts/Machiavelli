@@ -22,25 +22,34 @@ public class PuntenModel implements Serializable {
 	private Spel spel;
 
 
+	// Spel meegeven
 	public PuntenModel(Spel spel) {
 		this.spel = spel;
 	}
 
-	// Berekenen winnaar en checken op gelijkspel
-	// Moet nog berekenen wie als eerste 8 gebouwen heeft en wie daarna
-	private void berekenWinnaar() throws RemoteException {
+	// Punten berekenen en in spelers zetten
+	private void calculateWinner() throws RemoteException {
 		int totalScore = 0;
-		for(Speler speler: this.spel.getSpelers())
+		for (Speler speler: this.spel.getSpelers())
 		{
 			totalScore = getStadBonus(speler.getStad()) + getKleurBonus(speler.getStad());
 			speler.getStad().setWaardeStad(totalScore);
 		}
 
-		scoreLijst = this.spel.getSpelers();
-		sortList(scoreLijst);
-		checkDraw(scoreLijst);
-	}
+		ArrayList<Speler> tempList = sortList(this.spel.getSpelers());
+		this.scoreLijst = tempList;
 
+		// Gelijkspel
+		if (this.spel.getSpelers().get(0).equals(this.spel.getSpelers().get(1)))
+		{
+			for (Speler speler: this.spel.getSpelers())
+			{
+				speler.getStad().setWaardeStad(getStadBonus(speler.getStad()));
+			}
+			tempList = sortList(this.spel.getSpelers());
+			this.scoreLijst = tempList;
+		}
+	}
 
 	// De waarde van alle gebouwen in een stad
 	private int getStadBonus(Stad stad) throws RemoteException {
@@ -68,17 +77,6 @@ public class PuntenModel implements Serializable {
 		return bonus;
 	}
 
-	// Als er gelijjkspel is worden alleen de gebouwkaarten geteld.
-	private void checkDraw(ArrayList<Speler> lijst) throws RemoteException {
-		if (lijst.get(0).equals(lijst.get(1)))
-		{
-			for(Speler speler: this.spel.getSpelers())
-			{
-				speler.getStad().setWaardeStad(getStadBonus(speler.getStad()));
-			}
-		}
-	}
-
 	private ArrayList<Speler> sortList(ArrayList<Speler> list)
 	{
 		ArrayList<Speler> winnaarsLijst = list;
@@ -97,7 +95,6 @@ public class PuntenModel implements Serializable {
 	}
 
 	public String scoreLijst() throws RemoteException {
-		berekenWinnaar();
 		return null;
 	}
 
