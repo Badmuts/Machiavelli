@@ -4,8 +4,6 @@ import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.StadRemote;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -108,35 +106,4 @@ public class GebouwKaart extends UnicastRemoteObject implements Serializable, Ge
         return "Gebouwkaart Remote Excp";
     }
 
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (!(obj instanceof GebouwKaart))
-//            return false;
-//        if (obj == this)
-//            return true;
-//
-//        GebouwKaart rhs = (GebouwKaart) obj;
-//        return new EqualsBuilder().
-////                appendSuper(super.equals(obj)).
-//                append(kosten, rhs.kosten).
-//                append(naam, rhs.naam).
-//                append(type, rhs.type).
-//                append(stad, rhs.stad).
-//                append(image, rhs.image).
-//                append(observers, rhs.observers).
-//                isEquals();
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return new HashCodeBuilder(17, 31). // two randomly chosen prime numbers
-////                appendSuper(super.hashCode()).
-//                append(kosten).
-//                append(naam).
-//                append(type).
-//                append(stad).
-//                append(image).
-//                append(observers).
-//                toHashCode();
-//    }
 }
