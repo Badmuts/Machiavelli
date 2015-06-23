@@ -75,7 +75,7 @@ public class KarakterController {
     					e.printStackTrace();
     				}
     				
-    				//test if the karakter is deleted from the factory.
+    				//test if the karakter is deleted from the factory and close the view.
     				finally
     				{
     					try 

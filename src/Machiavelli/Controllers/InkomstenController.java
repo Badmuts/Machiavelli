@@ -27,10 +27,13 @@ public class InkomstenController
 	private Speler speler; // ?
 //	Beurt beurt;
 	private TrekkenKaartView trekkenKaartView;
+	private KiesInkomstenView inkomstenView;
 	
 	public InkomstenController(Speler speler) throws RemoteException
 	{
 		this.speler = speler;
+		this.inkomstenView = new KiesInkomstenView();
+		initializeInkomstenViewButtons();
 		
 		//TODO: Dit is alleen bedoeld voor testing, krijg de speler vanuit beurt.
 		Spel spel = new Spel();
@@ -104,6 +107,18 @@ public class InkomstenController
 		this.trekkenKaartView.cmdWeergeefTrekkenKaartView();
 	}
 	
+	public void weergeefKiesInkomstenView()
+	{
+		try
+		{
+			this.inkomstenView.weergeefKiesInkomstenView();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public void showHand(Speler speler) throws RemoteException
     {
         ArrayList<GebouwKaart> lst = speler.getHand().getKaartenLijst();
@@ -114,5 +129,54 @@ public class InkomstenController
         }
         System.out.println();
     }
+	
+	public void initializeInkomstenViewButtons()
+	{
+//		this.ontvangGoud.setOnAction((event) -> 
+//		{
+//			this.cmdSluitKiesInkomstenView();
+//			inkomstenController.cmdKiezenGoud();
+//		});
+//		
+//		this.ontvangKaarten.setOnAction((event) -> {
+//			try
+//			{
+//				this.cmdSluitKiesInkomstenView();
+//				this.inkomstenController.cmdTrekkenKaart();
+//				this.inkomstenController.weergeefTrekkenKaartView();
+//			}
+//			catch(Exception e)
+//			{
+//				e.printStackTrace();
+//			}
+//		});
+		
+		Button goudButton, kaartenButton;
+		
+		goudButton = this.inkomstenView.getOntvangGoudButton();
+		kaartenButton = this.inkomstenView.getOntvangKaartenButton();
+		
+		goudButton.setOnAction((event) ->
+		{
+			this.inkomstenView.cmdSluitKiesInkomstenView();
+			cmdKiezenGoud();
+		});
+		
+		this.inkomstenView.getOntvangKaartenButton().setOnAction((event) ->
+		{
+			try
+			{
+				this.inkomstenView.cmdSluitKiesInkomstenView();
+				cmdTrekkenKaart();
+				weergeefTrekkenKaartView();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+//			this.inkomstenView.getPane().getChildren().addAll(goudButton, kaartenButton);
+		});
+	}
 
 }

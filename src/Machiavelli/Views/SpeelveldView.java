@@ -101,7 +101,6 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         spelregelsButton.setOnAction(event -> {
             new RaadplegenSpelregelsController().cmdWeergeefSpelregels();
         	
-        });
         spelregelsButton.setLayoutY(10);
         spelregelsButton.setLayoutX(10);
         spelregelsButton.getStyleClass().add("button-primary");
