@@ -1,6 +1,6 @@
 .speelveld {
     /*-fx-background-color: rgb(228, 215, 194);*/
-    -fx-background-image: url("/Machiavelli/Resources/speelveld-bg.png") ;
+    -fx-background-image: url("speelveld-bg.png") ;
 }
 
 /* Styling voor de gele buttons */
