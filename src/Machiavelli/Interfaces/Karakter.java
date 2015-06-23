@@ -3,7 +3,6 @@ package Machiavelli.Interfaces;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.Speler;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -23,13 +22,15 @@ import java.rmi.RemoteException;
  */
 public interface Karakter extends Remote {
 
-    void setSpeler(Speler speler) throws RemoteException;
+//    void setSpeler(Speler speler) throws RemoteException;
 
     void gebruikEigenschap() throws RemoteException;
 
     void setTarget(Object target) throws RemoteException;
 
-    Speler getSpeler() throws RemoteException;
+    void setSpeler(SpelerRemote speler) throws RemoteException;
+
+    SpelerRemote getSpeler() throws RemoteException;
 
     String getNaam() throws RemoteException;
 

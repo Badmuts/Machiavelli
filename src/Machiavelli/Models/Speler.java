@@ -2,11 +2,13 @@ package Machiavelli.Models;
 
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelerObserver;
+import Machiavelli.Interfaces.Remotes.HandRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
@@ -19,17 +21,17 @@ import java.util.ArrayList;
  * @version 0.1
  *
  */
-public class Speler implements SpelerRemote, Serializable {
+public class Speler extends UnicastRemoteObject implements SpelerRemote, Serializable {
 	// Variables
 	private Portemonnee portemonnee;
 	private Karakter karakter;
-	private Hand hand;
+	private HandRemote hand;
 	private SpelRemote spel;
 	private Stad stad;
 	private ArrayList<SpelerObserver> observers = new ArrayList<>();
 
 	// Speler toewijzen aan spel en een nieuwe portemonnee, hand en stad maken.
-	public Speler() {
+	public Speler() throws RemoteException {
 
 	}
 
@@ -101,7 +103,7 @@ public class Speler implements SpelerRemote, Serializable {
 		return this.portemonnee;
 	}
 
-	public Hand getHand() throws RemoteException {
+	public HandRemote getHand() throws RemoteException {
 		return this.hand;
 	}
 
@@ -130,8 +132,12 @@ public class Speler implements SpelerRemote, Serializable {
     }
 
     private void createHand() {
-		this.hand = new Hand(this);
-		this.createPortemonnee();
+        try {
+            this.hand = new Hand(this);
+		    this.createPortemonnee();
+        } catch (RemoteException re) {
+            re.printStackTrace();
+        }
     }
 
     private void createPortemonnee() {

@@ -4,6 +4,7 @@ import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 
@@ -25,7 +26,7 @@ import java.util.ArrayList;
  */
 public class Koopman implements Karakter, Bonusable, Serializable {
 	
-	private Speler speler = null; 
+	private SpelerRemote speler = null;
 	
 	/** Eigenschappen van karakter Koopman. */
     private final int nummer = 6;	
@@ -42,12 +43,12 @@ public class Koopman implements Karakter, Bonusable, Serializable {
 	 * de Koopman wordt aan de speler gekoppeld.
 	 */
 	@Override
-	public void setSpeler(Speler speler) throws RemoteException {
+	public void setSpeler(SpelerRemote speler) throws RemoteException {
         this.speler = speler;
     }
 
     @Override
-    public Speler getSpeler() throws RemoteException {
+    public SpelerRemote getSpeler() throws RemoteException {
         return null;
     }
 

@@ -7,6 +7,7 @@ import Machiavelli.Interfaces.Remotes.HandRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,17 +18,16 @@ import java.util.List;
  *
  * @author Sander
  * @version 0.1
- *
  */
-public class Hand implements HandRemote, Serializable {
-	// Variables
-	private ArrayList<GebouwKaart> kaartenLijst = new ArrayList<GebouwKaart>();
-	private Speler speler;
+public class Hand extends UnicastRemoteObject implements HandRemote, Serializable {
+    // Variables
+    private ArrayList<GebouwKaart> kaartenLijst = new ArrayList<GebouwKaart>();
+    private Speler speler;
     private ArrayList<HandObserver> observers = new ArrayList<>();
 
-	// Een speler start met 4 gebouwkaarten in zijn hand.
-	public Hand(Speler speler) {
-		this.speler = speler;
+    // Een speler start met 4 gebouwkaarten in zijn hand.
+    public Hand(Speler speler) throws RemoteException {
+        this.speler = speler;
         trekKaarten();
     }
 
@@ -39,7 +39,7 @@ public class Hand implements HandRemote, Serializable {
         try {
             // Haal gebouwFactory op vanuit het spel.
             GebouwFactory factory = this.speler.getSpel().getGebouwFactory();
-            for(int i = 0; i < 4; i ++) { // Trek 4 kaarten.
+            for (int i = 0; i < 4; i++) { // Trek 4 kaarten.
                 addGebouw(factory.trekKaart()); // Voeg kaart toe aan hand
             }
         } catch (Exception e) {
@@ -53,10 +53,10 @@ public class Hand implements HandRemote, Serializable {
      * @param kaart
      * @throws RemoteException
      */
-	public void addGebouw(GebouwKaart kaart) throws RemoteException {
-		kaartenLijst.add(kaart);
+    public void addGebouw(GebouwKaart kaart) throws RemoteException {
+        kaartenLijst.add(kaart);
         notifyObservers();
-	}
+    }
 
     /**
      * Verwijder GebouwKaart uit Hand.
@@ -64,10 +64,10 @@ public class Hand implements HandRemote, Serializable {
      * @param gebouw
      * @throws RemoteException
      */
-	public void removeGebouw(GebouwKaart gebouw) throws RemoteException {
-		this.kaartenLijst.remove(gebouw);
+    public void removeGebouw(GebouwKaart gebouw) throws RemoteException {
+        this.kaartenLijst.remove(gebouw);
         notifyObservers();
-	}
+    }
 
     /**
      * Voeg meerderen gebouwen toe aan Hand. (Redundant?)
@@ -75,29 +75,31 @@ public class Hand implements HandRemote, Serializable {
      * @param gebouwKaarten
      * @throws RemoteException
      */
-	public void addGebouwen(List<GebouwKaart> gebouwKaarten) throws RemoteException {
-		this.kaartenLijst.addAll(gebouwKaarten);
+    public void addGebouwen(List<GebouwKaart> gebouwKaarten) throws RemoteException {
+        this.kaartenLijst.addAll(gebouwKaarten);
         notifyObservers();
-	}
+    }
 
     /**
      * Haal kaarten op uit Hand.
+     *
      * @return
      * @throws RemoteException
      */
-	public ArrayList<GebouwKaart> getKaartenLijst() throws RemoteException {
-		return this.kaartenLijst;
-	}
+    public ArrayList<GebouwKaart> getKaartenLijst() throws RemoteException {
+        return this.kaartenLijst;
+    }
 
     /**
      * Zet kaarten in Hand (Redundant?)
+     *
      * @param lijst
      * @throws RemoteException
      */
-	public void setKaartenLijst(ArrayList<GebouwKaart> lijst) throws RemoteException {
-		this.kaartenLijst = lijst;
+    public void setKaartenLijst(ArrayList<GebouwKaart> lijst) throws RemoteException {
+        this.kaartenLijst = lijst;
         notifyObservers();
-	}
+    }
 
     /**
      * Haal eigenaar van Hand op.
@@ -105,25 +107,25 @@ public class Hand implements HandRemote, Serializable {
      * @return
      * @throws RemoteException
      */
-	public Speler getSpeler() throws RemoteException {
-		return this.speler;
-	}
+    public Speler getSpeler() throws RemoteException {
+        return this.speler;
+    }
 
-	public void addObserver(HandObserver observer) throws RemoteException {
-		observers.add(observer);
+    public void addObserver(HandObserver observer) throws RemoteException {
+        observers.add(observer);
         System.out.println("Hand observer added!: Observers: " + this.observers.size());
-	}
+    }
 
-	public void notifyObservers() throws RemoteException {
+    public void notifyObservers() throws RemoteException {
         System.out.println("Hand changed!: Observers: " + this.observers.size());
-		for (HandObserver observer: observers) {
-			observer.modelChanged(this);
-		}
-	}
+        for (HandObserver observer : observers) {
+            observer.modelChanged(this);
+        }
+    }
 
     public String toString() {
         String str = "KAARTEN IN HAND: ";
-        for(GebouwKaartRemote gebouwKaart: kaartenLijst) {
+        for (GebouwKaartRemote gebouwKaart : kaartenLijst) {
             str += gebouwKaart + " ";
         }
         return str;
