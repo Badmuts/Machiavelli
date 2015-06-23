@@ -28,7 +28,7 @@ public class Portemonnee implements PortemonneeRemote, Serializable {
 		try {
 			goudMunten += this.bank.gevenGoud(2);
 		} catch (RemoteException re) {
-			System.out.print(re);
+			re.printStackTrace();
 		}
 	}
 
@@ -49,7 +49,6 @@ public class Portemonnee implements PortemonneeRemote, Serializable {
 		return this.goudMunten;
 	}
 
-	@Override
 	public void addObserver(PortemonneeOberserver observer) throws RemoteException {
 		observers.add(observer);
 	}

@@ -13,6 +13,6 @@ public interface SpeelveldObserver extends Remote {
 	 * @param speelveld model is changed.
 	 * @throws RemoteException
 	 */
-	public void modelChanged(SpeelveldRemote speelveld) throws RemoteException;
+	void modelChanged(SpeelveldRemote speelveld) throws RemoteException;
 }
 

@@ -10,6 +10,6 @@ import java.rmi.RemoteException;
  */
 public interface GebouwKaartObserver extends Remote {
 
-    public void modelChanged(GebouwKaartRemote gebouwKaart) throws RemoteException;
+    void modelChanged(GebouwKaartRemote gebouwKaart) throws RemoteException;
 
 }

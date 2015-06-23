@@ -1,5 +1,9 @@
 package Machiavelli.Views;
 
+import Machiavelli.Controllers.SpeelveldController;
+import Machiavelli.Interfaces.Bonusable;
+import Machiavelli.Interfaces.Observers.SpelerObserver;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -7,41 +11,72 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class ButtonHolderActionBarView extends StackPane {
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
+public class ButtonHolderActionBarView extends UnicastRemoteObject implements SpelerObserver {
+
+    private SpeelveldController speelveldController;
     private GridPane buttonGrid = new GridPane();
     private Button gebruikEigenschap;
     private Button exitbutton;
     private Button spelregels;
     private Button opslaanknop;
-    private Button placeholderbutton1;
-    private Button placeholderbutton2;
-    private Button placeholderbutton3;
+    private Button goudbutton;
+    private Button bouwbutton;
+    private Button eindebeurtbutton;
     private Rectangle buttonholder;
+    private SpelerRemote speler;
+    private StackPane container;
 
-    public ButtonHolderActionBarView() {
+    public ButtonHolderActionBarView(SpeelveldController speelveldController) throws RemoteException {
+        this.speelveldController = speelveldController;
+        this.speler = speelveldController.getSpeler();
+        this.container = new StackPane();
         gebruikEigenschap = new Button();
         exitbutton = new Button();
         spelregels = new Button();
         opslaanknop = new Button();
-        placeholderbutton1 = new Button();
-        placeholderbutton2 = new Button();
-        placeholderbutton3 = new Button();
+        goudbutton = new Button();
+        bouwbutton = new Button();
+        eindebeurtbutton= new Button();
 
         this.buttonGrid.setHgap(10);
         this.buttonGrid.setVgap(10);
         this.buttonGrid.setPadding(new Insets(22.5, 0, 22.5, 0));
 
-        initButton(placeholderbutton3, "Eigenschap", "button-primary", 1, 1, 160f, 55f);
-        initButton(placeholderbutton2, "Bouwen", "button-primary", 2, 1, 160f, 55f);
-        initButton(placeholderbutton1, "Bonusgoud", "button-primary", 1, 2, 160f, 55f);
-        initButton(gebruikEigenschap,"Einde beurt","button-danger", 2, 2, 160f, 55f);
+        initButton(gebruikEigenschap, "Eigenschap", "button-primary", 1, 1, 160f, 55f);
+        initButton(bouwbutton, "Bouwen", "button-primary", 2, 1, 160f, 55f);
+        initButton(goudbutton, "Bonusgoud", "button-primary", 1, 2, 160f, 55f);
+        initButton(eindebeurtbutton,"Einde beurt","button-danger", 2, 2, 160f, 55f);
         initButton(opslaanknop,"Opslaan","button-success", 1, 3, 160f, 55f);
         initButton(exitbutton,"Afsluiten","button-danger", 2, 3, 160f, 55f);
 
+        goudbutton.setOnAction(event -> this.speelveldController.cmdBonusGoud());
+        bouwbutton.setOnAction(event -> this.speelveldController.cmdBouwGebouw());
+        eindebeurtbutton.setOnAction(event -> this.speelveldController.cmdEindeBeurt());
+
+        isKarakterBonusable();
+
         buttonholder = new Rectangle(0, 0, 350, 250);
-        buttonholder.setFill(Color.DIMGRAY);
-        this.getChildren().addAll(buttonholder, buttonGrid);
+        buttonholder.setFill(Color.rgb(57, 57, 57));
+        this.container.getChildren().addAll(buttonholder, buttonGrid);
+    }
+
+    /**
+     * Controleer of Karakter bonusable is. Wanneer karakter
+     * niet bonusable is word de 'Bonusgoud' knop uitgezet.
+     */
+    private void isKarakterBonusable() {
+        try {
+            Bonusable bonusable = (Bonusable)speelveldController.getSpeler().getKarakter();
+        } catch (Exception e) {
+            if (e instanceof ClassCastException) {
+                goudbutton.setDisable(true); // Disable button
+            } else {
+                goudbutton.setDisable(false); // Enable button
+            }
+        }
     }
 
     private void initButton(Button button, String tekst, String styleClass, int columnIndex, int rowIndex, float sizeX, float sizeY){
@@ -59,6 +94,36 @@ public class ButtonHolderActionBarView extends StackPane {
     public Button getExitbutton() {
         return this.exitbutton;
     }
+    
+    public Button getGoudbutton() {
+    	return this.goudbutton;
+    }
+    
+    public Button getEigenschapButton() {
+    	return this.gebruikEigenschap;
+    }
+    
+    public Button getBouwButton() {
+    	return this.bouwbutton;
+    }
+    
+    public Button getOpslaanButton() {
+    	return this.opslaanknop;
+    }
+    
+    public Button getEindeBeurtButton() {
+    	return this.eindebeurtbutton;
+    }
 
+    @Override
+    public void modelChanged(SpelerRemote speler) throws RemoteException {
+        this.speler = speler;
+        this.container.getChildren().clear();
+        isKarakterBonusable();
+        this.container.getChildren().addAll(buttonholder, buttonGrid);
+    }
 
+    public StackPane getPane() {
+        return this.container;
+    }
 }

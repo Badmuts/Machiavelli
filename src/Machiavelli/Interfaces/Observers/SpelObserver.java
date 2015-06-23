@@ -10,6 +10,6 @@ import java.rmi.RemoteException;
  */
 public interface SpelObserver extends Remote {
 
-    public void modelChanged(SpelRemote spel) throws RemoteException;
+    void modelChanged(SpelRemote spel) throws RemoteException;
 
 }

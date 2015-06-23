@@ -1,66 +1,113 @@
 package Machiavelli.Views;
 
+import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Interfaces.Observers.HandObserver;
+import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.HandRemote;
-import Machiavelli.Models.GebouwKaart;
-import Machiavelli.Models.Hand;
+import javafx.geometry.Pos;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class HandActionBarView extends Pane implements HandObserver {
+public class HandActionBarView extends UnicastRemoteObject implements HandObserver {
 
     private HandRemote hand;
     private ArrayList<GebouwKaartView> gebouwKaartViews = new ArrayList<GebouwKaartView>();
     private Rectangle kaartholder;
+    private GebouwKaartController gebouwKaartController;
+    private StackPane pane = new StackPane();
 
-    public HandActionBarView(Hand hand) {
-        super();
+    /**
+     * View voor de gebouwkaarten in de hand van de speler.
+     *
+     * @param hand
+     */
+    public HandActionBarView(HandRemote hand, GebouwKaartController gebouwKaartController) throws RemoteException {
         this.hand = hand;
+        this.gebouwKaartController = gebouwKaartController;
+        this.pane.setPrefSize(840, 275);
 
-        createBackground();
-        createGebouwKaartViews();
+        this.hand.addObserver(this);
 
-        this.getChildren().addAll(kaartholder);
-        addGebouwKaartViews();
+        createBackground(); // Maak achtergrond aan
+        buildGebouwKaartViewsArray(); // Vul gebouwKaartViews[]
+
+        this.pane.getChildren().addAll(kaartholder); // Voeg achtergrond toe
+        addGebouwKaartViews(); // Voeg views toe aan HandActionBarView (pane)
+        this.pane.setLayoutX(250);
     }
 
-    private void addGebouwKaartViews() {
-        int x = 0;
-        for (GebouwKaartView gebouwKaartView: gebouwKaartViews) {
-            gebouwKaartView.setLayoutX(x);
-            this.getChildren().add(gebouwKaartView);
-            x += 100;
+    /**
+     * Maak achtergrond aan waar de kaarten overheen worden
+     * geplaatst.
+     */
+    private void createBackground() {
+        kaartholder = new Rectangle(0, 0, 840, 250);
+        kaartholder.setFill(Color.rgb(74, 74, 74));
+        StackPane.setAlignment(kaartholder, Pos.BOTTOM_CENTER);
+    }
+
+    /**
+     * Haalt alle GebouwKaartViews op van elke GebouwKaart
+     * en plaatst deze in gebouwKaartViews[].
+     */
+    private void buildGebouwKaartViewsArray() throws RemoteException {
+        for (GebouwKaartRemote gebouwKaartRemote: hand.getKaartenLijst()) {
+            GebouwKaartView gebouwKaartView = new GebouwKaartView(this.gebouwKaartController, gebouwKaartRemote);
+            gebouwKaartRemote.addObserver(gebouwKaartView); // Add view (observer) to remote
+            this.gebouwKaartController.addView(gebouwKaartView); // Add view to controller
+            this.gebouwKaartController.addModel(gebouwKaartRemote); // Add model to controller
+            this.gebouwKaartViews.add(gebouwKaartView); // Add view to local gebouwKaartView[]
         }
     }
 
-    private void createBackground() {
-        kaartholder = new Rectangle(0, 0, 840, 250);
-        kaartholder.setFill(Color.GRAY);
+    /**
+     * Voeg gebouwKaart views toe aan de HandActionBarView.
+     * Wijzig de X coordinaat van elke GebouwKaartView zodat
+     * deze de vorige kaart overlapt.
+     */
+    private void addGebouwKaartViews() {
+        Pane handPane = new Pane();
+        int x = 0; // X coordinaat (voor uitlijning)
+        int totalWidth = 0;
+        int index = 0;
+        // Loop  door gebouwKaartViews en wijzig de X coordinaat.
+        for (GebouwKaartView gebouwKaartView: gebouwKaartViews) {
+            gebouwKaartView.view().setLayoutX(x); // Zet X coordinaat
+            gebouwKaartView.view().setRotate(calcRotation(index, gebouwKaartViews.size()));
+            handPane.getChildren().add(gebouwKaartView.view()); // Voeg view to aan Pane
+            x += 130; // Verhoog X coordinaat met 100
+            totalWidth += gebouwKaartView.view().getPrefWidth();
+            index++;
+        }
+        handPane.setMaxWidth(totalWidth);
+        this.pane.getChildren().add(handPane);
+        StackPane.setAlignment(handPane, Pos.TOP_CENTER);
+    }
+
+    private int calcRotation(int cardIndex, int totalCards) {
+        // TODO: implement rotation calculation
+        // int middle = totalCards/2;
+        return 0;
     }
 
     @Override
     public void modelChanged(HandRemote hand) throws RemoteException {
+        // TODO: update hand
         this.hand = hand;
+        this.gebouwKaartViews.clear(); // Leeg gebouwKaartViews[]
+        this.pane.getChildren().clear(); // Leeg het pane
+        this.pane.getChildren().add(kaartholder); // Maak view leeg en vul met kaartholder
+        buildGebouwKaartViewsArray(); // Vul gebouwKaarViews[] met nieuwe views
+        addGebouwKaartViews(); // Voeg views toe aan pane
     }
 
-    private void createGebouwKaartViews() {
-        System.out.println("Kijk die gebouwkaartviews gaan");
-        try {
-            ArrayList<GebouwKaart> kaarten = hand.getKaartenLijst();
-            for (GebouwKaart gebouwKaart: kaarten) {
-                gebouwKaartViews.add(gebouwKaart.getGebouwkaartView());
-            }
-        } catch (RemoteException re) {
-            re.printStackTrace();
-        }
-    }
-
-    private int calcRotation(int i, int totalLength) {
-        // TODO: implement rotation calculation
-        return 1;
+    public Pane getPane() {
+        return this.pane;
     }
 }

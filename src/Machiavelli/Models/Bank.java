@@ -21,7 +21,11 @@ public class Bank implements BankRemote, Serializable {
 	private int goudMunten;
 	private ArrayList<BankObserver> observers = new ArrayList<>();
 
-	@Override
+	// De bank begint met 30 goudmunten
+	public Bank() {
+		this.goudMunten = 30;
+	}
+
 	public void addObserver(BankObserver bankObserver) throws RemoteException {
 		observers.add(bankObserver);
 	}
@@ -30,11 +34,6 @@ public class Bank implements BankRemote, Serializable {
 		for (BankObserver observer: observers) {
 			observer.modelChanged(this);
 		}
-	}
-
-	// De bank begint met 30 goudmunten
-	public Bank() {
-		this.goudMunten = 30;
 	}
 
 	// De bank ontvangt een x aantal goud

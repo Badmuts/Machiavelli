@@ -26,10 +26,9 @@ public class RaadplegenSpelregelsController {
 	public RaadplegenSpelregelsController()
 	{
 		try {
-			this.spelRegelsView = new SpelregelsView();
-			this.spelRegelsView.getCloseButton().setOnAction(event -> cmdSluitSpelregelView());
+			this.spelRegelsView = new SpelregelsView(this);
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 	}
 	
@@ -81,4 +80,8 @@ public class RaadplegenSpelregelsController {
     		System.out.println(node.idProperty());
     	}
 	}
+
+    public void cmdSluitSpelregels() {
+        this.spelRegelsView.close();
+    }
 }

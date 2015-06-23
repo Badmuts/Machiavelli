@@ -62,12 +62,10 @@ public class KarakterFactory implements KarakterFactoryRemote, Serializable {
         return tmpKarakter;
     }
 
-    @Override
     public void addObserver(KarakterFactoryObserver karakterFactoryObserver) throws RemoteException {
         observers.add(karakterFactoryObserver);
     }
 
-    @Override
     public void notifyObservers() throws RemoteException {
         for (KarakterFactoryObserver observer: observers) {
             observer.modelChanged(this);

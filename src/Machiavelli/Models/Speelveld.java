@@ -5,6 +5,7 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
 import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Views.SpeelveldView;
 
@@ -22,10 +23,10 @@ public class Speelveld implements SpeelveldRemote, Serializable {
     private SpeelveldView speelveldView;
 	private ArrayList<Speler> spelers;
 	private SpelRemote spel;
-	private Speler koning;
+	private SpelerRemote koning;
 	private Karakter karakter;
 	private SpeelveldController speelveldcontroller;
-	private Speler speler;
+	private SpelerRemote speler;
 	private ArrayList<SpeelveldObserver> observers = new ArrayList<>();
 
 	public Speelveld(SpelRemote spel) {
@@ -36,7 +37,7 @@ public class Speelveld implements SpeelveldRemote, Serializable {
         }
 	}
 
-	public void setKoning(Speler spelers) throws RemoteException {
+	public void setKoning(SpelerRemote spelers) throws RemoteException {
 		this.koning = spelers;
         notifyObservers();
 	}
@@ -45,7 +46,6 @@ public class Speelveld implements SpeelveldRemote, Serializable {
 		// TODO
 	}
 
-	@Override
 	public void addObserver(SpeelveldObserver observer) throws RemoteException {
 		observers.add(observer);
 	}
@@ -56,15 +56,11 @@ public class Speelveld implements SpeelveldRemote, Serializable {
 		}
 	}
 
-	public void registratieView(SpeelveldView speelveldview) {
-		this.speelveldView = speelveldview;
-	}
-
-    public Speler getSpeler() {
+    public SpelerRemote getSpeler() {
         return this.speler;
     }
 
-    public void addSpeler(Speler speler) {
+    public void addSpeler(SpelerRemote speler) {
         this.speler = speler;
     }
 

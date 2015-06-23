@@ -1,13 +1,11 @@
 package Machiavelli.Controllers;
 
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 
 import Machiavelli.Machiavelli;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
-import Machiavelli.Models.Spel;
-import Machiavelli.Models.Speler;
 import Machiavelli.Views.InvullenSpelersView;
+import Machiavelli.Views.KiesInkomstenView;
 import Machiavelli.Views.MainMenuView;
 
 public class MenuController {
@@ -27,7 +25,7 @@ public class MenuController {
         this.registry = Machiavelli.getInstance().getRegistry();
         System.out.println("Loaded Registry");
 
-        // Start het overzicht met spellen (Nieuw spel, Deelnemen spel en Hervatten spel)
+        // Start het overzicht met spelknoppen (Nieuw spel, Deelnemen spel en Hervatten spel)
         mainMenuView.getStartButton().setOnAction(event -> mainMenuView.showSelect());
 
         // Sluit applicatie af bij exit buttons
@@ -41,32 +39,29 @@ public class MenuController {
 
         // Raadpleeg de spelregels
 //        mainMenuView.getSpelregelsButton().setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
-        
-        //TODO: testing purposes only! remove. the above line is correct.
-        mainMenuView.getSpelregelsButton().setOnAction((event) ->
-        		{
-					try {
-//						KiesInkomstenView view = new KiesInkomstenView();
-//						view.weergeefKiesInkomstenView();
-
-						KarakterController controller = new KarakterController();
-						controller.cmdTrekkenKaart();
-						controller.cmdWeergeefKiesKarakterView();
-						
-						System.out.println("we zijn nu hier..");
-						
-//						MeldingController melding = new MeldingController();
-//						melding.cmdSetMelding("Dit is een test melding.");
-//						melding.cmdWeergeefMeldingView();
-//						new MeldingController().build("<MELDING SCHERM>").cmdWeergeefMeldingView();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					
-        		});
-        	
-        
+        mainMenuView.getSpelregelsButton().setOnAction((event) -> 
+        {
+        	try
+        	{
+	        	KarakterController controller = new KarakterController();
+	        	controller.cmdTrekkenKaart();
+	        	controller.cmdWeergeefKiesKarakterView();
+        	}
+        	catch(Exception e)
+        	{
+        		e.printStackTrace();
+        	}
+        });
         mainMenuView.getSpelregelsButton2().setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
+
+//        KiesInkomstenView view = new KiesInkomstenView();
+//		view.weergeefKiesInkomstenView();
+
+//		KarakterController controller = new KarakterController();
+//		controller.cmdTrekkenKaart();
+//		controller.cmdWeergeefKiesKarakterView();
+		
+		System.out.println("we zijn nu hier..");
         
         // Start de MainMenuView
         this.cmdMainMenu();
@@ -90,9 +85,10 @@ public class MenuController {
     public void cmdDeelnemenSpel() {
         // TODO: Show new games
     	try{
-    		SpelRemote spel = (SpelRemote)registry.lookup("Spel");
-            this.spelController = new SpelController(spel);
-            this.spelController.cmdAddSpeler(new Speler());
+    		SpelRemote spelStub = (SpelRemote)registry.lookup("Spel");
+            spelStub.createNewSpeler();
+            this.spelController = new SpelController(spelStub);
+            this.spelController.cmdAddSpeler();
     	} catch(Exception re) {
     		re.printStackTrace();
     	}
@@ -114,12 +110,11 @@ public class MenuController {
         // TODO: Create new spel instance?
     	try {
     		int maxAantalSpelers = Integer.parseInt(this.invullenspeler.getTextField());
-            SpelRemote spel = new Spel(maxAantalSpelers);
-            SpelRemote spelStub = (SpelRemote) UnicastRemoteObject.exportObject(spel, 0);
-            this.registry.rebind("Spel", spelStub);
-            spelStub = (SpelRemote)this.registry.lookup("Spel");
+            SpelRemote spelStub = (SpelRemote)this.registry.lookup("Spel");
+            spelStub.createNewSpel(maxAantalSpelers);
+            spelStub.createNewSpeler();
             this.spelController = new SpelController(spelStub);
-            this.spelController.cmdAddSpeler(new Speler());
+            this.spelController.cmdAddSpeler();
     	} catch(Exception e) {
     		e.printStackTrace();
     	}

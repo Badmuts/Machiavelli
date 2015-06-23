@@ -40,7 +40,6 @@ public class Spelregels implements SpelregelsRemote, Serializable {
 		return text;
 	}
 
-	@Override
 	public void addObserver(SpelregelsObserver observer) throws RemoteException {
 		observers.add(observer);
 	}

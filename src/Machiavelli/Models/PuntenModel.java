@@ -23,7 +23,6 @@ public class PuntenModel implements PuntenRemote, Serializable {
 		return this.winnaar;
 	}
 
-	@Override
 	public void addObserver(PuntenObserver observer) throws RemoteException {
 		observers.add(observer);
 	}

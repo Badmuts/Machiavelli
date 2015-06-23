@@ -25,7 +25,7 @@ public class KiesKarakterView {
 	
 	private Text title;
 	private ArrayList<Button> karakterButtons;
-	private ArrayList<Image> karakterImages;
+	private ArrayList<ImageView> karakterImages;
 	private Pane pane;
 	
 	public KiesKarakterView() throws RemoteException
@@ -38,7 +38,7 @@ public class KiesKarakterView {
 		this.title.setText("Kies een karakter:");
 		
 		this.karakterButtons = new ArrayList<Button>();
-		this.karakterImages = new ArrayList<Image>();
+		this.karakterImages = new ArrayList<ImageView>();
 		
 		this.pane = new Pane();
 		this.pane.setId("kieskarakterview");
@@ -54,9 +54,12 @@ public class KiesKarakterView {
 		return this.karakterButtons;
 	}
 	
-	public void createKarakterView(Karakter karakter) {
+	public void createKarakterView(Karakter karakter) throws RemoteException {
 		Button newButton = new Button(karakter.getNaam());
-		this.karakterImages.add(karakter.getImage());
+		
+		ImageView image = new ImageView(karakter.getImage());
+		this.karakterImages.add(image);
+//		this.karakterImages.add(karakter.getImage());
 
 		newButton.setId("goudButton");
 		newButton.setMinWidth(230f);
@@ -86,16 +89,18 @@ public class KiesKarakterView {
         
 		for(int i = 0; i < amountTop; i++)
 		{
-			Image image = karakterImages.get(i);
+			ImageView img = karakterImages.get(i);
+//			Image image = karakterImages.get(i);
 			Button button = this.karakterButtons.get(i);
-			kaartenBoxTop.getChildren().addAll(this.createGridItem(image, button));
+			kaartenBoxTop.getChildren().addAll(this.createGridItem(img, button));
 		}
 		
 		for(int i = amountTop; i < amountBottom; i++)
 		{
-			Image image = karakterImages.get(i);
+			ImageView img = karakterImages.get(i);
+//			Image image = karakterImages.get(i);
 			Button button = this.karakterButtons.get(i);
-			kaartenBoxBottom.getChildren().add(this.createGridItem(image, button));
+			kaartenBoxBottom.getChildren().add(this.createGridItem(img, button));
 		}
         
 		buttonLayout.setLayoutY(200);
@@ -108,12 +113,12 @@ public class KiesKarakterView {
         this.pane.getChildren().add(buttonLayout);
 	}
 	
-	private VBox createGridItem(Image image, Button button)
+	private VBox createGridItem(ImageView image, Button button)
 	{
-		double imageWidth = image.getWidth();
-		double imageHeight = image.getHeight();
+		double imageWidth = image.getImage().getWidth();
+		double imageHeight = image.getImage().getHeight();
 		
-		ImageView karakterImage = new ImageView(image);
+		ImageView karakterImage = image;
 		Rectangle karakterRect = new Rectangle(imageWidth, imageHeight);
 		karakterRect.setArcHeight(imageHeight);
 		karakterRect.setArcWidth(imageWidth);

@@ -10,6 +10,6 @@ import java.rmi.RemoteException;
  */
 public interface BankObserver extends Remote {
 
-    public void modelChanged(BankRemote bank) throws RemoteException;
+    void modelChanged(BankRemote bank) throws RemoteException;
 
 }

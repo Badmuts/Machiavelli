@@ -3,11 +3,16 @@ package Machiavelli.Controllers;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speelveld;
-import Machiavelli.Models.Speler;
 import Machiavelli.Views.SpeelveldView;
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
 /**
  * 
  * Het speelveld controller maakt het speelveld view aan en kijkt of het speelveld model is veranderd
@@ -15,19 +20,23 @@ import Machiavelli.Views.SpeelveldView;
  *
  */
 
-public class SpeelveldController extends UnicastRemoteObject implements SpelObserver {
-	private Speelveld speelveld;
+public class SpeelveldController extends UnicastRemoteObject implements SpelObserver, Serializable {
+    private SpelerRemote speler;
+    private GebouwKaartController gebouwKaartController;
+    private Speelveld speelveld;
 	private SpeelveldView speelveldview;
 
 	private SpelRemote spel;
 
-    public SpeelveldController(SpelRemote spel, Speler speler) throws RemoteException {
+    public SpeelveldController(SpelRemote spel, SpelerRemote speler, GebouwKaartController gebouwKaartController) throws RemoteException {
         this.spel = spel;
+        this.speler = speler;
         this.speelveld = new Speelveld(this.spel);
         this.speelveld.addSpeler(speler);
+        this.gebouwKaartController = gebouwKaartController;
 
-        this.speelveldview = new SpeelveldView(this, this.speelveld);
-        this.speelveld.registratieView(this.speelveldview);
+        this.speelveldview = new SpeelveldView(this, this.speelveld, this.gebouwKaartController);
+        this.speelveld.addObserver(this.speelveldview);
 
 		speelveldview.getExitButton().setOnAction(event -> System.exit(0));
         
@@ -47,8 +56,29 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
 
     @Override
     public void modelChanged(SpelRemote spel) throws RemoteException {
-        // tmp casting
         System.out.println("SpeelveldController: Spel model changed!");
         System.out.println("Aantal spelers: " + this.spel.getAantalSpelers());
+    }
+
+    public void cmdBonusGoud() {
+        try {
+            Bonusable karakter = (Bonusable)this.speler.getKarakter();
+            karakter.ontvangenBonusGoud();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public SpelerRemote getSpeler() {
+        return this.speler;
+    }
+
+    public void cmdBouwGebouw() {
+        // TODO: Implement gebouwbouwen method
+        this.gebouwKaartController.cmdBouwGebouw();
+    }
+
+    public void cmdEindeBeurt() {
+        // TODO: Implement eindeBeurt method
     }
 }

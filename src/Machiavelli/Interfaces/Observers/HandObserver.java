@@ -10,6 +10,6 @@ import java.rmi.RemoteException;
  */
 public interface HandObserver extends Remote {
 
-    public void modelChanged(HandRemote hand) throws RemoteException;
+    void modelChanged(HandRemote hand) throws RemoteException;
 
 }

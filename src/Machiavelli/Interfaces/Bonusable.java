@@ -1,5 +1,6 @@
 package Machiavelli.Interfaces;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
@@ -24,7 +25,7 @@ import java.rmi.RemoteException;
  * TODO: Mogelijk kan deze worden vervangen door een abstracte klasse? Omdat de implementatie van deze methode altijd gelijk is.
  *
  */
-public interface Bonusable {
+public interface Bonusable extends Remote {
 
     void ontvangenBonusGoud() throws RemoteException;
 

@@ -13,6 +13,6 @@ public interface SpelerObserver extends Remote{
 	 * @param speler model changed.
 	 * @throws RemoteException
 	 */
-	public void modelChanged(SpelerRemote speler) throws RemoteException;
+	void modelChanged(SpelerRemote speler) throws RemoteException;
 
 }

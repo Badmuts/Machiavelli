@@ -3,12 +3,12 @@ package Machiavelli.Models.Karakters;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 import Machiavelli.Models.Stad;
-import javafx.scene.image.Image;
 
-
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * andere speler vernietigen. Ook ontvangt hij 1 goudstuk
  * voor elk militair gebouw in zijn stad.
  */
-public class Condotierre implements Karakter, Bonusable {
+public class Condotierre implements Karakter, Bonusable, Serializable {
 
 	private GebouwKaart target = null;
 	private Speler speler = null;
@@ -34,38 +34,34 @@ public class Condotierre implements Karakter, Bonusable {
 	private final int bouwLimiet = 1; 
 	private final String naam = "Condotierre";
     private final Type type = Type.MILITAIR;
-    
-    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Condotierre.png");
-    
+    private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Condotierre.png";
+    private ArrayList<KarakterObserver> observers = new ArrayList<>();
+
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Condotierre wordt aan de speler gekoppeld.
 	 */
     @Override
-    public void setSpeler(Speler speler) {
+    public void setSpeler(Speler speler) throws RemoteException {
         this.speler = speler;
     }
 
     @Override
-    public Speler getSpeler() {
+    public Speler getSpeler() throws RemoteException {
         return null;
     }
 
     @Override
-    public void setTarget(Object target) {
+    public void setTarget(Object target) throws RemoteException {
     	this.target = (GebouwKaart) target;
+    	gebruikEigenschap();
     }
 
     @Override
-    public Image getImage() {
+    public String getImage() throws RemoteException {
         return this.image;
     }
-
-    @Override
-    public void beurtOverslaan() {
-
-    }
-
+    
     /**
 	 * overriden van de methode uit de interface Karakter
 	 * en aanroepen van de methode selectGebouwView
@@ -73,28 +69,15 @@ public class Condotierre implements Karakter, Bonusable {
 	 * Vervolgens wordt het het gekozen gebouw verwijderd 
 	 * uit de stad van de speler waarin dit gebouw gekozen is
 	 */
-    public void gebruikEigenschap() {
-        // TODO: sloopgebouw
-
-        // this.selectGebouwView.start();
-        // TODO: Iets van een listener? (voor gekozen kaart (SelectGebouwView))
-        // TODO: Speler, remove gold (betaalGoud)
-        // this.vernietigGebouw.getStad().removeGebouw(vernietigGebouw);
+    public void gebruikEigenschap() throws RemoteException {
     	try {
 			if (target != null && target.getStad().getSpeler().getKarakter().getNaam() != "Prediker") {
-				try {
 					vernietigGebouw(this.target.getStad(), getTarget());
+				}
+			else {
+				//TODO speelveldview aanroepen met klikbare gebouwen in steden
+			}
 					
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				}
-				else {
-					//view aanroepen
-					
-				}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -137,29 +120,36 @@ public class Condotierre implements Karakter, Bonusable {
     } */
     
     @Override
-    public int getBouwLimiet() {
+    public int getBouwLimiet() throws RemoteException {
         return this.bouwLimiet;
     }
     
-    public GebouwKaart getTarget() {
+    public GebouwKaart getTarget() throws RemoteException {
     	return target;
     }
 	
-	public String getNaam() {
+	public String getNaam() throws RemoteException {
     	return this.naam;
     }
    
-    public int getNummer() {
+    public int getNummer() throws RemoteException {
     	return this.nummer;
     }
-    
-    public int getBouwlimiet() {
-    	return this.bouwLimiet;
-    }
-    
-	public Type getType() {
+
+	public Type getType() throws RemoteException {
 		return this.type;
 	}
 
-	
+    @Override
+    public void addObserver(KarakterObserver observer) throws RemoteException {
+        observers.add(observer);
+    }
+
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (KarakterObserver observer: observers) {
+            observer.modelChanged(this);
+        }
+    }
+
 }

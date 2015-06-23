@@ -3,10 +3,11 @@ package Machiavelli.Models.Karakters;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
-import javafx.scene.image.Image;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ import java.util.ArrayList;
  * zijn eigenschap en ontvangt 1 goudstuk voor elk 
  * commericiel gebouw in zijn stad.
  */
-public class Koopman implements Karakter, Bonusable {
+public class Koopman implements Karakter, Bonusable, Serializable {
 	
 	private Speler speler = null; 
 	
@@ -31,93 +32,96 @@ public class Koopman implements Karakter, Bonusable {
     private final int bouwLimiet = 1; 
     private final String naam = "Koopman";
     private final Type type = Type.COMMERCIEL;
-    private Object target;
-    
-    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Koopman.png");
+    private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Koopman.png";
+
+	private Object target;
+    private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Koopman wordt aan de speler gekoppeld.
 	 */
 	@Override
-	public void setSpeler(Speler speler) {
+	public void setSpeler(Speler speler) throws RemoteException {
         this.speler = speler;
     }
 
     @Override
-    public Speler getSpeler() {
+    public Speler getSpeler() throws RemoteException {
         return null;
     }
 
-    // TODO: ontvangt 1 goudstuk
 	/**
 	 * overriden van de methode uit de interface Karakter
 	 * en aanroepen van de methode ontvangenBonusGoud
 	 */
 	@Override
-    public void gebruikEigenschap() {	
-		ontvangenBonusGoud();
-    }
-	
-	/**
-	 * Deze methode wordt aangroepen door gebruikEigenschap()
-	 * de speler met het karakter koopman ontvangt 1 goudstuk
-	 * @throws RemoteException 
-	 */
-    public void ontvangenBonusGoud(Speler koopman) throws RemoteException {
-    	koopman.getPortemonnee().ontvangenGoud(1);
+    public void gebruikEigenschap() throws RemoteException {
+		try {
+            ontvangenBonusGoud();
+        } catch (RemoteException re) {
+            System.out.print(re);
+        }
     }
 
 	/** ontvangen bonusgoud voor commerciele gebouwen */
     @Override
-    public void ontvangenBonusGoud() {
-    	try
-    	{
-	        ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
-	        for (GebouwKaart gebouw : gebouwen) {
-	            if (gebouw.getType() == this.type)
-	                speler.getPortemonnee().ontvangenGoud(1);
-	        }
-    	}
-    	catch(RemoteException e)
-    	{
-    		e.printStackTrace();
-    	}
+    public void ontvangenBonusGoud() throws RemoteException {
+        ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
+        for (GebouwKaart gebouw : gebouwen) {
+            if (gebouw.getType() == this.type) {
+                speler.getPortemonnee().ontvangenGoud(1);
+            }
+        }
     }
-    public String getNaam() {
+    
+    @Override
+    public String getNaam() throws RemoteException {
     	return this.naam;
     }
    
-    public int getNummer() {
+    @Override
+    public int getNummer() throws RemoteException {
     	return this.nummer;
     }
 
     @Override
-    public int getBouwLimiet() {
+    public int getBouwLimiet() throws RemoteException {
         return this.bouwLimiet;
     }
 
-    public int getBouwlimiet() {
-    	return this.bouwLimiet;
-    }
-    
-	public Type getType() {
+	public Type getType() throws RemoteException {
 		return this.type;
 	}
 
     @Override
-    public void setTarget(Object target) {
+    public void setTarget(Object target) throws RemoteException {
         this.target = target;
     }
 
     @Override
-    public Image getImage() {
+    public String getImage() throws RemoteException {
         return this.image;
     }
 
     @Override
-    public void beurtOverslaan() {
+    public void addObserver(KarakterObserver observer) throws RemoteException {
+        observers.add(observer);
+    }
 
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (KarakterObserver observer: observers) {
+            observer.modelChanged(this);
+        }
+    }
+
+    /**
+	 * Deze methode wordt aangroepen door gebruikEigenschap()
+	 * de speler met het karakter koopman ontvangt 1 goudstuk
+	 */
+    public void ontvangenBonusGoud(Speler koopman) throws RemoteException {
+    	koopman.getPortemonnee().ontvangenGoud(1);
     }
 
 }

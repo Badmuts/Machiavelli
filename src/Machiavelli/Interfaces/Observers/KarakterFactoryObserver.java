@@ -1,5 +1,6 @@
 package Machiavelli.Interfaces.Observers;
 
+import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
 
 import java.rmi.Remote;
@@ -10,6 +11,6 @@ import java.rmi.RemoteException;
  */
 public interface KarakterFactoryObserver extends Remote {
 
-    public void modelChanged(KarakterFactoryRemote karakterFactory) throws RemoteException;
+    void modelChanged(KarakterFactoryRemote karakterFactory) throws RemoteException;
 
 }

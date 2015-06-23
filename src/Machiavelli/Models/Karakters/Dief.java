@@ -1,12 +1,13 @@
 package Machiavelli.Models.Karakters;
 
 import Machiavelli.Enumerations.Type;
-import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Models.Speler;
-import javafx.scene.image.Image;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -23,7 +24,7 @@ import java.rmi.RemoteException;
  * aan de beurt is
  */
 
-public class Dief implements Karakter {
+public class Dief implements Karakter, Serializable {
 	
 	private Speler speler = null;
 	private Karakter target = null;
@@ -35,24 +36,25 @@ public class Dief implements Karakter {
     private final Type type = Type.NORMAAL;
     
     /*Afbeelding van de Dief*/
-    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Dief.png");
+    private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Dief.png";
+    private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
     /**
    	 * Overriden van de methode uit de interface Karakter,
    	 * de Dief wordt aan de speler gekoppeld.
    	 */
    	@Override
-   	public void setSpeler(Speler speler) {
+   	public void setSpeler(Speler speler) throws RemoteException {
            this.speler = speler;
        }
 
     @Override
-    public Speler getSpeler() {
+    public Speler getSpeler() throws RemoteException {
         return speler;
     }
 
     @Override
-    public void setTarget(Object target) {
+    public void setTarget(Object target) throws RemoteException {
         this.target = (Karakter) target;
         gebruikEigenschap();
     }
@@ -65,14 +67,54 @@ public class Dief implements Karakter {
 	 * al zijn goudstukken op het moment dat deze aan de beurt is. 
 	 */
     @Override
-    public void gebruikEigenschap() {
+    public void gebruikEigenschap() throws RemoteException {
     	if (target != null && target.getNaam() != "Moordenaar") {
     		BesteelKarakter(this.speler, getTarget());
     		
     	}
     	else {
-    		//TODO view aanroepen om target te selecteren
+    		//TODO KiezenKarakterView aanroepen om een target te selecteren
     	}
+    }
+    
+    @Override
+    public String getNaam() throws RemoteException {
+    	return this.naam;
+    }
+    
+    @Override
+    public int getNummer() throws RemoteException {
+    	return this.nummer;
+    }
+
+    @Override
+    public int getBouwLimiet() throws RemoteException {
+        return this.bouwLimiet;
+    }
+    
+    @Override
+	public Type getType() throws RemoteException {
+		return this.type;
+	}
+	public Karakter getTarget() throws RemoteException {
+		return this.target;
+	}
+
+    @Override
+    public String getImage() throws RemoteException {
+        return this.image;
+    }
+
+    @Override
+    public void addObserver(KarakterObserver observer) throws RemoteException {
+        observers.add(observer);
+    }
+
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (KarakterObserver observer: observers) {
+            observer.modelChanged(this);
+        }
     }
     
     private void BesteelKarakter(Speler speler, Karakter target) {
@@ -85,39 +127,5 @@ public class Dief implements Karakter {
 		}	
 	}
 
-    public String getNaam() {
-    	return this.naam;
-    }
-   
-    public int getNummer() {
-    	return this.nummer;
-    }
-
-    @Override
-    public int getBouwLimiet() {
-        return this.bouwLimiet;
-    }
-
-    public int getBouwlimiet() {
-    	return this.bouwLimiet;
-    }
-    
-	public Type getType() {
-		return this.type;
-	}
-	
-	public Karakter getTarget() {
-		return this.target;
-	}
-
-    @Override
-    public Image getImage() {
-        return this.image;
-    }
-
-    @Override
-    public void beurtOverslaan() {
-
-    }
 
 }

@@ -3,10 +3,11 @@ package Machiavelli.Models.Karakters;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
-import javafx.scene.image.Image;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ import java.util.ArrayList;
  * Ook ontvangt de koning 1 goudstuk voor elk monument gebouw
  * in zijn stad.
  */
-public class Koning implements Karakter, Bonusable {
+public class Koning implements Karakter, Bonusable, Serializable {
 	
 	private Speler speler = null;
 
@@ -32,21 +33,22 @@ public class Koning implements Karakter, Bonusable {
     private final String naam = "Koning";
     private final Type type = Type.MONUMENT;
     private Object target;
-    
-    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Koning.png");
+    private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Koning.png";
+
+    private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Koning wordt aan de speler gekoppeld.
 	 */
 	@Override
-	public void setSpeler(Speler speler) {
+	public void setSpeler(Speler speler) throws RemoteException {
         this.speler = speler;
     }
 
     @Override
-    public Speler getSpeler() {
-        return null;
+    public Speler getSpeler() throws RemoteException {
+        return speler;
     }
 
     /**
@@ -54,57 +56,63 @@ public class Koning implements Karakter, Bonusable {
 	 *  en aanroepen van de methode beginBeurt
 	 */
     @Override
-    public void gebruikEigenschap() {
+    public void gebruikEigenschap() throws RemoteException {
         // TODO: begint beurt
     }
 
     /*ontvangen bonusgoud voor monument gebouwen*/
     @Override
-    public void ontvangenBonusGoud() {
-    	try
-    	{
-	        ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
-	        for(GebouwKaart gebouw: gebouwen) {
-	            if (gebouw.getType() == this.type)
-	                speler.getPortemonnee().ontvangenGoud(1);
-	        }
-    	}
-    	catch(RemoteException e)
-    	{
-    		e.printStackTrace();
-    	}
+    public void ontvangenBonusGoud() throws RemoteException {
+        try {
+            ArrayList<GebouwKaart> gebouwen = speler.getStad().getGebouwen();
+            for(GebouwKaart gebouw: gebouwen) {
+                if (gebouw.getType() == this.type) {
+                    speler.getPortemonnee().ontvangenGoud(1);
+                }
+            }
+        } catch (RemoteException re) {
+            System.out.print(re);
+        }
     }
     
-    public int getNummer() {
+    public int getNummer() throws RemoteException {
         return nummer;
     }
     
-    public int getBouwLimiet() {
+    public int getBouwLimiet() throws RemoteException {
         return bouwLimiet;
     }
     
-    public String getNaam() {
+    public String getNaam() throws RemoteException {
         return naam;
     }
 
-    public Type getType() {
+    public Type getType() throws RemoteException {
         return type;
     }
 
     @Override
-    public void setTarget(Object target) {
-        this.target = target;
-    }
-
-    @Override
-    public Image getImage() {
+    public String getImage() throws RemoteException {
         return this.image;
     }
 
     @Override
-    public void beurtOverslaan() {
-
+    public void addObserver(KarakterObserver observer) throws RemoteException {
+        observers.add(observer);
     }
+
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (KarakterObserver observer: observers) {
+            observer.modelChanged(this);
+        }
+    }
+
+	@Override
+	public void setTarget(Object target) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }

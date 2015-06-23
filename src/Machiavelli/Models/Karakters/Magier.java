@@ -1,13 +1,14 @@
 package Machiavelli.Models.Karakters;
 
 import Machiavelli.Enumerations.Type;
-import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.KarakterObserver;
+import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Hand;
 import Machiavelli.Models.Speler;
-import javafx.scene.image.Image;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -26,7 +27,8 @@ import java.util.ArrayList;
  * factory terugstoppen en dezelfde hoeveelheid weer trekken
  */
 
-public class Magier implements Karakter {
+
+public class Magier implements Karakter, Serializable {
 
     // Variables
     private final String naam = "Magier";
@@ -37,24 +39,30 @@ public class Magier implements Karakter {
     private Speler  speler  = null;
     private Object  target  = null;
     private ArrayList<GebouwKaart> ruilLijst = new ArrayList<GebouwKaart>();
-    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Magier.png");
+    private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Magier.png";
+    private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Magier wordt aan de speler gekoppeld.
 	 */
 	@Override
-	public void setSpeler(Speler speler) {
+	public void setSpeler(Speler speler) throws RemoteException {
         this.speler = speler;
     }
 
     @Override
-    public Speler getSpeler() {
+    public Speler getSpeler() throws RemoteException {
         return null;
     }
 
+    /**
+     *Ruil kaarten met de stapel of met een andere speler.
+     *
+     */
+    
     @Override
-    public void gebruikEigenschap() {
+    public void gebruikEigenschap() throws RemoteException {
         // TODO: ruilen bouwkaarten
         System.out.println("faka");
         try {
@@ -77,8 +85,49 @@ public class Magier implements Karakter {
             System.out.print(re);
         }
     }
+    
+    @Override
+    public String getNaam() throws RemoteException {
+    	return this.naam;
+    }
+   
+    @Override
+    public int getNummer() throws RemoteException {
+    	return this.nummer;
+    }
 
-    // Ruil alle bouwkaarten met alle bouwkaarten van een ander speler/karakter??
+    @Override
+    public int getBouwLimiet() throws RemoteException {
+        return this.bouwLimiet;
+    }
+
+    public Type getType() throws RemoteException {
+		return this.type;
+	}
+
+    @Override
+    public void setTarget(Object target) throws RemoteException {
+        this.target = target;
+    }
+
+    @Override
+    public String getImage() throws RemoteException {
+        return this.image;
+    }
+
+    @Override
+    public void addObserver(KarakterObserver observer) throws RemoteException {
+        observers.add(observer);
+    }
+
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (KarakterObserver observer: observers) {
+            observer.modelChanged(this);
+        }
+    }
+    
+ // Ruil alle bouwkaarten met alle bouwkaarten van een ander speler/karakter??
     private void ruilMetKarakter(Speler target, Speler magier) throws RemoteException {
         ArrayList<GebouwKaart> handTarget = target.getHand().getKaartenLijst();
         ArrayList<GebouwKaart> magierHand = magier.getHand().getKaartenLijst();
@@ -96,57 +145,19 @@ public class Magier implements Karakter {
         }
 
         // Trek nieuwe kaarten. Misschien functie maken die een lijst van gebouwen aan hand kan toevoegen?
-        ArrayList<GebouwKaart> tempList = hand.getSpeler().trekkenKaart(count);;
+        ArrayList<GebouwKaart> tempList = hand.getSpeler().trekkenKaart(count);
         for (int i = 0; i < tempList.size(); i++) {
             hand.addGebouw(tempList.get(i));
         }
     }
 
-    public Object getTarget() {
+    public void beurtOverslaan() throws RemoteException {}
+
+    public Object getTarget() throws RemoteException {
         return target;
     }
 
-    public void setTarget(GebouwFactory target) {
-        this.target = target;
-    }
-
-    public void setTarget(Speler target) {
-        this.target = target;
-    }
-
-    public void setRuilLijst(ArrayList<GebouwKaart> ruilLijst) {
+    public void setRuilLijst(ArrayList<GebouwKaart> ruilLijst) throws RemoteException {
         this.ruilLijst = ruilLijst;
-    }
-    
-    public String getNaam() {
-    	return this.naam;
-    }
-   
-    public int getNummer() {
-    	return this.nummer;
-    }
-
-    @Override
-    public int getBouwLimiet() {
-        return this.bouwLimiet;
-    }
-
-    public Type getType() {
-		return this.type;
-	}
-
-    @Override
-    public void setTarget(Object target) {
-        this.target = target;
-    }
-
-    @Override
-    public Image getImage() {
-        return this.image;
-    }
-
-    @Override
-    public void beurtOverslaan() {
-
     }
 }

@@ -3,7 +3,6 @@ package Machiavelli.Models;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
-import Machiavelli.Views.GebouwKaartView;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -19,15 +18,14 @@ import java.util.ArrayList;
  * @version 0.1
  *
  */
-public class GebouwKaart implements GebouwKaartRemote, Serializable {
+public class GebouwKaart implements Serializable, GebouwKaartRemote {
     // Variables
 	private int kosten;
 	private String naam;
 	private Type type;
 	private Stad stad;
     private String image;
-    private ArrayList<GebouwKaartObserver> observers = new ArrayList<>();
-    private GebouwKaartView gebouwKaartView;
+    private ArrayList<GebouwKaartObserver> observers = new ArrayList<GebouwKaartObserver>();
 
     // Een kaart wordt aangemaakt met de meegegeven waardes
     public GebouwKaart(int kosten, String naam, Type type, String image) {
@@ -83,7 +81,6 @@ public class GebouwKaart implements GebouwKaartRemote, Serializable {
         notifyObservers();
     }
 
-    @Override
     public void addObserver(GebouwKaartObserver gebouwKaartObserver) throws RemoteException {
         observers.add(gebouwKaartObserver);
     }
@@ -94,12 +91,16 @@ public class GebouwKaart implements GebouwKaartRemote, Serializable {
         }
     }
 
-    @Override
-    public GebouwKaartView getGebouwkaartView() throws RemoteException {
-        return this.gebouwKaartView;
+    public ArrayList<GebouwKaartObserver> getObservers() throws RemoteException {
+        return this.observers;
     }
 
-    public void registratieView(GebouwKaartView gebouwKaartView) {
-        this.gebouwKaartView = gebouwKaartView;
+    public String toString() {
+        try {
+            return "Gebouwkaart: " + this.getNaam() + " Punten: " + this.getKosten();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "Gebouwkaart Remote Excp";
     }
 }

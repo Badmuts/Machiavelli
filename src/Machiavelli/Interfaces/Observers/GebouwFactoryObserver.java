@@ -10,6 +10,6 @@ import java.rmi.RemoteException;
  */
 public interface GebouwFactoryObserver extends Remote {
 
-    public void modelChanged(GebouwFactoryRemote gebouwFactory) throws RemoteException;
+    void modelChanged(GebouwFactoryRemote gebouwFactory) throws RemoteException;
 
 }
