@@ -1,11 +1,12 @@
 package Machiavelli.Models;
 
-import Machiavelli.Interfaces.Observers.BeurtObserver;
-import Machiavelli.Interfaces.Remotes.BeurtRemote;
-
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+
+import Machiavelli.Controllers.KarakterController;
+import Machiavelli.Interfaces.Observers.BeurtObserver;
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
 
 /**
  *
@@ -17,8 +18,7 @@ public class Beurt implements BeurtRemote, Serializable {
     private ArrayList<Speler> spelerLijst;
     private Speler speler;
     private ArrayList<BeurtObserver> observers = new ArrayList<>();
-    private int karakternummer;
-    private int beurtnummer = 4;
+    private KarakterController karaktercontroller;
     private int observerIndex;
 
     public Beurt(Spel spel, ArrayList<Speler> spelerLijst)
@@ -28,13 +28,21 @@ public class Beurt implements BeurtRemote, Serializable {
     }
 
     /**
-     * De speler de beurt geven om zijn acties uit te voeren
+     * De speler de beurt geven aan het begin van een ronde om zijn karakter te kiezen.
      */
+    
+    public void BeginRondeBeurt(Speler speler) throws RemoteException {
+    	for(Speler spelerLijst: spel.getSpelers()) {
+			karaktercontroller.cmdKiesKarakter();
+    	}
+    }
+    
     public void geefBeurt(Speler speler) throws RemoteException
     {
         // TODO: een speler object een beurt geven. De eerste beurt is de koning met karakternummer 4
     	// Zet na de beurt de karakternummer op 1 en sla dan 4 over.
     	this.speler = speler;
+    	
     	nextObserver();
         notifyObservers();
     }
@@ -52,11 +60,6 @@ public class Beurt implements BeurtRemote, Serializable {
     public void setSpeler(Speler speler) throws RemoteException {
     	this.speler = speler;
         notifyObservers();
-    }
-    
-    public int getKarakterNummer() throws RemoteException {
-    	karakternummer = speler.getKarakter().getNummer();
-    	return karakternummer;
     }
 
     public void addObserver(BeurtObserver beurtObserver) throws RemoteException {

@@ -11,10 +11,10 @@ import java.rmi.RemoteException;
  */
 public interface BeurtRemote extends Remote {
 
-    public void geefBeurt(Speler speler) throws RemoteException;
+    public void BeginRondeBeurt(Speler speler) throws RemoteException;
+	public void geefBeurt(Speler speler) throws RemoteException;
     public Speler getSpeler() throws RemoteException;
     public void setSpeler(Speler speler) throws RemoteException;
-    public int getKarakterNummer() throws RemoteException;
     public void addObserver(BeurtObserver beurtObserver) throws RemoteException;
     public void notifyObservers() throws RemoteException;
 
