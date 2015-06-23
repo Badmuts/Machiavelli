@@ -17,6 +17,9 @@ public class Beurt implements BeurtRemote, Serializable {
     private ArrayList<Speler> spelerLijst;
     private Speler speler;
     private ArrayList<BeurtObserver> observers = new ArrayList<>();
+    private int karakternummer;
+    private int beurtnummer = 4;
+    private int observerIndex;
 
     public Beurt(Spel spel, ArrayList<Speler> spelerLijst)
     {
@@ -29,7 +32,10 @@ public class Beurt implements BeurtRemote, Serializable {
      */
     public void geefBeurt(Speler speler) throws RemoteException
     {
-        // TODO: een speler object een beurt geven.
+        // TODO: een speler object een beurt geven. De eerste beurt is de koning met karakternummer 4
+    	// Zet na de beurt de karakternummer op 1 en sla dan 4 over.
+    	this.speler = speler;
+    	nextObserver();
         notifyObservers();
     }
     
@@ -42,6 +48,11 @@ public class Beurt implements BeurtRemote, Serializable {
     	this.speler = speler;
         notifyObservers();
     }
+    
+    public int getKarakterNummer() throws RemoteException {
+    	karakternummer = speler.getKarakter().getNummer();
+    	return karakternummer;
+    }
 
     public void addObserver(BeurtObserver beurtObserver) throws RemoteException {
         observers.add(beurtObserver);
@@ -51,6 +62,18 @@ public class Beurt implements BeurtRemote, Serializable {
         for (BeurtObserver observer: observers) {
             observer.modelChanged(this);
         }
+    }
+    
+    private void nextObserver() throws RemoteException {
+    	if (observers.size() > 0) {
+			observers.get(observerIndex).setDisable(false);
+			observerIndex++;
+			if (observerIndex >= observers.size()) {
+				observerIndex = 0;
+			}
+			observers.get(observerIndex).setDisable(true);
+		}
+
     }
 
 }

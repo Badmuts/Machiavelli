@@ -11,6 +11,10 @@ import java.rmi.RemoteException;
  */
 public interface BeurtObserver extends Remote {
 
-    void modelChanged(BeurtRemote beurt) throws RemoteException;
+    public void modelChanged(BeurtRemote beurt) throws RemoteException;
+    
+    public boolean isDisabled() throws RemoteException;
+    
+    public void setDisable(boolean disabled) throws RemoteException;
 
 }
