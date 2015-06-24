@@ -33,7 +33,8 @@ public class Beurt implements BeurtRemote, Serializable {
     
     public void BeginRondeBeurt(Speler speler) throws RemoteException {
     	for(Speler spelerLijst: spel.getSpelers()) {
-			karaktercontroller.cmdKiesKarakter();
+    	    karaktercontroller.cmdKiesKarakter();
+			karaktercontroller.cmdWeergeefKiesKarakterView();
     	}
     }
     
