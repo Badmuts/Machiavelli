@@ -40,30 +40,30 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
      * Nadat een speler een karakter heeft gekozen, moet de method de volgende speler laten kiezen.
      * Nadat alle spelers gekozen zijn moet de geefBeurt method aangeroepen worden.
      */
-    public void BeginRondeBeurt() throws RemoteException {
+    /*public void BeginRondeBeurt(SpelerRemote speler) throws RemoteException {
       //TODO: Speler op plek 0 ophalen in de arraylist.
-      //
-        setSpeler(this.spelerLijst.get(spelerNummer));
+   
+        this.speler = speler;
+        speler.getSpel().getSpelers().get(spelerNummer);
         for(SpelerRemote spelerLijst: spel.getSpelers()) {
-    	  karaktercontroller = new KarakterController(this.speler);
+          
     	  spelerNummer++;
     	  setSpeler(this.spelerLijst.set(spelerNummer, spelerLijst));
     	}
         this.karakterIndex = 1;
-    	geefBeurt();
-    }
+    	geefBeurt(); 
+    } */
     
     /**
-     * De speler krijgt de beurt gebaseerd op de karakter om zijn functies uit te voeren.
+     * De speler krijgt de beurt gebaseerd op de karakter nummer om zijn functies uit te voeren.
      */
     
     public void geefBeurt() throws RemoteException
     {
       // TODO: Karakter Toewijzen aan begin 
-     if (karakterIndex == speler.getKarakter().getNummer()) {
-        observers.get(karakterIndex).setDisable(false);
-        karakterIndex++;
-     }
+      //Die speler de beurt geven en wachten tot hij op einde beurt knop drukt
+      //Als einde beurt knop wordt gedrukt, wordt de karakterindex verhoogt.
+      nextBeurtObserver();
       notifyObservers();
     }
     
@@ -83,7 +83,10 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
     }
 
     public void addObserver(BeurtObserver beurtObserver) throws RemoteException {
-        observers.add(beurtObserver);
+      nextBeurtObserver();  
+      observers.add(beurtObserver);
+      System.out.println("Beurt Observer ADDED!: " + this.observers.size());
+        
     }
 
     public void notifyObservers() throws RemoteException {
@@ -92,7 +95,7 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
         }
     }
     
-  /*  private void nextObserver() throws RemoteException {
+  private void nextBeurtObserver() throws RemoteException {
     	if (observers.size() > 0) {
 			observers.get(observerIndex).setDisable(false);
 			observerIndex++;
@@ -102,6 +105,6 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
 			observers.get(observerIndex).setDisable(true);
 		} 
 
-    } */
+    }
 
 }

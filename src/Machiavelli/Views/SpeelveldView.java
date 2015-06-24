@@ -14,6 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import Machiavelli.Machiavelli;
+import Machiavelli.Controllers.BeurtController;
 import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Controllers.RaadplegenSpelregelsController;
 import Machiavelli.Controllers.SpeelveldController;
@@ -29,8 +30,10 @@ import Machiavelli.Models.Speelveld;
 public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver, BeurtObserver {
 
     private SpelerRemote speler;
+    private BeurtRemote beurtRemote;
     private GebouwKaartController gebouwKaartController;
     private SpeelveldController speelveldcontroller;
+    private BeurtController beurtController;
 	private Speelveld speelveld;
 	private Scene speelveldscene;
 	private Pane speelveldpane;
@@ -43,15 +46,20 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     private Text portemonneeView;
     private Pane topBar;
     private Pane steden;
+    private boolean disabled;
 
-    public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController, SpelerRemote speler) throws RemoteException {
+    public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController, SpelerRemote speler, BeurtRemote beurtRemote, BeurtController beurtController) throws RemoteException {
 		this.speelveld = speelveld;
-        this.speler = speler;
+        this.speler = speler;  
+        this.beurtRemote = beurtRemote;
+        this.beurtController = beurtController;
+        
 		this.speelveldcontroller = speelveldcontroller;
         this.gebouwKaartController = gebouwKaartController;
-        this.portemonnee = speler.getPortemonnee();
-
+        this.portemonnee = speler.getPortemonnee();   
+        
         this.portemonnee.addObserver(this);
+        this.beurtRemote.addObserver(this);
 
         this.createStedenHolder();
         this.createPortemonnee();
@@ -215,19 +223,18 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 
     @Override
     public void modelChanged(BeurtRemote beurt) throws RemoteException {
-      // TODO waarde ophalen en updaten op view
       
     }
 
     @Override
     public boolean isDisabled() throws RemoteException {
       // TODO Auto-generated method stub
-      return false;
+      return disabled;
     }
 
     @Override
     public void setDisable(boolean disabled) throws RemoteException {
-      // TODO Auto-generated method stub
+      this.disabled = disabled;
       
     }
 }

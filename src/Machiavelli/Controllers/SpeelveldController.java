@@ -5,8 +5,10 @@ import java.rmi.server.UnicastRemoteObject;
 
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Observers.SpelObserver;
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
+import Machiavelli.Models.Beurt;
 import Machiavelli.Models.Speelveld;
 import Machiavelli.Views.SpeelveldView;
 
@@ -19,6 +21,9 @@ import Machiavelli.Views.SpeelveldView;
 
 public class SpeelveldController extends UnicastRemoteObject implements SpelObserver {
     private SpelerRemote speler;
+    private BeurtRemote beurtRemote;
+    
+    private BeurtController beurtController;
     private GebouwKaartController gebouwKaartController;
     private Speelveld speelveld;
 	private SpeelveldView speelveldview;
@@ -30,9 +35,10 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
         this.speler = speler;
         this.speelveld = new Speelveld(this.spel);
         this.speelveld.addSpeler(speler);
+        this.beurtRemote = new Beurt(this.spel,this.spel.getSpelers());
         this.gebouwKaartController = gebouwKaartController;
-
-        this.speelveldview = new SpeelveldView(this, this.speelveld, this.gebouwKaartController, this.speler);
+        this.beurtController = new BeurtController(this.beurtRemote,this.spel);
+        this.speelveldview = new SpeelveldView(this, this.speelveld, this.gebouwKaartController, this.speler,this.beurtRemote, this.beurtController);
 
 		speelveldview.getExitButton().setOnAction(event -> System.exit(0));
         
@@ -41,7 +47,6 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
 //			RaadplegenSpelregelsController spelregelscontroller = new RaadplegenSpelregelsController();
 //			spelregelscontroller.cmdSluitSpelregelView();
 //		});
-
         this.spel.addObserver(this);
 		this.speelveldview.show();
 	}
@@ -68,6 +73,7 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
     public SpelerRemote getSpeler() {
         return this.speler;
     }
+    
 
     public void cmdBouwGebouw() {
         // TODO: Implement gebouwbouwen method
@@ -76,5 +82,6 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
 
     public void cmdEindeBeurt() {
         // TODO: Implement eindeBeurt method
+        
     }
 }

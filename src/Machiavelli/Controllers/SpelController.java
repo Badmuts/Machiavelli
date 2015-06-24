@@ -1,16 +1,11 @@
 package Machiavelli.Controllers;
 
-import java.rmi.registry.Registry;
-
-import server.GamesRemote;
-import Machiavelli.Machiavelli;
-import Machiavelli.Interfaces.Remotes.SpelRemote;
-import Machiavelli.Models.Speler;
-import Machiavelli.Interfaces.Remotes.SpelRemote;
-import Machiavelli.Interfaces.Remotes.SpelerRemote;
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 /**
  * 
@@ -21,7 +16,9 @@ import java.rmi.server.UnicastRemoteObject;
 public class SpelController extends UnicastRemoteObject {
     private SpelerRemote speler;
     private SpelRemote spel;
+    private BeurtRemote beurtRemote;
     private GebouwKaartController gebouwKaartController;
+    private BeurtController beurtController;
 
 	public SpelController(SpelRemote spel) throws RemoteException {
         try {

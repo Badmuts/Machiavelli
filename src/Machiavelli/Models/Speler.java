@@ -1,5 +1,6 @@
 package Machiavelli.Models;
 
+import Machiavelli.Controllers.BeurtController;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelerObserver;
 import Machiavelli.Interfaces.Remotes.*;
@@ -26,6 +27,8 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
 	private HandRemote hand;
 	private SpelRemote spel;
 	private StadRemote stad;
+	private BeurtRemote beurtRemote;
+	private BeurtController beurtController;
 	private ArrayList<SpelerObserver> observers = new ArrayList<>();
 
 	// Speler toewijzen aan spel en een nieuwe portemonnee, hand en stad maken.
@@ -116,7 +119,7 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
 	public StadRemote getStad() throws RemoteException {
 		return this.stad;
 	}
-
+	
 	public void addObserver(SpelerObserver observer) throws RemoteException {
 		observers.add(observer);
 	}
