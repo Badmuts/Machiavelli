@@ -81,7 +81,7 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
     public void cmdGebruikEigenschap() {
         try {
             if (this.speler.getKarakter().gebruikEigenschap() == false) {
-                KarakterController karakterController = new KarakterController(this.speler, "karakter");
+                KarakterController karakterController = new KarakterController(this.speler, "ronde");
                 karakterController.show();
             }
         } catch (Exception e) {

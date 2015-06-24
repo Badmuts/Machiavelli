@@ -3,6 +3,7 @@ package Machiavelli.Views;
 import Machiavelli.Controllers.KarakterController;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Machiavelli;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Pos;
@@ -35,6 +36,7 @@ public class KiesKarakterView {
     private Scene scene;
     private Stage stage = Machiavelli.getInstance().getStage();
     private Pane container;
+    private ArrayList<SpelerRemote> spelerLijst;
 
     public KiesKarakterView(KarakterFactoryRemote karakterFactory, KarakterController karakterController) throws RemoteException {
         this.karakterFactory = karakterFactory;
@@ -46,11 +48,31 @@ public class KiesKarakterView {
 		this.title.setLayoutY(50);
 		this.title.setText("Kies een karakter:");
 
+		this.spelerLijst = this.karakterController.getSpeler().getSpel().getSpelers();
+//		for(Karakter karakt : this.karakterFactory.getKarakters())
+//		{
+//			if(!karakt.getSpeler().equals(null))
+//			{
+//				spelerLijst.add(karakt.getSpeler());
+//				System.out.println(karakt.getSpeler().getKarakter().getNaam());
+//			}
+//		}
+		
         this.pane = new StackPane();
-        createKarakterViews();
-        createKarakterGrid();
+        
+        if (String.valueOf(this.karakterController.getTypeView()).equals("speler"))
+        {
+        	createSpelerViews();
+        	createKarakterGrid();
+        } else {
+        	createKarakterViews();
+        	createKarakterGrid();
+        }
         this.pane.getChildren().add(title);
 	}
+    
+    //TODO: check in constructor if type == spelers.
+    //TODO: create new createKarakterViews for active spelers.
 
 	public void createKarakterViews() throws RemoteException {
         for (Karakter karakter: this.karakterFactory.getKarakters()) {
@@ -82,15 +104,61 @@ public class KiesKarakterView {
                 newButton.setOnAction(event -> this.karakterController.cmdSetTarget(karakter));
             } else if (String.valueOf(this.karakterController.getTypeView()).equals("ronde")) {
                 newButton.setOnAction(event -> this.karakterController.cmdSetKarakter(karakter));
-            } else if (String.valueOf(this.karakterController.getTypeView()).equals("speler")) {
-                newButton.setOnAction(event -> {
-                    try {
-                        this.karakterController.cmdSetSpelerTarget(karakter.getSpeler());
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
+            } 
+//            else if (String.valueOf(this.karakterController.getTypeView()).equals("speler")) {
+//            	newButton.setText(spelerLijst.get(this.karakterFactory.getKarakters().indexOf(karakter)).getKarakter().getNaam());
+//            	newButton.setOnAction(event -> {
+//                    try {
+//                        this.karakterController.cmdSetSpelerTarget(karakter.getSpeler());
+//                    } catch (RemoteException e) {
+//                        e.printStackTrace();
+//                    }
+//                });
+//            }
+
+            // Fill container
+            karakaterView.getChildren().addAll(karakterImage, newButton);
+            StackPane.setAlignment(karakterImage, Pos.TOP_CENTER);
+            StackPane.setAlignment(newButton, Pos.BOTTOM_CENTER);
+
+            // Add container to karakterViews[]
+            this.karakterViews.add(karakaterView);
+        }
+
+	}
+	
+	public void createSpelerViews() throws RemoteException
+	{
+		for (SpelerRemote speler: this.spelerLijst) {
+            // Create container
+            StackPane karakaterView = new StackPane();
+            karakaterView.setPrefSize(360, 360);
+            // Create image holder
+            StackPane karakterImage = new StackPane();
+            // Create new Button
+            Button newButton = new Button(speler.getKarakter().getNaam());
+
+            // Create clip for karakterPortait
+            Rectangle circle = new Rectangle(150, 150);
+            circle.setArcWidth(150);
+            circle.setArcHeight(150);
+            karakterImage.setClip(circle);
+
+            // Create imageView for KarakterPortait
+            ImageView karakterPortrait = new ImageView(new Image(speler.getKarakter().getImage()));
+            karakterImage.getChildren().add(karakterPortrait);
+            StackPane.setAlignment(karakterPortrait, Pos.CENTER);
+
+            // Set button styling
+            newButton.getStyleClass().add("button-primary");
+            newButton.setMinWidth(230f);
+            newButton.setMinHeight(50f);
+
+//            if (String.valueOf(this.karakterController.getTypeView()).equals("speler")) {
+            	newButton.setOnAction(event -> {
+                    this.karakterController.cmdSetSpelerTarget(speler);
                 });
-            }
+//            }
 
             // Fill container
             karakaterView.getChildren().addAll(karakterImage, newButton);

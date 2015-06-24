@@ -1,6 +1,8 @@
 package Machiavelli.Controllers;
 
+import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Views.KiesKarakterView;
 
@@ -29,7 +31,6 @@ public class KarakterController {
     	this.speler = speler;
         this.karakterView = new KiesKarakterView(this.speler.getSpel().getKarakterFactory(), this);
     	this.karakterView.show();
-//    	cmdTrekkenKaart();
     }
 //
 //    public KarakterController(Speler speler) {
@@ -103,6 +104,7 @@ public class KarakterController {
             this.speler.getKarakter().setTarget(karakter);
             this.speler.getKarakter().gebruikEigenschap();
             this.karakterView.close();
+            new MeldingController().build("Je hebt je karaktereigenschap gebruikt op de " + karakter.getNaam()).cmdWeergeefMeldingView();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -114,7 +116,15 @@ public class KarakterController {
 
     public void cmdSetKarakter(Karakter karakter) {
         try {
-            this.speler.setKarakter(karakter);
+        	KarakterFactoryRemote karakterFactory = this.speler.getSpel().getKarakterFactory();
+        	
+        	Karakter gekozenKarakter = karakterFactory.getKarakterByNumber(karakter.getNummer());
+        	
+        	this.speler.setKarakter(gekozenKarakter);
+        	
+        	this.karakterView.close();
+        	new MeldingController().build("Je bent deze ronde een " + gekozenKarakter.getNaam()).cmdWeergeefMeldingView();
+        	
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -123,6 +133,8 @@ public class KarakterController {
     public void cmdSetSpelerTarget(SpelerRemote speler) {
         try {
             this.speler.getKarakter().setTarget(speler);
+            this.karakterView.close();
+            new MeldingController().build("Je hebt de speler " + speler.getKarakter().getNaam() + " als doelwit gekozen").cmdWeergeefMeldingView();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -130,5 +142,10 @@ public class KarakterController {
 
     public void show() {
         this.karakterView.show();
+    }
+    
+    public SpelerRemote getSpeler()
+    {
+    	return this.speler;
     }
 }
