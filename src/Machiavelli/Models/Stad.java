@@ -72,6 +72,7 @@ public class Stad extends UnicastRemoteObject implements StadRemote, Serializabl
 
 	public void notifyObservers() throws RemoteException {
         System.out.println("Stad model changed! Observers: " + observers.size());
+        System.out.println("Gebouwen in stad: " + gebouwen.size());
 		for (StadObserver observer: observers) {
 			observer.modelChanged(this);
 		}

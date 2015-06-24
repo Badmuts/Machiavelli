@@ -27,6 +27,7 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
 	private SpelRemote spel;
 	private StadRemote stad;
 	private ArrayList<SpelerObserver> observers = new ArrayList<>();
+    private int gebouwdeGebouwen = 0;
 
 	// Speler toewijzen aan spel en een nieuwe portemonnee, hand en stad maken.
 	public Speler() throws RemoteException {
@@ -47,12 +48,15 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
 
 	// Plaats een gebouwkaart in de stad van de speler
 	public void bouwenGebouw(GebouwKaartRemote gebouw) throws RemoteException {
+        // Haal bouwlimiet op van karakter
+        int bouwLimiet = this.karakter.getBouwLimiet();
 		int kosten = gebouw.getKosten();
         int saldo = portemonnee.getGoudMunten();
-        if ((saldo-kosten) >= 0) {
+        if ((saldo-kosten) >= 0 && gebouwdeGebouwen < bouwLimiet) {
             this.stad.addGebouw(gebouw);
             this.hand.removeGebouw(gebouw);
             this.portemonnee.bestedenGoud(this.spel.getBank(), kosten);
+            gebouwdeGebouwen++;
             notifyObservers();
         }
 	}
@@ -156,5 +160,9 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
         } catch (RemoteException re) {
             re.printStackTrace();
         }
+    }
+
+    public int getGebouwdeGebouwen() throws RemoteException {
+        return gebouwdeGebouwen;
     }
 }
