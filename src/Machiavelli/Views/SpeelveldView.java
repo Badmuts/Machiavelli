@@ -9,6 +9,7 @@ import Machiavelli.Controllers.KarakterController;
 import Machiavelli.Controllers.MeldingController;
 import Machiavelli.Controllers.RaadplegenSpelregelsController;
 import Machiavelli.Controllers.SpeelveldController;
+import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
 import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
@@ -104,8 +105,26 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 
         Button spelregelsButton = new Button("Spelregels");
         spelregelsButton.setOnAction(event -> {
-            new RaadplegenSpelregelsController().cmdWeergeefSpelregels();
+//            new RaadplegenSpelregelsController().cmdWeergeefSpelregels();
+        	try 
+        	{
+				KarakterController controller = new KarakterController(new Speler());
+//				controller.cmdKiesKarakter();
+//				controller.cmdWeergeefKiesKarakterView();
+				
+//				controller.selecteerKarakter();
+				Karakter karakter = controller.selecteerKarakter();
+				controller.cmdWeergeefKiesKarakterView();
+//				System.out.println("Het doelwit de " + karakter.getNaam());
+//				System.out.println("Er is een karakter gekozen.");
+//				System.out.println(controller.getTarget().getNaam());
+			} 
+        	catch (Exception e) 
+        	{
+				e.printStackTrace();
+			}
         });
+        
         spelregelsButton.setLayoutY(10);
         spelregelsButton.setLayoutX(10);
         spelregelsButton.getStyleClass().add("button-primary");
