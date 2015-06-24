@@ -113,9 +113,19 @@ public class KarakterController {
     }
 
     public void cmdSetKarakter(Karakter karakter) {
+        try {
+            this.speler.setKarakter(karakter);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     public void cmdSetSpelerTarget(SpelerRemote speler) {
+        try {
+            this.speler.getKarakter().setTarget(speler);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     public void show() {
