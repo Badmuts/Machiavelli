@@ -1,12 +1,6 @@
 package Machiavelli.Views;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-
 import Machiavelli.Controllers.GebouwKaartController;
-import Machiavelli.Controllers.InkomstenController;
-import Machiavelli.Controllers.KarakterController;
-import Machiavelli.Controllers.MeldingController;
 import Machiavelli.Controllers.RaadplegenSpelregelsController;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
@@ -16,7 +10,6 @@ import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Speelveld;
-import Machiavelli.Models.Speler;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,12 +20,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import Machiavelli.Machiavelli;
-import Machiavelli.Controllers.SpeelveldController;
-import Machiavelli.Interfaces.Observers.SpeelveldObserver;
-import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
-import Machiavelli.Models.Speelveld;
-import Machiavelli.Models.Karakters.Magier;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver {
 
@@ -103,9 +93,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         iv.setFitHeight(74);
 
         Button spelregelsButton = new Button("Spelregels");
-        spelregelsButton.setOnAction(event -> {
-            new RaadplegenSpelregelsController().cmdWeergeefSpelregels();
-        });
+        spelregelsButton.setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
         spelregelsButton.setLayoutY(10);
         spelregelsButton.setLayoutX(10);
         spelregelsButton.getStyleClass().add("button-primary");
@@ -160,34 +148,6 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 		stage.setScene(speelveldscene);
         stage.centerOnScreen();
 		stage.show();
-	}
-
-	public Button getSpelregels() {
-		return buttonHolderActionBarView.getSpelregels();
-	}
-
-	public Button getExitButton() {
-        return buttonHolderActionBarView.getExitbutton();
-	}
-	
-	public Button getEindeButton() {
-		return buttonHolderActionBarView.getEindeBeurtButton();
-	}
-	
-	public Button getBouwButton() {
-		return buttonHolderActionBarView.getBouwButton();
-	}
-	
-	public Button getOpslaanButton() {
-		return buttonHolderActionBarView.getOpslaanButton();
-	}
-	
-	public Button getEigenschapButton() {
-		return buttonHolderActionBarView.getEigenschapButton();
-	}
-	
-	public Button getGoudButton() {
-		return buttonHolderActionBarView.getGoudbutton();
 	}
 
     private void createActionBar() {

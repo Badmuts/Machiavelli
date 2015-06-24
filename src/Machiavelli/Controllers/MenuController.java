@@ -63,10 +63,9 @@ public class MenuController {
         // TODO: Show new games
     	try{
     		SpelRemote spelStub = (SpelRemote)registry.lookup("Spel");
-            if (spelStub.getSpelers().size() < spelStub.getMaxAantalSpelers()) {
+            if (spelStub.getAantalSpelers() < spelStub.getMaxAantalSpelers()) {
                 spelStub.createNewSpeler();
                 this.spelController = new SpelController(spelStub);
-                this.spelController.cmdAddSpeler();
             } else {
                 new MeldingController().build("Het maximaal aantal spelers is bereikt").cmdWeergeefMeldingView();
             }
@@ -95,7 +94,6 @@ public class MenuController {
             spelStub.createNewSpel(maxAantalSpelers);
             spelStub.createNewSpeler();
             this.spelController = new SpelController(spelStub);
-            this.spelController.cmdAddSpeler();
     	} catch(Exception e) {
     		e.printStackTrace();
     	}

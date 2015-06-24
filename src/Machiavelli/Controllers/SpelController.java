@@ -1,11 +1,5 @@
 package Machiavelli.Controllers;
 
-import java.rmi.registry.Registry;
-
-import server.GamesRemote;
-import Machiavelli.Machiavelli;
-import Machiavelli.Interfaces.Remotes.SpelRemote;
-import Machiavelli.Models.Speler;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
@@ -13,7 +7,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
- * 
+ *
  * Deze klasse bestuurt het model van het spel.
  *
  */
@@ -34,13 +28,6 @@ public class SpelController extends UnicastRemoteObject {
             re.printStackTrace();
         }
 	}
-
-    public void cmdAddSpeler() {
-        try {
-        } catch (Exception re) {
-            re.printStackTrace();
-        }
-    }
 
     public GebouwKaartController getGebouwKaartController() {
         return gebouwKaartController;
