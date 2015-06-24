@@ -1,14 +1,14 @@
 package Machiavelli.Controllers;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speelveld;
 import Machiavelli.Views.SpeelveldView;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * 
@@ -76,5 +76,16 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
 
     public void cmdEindeBeurt() {
         // TODO: Implement eindeBeurt method
+    }
+
+    public void cmdGebruikEigenschap() {
+        try {
+            if (this.speler.getKarakter().gebruikEigenschap() == false) {
+                KarakterController karakterController = new KarakterController(this.speler, "karakter");
+                karakterController.show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

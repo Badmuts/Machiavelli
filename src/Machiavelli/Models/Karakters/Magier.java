@@ -6,7 +6,6 @@ import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.HandRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 
 import java.io.Serializable;
@@ -63,7 +62,7 @@ public class Magier implements Karakter, Serializable {
      */
     
     @Override
-    public void gebruikEigenschap() throws RemoteException {
+    public boolean gebruikEigenschap() throws RemoteException {
         // TODO: ruilen bouwkaarten
         System.out.println("faka");
         try {
@@ -85,6 +84,7 @@ public class Magier implements Karakter, Serializable {
         } catch (RemoteException re) {
             System.out.print(re);
         }
+        return false;
     }
     
     @Override

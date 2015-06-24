@@ -1,43 +1,34 @@
 package Machiavelli.Controllers;
 
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-
-import javafx.animation.FadeTransition;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
-import Machiavelli.Machiavelli;
-import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Karakter;
-import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.Spel;
-import Machiavelli.Models.Speler;
 import Machiavelli.Views.KiesKarakterView;
+
+import java.rmi.RemoteException;
 
 /**
  * Created by daanrosbergen on 03/06/15.
  */
 public class KarakterController {
 
-	//TODO: krijg speler van beurt..
+    private String typeView;
+    //TODO: krijg speler van beurt..
     private SpelerRemote speler;
-    private KiesKarakterView karakterView = new KiesKarakterView();
+    private KiesKarakterView karakterView;
     private Karakter target;
     
-    public KarakterController(SpelerRemote speler) throws RemoteException
+    public KarakterController(SpelerRemote speler, String typeView) throws RemoteException
     {
+        // TYPE VAN VIEW IN CONSTRUCTOR
+        // TYPES:
+        // - KARAKTER: KIES KARAKTER ALS TARGET
+        // - RONDE : KIES KARAKTER VOOR SPELER
+        // - SPELER: KIES SPELER ALS TARGET
+        this.typeView = typeView;
     	this.target = null;
     	this.speler = speler;
-    	Spel spel = new Spel();
-    	spel.createNewSpel(1);
-    	this.speler.addSpel(spel);
-    	
+        this.karakterView = new KiesKarakterView(this.speler.getSpel().getKarakterFactory(), this);
+    	this.karakterView.show();
 //    	cmdTrekkenKaart();
     }
 //
@@ -49,170 +40,85 @@ public class KarakterController {
 //        Karakter karakter = this.speler.getKarakter();
 //        karakter.gebruikEigenschap();
 //    }
-    
-    public void cmdKiesKarakter() throws RemoteException
-    {
-    	KarakterFactoryRemote karakterFactory = this.speler.getSpel().getKarakterFactory();
 
-    	for (Karakter karakter : karakterFactory.getKarakters()) {
-			karakterView.createKarakterView(karakter);
-		}
-    	
-    	this.karakterView.addButtonsToView();
-    	
-    	for (Button button: karakterView.getButtonList()) 
-    	{
-    		try 
-    		{
-    			int buttonNumber = karakterView.getButtonList().indexOf(button);
-    			
-    			button.setOnAction((event) -> 
-    			{
-    				try
-    				{
-    					this.target = karakterFactory.getKarakterByNumber(buttonNumber);
-	    				this.speler.setKarakter(target);
-    				}
-    				catch(Exception e)
-    				{
-    					e.printStackTrace();
-    				}
-    				
-    				//test if the karakter is deleted from the factory and close the view.
-    				finally
-    				{
-    					try 
-    					{
-							for(Karakter karakter : karakterFactory.getKarakters())
-							{
-								System.out.println(karakterFactory.getKarakters().indexOf(karakter) + " " + karakter.getNaam());
-							}
-							
-							System.out.println("De speler is een: " + this.speler.getKarakter().getNaam());
-							
-							cmdSluitKiesKarakterView();
-		    				
-		    				new MeldingController().build("Je bent deze ronde een " + this.getTarget().getNaam()).cmdWeergeefMeldingView();
-						} 
-    					catch (Exception e) 
-    					{
-							e.printStackTrace();
-						}
-    				}
-    			});
-			} 
-    		catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}
-    }
-    
-    public Karakter selecteerKarakter() throws RemoteException
-    {
-    	KarakterFactoryRemote karakterFactory = this.speler.getSpel().getKarakterFactory();
+//    public void cmdKiesKarakter() throws RemoteException
+//    {
+//    	KarakterFactoryRemote karakterFactory = this.speler.getSpel().getKarakterFactory();
+//
+//    	for (Karakter karakter : karakterFactory.getKarakters()) {
+//			karakterView.createKarakterView(karakter);
+//		}
+//
+//    	this.karakterView.addButtonsToView();
+//
+//    	for (Button button: karakterView.getButtonList())
+//    	{
+//    		try
+//    		{
+//    			int buttonNumber = karakterView.getButtonList().indexOf(button);
+//
+//    			button.setOnAction((event) ->
+//    			{
+//    				try
+//    				{
+//    					this.target = karakterFactory.getKarakterByNumber(buttonNumber);
+//	    				this.speler.setKarakter(target);
+//    				}
+//    				catch(Exception e)
+//    				{
+//    					e.printStackTrace();
+//    				}
+//
+//    				//test if the karakter is deleted from the factory and close the view.
+//    				finally
+//    				{
+//    					try
+//    					{
+//							for(Karakter karakter : karakterFactory.getKarakters())
+//							{
+//								System.out.println(karakterFactory.getKarakters().indexOf(karakter) + " " + karakter.getNaam());
+//							}
+//
+//							System.out.println("De speler is een: " + this.speler.getKarakter().getNaam());
+//
+//							cmdSluitKiesKarakterView();
+//
+//		    				new MeldingController().build("Je bent deze ronde een " + this.getTarget().getNaam()).cmdWeergeefMeldingView();
+//						}
+//    					catch (Exception e)
+//    					{
+//							e.printStackTrace();
+//						}
+//    				}
+//    			});
+//			}
+//    		catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//    	}
+//    }
 
-    	for (Karakter karakter : karakterFactory.getKarakters()) {
-			karakterView.createKarakterView(karakter);
-		}
-    	
-    	this.karakterView.addButtonsToView();
-    	
-    	for (Button button: karakterView.getButtonList()) 
-    	{
-    		try 
-    		{
-    			int buttonNumber = karakterView.getButtonList().indexOf(button);
-    			
-    			button.setOnAction((event) -> 
-    			{
-    				try
-    				{
-    					this.target = karakterFactory.getKarakters().get(buttonNumber);
-    				}
-    				catch(Exception e)
-    				{
-    					e.printStackTrace();
-    				}
-    				
-    				//test if the karakter is chosen.
-    				finally
-    				{
-    					try 
-    					{
-							System.out.println("Karakter " + this.getTarget().getNaam() + " is gekozen");
-							
-							cmdSluitKiesKarakterView();
-		    				
-		    				new MeldingController().build("Je eigenschap wordt uitgevoerd op de " + this.getTarget().getNaam()).cmdWeergeefMeldingView();
-						} 
-    					catch (Exception e) 
-    					{
-							e.printStackTrace();
-						}
-    				}
-    			});
-			} 
-    		catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}
-    	
-    	return this.getTarget();
+    public void cmdSetTarget(Karakter karakter) {
+        try {
+            this.speler.getKarakter().setTarget(karakter);
+            this.speler.getKarakter().gebruikEigenschap();
+            this.karakterView.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    
-    public void cmdWeergeefKiesKarakterView()
-    {
-    	StackPane pane = new StackPane();
-    	Pane old = new Pane();
-    	
-    	old.getChildren().add(Machiavelli.getInstance().getStage().getScene().getRoot());
-    	pane.getChildren().addAll(old, karakterView.getPane());
-    	
-    	FadeTransition ft = new FadeTransition(Duration.millis(700), pane);
-    	ft.setFromValue(0.7);
-    	ft.setToValue(1.0);
-    	ft.play();
-    	
-    	Scene scene = new Scene(pane, 1440, 900);
-		Machiavelli.getInstance().getStage().setScene(scene);
+
+    public String getTypeView() {
+        return this.typeView;
     }
-    
-    public Karakter getTarget()
-    {
-    	return this.target;
+
+    public void cmdSetKarakter(Karakter karakter) {
     }
-    
-    public SpelerRemote getSpeler()
-    {
-    	return this.speler;
+
+    public void cmdSetSpelerTarget(SpelerRemote speler) {
     }
-    
-    public void cmdSluitKiesKarakterView()
-    {
-    	Pane newPane = new Pane();
-    	Scene currentScene = Machiavelli.getInstance().getStage().getScene();
-    	
-    	System.out.println("\nThe current scene contains the following nodes (panes): ");
-    	for(Node node : currentScene.getRoot().getChildrenUnmodifiable())
-    	{
-    		System.out.println(node.idProperty());
-    		if(currentScene.lookup("#kieskarakterview").equals(node))
-    		{
-    			//deletes the kieskarakterview pane, from the nodelist of the scene...
-    			newPane.getChildren().add(node);
-    			
-    			System.out.println("\nVerwijderd: " + node.getId());
-    			break;
-    		}
-    	}
-    	
-    	newPane = null;
-//    	
-    	//show the nodes in the current list.
-    	System.out.println("\nThe current scene contains the following nodes (panes): ");
-    	for(Node node : currentScene.getRoot().getChildrenUnmodifiable())
-    	{
-    		System.out.println(node.idProperty());
-    	}
+
+    public void show() {
+        this.karakterView.show();
     }
 }

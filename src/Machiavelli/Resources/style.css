@@ -176,3 +176,7 @@
 .menu {
     -fx-background-color: #48443c;
 }
+
+.overlay {
+    -fx-background-color: rgba(0, 0, 0, 0.7);
+}

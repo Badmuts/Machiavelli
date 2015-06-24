@@ -54,7 +54,7 @@ public class Bouwmeester implements Karakter, Serializable {
      * 
 	 */
     @Override
-    public void gebruikEigenschap() throws RemoteException {
+    public boolean gebruikEigenschap() throws RemoteException {
         //TODO: 2 of 3 kaarten plaatsen in stad
     	try {
 			this.speler.getHand().addGebouwen(this.speler.trekkenKaart(2));
@@ -62,6 +62,7 @@ public class Bouwmeester implements Karakter, Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        return false;
     }
     
     @Override

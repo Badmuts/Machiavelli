@@ -60,7 +60,7 @@ public class Moordenaar implements Karakter, Serializable {
 	 */
     
     @Override
-    public void gebruikEigenschap() throws RemoteException {
+    public boolean gebruikEigenschap() throws RemoteException {
         // TODO: vermoord karakter
     	if (target != null) {
     		vermoordKarakter(this.getVermoordKarakter());
@@ -68,6 +68,7 @@ public class Moordenaar implements Karakter, Serializable {
     	else {
     		//TODO: view aanroepen
     	}
+        return false;
     }
     
     //beurt overslaan met ifjes???

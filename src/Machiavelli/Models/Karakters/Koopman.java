@@ -6,7 +6,6 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Speler;
 
 import java.io.Serializable;
@@ -58,12 +57,13 @@ public class Koopman implements Karakter, Bonusable, Serializable {
 	 * en aanroepen van de methode ontvangenBonusGoud
 	 */
 	@Override
-    public void gebruikEigenschap() throws RemoteException {
+    public boolean gebruikEigenschap() throws RemoteException {
 		try {
             ontvangenBonusGoud();
         } catch (RemoteException re) {
             System.out.print(re);
         }
+        return false;
     }
 
 	/** ontvangen bonusgoud voor commerciele gebouwen */

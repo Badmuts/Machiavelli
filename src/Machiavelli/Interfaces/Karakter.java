@@ -24,7 +24,7 @@ public interface Karakter extends Remote {
 
 //    void setSpeler(Speler speler) throws RemoteException;
 
-    void gebruikEigenschap() throws RemoteException;
+    boolean gebruikEigenschap() throws RemoteException;
 
     void setTarget(Object target) throws RemoteException;
 

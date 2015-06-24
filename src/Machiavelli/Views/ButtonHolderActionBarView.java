@@ -58,6 +58,7 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
         goudbutton.setOnAction(event -> this.speelveldController.cmdBonusGoud());
         bouwbutton.setOnAction(event -> this.speelveldController.cmdBouwGebouw());
         eindebeurtbutton.setOnAction(event -> this.speelveldController.cmdEindeBeurt());
+        gebruikEigenschap.setOnAction(event -> this.speelveldController.cmdGebruikEigenschap());
 
         isKarakterBonusable();
 
