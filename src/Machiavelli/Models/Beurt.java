@@ -1,18 +1,14 @@
 package Machiavelli.Models;
 
-import Machiavelli.Interfaces.Observers.BeurtObserver;
-import Machiavelli.Interfaces.Remotes.BeurtRemote;
-import Machiavelli.Interfaces.Remotes.SpelRemote;
-import Machiavelli.Interfaces.Remotes.SpelerRemote;
-
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-import Machiavelli.Controllers.KarakterController;
 import Machiavelli.Interfaces.Observers.BeurtObserver;
 import Machiavelli.Interfaces.Remotes.BeurtRemote;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 /**
  *
@@ -21,13 +17,13 @@ import Machiavelli.Interfaces.Remotes.BeurtRemote;
  */
 public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializable {
     private SpelRemote spel;
-    private ArrayList<SpelerRemote> spelerLijst;
     private SpelerRemote speler;
+    private ArrayList<SpelerRemote> spelerLijst;
     private ArrayList<BeurtObserver> observers = new ArrayList<>();
-    private KarakterController karaktercontroller;
+   //private KarakterController karaktercontroller;
     private int observerIndex;
-    private int karakterIndex;
-    private int spelerNummer = 0;
+    //private int karakterIndex;
+    //private int spelerNummer = 0;
 
     public Beurt(SpelRemote spel, ArrayList<SpelerRemote> spelerLijst) throws RemoteException
     {
@@ -62,7 +58,7 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
     {
       // TODO: Karakter Toewijzen aan begin 
       //Die speler de beurt geven en wachten tot hij op einde beurt knop drukt
-      //Als einde beurt knop wordt gedrukt, wordt de karakterindex verhoogt.
+      //Als einde beurt knop wordt gedrukt, wordt de observerindex verhoogt.
       nextBeurtObserver();
       notifyObservers();
     }
@@ -82,9 +78,9 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
         notifyObservers();
     }
 
-    public void addObserver(BeurtObserver beurtObserver) throws RemoteException {
+    public void addObserver(BeurtObserver observer) throws RemoteException {
       nextBeurtObserver();  
-      observers.add(beurtObserver);
+      observers.add(observer);
       System.out.println("Beurt Observer ADDED!: " + this.observers.size());
         
     }

@@ -2,7 +2,6 @@ package Machiavelli.Interfaces.Remotes;
 
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelerObserver;
-import Machiavelli.Models.*;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -34,5 +33,6 @@ public interface SpelerRemote extends Remote {
     public ArrayList<GebouwKaartRemote> trekkenKaart(int aantal) throws RemoteException;
     // Trekken van twee kaarten uit de stapel
     public ArrayList<GebouwKaartRemote> trekkenKaart() throws RemoteException;
+    public int getGebouwdeGebouwen() throws RemoteException;
 
 }

@@ -170,6 +170,7 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
                 System.out.println("Stad view changed!");
                 this.stad = stad;
                 this.pane.getChildren().clear();
+                this.gebouwKaartViews.clear();
                 this.buildGebouwKaartViewArray();
                 this.createSpelerPortrait();
                 this.createSpelerPortraitNumber();

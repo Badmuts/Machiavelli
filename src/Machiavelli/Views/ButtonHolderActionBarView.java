@@ -4,6 +4,7 @@ import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Observers.SpelerObserver;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -41,6 +42,8 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
         bouwbutton = new Button();
         eindebeurtbutton= new Button();
 
+        this.speler.addObserver(this);
+
         this.buttonGrid.setHgap(10);
         this.buttonGrid.setVgap(10);
         this.buttonGrid.setPadding(new Insets(22.5, 0, 22.5, 0));
@@ -55,6 +58,7 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
         goudbutton.setOnAction(event -> this.speelveldController.cmdBonusGoud());
         bouwbutton.setOnAction(event -> this.speelveldController.cmdBouwGebouw());
         eindebeurtbutton.setOnAction(event -> this.speelveldController.cmdEindeBeurt());
+        exitbutton.setOnAction(event -> System.exit(0));
 
         isKarakterBonusable();
 
@@ -117,10 +121,27 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
 
     @Override
     public void modelChanged(SpelerRemote speler) throws RemoteException {
-        this.speler = speler;
-        this.container.getChildren().clear();
-        isKarakterBonusable();
-        this.container.getChildren().addAll(buttonholder, buttonGrid);
+        Platform.runLater(() -> {
+            try {
+                this.speler = speler;
+                this.container.getChildren().clear();
+                isKarakterBonusable();
+                isAbleToBuild();
+                this.container.getChildren().addAll(buttonholder, buttonGrid);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void isAbleToBuild() throws RemoteException {
+        int gebouwdeGebouwen = speler.getGebouwdeGebouwen();
+        int bouwLimiet = speler.getKarakter().getBouwLimiet();
+        if (gebouwdeGebouwen >= bouwLimiet) {
+            bouwbutton.setDisable(true); // Disable button
+        } else {
+            bouwbutton.setDisable(false); // Enable button
+        }
     }
 
     public StackPane getPane() {
