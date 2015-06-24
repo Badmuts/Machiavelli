@@ -17,12 +17,16 @@ public class BeurtController extends UnicastRemoteObject {
 		this.beurt = beurt;
 	}
 	
-	public void cmdGeefBeurt() throws RemoteException {
-		beurt.geefBeurt(cmdGetSpeler());
+	public void cmdBeginRondeBeurt() throws RemoteException {
+	  beurt.BeginRondeBeurt();
 	}
 	
 	public SpelerRemote cmdGetSpeler() throws RemoteException {
 		return beurt.getSpeler();
+	}
+	
+	public void cmdEindeBeurt() throws RemoteException {
+	  beurt.EindeBeurt();
 	}
 		
 }

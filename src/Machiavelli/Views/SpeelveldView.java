@@ -3,20 +3,6 @@ package Machiavelli.Views;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-import Machiavelli.Controllers.GebouwKaartController;
-import Machiavelli.Controllers.InkomstenController;
-import Machiavelli.Controllers.KarakterController;
-import Machiavelli.Controllers.MeldingController;
-import Machiavelli.Controllers.RaadplegenSpelregelsController;
-import Machiavelli.Controllers.SpeelveldController;
-import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
-import Machiavelli.Interfaces.Observers.SpeelveldObserver;
-import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
-import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
-import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Machiavelli;
-import Machiavelli.Models.Speelveld;
-import Machiavelli.Models.Speler;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,13 +14,19 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import Machiavelli.Machiavelli;
+import Machiavelli.Controllers.GebouwKaartController;
+import Machiavelli.Controllers.RaadplegenSpelregelsController;
 import Machiavelli.Controllers.SpeelveldController;
+import Machiavelli.Interfaces.Observers.BeurtObserver;
+import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
+import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
 import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speelveld;
-import Machiavelli.Models.Karakters.Magier;
 
-public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver {
+public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver, BeurtObserver {
 
     private SpelerRemote speler;
     private GebouwKaartController gebouwKaartController;
@@ -219,5 +211,23 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
                 e.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public void modelChanged(BeurtRemote beurt) throws RemoteException {
+      // TODO waarde ophalen en updaten op view
+      
+    }
+
+    @Override
+    public boolean isDisabled() throws RemoteException {
+      // TODO Auto-generated method stub
+      return false;
+    }
+
+    @Override
+    public void setDisable(boolean disabled) throws RemoteException {
+      // TODO Auto-generated method stub
+      
     }
 }
