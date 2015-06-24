@@ -8,23 +8,23 @@ import Machiavelli.Models.GebouwKaart;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import Machiavelli.Enumerations.Type;
-import Machiavelli.Interfaces.Observers.GebouwFactoryObserver;
-import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
-import Machiavelli.Models.GebouwKaart;
 
 /**
  * @author Daan Rosbergen
  */
-public class GebouwFactory implements GebouwFactoryRemote, Serializable {
+public class GebouwFactory extends UnicastRemoteObject implements GebouwFactoryRemote, Serializable {
 
-    private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
+    private ArrayList<GebouwKaartRemote> gebouwen = new ArrayList<>();
     private ArrayList<GebouwFactoryObserver> observers = new ArrayList<GebouwFactoryObserver>();
 
     public GebouwFactory() throws RemoteException {
+        init();
+    }
+
+    private void init() throws RemoteException {
         gebouwen.add(new GebouwKaart(6, "Bibliotheek", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/bibliotheek.png"));
         gebouwen.add(new GebouwKaart(5, "Werkplaats", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/werkplaats.png"));
         gebouwen.add(new GebouwKaart(6, "School voor Magiërs", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/school-voor-magiers.png"));
@@ -67,17 +67,17 @@ public class GebouwFactory implements GebouwFactoryRemote, Serializable {
         Collections.shuffle(gebouwen);
     }
 
-    public void addGebouw(GebouwKaart gebouw) throws RemoteException {
+    public void addGebouw(GebouwKaartRemote gebouw) throws RemoteException {
         this.gebouwen.add(gebouw);
     }
 
-    public GebouwKaart trekKaart() throws RemoteException {
-        GebouwKaart gebouw = gebouwen.get(0);
-        gebouwen.remove(gebouw);
+    public GebouwKaartRemote trekKaart() throws RemoteException {
+        GebouwKaartRemote gebouw = gebouwen.get(0);
+        gebouwen.remove(0);
         return gebouw;
     }
 
-    public ArrayList<GebouwKaart> getGebouwen() throws RemoteException
+    public ArrayList<GebouwKaartRemote> getGebouwen() throws RemoteException
     {
         return this.gebouwen;
     }

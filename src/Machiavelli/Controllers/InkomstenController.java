@@ -3,6 +3,9 @@ package Machiavelli.Controllers;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import Machiavelli.Interfaces.Remotes.BankRemote;
+import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -44,12 +47,12 @@ public class InkomstenController
 	public void cmdTrekkenKaart() throws RemoteException
 	{
 		this.trekkenKaartView = new TrekkenKaartView(this);
-		ArrayList<GebouwKaart> getrokkenKaarten = speler.trekkenKaart();
+		ArrayList<GebouwKaartRemote> getrokkenKaarten = speler.trekkenKaart();
 		
 		System.out.println("Getrokken kaarten: "+ getrokkenKaarten.size());
 		
 		//Maak de buttons voor elk getrokken gebouwkaart.
-		for (GebouwKaart gebouw: getrokkenKaarten) {
+		for (GebouwKaartRemote gebouw: getrokkenKaarten) {
 			trekkenKaartView.createGebouwView(gebouw);
 		}
 		
@@ -68,7 +71,7 @@ public class InkomstenController
 				
 				try
 				{
-					ArrayList<GebouwKaart> spelersKaarten = this.speler.getHand().getKaartenLijst();
+					ArrayList<GebouwKaartRemote> spelersKaarten = this.speler.getHand().getKaartenLijst();
 					String getrokkenKaart = spelersKaarten.get(spelersKaarten.size() -1).getNaam();
 					new MeldingController().build("De kaart '" + getrokkenKaart + "' is in je hand geplaatst").cmdWeergeefMeldingView();
 				}
@@ -98,7 +101,7 @@ public class InkomstenController
 	{
 		try 
 		{
-			Bank bank = this.speler.getSpel().getBank();
+			BankRemote bank = this.speler.getSpel().getBank();
 			this.speler.getGoudVanBank(bank, 0);
 			
 			System.out.println("Aantal goudmunten in speler portomonee: " + this.speler.getPortemonnee().getGoudMunten());
@@ -129,9 +132,9 @@ public class InkomstenController
 		}
 	}
 	
-	public void showHand(Speler speler) throws RemoteException
+	public void showHand(SpelerRemote speler) throws RemoteException
     {
-        ArrayList<GebouwKaart> lst = speler.getHand().getKaartenLijst();
+        ArrayList<GebouwKaartRemote> lst = speler.getHand().getKaartenLijst();
         System.out.println("Kaarten in hand:");
         for(int i = 0; i < speler.getHand().getKaartenLijst().size(); i++)
         {

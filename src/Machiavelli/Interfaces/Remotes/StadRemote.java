@@ -13,12 +13,12 @@ import java.util.ArrayList;
  */
 public interface StadRemote extends Remote {
 
-    public void addGebouw(GebouwKaart gebouw) throws RemoteException;
-    public void removeGebouw(GebouwKaart gebouw) throws RemoteException;
+    public void addGebouw(GebouwKaartRemote gebouw) throws RemoteException;
+    public void removeGebouw(GebouwKaartRemote gebouw) throws RemoteException;
     public void addObserver(StadObserver observer) throws RemoteException;
     public void notifyObservers() throws RemoteException;
-    public Speler getSpeler() throws RemoteException;
-    public ArrayList<GebouwKaart> getGebouwen() throws RemoteException;
+    public SpelerRemote getSpeler() throws RemoteException;
+    public ArrayList<GebouwKaartRemote> getGebouwen() throws RemoteException;
     public int getWaardeStad() throws RemoteException;
 
 }

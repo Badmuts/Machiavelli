@@ -20,7 +20,7 @@ public interface HandRemote extends Remote {
      * @param kaart
      * @throws RemoteException
      */
-    public void addGebouw(GebouwKaart kaart) throws RemoteException;
+    public void addGebouw(GebouwKaartRemote kaart) throws RemoteException;
 
     /**
      * Verwijder GebouwKaart uit Hand.
@@ -28,7 +28,7 @@ public interface HandRemote extends Remote {
      * @param gebouw
      * @throws RemoteException
      */
-    public void removeGebouw(GebouwKaart gebouw) throws RemoteException;
+    public void removeGebouw(GebouwKaartRemote gebouw) throws RemoteException;
 
     /**
      * Voeg meerderen gebouwen toe aan Hand. (Redundant?)
@@ -36,21 +36,21 @@ public interface HandRemote extends Remote {
      * @param gebouwKaarten
      * @throws RemoteException
      */
-    public void addGebouwen(List<GebouwKaart> gebouwKaarten) throws RemoteException;
+    public void addGebouwen(List<GebouwKaartRemote> gebouwKaarten) throws RemoteException;
 
     /**
      * Haal kaarten op uit Hand.
      * @return
      * @throws RemoteException
      */
-    public ArrayList<GebouwKaart> getKaartenLijst() throws RemoteException;
+    public ArrayList<GebouwKaartRemote> getKaartenLijst() throws RemoteException;
 
     /**
      * Zet kaarten in Hand (Redundant?)
      * @param lijst
      * @throws RemoteException
      */
-    public void setKaartenLijst(ArrayList<GebouwKaart> lijst) throws RemoteException;
+    public void setKaartenLijst(ArrayList<GebouwKaartRemote> lijst) throws RemoteException;
 
     /**
      * Haal eigenaar van Hand op.
@@ -58,7 +58,7 @@ public interface HandRemote extends Remote {
      * @return
      * @throws RemoteException
      */
-    public Speler getSpeler() throws RemoteException;
+    public SpelerRemote getSpeler() throws RemoteException;
 
     public void addObserver(HandObserver observer) throws RemoteException;
 

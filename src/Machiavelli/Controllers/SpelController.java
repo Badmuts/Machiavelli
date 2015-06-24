@@ -7,7 +7,7 @@ import Machiavelli.Machiavelli;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Models.Speler;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
-import Machiavelli.Models.Speler;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -19,13 +19,17 @@ import java.rmi.server.UnicastRemoteObject;
  */
 
 public class SpelController extends UnicastRemoteObject {
-	private SpelRemote spel;
+    private SpelerRemote speler;
+    private SpelRemote spel;
     private GebouwKaartController gebouwKaartController;
 
 	public SpelController(SpelRemote spel) throws RemoteException {
         try {
             this.spel = spel;
-            this.gebouwKaartController = new GebouwKaartController(this.spel, this.spel.getSpelers().get(this.spel.getSpelers().size()-1));
+            this.speler = this.spel.getSpelers().get(this.spel.getSpelers().size() - 1);
+            this.gebouwKaartController = new GebouwKaartController(this.spel, this.speler);
+            // Start nieuwe SpeelveldController
+            new SpeelveldController(this.spel, speler, this.gebouwKaartController);
         } catch (Exception re) {
             re.printStackTrace();
         }
@@ -33,9 +37,6 @@ public class SpelController extends UnicastRemoteObject {
 
     public void cmdAddSpeler() {
         try {
-            Speler speler = this.spel.getSpelers().get(this.spel.getSpelers().size()-1);
-            // Start nieuwe SpeelveldController
-            new SpeelveldController(this.spel, speler, this.gebouwKaartController);
         } catch (Exception re) {
             re.printStackTrace();
         }

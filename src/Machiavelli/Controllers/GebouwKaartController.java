@@ -3,7 +3,6 @@ package Machiavelli.Controllers;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Views.GebouwKaartView;
 
 import java.rmi.RemoteException;
@@ -55,10 +54,11 @@ public class GebouwKaartController extends UnicastRemoteObject {
     public void cmdBouwGebouw() {
         for (GebouwKaartRemote gebouwKaartRemote: activeCards) {
             try {
-                this.speler.bouwenGebouw((GebouwKaart) gebouwKaartRemote);
+                this.speler.bouwenGebouw(gebouwKaartRemote);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        this.activeCards.clear();
     }
 }

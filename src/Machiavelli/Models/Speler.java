@@ -2,11 +2,11 @@ package Machiavelli.Models;
 
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelerObserver;
-import Machiavelli.Interfaces.Remotes.SpelRemote;
-import Machiavelli.Interfaces.Remotes.SpelerRemote;
+import Machiavelli.Interfaces.Remotes.*;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
@@ -19,46 +19,47 @@ import java.util.ArrayList;
  * @version 0.1
  *
  */
-public class Speler implements SpelerRemote, Serializable {
+public class Speler extends UnicastRemoteObject implements SpelerRemote, Serializable {
 	// Variables
-	private Portemonnee portemonnee;
+	private PortemonneeRemote portemonnee;
 	private Karakter karakter;
-	private Hand hand;
+	private HandRemote hand;
 	private SpelRemote spel;
-	private Stad stad;
+	private StadRemote stad;
 	private ArrayList<SpelerObserver> observers = new ArrayList<>();
 
 	// Speler toewijzen aan spel en een nieuwe portemonnee, hand en stad maken.
-	public Speler() {
+	public Speler() throws RemoteException {
 
 	}
 
 	// Haalt goud van de bank en zet het in de portemonnee
-	public void getGoudVanBank(Bank bank, int aantal) throws RemoteException {
+	public void getGoudVanBank(BankRemote bank, int aantal) throws RemoteException {
 		this.portemonnee.ontvangenGoud(aantal);
         notifyObservers();
 	}
 
 	// Haalt goud uit de portemonnee en geeft dit aan de bank
-	public void setGoudOpBank(Portemonnee portemonnee, int aantal) throws RemoteException {
+	public void setGoudOpBank(PortemonneeRemote portemonnee, int aantal) throws RemoteException {
 		this.portemonnee.bestedenGoud(this.spel.getBank(), aantal);
         notifyObservers();
 	}
 
 	// Plaats een gebouwkaart in de stad van de speler
-	public void bouwenGebouw(GebouwKaart gebouw) throws RemoteException {
+	public void bouwenGebouw(GebouwKaartRemote gebouw) throws RemoteException {
 		int kosten = gebouw.getKosten();
         int saldo = portemonnee.getGoudMunten();
         if ((saldo-kosten) >= 0) {
             this.stad.addGebouw(gebouw);
             this.hand.removeGebouw(gebouw);
+            this.portemonnee.bestedenGoud(this.spel.getBank(), kosten);
             notifyObservers();
         }
 	}
 
 	// Trekken van twee kaarten uit de stapel
-	public ArrayList<GebouwKaart> trekkenKaart() throws RemoteException {
-		ArrayList<GebouwKaart> tempList = new ArrayList<GebouwKaart>();
+	public ArrayList<GebouwKaartRemote> trekkenKaart() throws RemoteException {
+		ArrayList<GebouwKaartRemote> tempList = new ArrayList<>();
 		for (int i = 0; i < 2; i++)
 		{
 			tempList.add(this.spel.getGebouwFactory().trekKaart());
@@ -67,8 +68,8 @@ public class Speler implements SpelerRemote, Serializable {
 	}
 
 	// Trekken van een x aantal kaarten van de stapel
-	public ArrayList<GebouwKaart> trekkenKaart(int aantal) throws RemoteException {
-		ArrayList<GebouwKaart>tempList = new ArrayList<GebouwKaart>();
+	public ArrayList<GebouwKaartRemote> trekkenKaart(int aantal) throws RemoteException {
+		ArrayList<GebouwKaartRemote>tempList = new ArrayList<>();
 		for (int i = 0; i < aantal; i++)
 		{
 			tempList.add(this.spel.getGebouwFactory().trekKaart());
@@ -77,7 +78,7 @@ public class Speler implements SpelerRemote, Serializable {
 	}
 
 	// Selecteren van een kaart aan de hand van de getrokken kaarten
-	public void selecterenKaart(ArrayList<GebouwKaart> lijst, int index) throws RemoteException {
+	public void selecterenKaart(ArrayList<GebouwKaartRemote> lijst, int index) throws RemoteException {
 		this.getHand().addGebouw(lijst.get(index));
 		lijst.remove(index);
 		this.getSpel().getGebouwFactory().addGebouw(lijst.get(0));
@@ -104,15 +105,15 @@ public class Speler implements SpelerRemote, Serializable {
 		return this.spel;
 	}
 
-	public Portemonnee getPortemonnee() throws RemoteException {
+	public PortemonneeRemote getPortemonnee() throws RemoteException {
 		return this.portemonnee;
 	}
 
-	public Hand getHand() throws RemoteException {
+	public HandRemote getHand() throws RemoteException {
 		return this.hand;
 	}
 
-	public Stad getStad() throws RemoteException {
+	public StadRemote getStad() throws RemoteException {
 		return this.stad;
 	}
 
@@ -132,13 +133,21 @@ public class Speler implements SpelerRemote, Serializable {
     }
 
     private void createStad() {
-		this.stad = new Stad(this);
-		this.createHand();
-    }
+		try {
+			this.stad = new Stad(this);
+			this.createHand();
+		} catch (RemoteException re) {
+			re.printStackTrace();
+		}
+	}
 
     private void createHand() {
-		this.hand = new Hand(this);
-		this.createPortemonnee();
+        try {
+            this.hand = new Hand(this);
+		    this.createPortemonnee();
+        } catch (RemoteException re) {
+            re.printStackTrace();
+        }
     }
 
     private void createPortemonnee() {

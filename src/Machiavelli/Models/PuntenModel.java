@@ -5,6 +5,7 @@ import Machiavelli.Interfaces.Remotes.PuntenRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
@@ -14,11 +15,14 @@ import java.util.ArrayList;
  * @version 0.1
  *
  */
-public class PuntenModel implements PuntenRemote, Serializable {
+public class PuntenModel extends UnicastRemoteObject implements PuntenRemote, Serializable {
 
 	private Speler winnaar;
 	private ArrayList<PuntenObserver> observers = new ArrayList<>();
-	
+
+	protected PuntenModel() throws RemoteException {
+	}
+
 	public Speler berekenWinnaar() throws RemoteException {
 		return this.winnaar;
 	}

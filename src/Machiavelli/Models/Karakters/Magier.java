@@ -4,8 +4,9 @@ import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
+import Machiavelli.Interfaces.Remotes.HandRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.GebouwKaart;
-import Machiavelli.Models.Hand;
 import Machiavelli.Models.Speler;
 
 import java.io.Serializable;
@@ -36,9 +37,9 @@ public class Magier implements Karakter, Serializable {
     private final int bouwLimiet = 1;
     private final Type type = Type.NORMAAL;
 
-    private Speler  speler  = null;
+    private SpelerRemote speler  = null;
     private Object  target  = null;
-    private ArrayList<GebouwKaart> ruilLijst = new ArrayList<GebouwKaart>();
+    private ArrayList<GebouwKaartRemote> ruilLijst = new ArrayList<>();
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Magier.png";
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
@@ -47,12 +48,12 @@ public class Magier implements Karakter, Serializable {
 	 * de Magier wordt aan de speler gekoppeld.
 	 */
 	@Override
-	public void setSpeler(Speler speler) throws RemoteException {
+	public void setSpeler(SpelerRemote speler) throws RemoteException {
         this.speler = speler;
     }
 
     @Override
-    public Speler getSpeler() throws RemoteException {
+    public SpelerRemote getSpeler() throws RemoteException {
         return null;
     }
 
@@ -128,15 +129,15 @@ public class Magier implements Karakter, Serializable {
     }
     
  // Ruil alle bouwkaarten met alle bouwkaarten van een ander speler/karakter??
-    private void ruilMetKarakter(Speler target, Speler magier) throws RemoteException {
-        ArrayList<GebouwKaart> handTarget = target.getHand().getKaartenLijst();
-        ArrayList<GebouwKaart> magierHand = magier.getHand().getKaartenLijst();
+    private void ruilMetKarakter(SpelerRemote target, SpelerRemote magier) throws RemoteException {
+        ArrayList<GebouwKaartRemote> handTarget = target.getHand().getKaartenLijst();
+        ArrayList<GebouwKaartRemote> magierHand = magier.getHand().getKaartenLijst();
         target.getHand().setKaartenLijst(magierHand);
         magier.getHand().setKaartenLijst(handTarget);
     }
 
     // Leg een x aantal kaarten af op de stapel en pak een gelijk aantal nieuwe kaarten
-    private void ruilMetStapel(Hand hand, ArrayList<GebouwKaart> ruilLijst) throws RemoteException {
+    private void ruilMetStapel(HandRemote hand, ArrayList<GebouwKaartRemote> ruilLijst) throws RemoteException {
         // Afleggen en tellen gebouwkaarten.
         int count = 0;
         for (int i = 0; i < ruilLijst.size(); i++) {
@@ -145,7 +146,7 @@ public class Magier implements Karakter, Serializable {
         }
 
         // Trek nieuwe kaarten. Misschien functie maken die een lijst van gebouwen aan hand kan toevoegen?
-        ArrayList<GebouwKaart> tempList = hand.getSpeler().trekkenKaart(count);
+        ArrayList<GebouwKaartRemote> tempList = hand.getSpeler().trekkenKaart(count);
         for (int i = 0; i < tempList.size(); i++) {
             hand.addGebouw(tempList.get(i));
         }
@@ -157,7 +158,7 @@ public class Magier implements Karakter, Serializable {
         return target;
     }
 
-    public void setRuilLijst(ArrayList<GebouwKaart> ruilLijst) throws RemoteException {
+    public void setRuilLijst(ArrayList<GebouwKaartRemote> ruilLijst) throws RemoteException {
         this.ruilLijst = ruilLijst;
     }
 }

@@ -1,7 +1,13 @@
 package Machiavelli.Models;
 
+import Machiavelli.Interfaces.Observers.BeurtObserver;
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
+
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import Machiavelli.Controllers.KarakterController;
@@ -13,15 +19,16 @@ import Machiavelli.Interfaces.Remotes.BeurtRemote;
  * Dit model geeft de spelers een beurt.
  *
  */
-public class Beurt implements BeurtRemote, Serializable {
-    private Spel spel;
-    private ArrayList<Speler> spelerLijst;
-    private Speler speler;
+public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializable {
+    private SpelRemote spel;
+    private ArrayList<SpelerRemote> spelerLijst;
+    private SpelerRemote speler;
     private ArrayList<BeurtObserver> observers = new ArrayList<>();
     private KarakterController karaktercontroller;
     private int observerIndex;
+    private int karakterIndex;
 
-    public Beurt(Spel spel, ArrayList<Speler> spelerLijst)
+    public Beurt(SpelRemote spel, ArrayList<SpelerRemote> spelerLijst) throws RemoteException
     {
         this.spel = spel;
         this.spelerLijst = spelerLijst;
@@ -30,35 +37,36 @@ public class Beurt implements BeurtRemote, Serializable {
     /**
      * De speler de beurt geven aan het begin van een ronde om zijn karakter te kiezen.
      */
-    
-    public void BeginRondeBeurt(Speler speler) throws RemoteException {
-    	for(Speler spelerLijst: spel.getSpelers()) {
+    public void BeginRondeBeurt(SpelerRemote speler) throws RemoteException {
+    	for(SpelerRemote spelerLijst: spel.getSpelers()) {
     	    karaktercontroller.cmdKiesKarakter();
 			karaktercontroller.cmdWeergeefKiesKarakterView();
     	}
     }
     
-    public void geefBeurt(Speler speler) throws RemoteException
+    public void geefBeurt(SpelerRemote speler) throws RemoteException
     {
-        // TODO: een speler object een beurt geven. De eerste beurt is de koning met karakternummer 4
-    	// Zet na de beurt de karakternummer op 1 en sla dan 4 over.
-    	this.speler = speler;
+      // TODO: Als deze methode wordt aangeroepen, wordt er bij de volgende karakter
+      // de buttons ge-enabled en de anderen gedisabled. 
+    	for(karakterIndex = 1; karakterIndex == 7; karakterIndex++) {
+    	  
+    	}
     	
     	nextObserver();
         notifyObservers();
     }
     
-    public Speler getSpeler() throws RemoteException
+    public SpelerRemote getSpeler() throws RemoteException
     {
     	return this.speler;
     }
     
-    public ArrayList<Speler> getSpelerLijst()
+    public ArrayList<SpelerRemote> getSpelerLijst()
     {
     	return this.spelerLijst;
     }
     
-    public void setSpeler(Speler speler) throws RemoteException {
+    public void setSpeler(SpelerRemote speler) throws RemoteException {
     	this.speler = speler;
         notifyObservers();
     }

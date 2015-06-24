@@ -12,7 +12,7 @@ import java.rmi.RemoteException;
 public interface PortemonneeRemote extends Remote {
 
     // Goud aan de bank betalen
-    public void bestedenGoud(Bank bank, int aantal) throws RemoteException;
+    public void bestedenGoud(BankRemote bank, int aantal) throws RemoteException;
     // Ontvangen van een x aantal goud
     public void ontvangenGoud(int aantal) throws RemoteException;
     public int getGoudMunten() throws RemoteException;

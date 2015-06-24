@@ -4,7 +4,7 @@ package Machiavelli.Models.Karakters;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
-import Machiavelli.Models.Speler;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
  */
 public class Moordenaar implements Karakter, Serializable {
 	
-	private Speler speler = null;
+	private SpelerRemote speler = null;
     
 	/** Eigenschappen van karakter Moordenaar. */
     private final int nummer = 1;	
@@ -40,11 +40,11 @@ public class Moordenaar implements Karakter, Serializable {
      * de Moordenaar wordt aan de speler gekoppeld.
      */
     @Override
-    public void setSpeler(Speler speler) throws RemoteException {
+    public void setSpeler(SpelerRemote speler) throws RemoteException {
     	this.speler = speler;
     }
     @Override
-    public Speler getSpeler() throws RemoteException {
+    public SpelerRemote getSpeler() throws RemoteException {
     	return speler;
     }
     
