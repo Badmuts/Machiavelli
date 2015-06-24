@@ -1,7 +1,9 @@
 package Machiavelli.Controllers;
 
 import Machiavelli.Interfaces.Bonusable;
+import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelObserver;
+import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speelveld;
@@ -80,9 +82,24 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
 
     public void cmdGebruikEigenschap() {
         try {
-            if (this.speler.getKarakter().gebruikEigenschap() == false) {
-                KarakterController karakterController = new KarakterController(this.speler, "ronde");
-                karakterController.show();
+        	//Als de gebruikeigenschap geen target heeft, open de kiesKarakterView.
+            if (!this.speler.getKarakter().gebruikEigenschap()) {
+            	
+            	//Speler = magier, kies speler view.
+            	if(this.speler.getKarakter().getNummer() == 3)
+            	{
+            		System.out.println("De speler is een magier");
+            		KarakterController karakterController = new KarakterController(this.speler, "speler");
+                    karakterController.show();
+            	}
+            	
+            	//Speler = moordenaar of dief, kies karakter view.
+            	if(this.speler.getKarakter().getNummer() == 1 || this.speler.getKarakter().getNummer() == 2)
+            	{
+            		System.out.println("De speler is een moordenaar'");
+            		KarakterController karakterController = new KarakterController(this.speler, "karakter");
+            		karakterController.show();
+            	}
             }
         } catch (Exception e) {
             e.printStackTrace();

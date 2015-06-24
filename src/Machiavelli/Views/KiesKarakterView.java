@@ -49,14 +49,6 @@ public class KiesKarakterView {
 		this.title.setText("Kies een karakter:");
 
 		this.spelerLijst = this.karakterController.getSpeler().getSpel().getSpelers();
-//		for(Karakter karakt : this.karakterFactory.getKarakters())
-//		{
-//			if(!karakt.getSpeler().equals(null))
-//			{
-//				spelerLijst.add(karakt.getSpeler());
-//				System.out.println(karakt.getSpeler().getKarakter().getNaam());
-//			}
-//		}
 		
         this.pane = new StackPane();
         
