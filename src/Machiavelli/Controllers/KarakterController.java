@@ -1,6 +1,7 @@
 package Machiavelli.Controllers;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import javafx.animation.FadeTransition;
 import javafx.scene.Node;
@@ -13,6 +14,8 @@ import javafx.util.Duration;
 import Machiavelli.Machiavelli;
 import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Spel;
 import Machiavelli.Models.Speler;
 import Machiavelli.Views.KiesKarakterView;
@@ -23,11 +26,11 @@ import Machiavelli.Views.KiesKarakterView;
 public class KarakterController {
 
 	//TODO: krijg speler van beurt..
-    private Speler speler;
+    private SpelerRemote speler;
     private KiesKarakterView karakterView = new KiesKarakterView();
     private Karakter target;
     
-    public KarakterController(Speler speler) throws RemoteException
+    public KarakterController(SpelerRemote speler) throws RemoteException
     {
     	this.target = null;
     	this.speler = speler;
@@ -49,8 +52,8 @@ public class KarakterController {
     
     public void cmdKiesKarakter() throws RemoteException
     {
-    	KarakterFactory karakterFactory = this.speler.getSpel().getKarakterFactory();
-    	
+    	KarakterFactoryRemote karakterFactory = this.speler.getSpel().getKarakterFactory();
+
     	for (Karakter karakter : karakterFactory.getKarakters()) {
 			karakterView.createKarakterView(karakter);
 		}
@@ -82,7 +85,7 @@ public class KarakterController {
     					{
 							for(Karakter karakter : karakterFactory.getKarakters())
 							{
-								System.out.println(karakter.getNaam() + " " + karakterFactory.getKarakters().indexOf(karakter));
+								System.out.println(karakterFactory.getKarakters().indexOf(karakter) + " " + karakter.getNaam());
 							}
 							
 							System.out.println("De speler is een: " + this.speler.getKarakter().getNaam());
@@ -102,6 +105,59 @@ public class KarakterController {
 				e.printStackTrace();
 			}
     	}
+    }
+    
+    public Karakter selecteerKarakter() throws RemoteException
+    {
+    	KarakterFactoryRemote karakterFactory = this.speler.getSpel().getKarakterFactory();
+
+    	for (Karakter karakter : karakterFactory.getKarakters()) {
+			karakterView.createKarakterView(karakter);
+		}
+    	
+    	this.karakterView.addButtonsToView();
+    	
+    	for (Button button: karakterView.getButtonList()) 
+    	{
+    		try 
+    		{
+    			int buttonNumber = karakterView.getButtonList().indexOf(button);
+    			
+    			button.setOnAction((event) -> 
+    			{
+    				try
+    				{
+    					this.target = karakterFactory.getKarakters().get(buttonNumber);
+    				}
+    				catch(Exception e)
+    				{
+    					e.printStackTrace();
+    				}
+    				
+    				//test if the karakter is chosen.
+    				finally
+    				{
+    					try 
+    					{
+							System.out.println("Karakter " + this.getTarget().getNaam() + " is gekozen");
+							
+							cmdSluitKiesKarakterView();
+		    				
+		    				new MeldingController().build("Je eigenschap wordt uitgevoerd op de " + this.getTarget().getNaam()).cmdWeergeefMeldingView();
+						} 
+    					catch (Exception e) 
+    					{
+							e.printStackTrace();
+						}
+    				}
+    			});
+			} 
+    		catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}
+    	
+    	return this.getTarget();
     }
     
     public void cmdWeergeefKiesKarakterView()
@@ -126,7 +182,7 @@ public class KarakterController {
     	return this.target;
     }
     
-    public Speler getSpeler()
+    public SpelerRemote getSpeler()
     {
     	return this.speler;
     }

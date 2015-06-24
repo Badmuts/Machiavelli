@@ -4,8 +4,8 @@ import java.rmi.registry.Registry;
 
 import Machiavelli.Machiavelli;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Models.Speler;
 import Machiavelli.Views.InvullenSpelersView;
-import Machiavelli.Views.KiesInkomstenView;
 import Machiavelli.Views.MainMenuView;
 
 public class MenuController {
