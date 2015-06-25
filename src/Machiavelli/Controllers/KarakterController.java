@@ -36,7 +36,13 @@ public class KarakterController {
 
     public void cmdSetTarget(Karakter karakter) {
         try {
+        	//Speler zet de target voor zijn karakter.
             this.speler.getKarakter().setTarget(karakter);
+            
+            //Het karakter van de speler moet de initierende speler meekrijgen.
+            this.speler.getKarakter().setSpeler(this.speler);
+            
+            //Speler gebruik de eigenschap van zijn karakter.
             this.speler.getKarakter().gebruikEigenschap();
             this.karakterView.close();
             new MeldingController().build("Je hebt je karaktereigenschap gebruikt op de " + karakter.getNaam()).cmdWeergeefMeldingView();

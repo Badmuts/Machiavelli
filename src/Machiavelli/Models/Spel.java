@@ -11,6 +11,7 @@ import Machiavelli.Interfaces.Remotes.BankRemote;
 import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
+import Machiavelli.Models.Karakters.Dief;
 import Machiavelli.Models.Karakters.Magier;
 import Machiavelli.Models.Karakters.Moordenaar;
 import Machiavelli.Models.Karakters.Prediker;
@@ -89,7 +90,7 @@ public class Spel implements SpelRemote, Serializable {
 	public void createNewSpeler() throws RemoteException{
 		SpelerRemote speler = new Speler();
         speler.addSpel(this);
-        speler.setKarakter(new Prediker()); // TESTING ONLY
+        speler.setKarakter(new Magier()); // TESTING ONLY
         speler.getKarakter().setSpeler(speler); // TESTING ONLY
 		this.spelers.add(speler);
 		notifyObservers();

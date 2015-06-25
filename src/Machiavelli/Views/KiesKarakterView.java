@@ -67,21 +67,22 @@ public class KiesKarakterView {
             StackPane karakaterView = new StackPane();
             karakaterView.setPrefSize(360, 360);
             // Create image holder
-            StackPane karakterImage = new StackPane();
+            ImageView karakterPortrait;
             // Create new Button
             Button newButton = new Button(karakter.getNaam());
 
             // Create clip for karakterPortait
-            Rectangle circle = new Rectangle(150, 150);
-            circle.setArcWidth(150);
-            circle.setArcHeight(150);
-            karakterImage.setClip(circle);
+            Image image = new Image(karakter.getImage());
+            
+            Rectangle circle = new Rectangle(image.getHeight(), image.getWidth());
+            circle.setArcWidth(image.getWidth());
+            circle.setArcHeight(image.getHeight());
 
             // Create imageView for KarakterPortait
-            ImageView karakterPortrait = new ImageView(new Image(karakter.getImage()));
-            karakterImage.getChildren().add(karakterPortrait);
+            karakterPortrait = new ImageView(image);
+            karakterPortrait.setClip(circle);
+//            karakterImage.getChildren().add(karakterPortrait);
             StackPane.setAlignment(karakterPortrait, Pos.CENTER);
-            StackPane.setAlignment(karakterImage, Pos.CENTER);
 
             // Set button styling
             newButton.getStyleClass().add("button-primary");
@@ -95,8 +96,7 @@ public class KiesKarakterView {
             } 
 
             // Fill container
-            karakaterView.getChildren().addAll(karakterImage, newButton);
-            StackPane.setAlignment(karakterImage, Pos.TOP_CENTER);
+            karakaterView.getChildren().addAll(karakterPortrait, newButton);
             StackPane.setAlignment(newButton, Pos.BOTTOM_CENTER);
 
             // Add container to karakterViews[]
@@ -112,35 +112,32 @@ public class KiesKarakterView {
             StackPane karakaterView = new StackPane();
             karakaterView.setPrefSize(360, 360);
             // Create image holder
-            StackPane karakterImage = new StackPane();
+            ImageView karakterPortrait;
             // Create new Button
             Button newButton = new Button(speler.getKarakter().getNaam());
 
             // Create clip for karakterPortait
-            Rectangle circle = new Rectangle(150, 150);
-            circle.setArcWidth(150);
-            circle.setArcHeight(150);
-            karakterImage.setClip(circle);
+            Image image = new Image(speler.getKarakter().getImage());
+            
+            Rectangle circle = new Rectangle(image.getHeight(), image.getWidth());
+            circle.setArcWidth(image.getWidth());
+            circle.setArcHeight(image.getHeight());
 
             // Create imageView for KarakterPortait
-            ImageView karakterPortrait = new ImageView(new Image(speler.getKarakter().getImage()));
-            karakterImage.getChildren().add(karakterPortrait);
-            StackPane.setAlignment(karakterPortrait, Pos.CENTER);
+            karakterPortrait = new ImageView(image);
+            karakterPortrait.setClip(circle);
 
             // Set button styling
             newButton.getStyleClass().add("button-primary");
             newButton.setMinWidth(230f);
             newButton.setMinHeight(50f);
 
-//            if (String.valueOf(this.karakterController.getTypeView()).equals("speler")) {
-            	newButton.setOnAction(event -> {
-                    this.karakterController.cmdSetSpelerTarget(speler);
-                });
-//            }
+        	newButton.setOnAction(event -> {
+                this.karakterController.cmdSetSpelerTarget(speler);
+            });
 
             // Fill container
-            karakaterView.getChildren().addAll(karakterImage, newButton);
-            StackPane.setAlignment(karakterImage, Pos.TOP_CENTER);
+            karakaterView.getChildren().addAll(karakterPortrait, newButton);
             StackPane.setAlignment(newButton, Pos.BOTTOM_CENTER);
 
             // Add container to karakterViews[]
