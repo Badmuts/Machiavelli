@@ -1,10 +1,9 @@
 package Machiavelli.Interfaces.Observers;
 
-import Machiavelli.Interfaces.Remotes.BeurtRemote;
-import Machiavelli.Models.Beurt;
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
 
 /**
  * Created by badmuts on 10-6-15.

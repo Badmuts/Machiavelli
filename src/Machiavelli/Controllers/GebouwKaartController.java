@@ -64,7 +64,7 @@ public class GebouwKaartController extends UnicastRemoteObject implements Speler
                 iterator.remove();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Iterator remove error, maar het werkt");
         }
     }
 

@@ -1,20 +1,16 @@
 package Machiavelli.Controllers;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+import javafx.application.Platform;
 import Machiavelli.Interfaces.Bonusable;
-import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelObserver;
-import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speelveld;
 import Machiavelli.Views.SpeelveldView;
-import javafx.application.Platform;
-
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
 /**
  * 
@@ -24,22 +20,34 @@ import java.rmi.server.UnicastRemoteObject;
  */
 
 public class SpeelveldController extends UnicastRemoteObject implements SpelObserver {
-    private MeldingController meldingController;
+  
     private SpelerRemote speler;
+    private BeurtRemote beurt;
+    private SpelRemote spel;
+    
+    private MeldingController meldingController;
+    private BeurtController beurtController;
     private GebouwKaartController gebouwKaartController;
     private Speelveld speelveld;
 	private SpeelveldView speelveldview;
 
-	private SpelRemote spel;
 
-    public SpeelveldController(SpelRemote spel, SpelerRemote speler, GebouwKaartController gebouwKaartController) throws RemoteException {
+    public SpeelveldController(SpelRemote spel, SpelerRemote speler, GebouwKaartController gebouwKaartController, BeurtRemote beurt) throws RemoteException {
         this.spel = spel;
         this.speler = speler;
+        this.beurt = beurt;
         this.speelveld = new Speelveld(this.spel);
         this.speelveld.addSpeler(speler);
         this.gebouwKaartController = gebouwKaartController;
+        this.beurtController = new BeurtController(this.beurt,this.spel);
 
-        this.speelveldview = new SpeelveldView(this, this.speelveld, this.gebouwKaartController, this.speler);
+        this.speelveldview = new SpeelveldView(this, this.speelveld, this.gebouwKaartController, this.speler,this.beurt, this.beurtController);
+        
+//		speelveldview.getSpelregels().setOnAction((event) ->
+//		{
+//			RaadplegenSpelregelsController spelregelscontroller = new RaadplegenSpelregelsController();
+//			spelregelscontroller.cmdSluitSpelregelView();
+//		});
         this.meldingController = new MeldingController();
 
         this.spel.addObserver(this);
@@ -69,6 +77,11 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
     public SpelerRemote getSpeler() {
         return this.speler;
     }
+    
+    public BeurtRemote getBeurt() {
+      return this.beurt;
+    }
+    
 
     public void cmdBouwGebouw() {
         // TODO: Implement gebouwbouwen method
@@ -77,6 +90,7 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
 
     public void cmdEindeBeurt() {
         // TODO: Implement eindeBeurt method
+        this.beurtController.cmdGeefBeurt();
     }
 
     public void cmdGebruikEigenschap() {
@@ -109,11 +123,17 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
     @Override
     public void modelChanged(SpelRemote spel) throws RemoteException {
         this.spel = spel;
-        if (this.spel.getMaxAantalSpelers() == this.spel.getAantalSpelers()) {
-            Platform.runLater(() -> this.meldingController.cmdSluitMeldingView());
-        } else {
-            this.meldingController.build("Wachten op spelers: " + this.spel.getAantalSpelers() + "/" + this.spel.getMaxAantalSpelers());
-        }
+        Platform.runLater(() -> {
+        try {
+          if (this.spel.getMaxAantalSpelers() == this.spel.getAantalSpelers()) {
+              this.meldingController.cmdSluitMeldingView();
+          } else {
+              this.meldingController.build("Wachten op spelers: " + this.spel.getAantalSpelers() + "/" + this.spel.getMaxAantalSpelers());
+          }
+        } catch (Exception e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }});
         System.out.println("SpeelveldController: Spel model changed!");
         System.out.println("Aantal spelers: " + this.spel.getAantalSpelers());
     }
