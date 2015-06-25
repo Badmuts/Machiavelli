@@ -100,6 +100,11 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
             		KarakterController karakterController = new KarakterController(this.speler, "karakter");
             		karakterController.show();
             	}
+            	
+            	//Test inkomstenController
+            	InkomstenController controller = new InkomstenController(this.speler);
+            	controller.show();
+            	
             }
         } catch (Exception e) {
             e.printStackTrace();
