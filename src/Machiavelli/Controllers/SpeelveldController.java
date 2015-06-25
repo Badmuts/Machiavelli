@@ -39,9 +39,9 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
         this.speelveld = new Speelveld(this.spel);
         this.speelveld.addSpeler(speler);
         this.gebouwKaartController = gebouwKaartController;
-        this.beurtController = new BeurtController(this.beurt,this.spel);
+        this.beurtController = new BeurtController(this.beurt,this.spel, this.speler);
 
-        this.speelveldview = new SpeelveldView(this, this.speelveld, this.gebouwKaartController, this.speler,this.beurt, this.beurtController);
+        this.speelveldview = new SpeelveldView(this, this.speelveld, this.gebouwKaartController, this.speler, this.beurtController);
         
 //		speelveldview.getSpelregels().setOnAction((event) ->
 //		{

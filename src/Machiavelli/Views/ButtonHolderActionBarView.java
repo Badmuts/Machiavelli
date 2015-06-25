@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import Machiavelli.Controllers.InkomstenController;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Observers.BeurtObserver;

@@ -22,6 +22,7 @@ public class Spel implements SpelRemote, Serializable {
 	private BankRemote bank;
 	private GebouwFactoryRemote gebouwFactory;
 	private BeurtRemote beurt;
+	private SpelerRemote speler;
 	private KarakterFactory karakterFactory;
 	private ArrayList<SpelObserver> observers;
 	private ArrayList<SpelerRemote> spelers = new ArrayList<>();
@@ -37,7 +38,8 @@ public class Spel implements SpelRemote, Serializable {
 		this.spelers = new ArrayList<>();
         this.observers = new ArrayList<SpelObserver>();
         this.karakterFactory = new KarakterFactory();
-        this.beurt = new Beurt(this, this.getSpelers());
+        this.beurt = new Beurt(this, this.getSpelers(), speler);
+
         
     }
     
@@ -101,6 +103,8 @@ public class Spel implements SpelRemote, Serializable {
         speler.setKarakter(new Prediker()); // TESTING ONLY
         speler.getKarakter().setSpeler(speler); // TESTING ONLY
 		this.spelers.add(speler);
+		this.speler = speler;
 		notifyObservers();
 	}
+	
 }

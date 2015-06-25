@@ -22,13 +22,15 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
     private ArrayList<BeurtObserver> observers = new ArrayList<>();
    //private KarakterController karaktercontroller;
     private int observerIndex;
-    //private int karakterIndex;
+    private int resetgebouwaantal = 0;
+    //private int karakterIndex = 1;
     //private int spelerNummer = 0;
 
-    public Beurt(SpelRemote spel, ArrayList<SpelerRemote> spelerLijst) throws RemoteException
+    public Beurt(SpelRemote spel, ArrayList<SpelerRemote> spelerLijst, SpelerRemote speler) throws RemoteException
     {
         this.spel = spel;
         this.spelerLijst = spelerLijst;
+        this.speler = speler;
     }
 
     /**
@@ -60,7 +62,7 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
       //Die speler de beurt geven en wachten tot hij op einde beurt knop drukt
       //Als einde beurt knop wordt gedrukt, wordt de observerindex verhoogt.
       nextBeurtObserver();
-      notifyObservers();
+      
     }
     
     public SpelerRemote getSpeler() throws RemoteException
