@@ -11,6 +11,8 @@ import Machiavelli.Interfaces.Remotes.BankRemote;
 import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
+import Machiavelli.Models.Karakters.Magier;
+import Machiavelli.Models.Karakters.Moordenaar;
 import Machiavelli.Models.Karakters.Prediker;
 
 public class Spel implements SpelRemote, Serializable {

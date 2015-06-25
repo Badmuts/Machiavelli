@@ -7,6 +7,7 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Machiavelli;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -28,8 +29,6 @@ public class KiesKarakterView {
     private KarakterController karakterController;
     private KarakterFactoryRemote karakterFactory;
     private Text title;
-	private ArrayList<Button> karakterButtons;
-	private ArrayList<Image> karakterImages;
 	private StackPane pane;
     private ArrayList<StackPane> karakterViews = new ArrayList<>();
     private StackPane holder;
@@ -55,17 +54,13 @@ public class KiesKarakterView {
         if (String.valueOf(this.karakterController.getTypeView()).equals("speler"))
         {
         	createSpelerViews();
-        	createKarakterGrid();
         } else {
         	createKarakterViews();
-        	createKarakterGrid();
         }
+        createKarakterGrid();
         this.pane.getChildren().add(title);
 	}
     
-    //TODO: check in constructor if type == spelers.
-    //TODO: create new createKarakterViews for active spelers.
-
 	public void createKarakterViews() throws RemoteException {
         for (Karakter karakter: this.karakterFactory.getKarakters()) {
             // Create container
@@ -86,6 +81,7 @@ public class KiesKarakterView {
             ImageView karakterPortrait = new ImageView(new Image(karakter.getImage()));
             karakterImage.getChildren().add(karakterPortrait);
             StackPane.setAlignment(karakterPortrait, Pos.CENTER);
+            StackPane.setAlignment(karakterImage, Pos.CENTER);
 
             // Set button styling
             newButton.getStyleClass().add("button-primary");
@@ -97,16 +93,6 @@ public class KiesKarakterView {
             } else if (String.valueOf(this.karakterController.getTypeView()).equals("ronde")) {
                 newButton.setOnAction(event -> this.karakterController.cmdSetKarakter(karakter));
             } 
-//            else if (String.valueOf(this.karakterController.getTypeView()).equals("speler")) {
-//            	newButton.setText(spelerLijst.get(this.karakterFactory.getKarakters().indexOf(karakter)).getKarakter().getNaam());
-//            	newButton.setOnAction(event -> {
-//                    try {
-//                        this.karakterController.cmdSetSpelerTarget(karakter.getSpeler());
-//                    } catch (RemoteException e) {
-//                        e.printStackTrace();
-//                    }
-//                });
-//            }
 
             // Fill container
             karakaterView.getChildren().addAll(karakterImage, newButton);
@@ -181,6 +167,7 @@ public class KiesKarakterView {
                 columnIndex++;
             }
         }
+        this.pane.setId("kieskarakterpane");
         this.pane.getChildren().addAll(bg, grid);
     }
 
@@ -188,28 +175,33 @@ public class KiesKarakterView {
 		return this.pane;
 	}
 
-    public void close() {
-        holder.getChildren().remove(container);
-        holder.getStylesheets().add("Machiavelli/Resources/style.css");
-        stage.setScene(scene);
-        stage.show();
-    }
-
     public void show() {
-        container = new Pane();
-        container.getChildren().add(pane);
-        holder = new StackPane();
-        holder.getChildren().addAll(stage.getScene().getRoot().getChildrenUnmodifiable());
-        holder.getChildren().add(container);
-        holder.getStylesheets().add("Machiavelli/Resources/style.css");
+    	StackPane pane = new StackPane();
+    	
+    	Pane old = new Pane();
+    	old.getChildren().add(Machiavelli.getInstance().getStage().getScene().getRoot());
+    	pane.getChildren().addAll(old, this.getPane());
 
-        FadeTransition ft = new FadeTransition(Duration.millis(700), holder);
-        ft.setFromValue(0.7);
-        ft.setToValue(1.0);
-        ft.play();
+    	pane.getStylesheets().add("Machiavelli/Resources/style.css");
+    	Scene scene = new Scene(pane, 1440, 900);
+		Machiavelli.getInstance().getStage().setScene(scene);
+	}
+    
+    public void close()
+	{
+		Pane newPane = new Pane();
+    	Scene currentScene = Machiavelli.getInstance().getStage().getScene();
 
-        this.scene = new Scene(holder, 1440, 900);
-        stage.setScene(scene);
-        stage.show();
-    }
+    	for(Node node : currentScene.getRoot().getChildrenUnmodifiable())
+    	{
+    		if(currentScene.lookup("#kieskarakterpane").equals(node))
+    		{
+    			newPane.getChildren().add(node);
+    			break;
+    		}
+    	}
+
+    	newPane = null;
+	}
+    
 }

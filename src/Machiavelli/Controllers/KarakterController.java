@@ -1,5 +1,6 @@
 package Machiavelli.Controllers;
 
+import Machiavelli.Machiavelli;
 import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
@@ -7,6 +8,8 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Views.KiesKarakterView;
 
 import java.rmi.RemoteException;
+
+import javafx.scene.Node;
 
 /**
  * Created by daanrosbergen on 03/06/15.
