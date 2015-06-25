@@ -67,7 +67,7 @@ public class Dief implements Karakter, Serializable {
 	 * al zijn goudstukken op het moment dat deze aan de beurt is. 
 	 */
     @Override
-    public void gebruikEigenschap() throws RemoteException {
+    public boolean gebruikEigenschap() throws RemoteException {
     	if (target != null && target.getNaam() != "Moordenaar") {
     		BesteelKarakter(this.speler, getTarget());
     		
@@ -75,6 +75,7 @@ public class Dief implements Karakter, Serializable {
     	else {
     		//TODO KiezenKarakterView aanroepen om een target te selecteren
     	}
+        return false;
     }
     
     @Override

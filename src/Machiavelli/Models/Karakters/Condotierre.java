@@ -8,7 +8,6 @@ import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Interfaces.Remotes.StadRemote;
 import Machiavelli.Models.GebouwKaart;
-import Machiavelli.Models.Stad;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -71,7 +70,7 @@ public class Condotierre implements Karakter, Bonusable, Serializable {
 	 * Vervolgens wordt het het gekozen gebouw verwijderd 
 	 * uit de stad van de speler waarin dit gebouw gekozen is
 	 */
-    public void gebruikEigenschap() throws RemoteException {
+    public boolean gebruikEigenschap() throws RemoteException {
     	try {
 			if (target != null && target.getStad().getSpeler().getKarakter().getNaam() != "Prediker") {
 					vernietigGebouw(this.target.getStad(), getTarget());
@@ -83,7 +82,8 @@ public class Condotierre implements Karakter, Bonusable, Serializable {
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}   	
+		}
+        return false;
     }
     
     //Verwijder gebouw uit stad van een andere speler en verwijder de kosten??

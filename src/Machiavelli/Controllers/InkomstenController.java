@@ -3,18 +3,10 @@ package Machiavelli.Controllers;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import javafx.scene.control.Button;
 import Machiavelli.Interfaces.Remotes.BankRemote;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import Machiavelli.Machiavelli;
-import Machiavelli.Models.Bank;
-import Machiavelli.Models.GebouwKaart;
 import Machiavelli.Models.Spel;
 import Machiavelli.Models.Speler;
 import Machiavelli.Views.KiesInkomstenView;
@@ -27,12 +19,12 @@ import Machiavelli.Views.TrekkenKaartView;
 public class InkomstenController
 {
 	// Variables
-	private Speler speler; // ?
+	private SpelerRemote speler; // ?
 //	Beurt beurt;
 	private TrekkenKaartView trekkenKaartView;
 	private KiesInkomstenView inkomstenView;
 	
-	public InkomstenController(Speler speler) throws RemoteException
+	public InkomstenController(SpelerRemote speler) throws RemoteException
 	{
 		this.speler = speler;
 		this.inkomstenView = new KiesInkomstenView();

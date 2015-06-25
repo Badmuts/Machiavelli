@@ -1,138 +1,215 @@
 package Machiavelli.Views;
 
-import java.rmi.RemoteException;
-import java.time.Duration;
-import java.util.ArrayList;
-
-import com.sun.corba.se.impl.oa.poa.AOMEntry;
-
+import Machiavelli.Controllers.KarakterController;
+import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
+import Machiavelli.Machiavelli;
 import javafx.animation.FadeTransition;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import Machiavelli.Interfaces.Karakter;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public class KiesKarakterView {
-	
-	private Text title;
+
+    private KarakterController karakterController;
+    private KarakterFactoryRemote karakterFactory;
+    private Text title;
 	private ArrayList<Button> karakterButtons;
 	private ArrayList<Image> karakterImages;
-	private Pane pane;
-	
-	public KiesKarakterView() throws RemoteException
-	{
+	private StackPane pane;
+    private ArrayList<StackPane> karakterViews = new ArrayList<>();
+    private StackPane holder;
+    private Scene scene;
+    private Stage stage = Machiavelli.getInstance().getStage();
+    private Pane container;
+    private ArrayList<SpelerRemote> spelerLijst;
+
+    public KiesKarakterView(KarakterFactoryRemote karakterFactory, KarakterController karakterController) throws RemoteException {
+        this.karakterFactory = karakterFactory;
+        this.karakterController = karakterController;
 		this.title = new Text();
 		this.title.setId("title");
 		this.title.setFill(Color.WHITE);
 		this.title.setLayoutX(590);
 		this.title.setLayoutY(50);
 		this.title.setText("Kies een karakter:");
-		
-		this.karakterButtons = new ArrayList<Button>();
-		this.karakterImages = new ArrayList<Image>();
-		
-		this.pane = new Pane();
-		this.pane.setId("kieskarakterview");
-		Rectangle rect = new Rectangle(1440, 900);
-		pane.setClip(rect);
-		this.pane.getStylesheets().add("Machiavelli/Resources/KiesKarakterView.css");
-		
-		this.pane.getChildren().add(title);
-	}
-	
-	public ArrayList<Button> getButtonList()
-	{
-		return this.karakterButtons;
-	}
-	
-	public void createKarakterView(Karakter karakter) throws RemoteException {
-		Button newButton = new Button(karakter.getNaam());
 
-		this.karakterImages.add(new Image(karakter.getImage()));
+		this.spelerLijst = this.karakterController.getSpeler().getSpel().getSpelers();
+		
+        this.pane = new StackPane();
+        
+        if (String.valueOf(this.karakterController.getTypeView()).equals("speler"))
+        {
+        	createSpelerViews();
+        	createKarakterGrid();
+        } else {
+        	createKarakterViews();
+        	createKarakterGrid();
+        }
+        this.pane.getChildren().add(title);
+	}
+    
+    //TODO: check in constructor if type == spelers.
+    //TODO: create new createKarakterViews for active spelers.
 
-		newButton.setId("goudButton");
-		newButton.setMinWidth(230f);
-		newButton.setMinHeight(50f);
-		this.karakterButtons.add(newButton);
+	public void createKarakterViews() throws RemoteException {
+        for (Karakter karakter: this.karakterFactory.getKarakters()) {
+            // Create container
+            StackPane karakaterView = new StackPane();
+            karakaterView.setPrefSize(360, 360);
+            // Create image holder
+            StackPane karakterImage = new StackPane();
+            // Create new Button
+            Button newButton = new Button(karakter.getNaam());
+
+            // Create clip for karakterPortait
+            Rectangle circle = new Rectangle(150, 150);
+            circle.setArcWidth(150);
+            circle.setArcHeight(150);
+            karakterImage.setClip(circle);
+
+            // Create imageView for KarakterPortait
+            ImageView karakterPortrait = new ImageView(new Image(karakter.getImage()));
+            karakterImage.getChildren().add(karakterPortrait);
+            StackPane.setAlignment(karakterPortrait, Pos.CENTER);
+
+            // Set button styling
+            newButton.getStyleClass().add("button-primary");
+            newButton.setMinWidth(230f);
+            newButton.setMinHeight(50f);
+
+            if (String.valueOf(this.karakterController.getTypeView()).equals("karakter")) {
+                newButton.setOnAction(event -> this.karakterController.cmdSetTarget(karakter));
+            } else if (String.valueOf(this.karakterController.getTypeView()).equals("ronde")) {
+                newButton.setOnAction(event -> this.karakterController.cmdSetKarakter(karakter));
+            } 
+//            else if (String.valueOf(this.karakterController.getTypeView()).equals("speler")) {
+//            	newButton.setText(spelerLijst.get(this.karakterFactory.getKarakters().indexOf(karakter)).getKarakter().getNaam());
+//            	newButton.setOnAction(event -> {
+//                    try {
+//                        this.karakterController.cmdSetSpelerTarget(karakter.getSpeler());
+//                    } catch (RemoteException e) {
+//                        e.printStackTrace();
+//                    }
+//                });
+//            }
+
+            // Fill container
+            karakaterView.getChildren().addAll(karakterImage, newButton);
+            StackPane.setAlignment(karakterImage, Pos.TOP_CENTER);
+            StackPane.setAlignment(newButton, Pos.BOTTOM_CENTER);
+
+            // Add container to karakterViews[]
+            this.karakterViews.add(karakaterView);
+        }
+
 	}
 	
-	public void addButtonsToView()
+	public void createSpelerViews() throws RemoteException
 	{
-		StackPane buttonLayout = new StackPane();
-		buttonLayout.setPrefSize(1440, 900);
-		
-		int amountTop = (this.karakterButtons.size() / 2);
-		int amountBottom = this.karakterButtons.size();
-		
-		HBox kaartenBoxTop = new HBox();
-		kaartenBoxTop.setSpacing(180.0);
-		kaartenBoxTop.setPadding(new Insets(1, 1, 1, 1));
-		
-		HBox kaartenBoxBottom = new HBox();
-		kaartenBoxBottom.setSpacing(180.0);
-		kaartenBoxBottom.setPadding(new Insets(1, 1, 1, 1));
-		
-		VBox buttonOrder = new VBox();
-		buttonOrder.setSpacing(230.0);
-		buttonOrder.setPadding(new Insets(1, 1, 1, 1));
-        
-		for(int i = 0; i < amountTop; i++)
-		{
-			Image image = karakterImages.get(i);
-			Button button = this.karakterButtons.get(i);
-			kaartenBoxTop.getChildren().addAll(this.createGridItem(image, button));
-		}
-		
-		for(int i = amountTop; i < amountBottom; i++)
-		{
-			Image image = karakterImages.get(i);
-			Button button = this.karakterButtons.get(i);
-			kaartenBoxBottom.getChildren().add(this.createGridItem(image, button));
-		}
-        
-		buttonLayout.setLayoutY(200);
-		buttonLayout.setLayoutX(140);
-        
-        buttonOrder.getChildren().addAll(kaartenBoxTop, kaartenBoxBottom);
-        
-        buttonLayout.getChildren().add(buttonOrder);
-        
-        this.pane.getChildren().add(buttonLayout);
+		for (SpelerRemote speler: this.spelerLijst) {
+            // Create container
+            StackPane karakaterView = new StackPane();
+            karakaterView.setPrefSize(360, 360);
+            // Create image holder
+            StackPane karakterImage = new StackPane();
+            // Create new Button
+            Button newButton = new Button(speler.getKarakter().getNaam());
+
+            // Create clip for karakterPortait
+            Rectangle circle = new Rectangle(150, 150);
+            circle.setArcWidth(150);
+            circle.setArcHeight(150);
+            karakterImage.setClip(circle);
+
+            // Create imageView for KarakterPortait
+            ImageView karakterPortrait = new ImageView(new Image(speler.getKarakter().getImage()));
+            karakterImage.getChildren().add(karakterPortrait);
+            StackPane.setAlignment(karakterPortrait, Pos.CENTER);
+
+            // Set button styling
+            newButton.getStyleClass().add("button-primary");
+            newButton.setMinWidth(230f);
+            newButton.setMinHeight(50f);
+
+//            if (String.valueOf(this.karakterController.getTypeView()).equals("speler")) {
+            	newButton.setOnAction(event -> {
+                    this.karakterController.cmdSetSpelerTarget(speler);
+                });
+//            }
+
+            // Fill container
+            karakaterView.getChildren().addAll(karakterImage, newButton);
+            StackPane.setAlignment(karakterImage, Pos.TOP_CENTER);
+            StackPane.setAlignment(newButton, Pos.BOTTOM_CENTER);
+
+            // Add container to karakterViews[]
+            this.karakterViews.add(karakaterView);
+        }
+
 	}
-	
-	private VBox createGridItem(Image image, Button button)
-	{
-		double imageWidth = image.getWidth();
-		double imageHeight = image.getHeight();
-		
-		ImageView karakterImage = new ImageView(image);
-		Rectangle karakterRect = new Rectangle(imageWidth, imageHeight);
-		karakterRect.setArcHeight(imageHeight);
-		karakterRect.setArcWidth(imageWidth);
-		karakterImage.setClip(karakterRect);
-		
-		VBox gridItem = new VBox();
-		gridItem.setSpacing(30.0);
-		gridItem.setPadding(new Insets(-40, -40, -40, -40));
-		
-		gridItem.setAlignment(Pos.CENTER);
-		
-		gridItem.getChildren().addAll(karakterImage, button);
-		
-		return gridItem;
-	}
-	
-	public Pane getPane()
-	{
+
+    private void createKarakterGrid() {
+        // Create background
+        Rectangle bg = new Rectangle(1440, 900);
+        bg.setFill(Color.rgb(0, 0, 0, 0.7));
+        // Create grid
+        GridPane grid = new GridPane();
+        // Fill grid
+        int columnIndex = 1;
+        int rowIndex = 1;
+        for (StackPane karakterView: karakterViews) {
+            grid.add(karakterView, columnIndex, rowIndex);
+            if (columnIndex >= 4) {
+                columnIndex = 1;
+                rowIndex++;
+            } else {
+                columnIndex++;
+            }
+        }
+        this.pane.getChildren().addAll(bg, grid);
+    }
+
+	public Pane getPane() {
 		return this.pane;
 	}
+
+    public void close() {
+        holder.getChildren().remove(container);
+        holder.getStylesheets().add("Machiavelli/Resources/style.css");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void show() {
+        container = new Pane();
+        container.getChildren().add(pane);
+        holder = new StackPane();
+        holder.getChildren().addAll(stage.getScene().getRoot().getChildrenUnmodifiable());
+        holder.getChildren().add(container);
+        holder.getStylesheets().add("Machiavelli/Resources/style.css");
+
+        FadeTransition ft = new FadeTransition(Duration.millis(700), holder);
+        ft.setFromValue(0.7);
+        ft.setToValue(1.0);
+        ft.play();
+
+        this.scene = new Scene(holder, 1440, 900);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

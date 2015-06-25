@@ -6,7 +6,6 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.GebouwKaart;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -57,8 +56,9 @@ public class Koning implements Karakter, Bonusable, Serializable {
 	 *  en aanroepen van de methode beginBeurt
 	 */
     @Override
-    public void gebruikEigenschap() throws RemoteException {
+    public boolean gebruikEigenschap() throws RemoteException {
         // TODO: begint beurt
+        return false;
     }
 
     /*ontvangen bonusgoud voor monument gebouwen*/
