@@ -45,4 +45,5 @@ public interface Karakter extends Remote {
     void addObserver(KarakterObserver observer) throws RemoteException;
 
     void notifyObservers() throws RemoteException;
+
 }

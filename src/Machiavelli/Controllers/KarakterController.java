@@ -69,6 +69,14 @@ public class KarakterController {
         }
     }
 
+    public void cmdSetTarget(Object target) {
+        try {
+            this.getSpeler().getKarakter().setTarget(target);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void show() {
         if (String.valueOf(this.typeView).equals("magier")) {
             magierKeuzeView = new MagierKeuzeView(this);
@@ -77,14 +85,18 @@ public class KarakterController {
             this.karakterView.show();
         }
     }
+
+    public void close() {
+        if (String.valueOf(this.typeView).equals("magier")) {
+            magierKeuzeView.close();
+        } else {
+            this.karakterView.close();
+        }
+    }
     
     public SpelerRemote getSpeler()
     {
     	return this.speler;
-    }
-
-    public void cmdKiesSpelerTarget() {
-
     }
 
     public void cmdSetSpelerTarget(SpelerRemote speler) {
@@ -97,5 +109,18 @@ public class KarakterController {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+    }
+
+    public void cmdGebruikEigenschap() {
+        try {
+            this.speler.getKarakter().gebruikEigenschap();
+            this.close();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setTypeView(String type) {
+        this.typeView = type;
     }
 }

@@ -1,6 +1,8 @@
 package Machiavelli.Views;
 
 import Machiavelli.Controllers.KarakterController;
+import Machiavelli.Controllers.MeldingController;
+import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Machiavelli;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -75,7 +77,16 @@ public class MagierKeuzeView {
 
         Button spelerButton = new Button("Ruil met speler");
         spelerButton.getStyleClass().add("button-primary");
-//        spelerButton.setOnAction(event -> this.karakterController.cmdKiesSpelerTarget());
+        spelerButton.setOnAction(event -> {
+            try {
+                // Trigger kies een speler view
+                this.close();
+                KarakterController karakterController = new KarakterController(this.karakterController.getSpeler(), "speler");
+                karakterController.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
         spelerView.getChildren().addAll(stapelImage, spelerButton);
         spelerView.setAlignment(Pos.CENTER);
@@ -103,7 +114,21 @@ public class MagierKeuzeView {
 
         Button stapelButton = new Button("Ruil met stapel");
         stapelButton.getStyleClass().add("button-primary");
-//        stapelButton.setOnAction(event -> this.karakterController.cmdSetTarget());
+        stapelButton.setOnAction(event -> {
+            try {
+                // Check of er gebouwkaarten zijn geselecteerd
+                if (this.karakterController.getSpeler().getHand().getActiveCards().size() > 0) {
+                    GebouwFactoryRemote factory = this.karakterController.getSpeler().getSpel().getGebouwFactory();
+                    this.karakterController.cmdSetTarget(factory);
+                    this.karakterController.cmdGebruikEigenschap();
+                } else {
+                    this.karakterController.close();
+                    new MeldingController().build("Je hebt geen kaarten geselecteerd om te ruilen!").cmdWeergeefMeldingView();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
         stapelView.getChildren().addAll(stapelImage, stapelButton);
         stapelView.setAlignment(Pos.CENTER);

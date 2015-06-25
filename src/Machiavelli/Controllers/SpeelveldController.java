@@ -1,17 +1,12 @@
 package Machiavelli.Controllers;
 
 import Machiavelli.Interfaces.Bonusable;
-import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelObserver;
-import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speelveld;
 import Machiavelli.Views.SpeelveldView;
 import javafx.application.Platform;
-
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -79,33 +74,6 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
         // TODO: Implement eindeBeurt method
     }
 
-    public void cmdGebruikEigenschap() {
-        try {
-        	//Als de gebruikeigenschap geen target heeft, open de kiesKarakterView.
-            if (!this.speler.getKarakter().gebruikEigenschap()) {
-            	
-            	//Speler = magier, kies speler view.
-            	if(this.speler.getKarakter().getNummer() == 3)
-            	{
-            		System.out.println("De speler is een magier");
-            		KarakterController karakterController = new KarakterController(this.speler, "speler");
-                    karakterController.show();
-            	}
-            	
-            	//Speler = moordenaar of dief, kies karakter view.
-            	if(this.speler.getKarakter().getNummer() == 1 || this.speler.getKarakter().getNummer() == 2)
-            	{
-            		System.out.println("De speler is een moordenaar");
-            		this.speler.getSpel().getKarakterFactory().getKarakterByNumber(5);
-            		KarakterController karakterController = new KarakterController(this.speler, "karakter");
-            		karakterController.show();
-            	}
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
     @Override
     public void modelChanged(SpelRemote spel) throws RemoteException {
         this.spel = spel;
