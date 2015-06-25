@@ -96,7 +96,6 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
             	if(this.speler.getKarakter().getNummer() == 1 || this.speler.getKarakter().getNummer() == 2)
             	{
             		System.out.println("De speler is een moordenaar");
-            		this.speler.getSpel().getKarakterFactory().getKarakterByNumber(5);
             		KarakterController karakterController = new KarakterController(this.speler, "karakter");
             		karakterController.show();
             	}
