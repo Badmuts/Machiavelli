@@ -82,7 +82,7 @@ public class MenuController {
         // Spel inladen vanuit default locatie.
         try
         {
-            
+
             System.out.println("Spel moet nu geladen zijn.. Wachten op spelers.");
         }
         catch(Exception ex)
