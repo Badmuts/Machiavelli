@@ -1,9 +1,5 @@
 package Machiavelli.Models;
 
-import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Observers.SpelObserver;
@@ -11,11 +7,12 @@ import Machiavelli.Interfaces.Remotes.BankRemote;
 import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.Karakters.Dief;
 import Machiavelli.Models.Karakters.Magier;
-import Machiavelli.Models.Karakters.Moordenaar;
-import Machiavelli.Models.Karakters.Prediker;
-s
+
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+
 public class Spel implements SpelRemote, Serializable {
 	private int maxAantalSpelers;
 	private BankRemote bank;
