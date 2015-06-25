@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 
+
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
@@ -12,7 +13,9 @@ import Machiavelli.Views.KiesKarakterView;
 import Machiavelli.Views.MagierKeuzeView;
 
 
+
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 
 /**
@@ -41,16 +44,46 @@ public class KarakterController extends UnicastRemoteObject {
 
     public void cmdSetTarget(Karakter karakter) {
         try {
-        	//Speler zet de target voor zijn karakter.
-            this.speler.getKarakter().setTarget(karakter);
-            
-            //Het karakter van de speler moet de initierende speler meekrijgen.
-            this.speler.getKarakter().setSpeler(this.speler);
-            
-            //Speler gebruik de eigenschap van zijn karakter.
-            this.speler.getKarakter().gebruikEigenschap();
-            this.karakterView.close();
-            new MeldingController().build("Je hebt je karaktereigenschap gebruikt op de " + karakter.getNaam()).cmdWeergeefMeldingView();
+        	//Speler (dief0 heeft op de knop gelikt en de controller krijgt de gekozen karakter mee.
+        	//Checken of er een speler zit aan het karakter.
+        	//Op basis daarvan, actie ondernemen
+        	//Of een melding laten zien!
+        	ArrayList<Karakter> spelendeKarakters = new ArrayList<Karakter>();
+        	for(SpelerRemote splr : this.speler.getSpel().getSpelers())
+        	{
+        		if(splr.getKarakter() != null)
+        		{
+        			spelendeKarakters.add(splr.getKarakter());
+        		}
+        	}
+        	
+        	//check of het gekozen karakter (knop) meedoet aan het spel
+        	for(Karakter krktr : spelendeKarakters)
+        	{
+        		if(krktr.getNummer() == karakter.getNummer())
+        		{
+        			//Speler zet de target voor zijn karakter.
+                    this.speler.getKarakter().setTarget(karakter);
+                    
+                    //Het karakter van de speler moet de initierende speler meekrijgen.
+                    this.speler.getKarakter().setSpeler(this.speler);
+                    
+                    //Speler gebruik de eigenschap van zijn karakter.
+                    this.speler.getKarakter().gebruikEigenschap();
+                    this.karakterView.close();
+                    new MeldingController().build("Je hebt je karaktereigenschap gebruikt op de " + karakter.getNaam()).cmdWeergeefMeldingView();
+        			break;
+        		}
+        		else
+        		{
+        			System.out.println("het gekozen karakter " + karakter.getNaam() + " speelt NIET mee");
+        		    this.karakterView.close();
+        			new MeldingController().build("De " + karakter.getNaam() + " speelt niet mee!").cmdWeergeefMeldingView();
+        			break;
+        		}
+        	}
+        	
+        	
         } catch (Exception e) {
             e.printStackTrace();
         }
