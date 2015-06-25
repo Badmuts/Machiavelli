@@ -2,7 +2,6 @@ package Machiavelli.Views;
 
 import Machiavelli.Controllers.MenuController;
 import Machiavelli.Machiavelli;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
@@ -75,7 +74,7 @@ public class MainMenuView {
 		mainTx2.setLayoutX(780);
 		mainTx2.setLayoutY(170);
 		
-		//Knoppen defini�ren
+		//Knoppen definieren
 		initButton(startbutton,"Kies spel", "buttonstart", 700,450,200f,75f, "button-success");
 		initButton(exitbutton,"Afsluiten", "buttonexit", 700,530,200f,75f, "button-danger");
 		initButton(spelregels,"Spelregels", "buttonregels", 15,10,125f,50f, "button-primary");
