@@ -1,10 +1,10 @@
 package Machiavelli.Controllers;
 
-import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Views.KiesKarakterView;
+import Machiavelli.Views.MagierKeuzeView;
 
 import java.rmi.RemoteException;
 
@@ -17,7 +17,8 @@ public class KarakterController {
     //TODO: krijg speler van beurt..
     private SpelerRemote speler;
     private KiesKarakterView karakterView;
-    
+    private MagierKeuzeView magierKeuzeView;
+
     public KarakterController(SpelerRemote speler, String typeView) throws RemoteException
     {
         // TYPE VAN VIEW IN CONSTRUCTOR
@@ -25,10 +26,11 @@ public class KarakterController {
         // - KARAKTER: KIES KARAKTER ALS TARGET
         // - RONDE : KIES KARAKTER VOOR SPELER
         // - SPELER: KIES SPELER ALS TARGET
+        // - MAGIER: KIES SPELER OF STAPEL
         this.typeView = typeView;
     	this.speler = speler;
         this.karakterView = new KiesKarakterView(this.speler.getSpel().getKarakterFactory(), this);
-    	this.karakterView.show();
+//    	this.karakterView.show();
     }
 
     public void cmdSetTarget(Karakter karakter) {
@@ -75,11 +77,20 @@ public class KarakterController {
     }
 
     public void show() {
-        this.karakterView.show();
+        if (String.valueOf(this.typeView).equals("magier")) {
+            magierKeuzeView = new MagierKeuzeView(this);
+            magierKeuzeView.show();
+        } else {
+            this.karakterView.show();
+        }
     }
     
     public SpelerRemote getSpeler()
     {
     	return this.speler;
+    }
+
+    public void cmdKiesSpelerTarget() {
+
     }
 }

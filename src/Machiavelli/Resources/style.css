@@ -178,5 +178,10 @@
 }
 
 .overlay {
-    -fx-background-color: rgba(0, 0, 0, 0.7);
+    -fx-fill: rgba(0, 0, 0, 0.7);
+}
+
+.h1 {
+    -fx-font-size: 2em;
+    -fx-fill: white;
 }
