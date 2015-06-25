@@ -115,6 +115,11 @@ public class Moordenaar implements Karakter, Serializable {
             observer.modelChanged(this);
         }
     }
+	@Override
+	public Object getTarget() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 
 

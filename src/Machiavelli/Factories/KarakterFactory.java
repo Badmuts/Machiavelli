@@ -20,14 +20,19 @@ public class KarakterFactory implements KarakterFactoryRemote, Serializable {
      * Maakt alle karakters aan (in dit geval 8)
      */
     public KarakterFactory() {
-        this.karakters.add(new Moordenaar());
-        this.karakters.add(new Dief());
-        this.karakters.add(new Magier());
-        this.karakters.add(new Koning());
-        this.karakters.add(new Prediker());
-        this.karakters.add(new Koopman());
-        this.karakters.add(new Bouwmeester());
-        this.karakters.add(new Condotierre());
+        try {
+        	this.karakters.add(new Moordenaar());
+            this.karakters.add(new Dief());
+            this.karakters.add(new Magier());
+            this.karakters.add(new Koning());
+            this.karakters.add(new Prediker());
+            this.karakters.add(new Koopman());
+            this.karakters.add(new Bouwmeester());
+            this.karakters.add(new Condotierre());	
+        }
+        catch ( Exception e) {
+        	e.printStackTrace();
+        }	
     }
 
     /**

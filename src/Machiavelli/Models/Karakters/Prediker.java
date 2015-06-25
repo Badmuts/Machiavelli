@@ -103,4 +103,10 @@ public class Prediker implements Karakter, Bonusable, Serializable {
             observer.modelChanged(this);
         }
     }
+
+	@Override
+	public Object getTarget() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

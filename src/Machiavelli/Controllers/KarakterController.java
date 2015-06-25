@@ -5,11 +5,12 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Views.KiesKarakterView;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Created by daanrosbergen on 03/06/15.
  */
-public class KarakterController {
+public class KarakterController extends UnicastRemoteObject {
 
     private String typeView;
     //TODO: krijg speler van beurt..
@@ -97,6 +98,10 @@ public class KarakterController {
 //			}
 //    	}
 //    }
+    
+    public void cmdGebruikEigenschap() {
+    	
+    }
 
     public void cmdSetTarget(Karakter karakter) {
         try {

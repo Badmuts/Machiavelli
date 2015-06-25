@@ -56,6 +56,8 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         this.gebouwKaartView.setPrefSize(width, height);
         this.addClickHandler();
     }
+    
+    
 
     private ImageView createImageView() {
         ImageView gebouwKaartImage = new ImageView();

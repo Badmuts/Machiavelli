@@ -126,4 +126,10 @@ public class Koopman implements Karakter, Bonusable, Serializable {
     	koopman.getPortemonnee().ontvangenGoud(1);
     }
 
+	@Override
+	public Object getTarget() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

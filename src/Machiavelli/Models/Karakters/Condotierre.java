@@ -7,10 +7,10 @@ import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Interfaces.Remotes.StadRemote;
-import Machiavelli.Models.GebouwKaart;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /** 
@@ -25,9 +25,13 @@ import java.util.ArrayList;
  * andere speler vernietigen. Ook ontvangt hij 1 goudstuk
  * voor elk militair gebouw in zijn stad.
  */
-public class Condotierre implements Karakter, Bonusable, Serializable {
+public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
 
-	private GebouwKaart target = null;
+	public Condotierre() throws RemoteException {
+		// TODO Auto-generated constructor stub
+	}
+
+	private GebouwKaartRemote target = null;
 	private SpelerRemote speler = null;
 	
 	/** Eigenschappen van karakter Condotierre */
@@ -49,12 +53,13 @@ public class Condotierre implements Karakter, Bonusable, Serializable {
 
     @Override
     public SpelerRemote getSpeler() throws RemoteException {
-        return null;
+        return speler;
     }
 
     @Override
     public void setTarget(Object target) throws RemoteException {
-    	this.target = (GebouwKaart) target;
+    	System.out.println("Het target is: " + target);
+    	this.target = (GebouwKaartRemote) target;
     	gebruikEigenschap();
     }
 
@@ -70,34 +75,32 @@ public class Condotierre implements Karakter, Bonusable, Serializable {
 	 * Vervolgens wordt het het gekozen gebouw verwijderd 
 	 * uit de stad van de speler waarin dit gebouw gekozen is
 	 */
-    public boolean gebruikEigenschap() throws RemoteException {
-    	try {
-			if (target != null && target.getStad().getSpeler().getKarakter().getNaam() != "Prediker") {
-					vernietigGebouw(this.target.getStad(), getTarget());
-				}
-			else {
-				//TODO speelveldview aanroepen met klikbare gebouwen in steden
-			}
-					
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        return false;
+    public boolean gebruikEigenschap() throws RemoteException {	
+    	//System.out.println(getTarget());
+		//if (target.getStad().getSpeler().getKarakter().getNummer != 5) {
+    	if (this.target == null) {
+    		return false;	
+    	}
+    	else {
+    		vernietigGebouw(this.target.getStad(), getTarget());
+    		
+    	}
+    	return true;	
+			
+	
+
+				
     }
     
-    //Verwijder gebouw uit stad van een andere speler en verwijder de kosten??
-    private void vernietigGebouw(StadRemote stad, GebouwKaart target) {
-    	
-    	try {
-    		speler.setGoudOpBank(speler.getPortemonnee(), target.getKosten()-1);
-			target.getStad().removeGebouw(this.getTarget());
-			
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    //Verwijder gebouw uit stad van een andere speler en verwijder de kosten
+    private void vernietigGebouw(StadRemote stad, GebouwKaartRemote target) throws RemoteException {
+    	System.out.println("het target is " +  target);
+    	speler.setGoudOpBank(speler.getPortemonnee(), target.getKosten()-1);
+		target.getStad().removeGebouw(target);
+		
     }
+    
+
 
     /** ontvangen bonusgoud voor militaire gebouwen */
     @Override
@@ -126,7 +129,7 @@ public class Condotierre implements Karakter, Bonusable, Serializable {
         return this.bouwLimiet;
     }
     
-    public GebouwKaart getTarget() throws RemoteException {
+    public GebouwKaartRemote getTarget() throws RemoteException {
     	return target;
     }
 	
@@ -141,6 +144,8 @@ public class Condotierre implements Karakter, Bonusable, Serializable {
 	public Type getType() throws RemoteException {
 		return this.type;
 	}
+	
+	
 
     @Override
     public void addObserver(KarakterObserver observer) throws RemoteException {
@@ -152,6 +157,9 @@ public class Condotierre implements Karakter, Bonusable, Serializable {
         for (KarakterObserver observer: observers) {
             observer.modelChanged(this);
         }
+    }
+    public String toString() {
+    	return "target: " + this.target;
     }
 
 }

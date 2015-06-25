@@ -56,6 +56,7 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
             this.stad.addGebouw(gebouw);
             this.hand.removeGebouw(gebouw);
             this.portemonnee.bestedenGoud(this.spel.getBank(), kosten);
+            gebouw.setStad(this.stad);
             gebouwdeGebouwen++;
             notifyObservers();
         }

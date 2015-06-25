@@ -80,9 +80,16 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
 
     public void cmdGebruikEigenschap() {
         try {
-            if (this.speler.getKarakter().gebruikEigenschap() == false) {
+            if (this.speler.getKarakter().gebruikEigenschap() == false && this.getSpeler().getKarakter().getNummer() != 8) {
                 KarakterController karakterController = new KarakterController(this.speler, "karakter");
                 karakterController.show();
+            }
+            if (this.speler.getKarakter().getNummer() == 8) {
+            	this.gebouwKaartController.cmdVernietigGebouw();
+            }
+            else {
+            	this.speler.getKarakter().gebruikEigenschap();
+            	
             }
         } catch (Exception e) {
             e.printStackTrace();

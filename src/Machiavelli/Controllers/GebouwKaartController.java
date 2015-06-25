@@ -67,6 +67,27 @@ public class GebouwKaartController extends UnicastRemoteObject implements Speler
             e.printStackTrace();
         }
     }
+    
+    public void cmdVernietigGebouw() {
+    	System.out.println("vernietig gebouw");
+    	try {
+    		Iterator<GebouwKaartRemote> iterator = this.activeCards.iterator();
+    		
+    		while (iterator.hasNext()) {
+    			GebouwKaartRemote target = iterator.next();
+    			System.out.println(target);
+    			this.speler.getKarakter().setTarget(target);
+    			;
+        		this.activeCards.remove(target);
+        		iterator.remove();
+			}
+    	}
+    	catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+    	}
+    
 
     @Override
     public void modelChanged(SpelerRemote speler) throws RemoteException {
