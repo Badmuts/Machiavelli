@@ -173,6 +173,7 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
 
     @Override
     public void modelChanged(BeurtRemote beurt) throws RemoteException {
+      
       Platform.runLater(() -> {
       System.out.println("Beurt Model changed");
       getBouwButton().setDisable(isDisabled());
@@ -180,6 +181,7 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
       getGoudbutton().setDisable(isDisabled());
       getEindeBeurtButton().setDisable(isDisabled());
       });
+      
     }
 
     @Override

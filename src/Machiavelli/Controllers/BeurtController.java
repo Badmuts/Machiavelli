@@ -37,7 +37,7 @@ public class BeurtController extends UnicastRemoteObject {
     }
   }
   
-  public void cmdWeergeefInkomsten() {
+  public void cmdShowInkomsten() {
     try {
       inkomstenController = new InkomstenController(this.speler);
       inkomstenController.show();

@@ -140,6 +140,10 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
         try {
           if (this.spel.getMaxAantalSpelers() == this.spel.getAantalSpelers()) {
               this.meldingController.cmdSluitMeldingView();
+              for(SpelerRemote speler: spel.getSpelers()){
+              KarakterController karakterController = new KarakterController(this.speler, "ronde");
+              karakterController.show();
+              }
           } else {
               this.meldingController.build("Wachten op spelers: " + this.spel.getAantalSpelers() + "/" + this.spel.getMaxAantalSpelers());
           }
