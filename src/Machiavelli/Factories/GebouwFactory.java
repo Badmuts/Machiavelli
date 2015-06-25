@@ -27,7 +27,7 @@ public class GebouwFactory extends UnicastRemoteObject implements GebouwFactoryR
     private void init() throws RemoteException {
         gebouwen.add(new GebouwKaart(6, "Bibliotheek", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/bibliotheek.png"));
         gebouwen.add(new GebouwKaart(5, "Werkplaats", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/werkplaats.png"));
-        gebouwen.add(new GebouwKaart(6, "School voor Magiërs", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/school-voor-magiers.png"));
+        gebouwen.add(new GebouwKaart(6, "School voor Magiers", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/school-voor-magiers.png"));
         gebouwen.add(new GebouwKaart(5, "Laboratorium", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/laboratorium.png"));
         gebouwen.add(new GebouwKaart(6, "Drakenpoort", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/drakenpoort.png"));
         gebouwen.add(new GebouwKaart(5, "Kerkhof", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/kerkhof.png"));
