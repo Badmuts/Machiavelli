@@ -28,7 +28,7 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speelveld;
 
 
-public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver, BeurtObserver {
+public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver{
 
     private SpelerRemote speler;
     private BeurtRemote beurt;
@@ -52,7 +52,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController, SpelerRemote speler, BeurtRemote beurtRemote, BeurtController beurtController) throws RemoteException {
 		this.speelveld = speelveld;
         this.speler = speler;  
-        this.beurt = beurtRemote;
+        //this.beurt = beurtRemote;
         this.beurtController = beurtController;
         
 		this.speelveldcontroller = speelveldcontroller;
@@ -60,7 +60,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         this.portemonnee = speler.getPortemonnee();   
         
         this.portemonnee.addObserver(this);
-
+        //this.beurt.addObserver(this);
 
         this.createStedenHolder();
         this.createPortemonnee();
@@ -82,8 +82,6 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         container.setPrefSize(1440, 900);
         container.getChildren().add(speelveldpane);
         speelveldscene = new Scene(container, 1440, 900);
-        
-        setDisable(true);
         
 		this.show();
 	}
@@ -194,23 +192,4 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         });
     }
 
-    @Override
-    public void modelChanged(BeurtRemote beurt) throws RemoteException {
-      System.out.println("Beurt Model changed");
-      buttonHolderActionBarView.getBouwButton().setDisable(isDisabled());
-      buttonHolderActionBarView.getEigenschapButton().setDisable(isDisabled());
-      buttonHolderActionBarView.getGoudbutton().setDisable(isDisabled()); 
-    }
-
-    @Override
-    public boolean isDisabled() {
-      // TODO Auto-generated method stub
-      return disabled;
-    }
-
-    @Override
-    public void setDisable(boolean disabled){
-      this.disabled = disabled;
-      
-    }
 }

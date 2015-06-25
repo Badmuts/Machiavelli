@@ -1,9 +1,8 @@
 package Machiavelli.Views;
 
-import Machiavelli.Controllers.SpeelveldController;
-import Machiavelli.Interfaces.Bonusable;
-import Machiavelli.Interfaces.Observers.SpelerObserver;
-import Machiavelli.Interfaces.Remotes.SpelerRemote;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -11,11 +10,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import Machiavelli.Controllers.SpeelveldController;
+import Machiavelli.Interfaces.Bonusable;
+import Machiavelli.Interfaces.Observers.BeurtObserver;
+import Machiavelli.Interfaces.Observers.SpelerObserver;
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-
-public class ButtonHolderActionBarView extends UnicastRemoteObject implements SpelerObserver {
+public class ButtonHolderActionBarView extends UnicastRemoteObject implements SpelerObserver, BeurtObserver {
 
     private SpeelveldController speelveldController;
     private GridPane buttonGrid = new GridPane();
@@ -28,11 +30,15 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
     private Button eindebeurtbutton;
     private Rectangle buttonholder;
     private SpelerRemote speler;
+    private BeurtRemote beurt;
     private StackPane container;
+    private boolean disabled;
 
     public ButtonHolderActionBarView(SpeelveldController speelveldController) throws RemoteException {
         this.speelveldController = speelveldController;
         this.speler = speelveldController.getSpeler();
+        this.beurt = speelveldController.getBeurt();
+        
         this.container = new StackPane();
         gebruikEigenschap = new Button();
         exitbutton = new Button();
@@ -41,7 +47,8 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
         goudbutton = new Button();
         bouwbutton = new Button();
         eindebeurtbutton= new Button();
-
+        
+        this.beurt.addObserver(this);
         this.speler.addObserver(this);
 
         this.buttonGrid.setHgap(10);
@@ -146,5 +153,28 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
 
     public StackPane getPane() {
         return this.container;
+    }
+
+    @Override
+    public void modelChanged(BeurtRemote beurt) throws RemoteException {
+      Platform.runLater(() -> {
+      System.out.println("Beurt Model changed");
+      getBouwButton().setDisable(isDisabled());
+      getEigenschapButton().setDisable(isDisabled());
+      getGoudbutton().setDisable(isDisabled());
+      getEindeBeurtButton().setDisable(isDisabled());
+      });
+    }
+
+    @Override
+    public boolean isDisabled() {
+      // TODO Auto-generated method stub
+      return disabled;
+    }
+
+    @Override
+    public void setDisable(boolean disabled){
+      this.disabled = disabled;
+      
     }
 }

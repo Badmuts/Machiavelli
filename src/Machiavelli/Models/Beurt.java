@@ -82,10 +82,10 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
       nextBeurtObserver();  
       observers.add(observer);
       System.out.println("Beurt Observer ADDED!: " + this.observers.size());
-        
     }
 
     public void notifyObservers() throws RemoteException {
+        System.out.println("Beurt changed");
         for (BeurtObserver observer: observers) {
             observer.modelChanged(this);
         }

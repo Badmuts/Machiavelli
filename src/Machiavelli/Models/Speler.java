@@ -27,7 +27,7 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
 	private HandRemote hand;
 	private SpelRemote spel;
 	private StadRemote stad;
-	private BeurtRemote beurt;
+	//private BeurtRemote beurt;
 	private ArrayList<SpelerObserver> observers = new ArrayList<>();
     private int gebouwdeGebouwen = 0;
 
@@ -163,7 +163,7 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
             re.printStackTrace();
         }
     }
-
+    
     public int getGebouwdeGebouwen() throws RemoteException {
         return gebouwdeGebouwen;
     }
