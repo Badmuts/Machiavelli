@@ -104,6 +104,7 @@ public class Spel implements SpelRemote, Serializable {
         speler.getKarakter().setSpeler(speler); // TESTING ONLY
 		this.spelers.add(speler);
 		this.speler = speler;
+		this.beurt.setSpeler(speler);
 		notifyObservers();
 	}
 	
