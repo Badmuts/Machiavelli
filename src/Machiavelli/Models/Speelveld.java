@@ -11,8 +11,7 @@ import Machiavelli.Views.SpeelveldView;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-import java.io.FileOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -60,10 +59,17 @@ public class Speelveld extends UnicastRemoteObject implements SpeelveldRemote, S
 		}
 	}
 
-		public void opslaanSpel()
-		{
-				System.out.print("test");
+
+
+		public SpelRemote ladenSpel() throws FileNotFoundException {
+				SpelRemote tempSpelRemote;
+				XStream xs = new XStream();
+				InputStream in = new FileInputStream(System.getProperty("user.home") + "/machiavelli_save.xml");
+				tempSpelRemote = (SpelRemote) xs.fromXML(in);
+				return tempSpelRemote;
 		}
+
+
 
     public SpelerRemote getSpeler() {
         return this.speler;

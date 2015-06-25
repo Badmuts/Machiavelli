@@ -79,7 +79,16 @@ public class MenuController {
      * overzicht met hervatbare spellen.
      */
     public void cmdHervattenSpel() {
-        // TODO: Show resumable games
+        // Spel inladen vanuit default locatie.
+        try
+        {
+            
+            System.out.println("Spel moet nu geladen zijn.. Wachten op spelers.");
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
     }
 
     /**

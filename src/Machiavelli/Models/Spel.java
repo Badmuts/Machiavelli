@@ -8,8 +8,10 @@ import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Karakters.Prediker;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
-import java.io.Serializable;
+import java.io.*;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -47,7 +49,29 @@ public class Spel implements SpelRemote, Serializable {
 		return this.karakterFactory;
 	}
 
-	public int getAantalSpelers() throws RemoteException {
+		public void opslaanSpel() {
+				XStream x = new XStream(new DomDriver());
+				FileOutputStream fos = null;
+				try {
+						fos = new FileOutputStream(createSaveLocation() + "/machiavelli_save.xml");
+						x.toXML(this, fos);
+						System.out.println("Spel is opgeslagen!");
+				} catch (FileNotFoundException e) {
+						e.printStackTrace();
+				}
+		}
+
+		public File createSaveLocation()
+		{
+				File file = new File(System.getProperty("user.home") + "/machiavelli/");
+				if (!file.exists()){
+						file.mkdir();
+				}
+
+				return file;
+		}
+
+		public int getAantalSpelers() throws RemoteException {
 		return spelers.size();
 	}
 

@@ -8,6 +8,7 @@ import Machiavelli.Models.Speelveld;
 import Machiavelli.Views.SpeelveldView;
 import javafx.application.Platform;
 
+import java.io.FileNotFoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -55,11 +56,20 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
     public void cmdOpslaan(){
         try
         {
-            this.speelveld.opslaanSpel();
+            this.spel.opslaanSpel();
         }
         catch (Exception ex)
         {
             ex.printStackTrace();
+        }
+    }
+
+    public void cmdLaden()
+    {
+        try {
+            this.speelveld.ladenSpel();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
