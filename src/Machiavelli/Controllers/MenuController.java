@@ -4,7 +4,6 @@ import java.rmi.registry.Registry;
 
 import Machiavelli.Machiavelli;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
-import Machiavelli.Models.Speler;
 import Machiavelli.Views.InvullenSpelersView;
 import Machiavelli.Views.MainMenuView;
 
@@ -64,9 +63,12 @@ public class MenuController {
         // TODO: Show new games
     	try{
     		SpelRemote spelStub = (SpelRemote)registry.lookup("Spel");
-            spelStub.createNewSpeler();
-            this.spelController = new SpelController(spelStub);
-            this.spelController.cmdAddSpeler();
+            if (spelStub.getAantalSpelers() < spelStub.getMaxAantalSpelers()) {
+                spelStub.createNewSpeler();
+                this.spelController = new SpelController(spelStub);
+            } else {
+                new MeldingController().build("Het maximaal aantal spelers is bereikt").cmdWeergeefMeldingView();
+            }
     	} catch(Exception re) {
     		re.printStackTrace();
     	}
@@ -92,7 +94,6 @@ public class MenuController {
             spelStub.createNewSpel(maxAantalSpelers);
             spelStub.createNewSpeler();
             this.spelController = new SpelController(spelStub);
-            this.spelController.cmdAddSpeler();
     	} catch(Exception e) {
     		e.printStackTrace();
     	}

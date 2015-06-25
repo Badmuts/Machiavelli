@@ -94,7 +94,6 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 
         Button spelregelsButton = new Button("Spelregels");
         spelregelsButton.setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
-
         spelregelsButton.setLayoutY(10);
         spelregelsButton.setLayoutX(10);
         spelregelsButton.getStyleClass().add("button-primary");
@@ -149,34 +148,6 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 		stage.setScene(speelveldscene);
         stage.centerOnScreen();
 		stage.show();
-	}
-
-	public Button getSpelregels() {
-		return buttonHolderActionBarView.getSpelregels();
-	}
-
-	public Button getExitButton() {
-        return buttonHolderActionBarView.getExitbutton();
-	}
-	
-	public Button getEindeButton() {
-		return buttonHolderActionBarView.getEindeBeurtButton();
-	}
-	
-	public Button getBouwButton() {
-		return buttonHolderActionBarView.getBouwButton();
-	}
-	
-	public Button getOpslaanButton() {
-		return buttonHolderActionBarView.getOpslaanButton();
-	}
-	
-	public Button getEigenschapButton() {
-		return buttonHolderActionBarView.getEigenschapButton();
-	}
-	
-	public Button getGoudButton() {
-		return buttonHolderActionBarView.getGoudbutton();
 	}
 
     private void createActionBar() {
