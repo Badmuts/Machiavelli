@@ -180,3 +180,11 @@
 .overlay {
     -fx-background-color: rgba(0, 0, 0, 0.7);
 }
+
+.title{
+	-fx-font: 40px Tahoma;
+    	-fx-top:0;
+    	-fx-stroke: black;
+    	-fx-stroke-width: 1;
+    	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+}

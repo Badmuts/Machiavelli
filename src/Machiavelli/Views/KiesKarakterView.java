@@ -58,6 +58,10 @@ public class KiesKarakterView {
         	createKarakterViews();
         }
         createKarakterGrid();
+        
+        //zet title bovenaan.
+        title.getStyleClass().add("title");
+        StackPane.setAlignment(title, Pos.TOP_CENTER);
         this.pane.getChildren().add(title);
 	}
     
