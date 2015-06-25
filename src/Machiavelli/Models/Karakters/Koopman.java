@@ -60,6 +60,7 @@ public class Koopman implements Karakter, Bonusable, Serializable {
     public boolean gebruikEigenschap() throws RemoteException {
 		try {
             ontvangenBonusGoud();
+            this.speler.setEigenschapGebruikt();
         } catch (RemoteException re) {
             System.out.print(re);
         }

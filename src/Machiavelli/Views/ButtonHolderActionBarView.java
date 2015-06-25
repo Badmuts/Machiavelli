@@ -137,6 +137,7 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
                 this.container.getChildren().clear();
                 isKarakterBonusable();
                 isAbleToBuild();
+                IsAbleToGebruikEigenschap();
                 this.container.getChildren().addAll(buttonholder, buttonGrid);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -152,6 +153,17 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
         } else {
             bouwbutton.setDisable(false); // Enable button
         }
+    }
+    
+    private void IsAbleToGebruikEigenschap() throws RemoteException {
+    	boolean eigenschapGebruikt = speler.EigenschapGebruikt();
+    	if (eigenschapGebruikt == false) {
+    		gebruikEigenschap.setDisable(false);
+    	}
+    	else {
+    		gebruikEigenschap.setDisable(true);
+    	}
+    	
     }
 
     public StackPane getPane() {
