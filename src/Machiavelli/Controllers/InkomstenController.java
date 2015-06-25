@@ -29,11 +29,6 @@ public class InkomstenController
 		this.speler = speler;
 		this.inkomstenView = new KiesInkomstenView();
 		this.initializeInkomstenViewButtons();
-		
-		//TODO: Dit is alleen bedoeld voor testing, krijg de speler vanuit beurt.
-		Spel spel = new Spel();
-		spel.createNewSpel(2);
-		this.speler.addSpel(spel);
 	}
 	
 	public void cmdTrekkenKaart() throws RemoteException
@@ -94,7 +89,7 @@ public class InkomstenController
 		try 
 		{
 			BankRemote bank = this.speler.getSpel().getBank();
-			this.speler.getGoudVanBank(bank, 0);
+			this.speler.getGoudVanBank(bank, 2);
 			
 			System.out.println("Aantal goudmunten in speler portomonee: " + this.speler.getPortemonnee().getGoudMunten());
 			System.out.println("Aantal goudmunten in de bank: " + bank.getGoudMunten());
@@ -112,7 +107,7 @@ public class InkomstenController
 		this.trekkenKaartView.cmdWeergeefTrekkenKaartView();
 	}
 	
-	public void weergeefKiesInkomstenView()
+	public void show()
 	{
 		try
 		{
