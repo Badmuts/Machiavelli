@@ -30,12 +30,17 @@ public class KarakterController {
         this.typeView = typeView;
     	this.speler = speler;
         this.karakterView = new KiesKarakterView(this.speler.getSpel().getKarakterFactory(), this);
-//    	this.karakterView.show();
     }
 
     public void cmdSetTarget(Karakter karakter) {
         try {
+        	//Speler zet de target voor zijn karakter.
             this.speler.getKarakter().setTarget(karakter);
+            
+            //Het karakter van de speler moet de initierende speler meekrijgen.
+            this.speler.getKarakter().setSpeler(this.speler);
+            
+            //Speler gebruik de eigenschap van zijn karakter.
             this.speler.getKarakter().gebruikEigenschap();
             this.karakterView.close();
             new MeldingController().build("Je hebt je karaktereigenschap gebruikt op de " + karakter.getNaam()).cmdWeergeefMeldingView();
@@ -64,18 +69,6 @@ public class KarakterController {
         }
     }
 
-    public void cmdSetSpelerTarget(SpelerRemote speler) {
-        try {
-            this.speler.getKarakter().setTarget(speler);
-            //execute magier eigenschap ?
-            this.speler.getKarakter().gebruikEigenschap();
-            this.karakterView.close();
-            new MeldingController().build("Je hebt je karaktereigenschap op de " + speler.getKarakter().getNaam() + " gebruikt").cmdWeergeefMeldingView();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void show() {
         if (String.valueOf(this.typeView).equals("magier")) {
             magierKeuzeView = new MagierKeuzeView(this);
@@ -92,5 +85,17 @@ public class KarakterController {
 
     public void cmdKiesSpelerTarget() {
 
+    }
+
+    public void cmdSetSpelerTarget(SpelerRemote speler) {
+        try {
+            this.speler.getKarakter().setTarget(speler);
+            //execute magier eigenschap ?
+            this.speler.getKarakter().gebruikEigenschap();
+            this.karakterView.close();
+            new MeldingController().build("Je hebt je karaktereigenschap op de " + speler.getKarakter().getNaam() + " gebruikt").cmdWeergeefMeldingView();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }

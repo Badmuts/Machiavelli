@@ -103,7 +103,7 @@ public class MagierKeuzeView {
 
         Button stapelButton = new Button("Ruil met stapel");
         stapelButton.getStyleClass().add("button-primary");
-        stapelButton.setOnAction(event -> this.karakterController.cmdSetTarget());
+//        stapelButton.setOnAction(event -> this.karakterController.cmdSetTarget());
 
         stapelView.getChildren().addAll(stapelImage, stapelButton);
         stapelView.setAlignment(Pos.CENTER);

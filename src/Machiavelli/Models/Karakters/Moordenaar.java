@@ -76,6 +76,9 @@ public class Moordenaar implements Karakter, Serializable {
     public void vermoordKarakter(Karakter target) throws RemoteException {
     	//target.getSpeler()
     	//methode eindigenbeurt van de target aanroepen.
+    	
+    	//zet status van karakter naar vermoord(?)
+    	System.out.println("De " + target.getNaam() + " is vermoord");
     	}
     
     public Karakter getVermoordKarakter() throws RemoteException {
