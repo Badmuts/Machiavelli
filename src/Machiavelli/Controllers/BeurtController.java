@@ -5,24 +5,26 @@ import java.rmi.server.UnicastRemoteObject;
 
 import Machiavelli.Interfaces.Remotes.BeurtRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
-import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.Speler;
 
 public class BeurtController extends UnicastRemoteObject {
-	private SpelRemote spel;
-	private BeurtRemote beurt;
+  private SpelRemote spel;
+  private BeurtRemote beurt;
 
-	public BeurtController(BeurtRemote beurt, SpelRemote spel) throws RemoteException {
-		this.spel = spel;
-		this.beurt = beurt;
-	}
-	
-	public void cmdGeefBeurt() throws RemoteException {
-		beurt.geefBeurt(cmdGetSpeler());
-	}
-	
-	public SpelerRemote cmdGetSpeler() throws RemoteException {
-		return beurt.getSpeler();
-	}
-		
+  public BeurtController(BeurtRemote beurt, SpelRemote spel) throws RemoteException {
+    this.spel = spel;
+    this.beurt = beurt;
+  }
+
+  /*
+   * public void cmdBeginRondeBeurt() throws RemoteException { beurt.BeginRondeBeurt(); }
+   */
+  public void cmdGeefBeurt() {
+    try {
+      beurt.geefBeurt();
+    } catch (RemoteException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+
 }

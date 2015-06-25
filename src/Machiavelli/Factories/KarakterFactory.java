@@ -62,8 +62,16 @@ public class KarakterFactory implements KarakterFactoryRemote, Serializable {
     public Karakter getKarakterByNumber(int karakterNummer) throws RemoteException {
         Karakter tmpKarakter = null;
         
+        karakterNummer = (karakterNummer -1);
+        
         tmpKarakter = karakters.get(karakterNummer);
         karakters.remove(karakterNummer);
+        
+        for(Karakter k : karakters)
+        {
+        	System.out.println(karakters.indexOf(k) + " " + k.getNaam());
+        }
+        
         return tmpKarakter;
     }
 

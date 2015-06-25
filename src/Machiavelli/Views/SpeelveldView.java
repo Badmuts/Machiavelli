@@ -1,15 +1,8 @@
 package Machiavelli.Views;
 
-import Machiavelli.Controllers.GebouwKaartController;
-import Machiavelli.Controllers.RaadplegenSpelregelsController;
-import Machiavelli.Controllers.SpeelveldController;
-import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
-import Machiavelli.Interfaces.Observers.SpeelveldObserver;
-import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
-import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
-import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Machiavelli;
-import Machiavelli.Models.Speelveld;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,15 +13,28 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import Machiavelli.Machiavelli;
+import Machiavelli.Controllers.BeurtController;
+import Machiavelli.Controllers.GebouwKaartController;
+import Machiavelli.Controllers.RaadplegenSpelregelsController;
+import Machiavelli.Controllers.SpeelveldController;
+import Machiavelli.Interfaces.Observers.BeurtObserver;
+import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
+import Machiavelli.Interfaces.Observers.SpeelveldObserver;
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
+import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
+import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
+import Machiavelli.Models.Speelveld;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
-public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver {
+public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver{
 
     private SpelerRemote speler;
+    private BeurtRemote beurt;
     private GebouwKaartController gebouwKaartController;
     private SpeelveldController speelveldcontroller;
+    private BeurtController beurtController;
 	private Speelveld speelveld;
 	private Scene speelveldscene;
 	private Pane speelveldpane;
@@ -41,15 +47,20 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     private Text portemonneeView;
     private Pane topBar;
     private Pane steden;
+    private boolean disabled;
 
-    public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController, SpelerRemote speler) throws RemoteException {
+    public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController, SpelerRemote speler, BeurtRemote beurtRemote, BeurtController beurtController) throws RemoteException {
 		this.speelveld = speelveld;
-        this.speler = speler;
+        this.speler = speler;  
+        //this.beurt = beurtRemote;
+        this.beurtController = beurtController;
+        
 		this.speelveldcontroller = speelveldcontroller;
         this.gebouwKaartController = gebouwKaartController;
-        this.portemonnee = speler.getPortemonnee();
-
+        this.portemonnee = speler.getPortemonnee();   
+        
         this.portemonnee.addObserver(this);
+        //this.beurt.addObserver(this);
 
         this.createStedenHolder();
         this.createPortemonnee();
@@ -71,7 +82,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         container.setPrefSize(1440, 900);
         container.getChildren().add(speelveldpane);
         speelveldscene = new Scene(container, 1440, 900);
-
+        
 		this.show();
 	}
 
@@ -94,7 +105,6 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 
         Button spelregelsButton = new Button("Spelregels");
         spelregelsButton.setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
-
         spelregelsButton.setLayoutY(10);
         spelregelsButton.setLayoutX(10);
         spelregelsButton.getStyleClass().add("button-primary");
@@ -151,34 +161,6 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 		stage.show();
 	}
 
-	public Button getSpelregels() {
-		return buttonHolderActionBarView.getSpelregels();
-	}
-
-	public Button getExitButton() {
-        return buttonHolderActionBarView.getExitbutton();
-	}
-	
-	public Button getEindeButton() {
-		return buttonHolderActionBarView.getEindeBeurtButton();
-	}
-	
-	public Button getBouwButton() {
-		return buttonHolderActionBarView.getBouwButton();
-	}
-	
-	public Button getOpslaanButton() {
-		return buttonHolderActionBarView.getOpslaanButton();
-	}
-	
-	public Button getEigenschapButton() {
-		return buttonHolderActionBarView.getEigenschapButton();
-	}
-	
-	public Button getGoudButton() {
-		return buttonHolderActionBarView.getGoudbutton();
-	}
-
     private void createActionBar() {
         actionBar = new AnchorPane();
         actionBar.getChildren().add(this.karakterActionBarView.getPane());
@@ -209,4 +191,5 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
             }
         });
     }
+
 }
