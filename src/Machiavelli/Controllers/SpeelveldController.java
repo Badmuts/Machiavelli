@@ -97,11 +97,17 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
     @Override
     public void modelChanged(SpelRemote spel) throws RemoteException {
         this.spel = spel;
-        if (this.spel.getMaxAantalSpelers() == this.spel.getAantalSpelers()) {
-            Platform.runLater(() -> this.meldingController.cmdSluitMeldingView());
-        } else {
-            this.meldingController.build("Wachten op spelers: " + this.spel.getAantalSpelers() + "/" + this.spel.getMaxAantalSpelers());
-        }
+        Platform.runLater(() -> {
+        try {
+          if (this.spel.getMaxAantalSpelers() == this.spel.getAantalSpelers()) {
+              this.meldingController.cmdSluitMeldingView();
+          } else {
+              this.meldingController.build("Wachten op spelers: " + this.spel.getAantalSpelers() + "/" + this.spel.getMaxAantalSpelers());
+          }
+        } catch (Exception e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }});
         System.out.println("SpeelveldController: Spel model changed!");
         System.out.println("Aantal spelers: " + this.spel.getAantalSpelers());
     }

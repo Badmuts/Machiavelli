@@ -68,6 +68,8 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
         exitbutton.setOnAction(event -> System.exit(0));
 
         isKarakterBonusable();
+        
+        setDisable(true);
 
         buttonholder = new Rectangle(0, 0, 350, 250);
         buttonholder.setFill(Color.rgb(57, 57, 57));

@@ -82,6 +82,7 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
       nextBeurtObserver();  
       observers.add(observer);
       System.out.println("Beurt Observer ADDED!: " + this.observers.size());
+      notifyObservers();
     }
 
     public void notifyObservers() throws RemoteException {
@@ -93,12 +94,12 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
     
   private void nextBeurtObserver() throws RemoteException {
     	if (observers.size() > 0) {
-			observers.get(observerIndex).setDisable(false);
+			observers.get(observerIndex).setDisable(true);
 			observerIndex++;
 			if (observerIndex >= observers.size()) {
 				observerIndex = 0;
 			}
-			observers.get(observerIndex).setDisable(true);
+			observers.get(observerIndex).setDisable(false);
 		} 
 
     }
