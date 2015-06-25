@@ -55,6 +55,7 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
         initButton(opslaanknop,"Opslaan","button-success", 1, 3, 160f, 55f);
         initButton(exitbutton,"Afsluiten","button-danger", 2, 3, 160f, 55f);
 
+        opslaanknop.setOnAction(event1 -> this.speelveldController.cmdOpslaan());
         goudbutton.setOnAction(event -> this.speelveldController.cmdBonusGoud());
         bouwbutton.setOnAction(event -> this.speelveldController.cmdBouwGebouw());
         eindebeurtbutton.setOnAction(event -> this.speelveldController.cmdEindeBeurt());

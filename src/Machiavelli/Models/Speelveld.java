@@ -8,7 +8,10 @@ import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Views.SpeelveldView;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -56,6 +59,11 @@ public class Speelveld extends UnicastRemoteObject implements SpeelveldRemote, S
 			observer.modelChanged(this);
 		}
 	}
+
+		public void opslaanSpel()
+		{
+				System.out.print("test");
+		}
 
     public SpelerRemote getSpeler() {
         return this.speler;

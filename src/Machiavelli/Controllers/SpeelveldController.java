@@ -52,6 +52,17 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
 		return this.spel;
 	}
 
+    public void cmdOpslaan(){
+        try
+        {
+            this.speelveld.opslaanSpel();
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+
     public void cmdBonusGoud() {
         try {
             Bonusable karakter = (Bonusable)this.speler.getKarakter();
