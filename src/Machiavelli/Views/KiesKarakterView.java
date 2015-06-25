@@ -97,7 +97,7 @@ public class KiesKarakterView {
                 newButton.setOnAction(event -> this.karakterController.cmdSetTarget(karakter));
             } else if (String.valueOf(this.karakterController.getTypeView()).equals("ronde")) {
                 newButton.setOnAction(event -> this.karakterController.cmdSetKarakter(karakter));
-            } 
+            }
 
             // Fill container
             karakaterView.getChildren().addAll(karakterPortrait, newButton);
@@ -106,7 +106,6 @@ public class KiesKarakterView {
             // Add container to karakterViews[]
             this.karakterViews.add(karakaterView);
         }
-
 	}
 	
 	public void createSpelerViews() throws RemoteException
@@ -204,5 +203,4 @@ public class KiesKarakterView {
 
     	newPane = null;
 	}
-    
 }

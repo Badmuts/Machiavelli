@@ -60,6 +60,7 @@ public class Koopman implements Karakter, Bonusable, Serializable {
     public boolean gebruikEigenschap() throws RemoteException {
 		try {
             ontvangenBonusGoud();
+            this.speler.setEigenschapGebruikt();
         } catch (RemoteException re) {
             System.out.print(re);
         }
@@ -125,5 +126,11 @@ public class Koopman implements Karakter, Bonusable, Serializable {
     public void ontvangenBonusGoud(Speler koopman) throws RemoteException {
     	koopman.getPortemonnee().ontvangenGoud(1);
     }
+
+	@Override
+	public Object getTarget() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

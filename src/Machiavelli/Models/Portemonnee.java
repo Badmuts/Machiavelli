@@ -28,7 +28,7 @@ public class Portemonnee extends UnicastRemoteObject implements PortemonneeRemot
 	public Portemonnee(BankRemote bank) throws RemoteException {
 		this.bank = bank;
 		try {
-			goudMunten += this.bank.gevenGoud(2);
+			goudMunten += this.bank.gevenGoud(20);
 		} catch (RemoteException re) {
 			re.printStackTrace();
 		}

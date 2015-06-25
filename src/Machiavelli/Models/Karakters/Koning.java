@@ -115,5 +115,11 @@ public class Koning implements Karakter, Bonusable, Serializable {
 		
 	}
 
+	@Override
+	public Object getTarget() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

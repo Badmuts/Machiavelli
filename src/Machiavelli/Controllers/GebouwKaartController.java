@@ -47,11 +47,21 @@ public class GebouwKaartController extends UnicastRemoteObject implements Speler
     }
 
     public void setActiveCard(GebouwKaartRemote gebouwKaartRemote) {
-        this.activeCards.add(gebouwKaartRemote);
+        try {
+            this.activeCards.add(gebouwKaartRemote);
+            this.speler.getHand().addActiveCard(gebouwKaartRemote);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void removeActiveCard(GebouwKaartRemote gebouwKaart) {
-        this.activeCards.remove(gebouwKaart);
+        try {
+            this.activeCards.remove(gebouwKaart);
+            this.speler.getHand().removeActiveCard(gebouwKaart);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     public void cmdBouwGebouw() {
@@ -67,6 +77,27 @@ public class GebouwKaartController extends UnicastRemoteObject implements Speler
             System.out.println("Iterator remove error, maar het werkt");
         }
     }
+    
+    public void cmdVernietigGebouw() {
+    	System.out.println("vernietig gebouw");
+    	try {
+    		Iterator<GebouwKaartRemote> iterator = this.activeCards.iterator();
+    		
+    		while (iterator.hasNext()) {
+    			GebouwKaartRemote target = iterator.next();
+    			System.out.println(target);
+    			this.speler.getKarakter().setTarget(target);
+    			;
+        		this.activeCards.remove(target);
+        		iterator.remove();
+			}
+    	}
+    	catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+    	}
+    
 
     @Override
     public void modelChanged(SpelerRemote speler) throws RemoteException {

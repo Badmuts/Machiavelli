@@ -64,6 +64,7 @@ public class Moordenaar implements Karakter, Serializable {
         // TODO: vermoord karakter
     	if (target != null) {
     		vermoordKarakter(this.getVermoordKarakter());
+    		this.speler.setEigenschapGebruikt();
     	}
     	else {
     		//TODO: view aanroepen
@@ -118,6 +119,11 @@ public class Moordenaar implements Karakter, Serializable {
             observer.modelChanged(this);
         }
     }
+	@Override
+	public Object getTarget() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 
 

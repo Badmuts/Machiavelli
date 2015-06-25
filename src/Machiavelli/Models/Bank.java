@@ -10,7 +10,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
- * Dit is de bank van het spel. Per spel is er ��n bank aanwezig die het geld beheerd.
+ * Dit is de bank van het spel. Per spel is er 1 bank aanwezig die het geld beheerd.
  * Spelers kunnen via de portemonnee geld van de bank halen en geld aan de bank geven.
  *
  * @author Sander de Jong

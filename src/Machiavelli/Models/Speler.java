@@ -30,6 +30,7 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
 	//private BeurtRemote beurt;
 	private ArrayList<SpelerObserver> observers = new ArrayList<>();
     private int gebouwdeGebouwen = 0;
+    private boolean eigenschapGebruikt = false;
 
 	// Speler toewijzen aan spel en een nieuwe portemonnee, hand en stad maken.
 	public Speler() throws RemoteException {
@@ -58,6 +59,7 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
             this.stad.addGebouw(gebouw);
             this.hand.removeGebouw(gebouw);
             this.portemonnee.bestedenGoud(this.spel.getBank(), kosten);
+            gebouw.setStad(this.stad);
             gebouwdeGebouwen++;
             notifyObservers();
         }
@@ -166,5 +168,14 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
     
     public int getGebouwdeGebouwen() throws RemoteException {
         return gebouwdeGebouwen;
+    }
+    
+    public boolean EigenschapGebruikt() throws RemoteException {
+    	return eigenschapGebruikt;
+    }
+    
+    public void setEigenschapGebruikt() throws RemoteException {
+    	this.eigenschapGebruikt = true;
+    	
     }
 }

@@ -27,6 +27,8 @@ public interface Karakter extends Remote {
     boolean gebruikEigenschap() throws RemoteException;
 
     void setTarget(Object target) throws RemoteException;
+    
+    Object getTarget() throws RemoteException;
 
     void setSpeler(SpelerRemote speler) throws RemoteException;
 
@@ -45,4 +47,5 @@ public interface Karakter extends Remote {
     void addObserver(KarakterObserver observer) throws RemoteException;
 
     void notifyObservers() throws RemoteException;
+
 }
