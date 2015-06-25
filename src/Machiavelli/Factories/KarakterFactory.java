@@ -33,6 +33,7 @@ public class KarakterFactory implements KarakterFactoryRemote, Serializable {
         catch ( Exception e) {
         	e.printStackTrace();
         }	
+           
     }
 
     /**

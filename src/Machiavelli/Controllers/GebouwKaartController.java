@@ -47,11 +47,21 @@ public class GebouwKaartController extends UnicastRemoteObject implements Speler
     }
 
     public void setActiveCard(GebouwKaartRemote gebouwKaartRemote) {
-        this.activeCards.add(gebouwKaartRemote);
+        try {
+            this.activeCards.add(gebouwKaartRemote);
+            this.speler.getHand().addActiveCard(gebouwKaartRemote);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void removeActiveCard(GebouwKaartRemote gebouwKaart) {
-        this.activeCards.remove(gebouwKaart);
+        try {
+            this.activeCards.remove(gebouwKaart);
+            this.speler.getHand().removeActiveCard(gebouwKaart);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     public void cmdBouwGebouw() {

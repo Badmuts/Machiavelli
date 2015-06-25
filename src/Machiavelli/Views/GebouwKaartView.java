@@ -37,9 +37,11 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         this.gebouwKaartView.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             StackPane view = (StackPane)event.getSource();
             if (view.getStyleClass().contains("gebouwkaart-active")) {
+                // Gebouwkaart is gedeselecteerd
                 view.getStyleClass().remove("gebouwkaart-active");
                 this.gebouwKaartController.removeActiveCard(this.gebouwKaart);
             } else {
+                // Gebouwkaart is geselecteerd
                 view.getStyleClass().add("gebouwkaart-active");
                 this.gebouwKaartController.setActiveCard(this.gebouwKaart);
             }

@@ -11,6 +11,10 @@ import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speelveld;
 import Machiavelli.Views.SpeelveldView;
+import javafx.application.Platform;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * 
@@ -101,16 +105,17 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
             	//Speler = magier, kies speler view.
             	if(this.speler.getKarakter().getNummer() == 3)
             	{
-            		System.out.println("De speler is een magier");
-            		KarakterController karakterController = new KarakterController(this.speler, "speler");
+                    // Show keuze view tussen stapel en speler
+                    KarakterController karakterController = new KarakterController(this.speler, "magier");
                     karakterController.show();
+
+                    System.out.println("De speler is een magier");
             	}
             	
             	//Speler = moordenaar of dief, kies karakter view.
             	if(this.speler.getKarakter().getNummer() == 1 || this.speler.getKarakter().getNummer() == 2)
             	{
-            		System.out.println("De speler is een moordenaar");
-            		this.speler.getSpel().getKarakterFactory().getKarakterByNumber(5);
+            		System.out.println("De speler is een moordenaar'");
             		KarakterController karakterController = new KarakterController(this.speler, "karakter");
             		karakterController.show();
             	}
