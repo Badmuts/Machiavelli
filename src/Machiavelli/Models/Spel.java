@@ -55,10 +55,23 @@ public class Spel implements SpelRemote, Serializable {
 				try {
 						fos = new FileOutputStream(createSaveLocation() + "/machiavelli_save.xml");
 						x.toXML(this, fos);
-						System.out.println("Spel is opgeslagen!");
 				} catch (FileNotFoundException e) {
 						e.printStackTrace();
 				}
+		}
+
+		public SpelRemote ladenSpel() {
+				SpelRemote tempSpelRemote;
+				XStream xs = new XStream();
+				InputStream in = null;
+				try {
+						in = new FileInputStream(System.getProperty("user.home") + "/machiavelli_save.xml");
+						tempSpelRemote = (SpelRemote) xs.fromXML(in);
+						return tempSpelRemote;
+				} catch (FileNotFoundException e) {
+						e.printStackTrace();
+				}
+				return null;
 		}
 
 		public File createSaveLocation()

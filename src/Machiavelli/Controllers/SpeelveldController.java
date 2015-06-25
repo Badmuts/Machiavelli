@@ -65,13 +65,8 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
         }
     }
 
-    public void cmdLaden()
-    {
-        try {
-            this.speelveld.ladenSpel();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+    public void cmdLaden() throws RemoteException {
+        this.spel.ladenSpel();
     }
 
     public void cmdBonusGoud() {

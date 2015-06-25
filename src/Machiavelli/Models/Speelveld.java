@@ -59,19 +59,7 @@ public class Speelveld extends UnicastRemoteObject implements SpeelveldRemote, S
 		}
 	}
 
-
-
-		public SpelRemote ladenSpel() throws FileNotFoundException {
-				SpelRemote tempSpelRemote;
-				XStream xs = new XStream();
-				InputStream in = new FileInputStream(System.getProperty("user.home") + "/machiavelli_save.xml");
-				tempSpelRemote = (SpelRemote) xs.fromXML(in);
-				return tempSpelRemote;
-		}
-
-
-
-    public SpelerRemote getSpeler() {
+		public SpelerRemote getSpeler() {
         return this.speler;
     }
 

@@ -2,6 +2,7 @@ package Machiavelli.Controllers;
 
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Machiavelli;
+import Machiavelli.Models.Spel;
 import Machiavelli.Views.InvullenSpelersView;
 import Machiavelli.Views.MainMenuView;
 
@@ -82,7 +83,7 @@ public class MenuController {
         // Spel inladen vanuit default locatie.
         try
         {
-
+            SpelRemote spelStub = (SpelRemote)registry.lookup("Spel");
             System.out.println("Spel moet nu geladen zijn.. Wachten op spelers.");
         }
         catch(Exception ex)
