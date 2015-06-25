@@ -24,6 +24,7 @@ public class Stad extends UnicastRemoteObject implements StadRemote, Serializabl
 	public Stad(SpelerRemote speler) throws RemoteException
 	{
 		this.speler = speler;
+		this.spel = this.speler.getSpel();
 	}
 
 	public ArrayList<GebouwKaartRemote> getGebouwen() throws RemoteException
@@ -38,11 +39,11 @@ public class Stad extends UnicastRemoteObject implements StadRemote, Serializabl
         notifyObservers();
 	}
 
-	public void removeGebouw(GebouwKaartRemote gebouw) throws RemoteException
+	public void removeGebouw(GebouwKaartRemote target) throws RemoteException
 	{
-		this.gebouwen.remove(gebouw);
+		this.gebouwen.remove(target);
 		// Plaats gebouwkaart terug op gebouwenstapel (GebouwFactory)
-		this.spel.getGebouwFactory().addGebouw(gebouw);
+		this.spel.getGebouwFactory().addGebouw(target);
 		// Update StadView
 		// this.stadView.modelChanged();
         notifyObservers();

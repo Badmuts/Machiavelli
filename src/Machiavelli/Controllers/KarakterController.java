@@ -1,26 +1,31 @@
 package Machiavelli.Controllers;
 
-import Machiavelli.Machiavelli;
-import Machiavelli.Factories.KarakterFactory;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Views.KiesKarakterView;
+import Machiavelli.Views.MagierKeuzeView;
+
 
 import java.rmi.RemoteException;
 
-import javafx.scene.Node;
 
 /**
  * Created by daanrosbergen on 03/06/15.
  */
-public class KarakterController {
+public class KarakterController extends UnicastRemoteObject {
 
     private String typeView;
     //TODO: krijg speler van beurt..
     private SpelerRemote speler;
     private KiesKarakterView karakterView;
-    
+    private MagierKeuzeView magierKeuzeView;
+
     public KarakterController(SpelerRemote speler, String typeView) throws RemoteException
     {
         // TYPE VAN VIEW IN CONSTRUCTOR
@@ -28,10 +33,10 @@ public class KarakterController {
         // - KARAKTER: KIES KARAKTER ALS TARGET
         // - RONDE : KIES KARAKTER VOOR SPELER
         // - SPELER: KIES SPELER ALS TARGET
+        // - MAGIER: KIES SPELER OF STAPEL
         this.typeView = typeView;
     	this.speler = speler;
         this.karakterView = new KiesKarakterView(this.speler.getSpel().getKarakterFactory(), this);
-    	this.karakterView.show();
     }
 
     public void cmdSetTarget(Karakter karakter) {
@@ -71,6 +76,36 @@ public class KarakterController {
         }
     }
 
+    public void cmdSetTarget(Object target) {
+        try {
+            this.getSpeler().getKarakter().setTarget(target);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void show() {
+        if (String.valueOf(this.typeView).equals("magier")) {
+            magierKeuzeView = new MagierKeuzeView(this);
+            magierKeuzeView.show();
+        } else {
+            this.karakterView.show();
+        }
+    }
+
+    public void close() {
+        if (String.valueOf(this.typeView).equals("magier")) {
+            magierKeuzeView.close();
+        } else {
+            this.karakterView.close();
+        }
+    }
+    
+    public SpelerRemote getSpeler()
+    {
+    	return this.speler;
+    }
+
     public void cmdSetSpelerTarget(SpelerRemote speler) {
         try {
             this.speler.getKarakter().setTarget(speler);
@@ -83,12 +118,16 @@ public class KarakterController {
         }
     }
 
-    public void show() {
-        this.karakterView.show();
+    public void cmdGebruikEigenschap() {
+        try {
+            this.speler.getKarakter().gebruikEigenschap();
+            this.close();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
-    
-    public SpelerRemote getSpeler()
-    {
-    	return this.speler;
+
+    public void setTypeView(String type) {
+        this.typeView = type;
     }
 }

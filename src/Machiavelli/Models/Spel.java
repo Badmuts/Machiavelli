@@ -1,25 +1,27 @@
 package Machiavelli.Models;
 
-import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.BankRemote;
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
 import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.Karakters.Dief;
+
+import Machiavelli.Models.Karakters.Condotierre;
+
 import Machiavelli.Models.Karakters.Magier;
-import Machiavelli.Models.Karakters.Moordenaar;
-import Machiavelli.Models.Karakters.Prediker;
+
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public class Spel implements SpelRemote, Serializable {
 	private int maxAantalSpelers;
 	private BankRemote bank;
 	private GebouwFactoryRemote gebouwFactory;
+	private BeurtRemote beurt;
 	private KarakterFactory karakterFactory;
 	private ArrayList<SpelObserver> observers;
 	private ArrayList<SpelerRemote> spelers = new ArrayList<>();
@@ -35,6 +37,12 @@ public class Spel implements SpelRemote, Serializable {
 		this.spelers = new ArrayList<>();
         this.observers = new ArrayList<SpelObserver>();
         this.karakterFactory = new KarakterFactory();
+        this.beurt = new Beurt(this, this.getSpelers());
+        
+    }
+    
+    public BeurtRemote getBeurt() throws RemoteException {
+      return this.beurt;
     }
 
     public BankRemote getBank() throws RemoteException {
@@ -90,7 +98,8 @@ public class Spel implements SpelRemote, Serializable {
 	public void createNewSpeler() throws RemoteException{
 		SpelerRemote speler = new Speler();
         speler.addSpel(this);
-        speler.setKarakter(new Prediker()); // TESTING ONLY
+
+        speler.setKarakter(new Condotierre()); // TESTING ONLY
         speler.getKarakter().setSpeler(speler); // TESTING ONLY
 		this.spelers.add(speler);
 		notifyObservers();

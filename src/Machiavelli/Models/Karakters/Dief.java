@@ -1,5 +1,6 @@
 package Machiavelli.Models.Karakters;
 
+import Machiavelli.Controllers.MeldingController;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
@@ -8,6 +9,8 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+
+import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -70,12 +73,11 @@ public class Dief implements Karakter, Serializable {
     public boolean gebruikEigenschap() throws RemoteException {
     	if (target != null && target.getNaam() != "Moordenaar") {
     		BesteelKarakter(this.speler, getTarget());
-    		
+    		return true;
     	}
     	else {
-    		//TODO KiezenKarakterView aanroepen om een target te selecteren
+    		return false;
     	}
-        return false;
     }
     
     @Override
