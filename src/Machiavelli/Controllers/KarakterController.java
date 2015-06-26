@@ -57,10 +57,23 @@ public class KarakterController extends UnicastRemoteObject {
         		}
         	}
         	
-        	//check of het gekozen karakter (knop) meedoet aan het spel
+        	boolean speeltMee = spelendeKarakters.contains(karakter);
+        	
+        	System.out.println("De volgende karakters spelen mee:");
         	for(Karakter krktr : spelendeKarakters)
         	{
-        		if(krktr.getNummer() == karakter.getNummer())
+        		System.out.println(krktr.getNummer() + " " + krktr.getNaam());
+        		if(krktr.equals(karakter))
+        		{
+        			System.out.println("De " + karakter.getNummer() + " " + karakter.getNaam() + " speelt mee");
+        			break;
+        		}
+        	}
+        	
+        	//check of het gekozen karakter (knop) meedoet aan het spel
+//        	for(Karakter krktr : spelendeKarakters)
+//        	{
+        		if(speeltMee)
         		{
         			//Speler zet de target voor zijn karakter.
                     this.speler.getKarakter().setTarget(karakter);
@@ -72,18 +85,18 @@ public class KarakterController extends UnicastRemoteObject {
                     this.speler.getKarakter().gebruikEigenschap();
                     this.karakterView.close();
                     new MeldingController().build("Je hebt je karaktereigenschap gebruikt op de " + karakter.getNaam()).cmdWeergeefMeldingView();
-        			break;
+//        			break;
         		}
         		else
         		{
         			System.out.println("het gekozen karakter " + karakter.getNaam() + " speelt NIET mee");
         		    this.karakterView.close();
         			new MeldingController().build("De " + karakter.getNaam() + " speelt niet mee!").cmdWeergeefMeldingView();
-        			break;
+//        			break;
         		}
-        	}
-        	
-        	
+//        	}
+        	spelendeKarakters.clear();
+        	spelendeKarakters = null;
         } catch (Exception e) {
             e.printStackTrace();
         }

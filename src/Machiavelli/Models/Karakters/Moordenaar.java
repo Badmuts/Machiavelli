@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * deze ronde niet mee. 
  */
 public class Moordenaar extends UnicastRemoteObject implements Karakter, Serializable {
- 
+
 	public Moordenaar() throws RemoteException {
 	}
 	private SpelerRemote speler = null;

@@ -25,10 +25,12 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
  */
 public class Prediker extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
 	
-    public Prediker() throws RemoteException {
-    }
 
-    private SpelerRemote speler = null;
+	public Prediker() throws RemoteException {
+	}
+
+	private SpelerRemote speler = null;
+
 
 	/** Eigenschappen van karakter Prediker. */
     private final int nummer = 5;	

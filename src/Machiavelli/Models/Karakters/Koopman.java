@@ -29,8 +29,8 @@ public class Koopman extends UnicastRemoteObject implements Karakter, Bonusable,
 	
 	public Koopman() throws RemoteException {
     }
-
-    private SpelerRemote speler = null;
+	
+	private SpelerRemote speler = null;
 	
 	/** Eigenschappen van karakter Koopman. */
     private final int nummer = 6;	
@@ -53,7 +53,7 @@ public class Koopman extends UnicastRemoteObject implements Karakter, Bonusable,
 
     @Override
     public SpelerRemote getSpeler() throws RemoteException {
-        return null;
+        return this.speler;
     }
 
 	/**

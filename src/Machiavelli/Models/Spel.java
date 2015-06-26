@@ -3,6 +3,7 @@ package Machiavelli.Models;
 import Machiavelli.Controllers.KarakterController;
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Factories.KarakterFactory;
+import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelObserver;
 import Machiavelli.Interfaces.Remotes.BankRemote;
 import Machiavelli.Interfaces.Remotes.BeurtRemote;
@@ -17,6 +18,7 @@ import Machiavelli.Models.Karakters.Moordenaar;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Spel implements SpelRemote, Serializable {
 	private int maxAantalSpelers;
@@ -98,13 +100,28 @@ public class Spel implements SpelRemote, Serializable {
         return this.maxAantalSpelers;
     }
 
+    public Karakter getRandomKarakterFor(SpelerRemote speler) throws RemoteException
+    {
+    	Random rand = new Random();
+    	int randomNum = rand.nextInt((4 - 1) + 1) + 1;
+    	Karakter tmpKarakter = null;
+    	
+    	for(Karakter karakter : speler.getSpel().getKarakterFactory().getKarakters())
+    	{
+    		tmpKarakter = speler.getSpel().getKarakterFactory().getKarakters().get(randomNum);
+    	}
+    	
+    	return tmpKarakter;
+    }
+    
 	public void createNewSpeler() throws RemoteException{
 		SpelerRemote speler = new Speler();
         speler.addSpel(this);
+//        speler.setKarakter(new Dief()); // TESTING ONLY
+        speler.setKarakter(getRandomKarakterFor(speler));
+        speler.getKarakter().setSpeler(speler); // TESTING ONLY
 		this.spelers.add(speler);
 		this.speler = speler;
-        speler.setKarakter(new Magier()); // TESTING ONLY
-        speler.getKarakter().setSpeler(speler); // TESTING ONLY
 		this.beurt.setSpeler(speler);
 		notifyObservers();
 	}

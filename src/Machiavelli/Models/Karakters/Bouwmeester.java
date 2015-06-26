@@ -25,9 +25,9 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 public class Bouwmeester extends UnicastRemoteObject implements Karakter, Serializable {
 	
 	public Bouwmeester() throws RemoteException {
-    }
+	}
 
-    private SpelerRemote speler = null;
+	private SpelerRemote speler = null;
 	
 	/** Eigenschappen van karakter Bouwmeester */
     private final int nummer = 7;	

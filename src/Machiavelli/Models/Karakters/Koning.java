@@ -27,9 +27,9 @@ import java.util.ArrayList;
 public class Koning extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
 	
 	public Koning() throws RemoteException {
-    }
+	}
 
-  private SpelerRemote speler = null;
+	private SpelerRemote speler = null;
 
 	/*Eigenschappen van karakter Koning*/
 	private final int nummer = 4;	
