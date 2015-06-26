@@ -124,6 +124,8 @@ public class Dief implements Karakter, Serializable {
     
     private void BesteelKarakter(SpelerRemote speler, Karakter target) {
 		try {
+			System.out.println("naam speler: " + speler.getKarakter().getNaam() + " | Goudstukken: " + speler.getPortemonnee().getGoudMunten());
+			System.out.println("naam target: " + target.getNaam() + " | Goudstukken: " + target.getSpeler().getPortemonnee().getGoudMunten());
 			speler.getGoudVanBank(speler.getSpel().getBank(), target.getSpeler().getPortemonnee().getGoudMunten());
 			target.getSpeler().setGoudOpBank(target.getSpeler().getPortemonnee(), target.getSpeler().getPortemonnee().getGoudMunten());
 		} catch (RemoteException e) {

@@ -56,7 +56,7 @@ public class Magier extends UnicastRemoteObject implements Karakter, Serializabl
 
     @Override
     public SpelerRemote getSpeler() throws RemoteException {
-        return null;
+        return this.speler;
     }
 
     /**

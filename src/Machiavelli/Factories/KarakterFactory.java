@@ -67,7 +67,7 @@ public class KarakterFactory implements KarakterFactoryRemote, Serializable {
 //        karakterNummer = (karakterNummer -1);
         for(Karakter karakter : this.karakters)
         {
-        	if(karakter.getNummer() == karakterNummer)
+    		if(Integer.valueOf(karakter.getNummer()).equals(karakterNummer))
         	{
         		tmpKarakter = karakter;
         		removeKarakter = karakter;

@@ -49,7 +49,7 @@ public class Koopman implements Karakter, Bonusable, Serializable {
 
     @Override
     public SpelerRemote getSpeler() throws RemoteException {
-        return null;
+        return this.speler;
     }
 
 	/**
