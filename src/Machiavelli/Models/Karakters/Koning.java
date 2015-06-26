@@ -9,6 +9,7 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /** 
@@ -23,9 +24,12 @@ import java.util.ArrayList;
  * Ook ontvangt de koning 1 goudstuk voor elk monument gebouw
  * in zijn stad.
  */
-public class Koning implements Karakter, Bonusable, Serializable {
+public class Koning extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
 	
-	private SpelerRemote speler = null;
+	public Koning() throws RemoteException {
+    }
+
+  private SpelerRemote speler = null;
 
 	/*Eigenschappen van karakter Koning*/
 	private final int nummer = 4;	

@@ -56,7 +56,7 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
             this.meldingController.getSluitButton().setDisable(true);
             this.meldingController.getSluitButton().setText("Wachten...");
             this.meldingController.cmdWeergeefMeldingView();
-        }
+        }        
     }
 
 	public SpelRemote getSpel() {
@@ -136,7 +136,6 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
         try {
           if (this.spel.getMaxAantalSpelers() == this.spel.getAantalSpelers()) {
               this.meldingController.cmdSluitMeldingView();
-              this.beurtController.cmdKiesKarakterRonde();
           } else {
               this.meldingController.build("Wachten op spelers: " + this.spel.getAantalSpelers() + "/" + this.spel.getMaxAantalSpelers());
           }
@@ -144,7 +143,6 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
           // TODO Auto-generated catch block
           e.printStackTrace();
         } 
-
         });
         System.out.println("SpeelveldController: Spel model changed!");
         System.out.println("Aantal spelers: " + this.spel.getAantalSpelers());

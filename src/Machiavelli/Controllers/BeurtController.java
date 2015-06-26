@@ -31,18 +31,7 @@ public class BeurtController extends UnicastRemoteObject {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-      
-  }
-  
-  public void cmdKiesKarakterRonde() {
-    KarakterController karakterController;
-    try {
-      karakterController = new KarakterController(this.speler, "ronde");
-      karakterController.show();       
-    } catch (RemoteException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    cmdShowInkomsten();
   }
   
   public void cmdShowInkomsten() {

@@ -1,5 +1,10 @@
 package Machiavelli.Models.Karakters;
 
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
@@ -7,10 +12,6 @@ import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speler;
-
-import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -24,9 +25,12 @@ import java.util.ArrayList;
  * zijn eigenschap en ontvangt 1 goudstuk voor elk 
  * commericiel gebouw in zijn stad.
  */
-public class Koopman implements Karakter, Bonusable, Serializable {
+public class Koopman extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
 	
-	private SpelerRemote speler = null;
+	public Koopman() throws RemoteException {
+    }
+
+    private SpelerRemote speler = null;
 	
 	/** Eigenschappen van karakter Koopman. */
     private final int nummer = 6;	

@@ -8,6 +8,7 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /** 
@@ -22,8 +23,10 @@ import java.util.ArrayList;
  * karakter vermoorden. Het vermoorde karakter speelt
  * deze ronde niet mee. 
  */
-public class Moordenaar implements Karakter, Serializable {
-	
+public class Moordenaar extends UnicastRemoteObject implements Karakter, Serializable {
+ 
+	public Moordenaar() throws RemoteException {
+	}
 	private SpelerRemote speler = null;
     
 	/** Eigenschappen van karakter Moordenaar. */

@@ -1,15 +1,16 @@
 package Machiavelli.Models.Karakters;
 
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-
-import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 /**
  * Created by daanrosbergen on 03/06/15.
@@ -22,9 +23,12 @@ import java.util.ArrayList;
  * Uit de stad van de prediker kunnen geen gebouwen worden
  * verwijderd.
  */
-public class Prediker implements Karakter, Bonusable, Serializable {
+public class Prediker extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
 	
-	private SpelerRemote speler = null;
+    public Prediker() throws RemoteException {
+    }
+
+    private SpelerRemote speler = null;
 
 	/** Eigenschappen van karakter Prediker. */
     private final int nummer = 5;	
