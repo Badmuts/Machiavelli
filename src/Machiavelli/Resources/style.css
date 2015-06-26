@@ -144,7 +144,6 @@
 
 .gebouwkaart-active {
     -fx-effect: dropshadow(three-pass-box, lime, 15, 0.1, 0, 0);
-    -fx-translate-y: -75;
 }
 
 .gebouwkaart-active:hover {
