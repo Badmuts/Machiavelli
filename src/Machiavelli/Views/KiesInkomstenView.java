@@ -1,6 +1,7 @@
 package Machiavelli.Views;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 import javafx.animation.FadeTransition;
 import javafx.scene.Node;
@@ -20,7 +21,7 @@ import Machiavelli.Controllers.InkomstenController;
 import Machiavelli.Models.Spel;
 import Machiavelli.Models.Speler;
 
-public class KiesInkomstenView {
+public class KiesInkomstenView extends UnicastRemoteObject{
 	
 	//Variables
 	private InkomstenController inkomstenController;
