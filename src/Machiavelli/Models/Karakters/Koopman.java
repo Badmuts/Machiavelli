@@ -10,6 +10,7 @@ import Machiavelli.Models.Speler;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /** 
@@ -24,8 +25,11 @@ import java.util.ArrayList;
  * zijn eigenschap en ontvangt 1 goudstuk voor elk 
  * commericiel gebouw in zijn stad.
  */
-public class Koopman implements Karakter, Bonusable, Serializable {
+public class Koopman extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
 	
+	public Koopman() throws RemoteException {
+	}
+
 	private SpelerRemote speler = null;
 	
 	/** Eigenschappen van karakter Koopman. */

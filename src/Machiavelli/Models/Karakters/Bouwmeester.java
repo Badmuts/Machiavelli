@@ -7,6 +7,7 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /** 
@@ -21,8 +22,11 @@ import java.util.ArrayList;
  * in zijn beurt 3 gebouwen bouwen.
  * 
  */
-public class Bouwmeester implements Karakter, Serializable {
+public class Bouwmeester extends UnicastRemoteObject implements Karakter, Serializable {
 	
+	public Bouwmeester() throws RemoteException {
+	}
+
 	private SpelerRemote speler = null;
 	
 	/** Eigenschappen van karakter Bouwmeester */

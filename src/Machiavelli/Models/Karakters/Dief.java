@@ -8,6 +8,7 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
@@ -27,8 +28,11 @@ import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
  * aan de beurt is
  */
 
-public class Dief implements Karakter, Serializable {
+public class Dief extends UnicastRemoteObject implements Karakter, Serializable {
 	
+	public  Dief() throws RemoteException {
+	}
+
 	private SpelerRemote speler = null;
 	private Karakter target = null;
     

@@ -9,6 +9,7 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
@@ -22,8 +23,11 @@ import java.util.ArrayList;
  * Uit de stad van de prediker kunnen geen gebouwen worden
  * verwijderd.
  */
-public class Prediker implements Karakter, Bonusable, Serializable {
+public class Prediker extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
 	
+	public Prediker() throws RemoteException {
+	}
+
 	private SpelerRemote speler = null;
 
 	/** Eigenschappen van karakter Prediker. */

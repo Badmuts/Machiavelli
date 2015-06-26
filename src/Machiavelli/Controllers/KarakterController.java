@@ -59,6 +59,17 @@ public class KarakterController extends UnicastRemoteObject {
         	
         	boolean speeltMee = spelendeKarakters.contains(karakter);
         	
+        	System.out.println("De volgende karakters spelen mee:");
+        	for(Karakter krktr : spelendeKarakters)
+        	{
+        		System.out.println(krktr.getNummer() + " " + krktr.getNaam());
+        		if(krktr.equals(karakter))
+        		{
+        			System.out.println("De " + karakter.getNummer() + " " + karakter.getNaam() + " speelt mee");
+        			break;
+        		}
+        	}
+        	
         	//check of het gekozen karakter (knop) meedoet aan het spel
 //        	for(Karakter krktr : spelendeKarakters)
 //        	{
@@ -84,7 +95,8 @@ public class KarakterController extends UnicastRemoteObject {
 //        			break;
         		}
 //        	}
-        	
+        	spelendeKarakters.clear();
+        	spelendeKarakters = null;
         } catch (Exception e) {
             e.printStackTrace();
         }
