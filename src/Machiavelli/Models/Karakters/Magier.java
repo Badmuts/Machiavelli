@@ -72,9 +72,11 @@ public class Magier extends UnicastRemoteObject implements Karakter, Serializabl
 
         try {
             ruilMetStapel();
+            this.speler.setEigenschapGebruikt();
         } catch (Exception e) {
             try {
                 ruilMetHand();
+                this.speler.setEigenschapGebruikt();
             } catch (Exception cce) {
                 cce.printStackTrace();
                 return false;
