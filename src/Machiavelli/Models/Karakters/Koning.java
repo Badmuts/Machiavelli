@@ -36,9 +36,8 @@ public class Koning extends UnicastRemoteObject implements Karakter, Bonusable, 
     private final int bouwLimiet = 1; 
     private final String naam = "Koning";
     private final Type type = Type.MONUMENT;
-    private Object target;
+    
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Koning.png";
-
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
     /**
@@ -62,7 +61,7 @@ public class Koning extends UnicastRemoteObject implements Karakter, Bonusable, 
     @Override
     public boolean gebruikEigenschap() throws RemoteException {
         // TODO: begint beurt
-        return false;
+        return true;
     }
 
     /*ontvangen bonusgoud voor monument gebouwen*/
@@ -80,18 +79,22 @@ public class Koning extends UnicastRemoteObject implements Karakter, Bonusable, 
         }
     }
     
+    @Override
     public int getNummer() throws RemoteException {
         return nummer;
     }
     
+    @Override
     public int getBouwLimiet() throws RemoteException {
         return bouwLimiet;
     }
     
+    @Override
     public String getNaam() throws RemoteException {
         return naam;
     }
 
+    @Override
     public Type getType() throws RemoteException {
         return type;
     }
@@ -115,13 +118,10 @@ public class Koning extends UnicastRemoteObject implements Karakter, Bonusable, 
 
 	@Override
 	public void setTarget(Object target) throws RemoteException {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public Object getTarget() throws RemoteException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
