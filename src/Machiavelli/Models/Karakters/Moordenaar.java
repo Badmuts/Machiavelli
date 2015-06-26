@@ -25,13 +25,14 @@ import java.util.ArrayList;
 public class Moordenaar implements Karakter, Serializable {
 	
 	private SpelerRemote speler = null;
+	private Object target;
     
 	/** Eigenschappen van karakter Moordenaar. */
     private final int nummer = 1;	
     private final int bouwLimiet = 1; 
     private final String naam = "Moordenaar";
     private final Type type = Type.NORMAAL;
-    private Object target;
+    
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Moordenaar.png";
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
@@ -58,7 +59,6 @@ public class Moordenaar implements Karakter, Serializable {
 	 * en een karakter vermoorden die vervolgens een beurt
 	 * overslaat.
 	 */
-    
     @Override
     public boolean gebruikEigenschap() throws RemoteException {
         // TODO: vermoord karakter
@@ -85,11 +85,11 @@ public class Moordenaar implements Karakter, Serializable {
     public Karakter getVermoordKarakter() throws RemoteException {
 		return (Karakter)target;
 	}
-
+    @Override
 	public String getNaam() throws RemoteException {
     	return this.naam;
     }
-   
+    @Override
     public int getNummer() throws RemoteException {
     	return this.nummer;
     }
@@ -98,7 +98,8 @@ public class Moordenaar implements Karakter, Serializable {
     public int getBouwLimiet() throws RemoteException {
         return this.bouwLimiet;
     }
-
+    
+    @Override
     public Type getType() throws RemoteException {
 		return this.type;
 	}
@@ -119,6 +120,7 @@ public class Moordenaar implements Karakter, Serializable {
             observer.modelChanged(this);
         }
     }
+    
 	@Override
 	public Object getTarget() throws RemoteException {
 		// TODO Auto-generated method stub

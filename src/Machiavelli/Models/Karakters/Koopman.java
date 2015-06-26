@@ -35,7 +35,6 @@ public class Koopman implements Karakter, Bonusable, Serializable {
     private final Type type = Type.COMMERCIEL;
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Koopman.png";
 
-	private Object target;
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
     /**
@@ -66,7 +65,15 @@ public class Koopman implements Karakter, Bonusable, Serializable {
         }
         return false;
     }
-
+	
+	/**
+   	 * Deze methode wordt aangroepen door gebruikEigenschap()
+   	 * de speler met het karakter koopman ontvangt 1 goudstuk
+   	 */
+    public void ontvangenBonusGoud(Speler koopman) throws RemoteException {
+        koopman.getPortemonnee().ontvangenGoud(1);
+    }
+    
 	/** ontvangen bonusgoud voor commerciele gebouwen */
     @Override
     public void ontvangenBonusGoud() throws RemoteException {
@@ -77,6 +84,7 @@ public class Koopman implements Karakter, Bonusable, Serializable {
             }
         }
     }
+    
     
     @Override
     public String getNaam() throws RemoteException {
@@ -93,14 +101,19 @@ public class Koopman implements Karakter, Bonusable, Serializable {
         return this.bouwLimiet;
     }
 
+    @Override
 	public Type getType() throws RemoteException {
 		return this.type;
 	}
 
     @Override
     public void setTarget(Object target) throws RemoteException {
-        this.target = target;
     }
+    
+    @Override
+	public Object getTarget() throws RemoteException {
+		return null;
+	}
 
     @Override
     public String getImage() throws RemoteException {
@@ -118,19 +131,4 @@ public class Koopman implements Karakter, Bonusable, Serializable {
             observer.modelChanged(this);
         }
     }
-
-    /**
-	 * Deze methode wordt aangroepen door gebruikEigenschap()
-	 * de speler met het karakter koopman ontvangt 1 goudstuk
-	 */
-    public void ontvangenBonusGoud(Speler koopman) throws RemoteException {
-    	koopman.getPortemonnee().ontvangenGoud(1);
-    }
-
-	@Override
-	public Object getTarget() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
