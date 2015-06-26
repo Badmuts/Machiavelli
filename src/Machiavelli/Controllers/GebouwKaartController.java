@@ -13,6 +13,10 @@ import java.util.Iterator;
 
 /**
  * Created by badmuts on 14-6-15.
+ * 
+ * Deze Controllerklasse maakt de views van alle Gebouwkaarten aan. Ook worden
+ * interacties met de Gebouwkaarten afgehandeld. Zowel het bouwen als het 
+ * vernietigen van een gebouw wordt via deze Controller afgehandeld.
  */
 
 public class GebouwKaartController extends UnicastRemoteObject implements SpelerObserver {
@@ -65,6 +69,10 @@ public class GebouwKaartController extends UnicastRemoteObject implements Speler
         }
     }
 
+    /**
+     * In de ButtonHolderActionBarView is er op Bouwen gebouw geklikt.
+     * De geselecteerde kaart wordt doorgegeven aan de Speler klasse.
+     */
     public void cmdBouwGebouw() {
         try {
             Iterator<GebouwKaartRemote> iterator = this.activeCards.iterator();
@@ -81,8 +89,8 @@ public class GebouwKaartController extends UnicastRemoteObject implements Speler
     
     /**
      * Als er een gebouw geselecteerd is, wordt de gebruikEigenschap
-     * methode aangeroepen.
-     *
+     * methode aangeroepen. De geselecteerde kaart wordt doorgegeven aan
+     * de karakterinterface. 
      */
     public void cmdVernietigGebouw() {
     	System.out.println("vernietig gebouw");
