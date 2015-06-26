@@ -63,7 +63,7 @@ public class Spel implements SpelRemote, Serializable {
 		public SpelRemote ladenSpel() {
 				SpelRemote tempSpelRemote;
 				XStream xs = new XStream();
-				InputStream in = null;
+				InputStream in;
 				try {
 						in = new FileInputStream(System.getProperty("user.home") + "/machiavelli_save.xml");
 						tempSpelRemote = (SpelRemote) xs.fromXML(in);

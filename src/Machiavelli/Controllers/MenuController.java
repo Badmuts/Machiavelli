@@ -84,6 +84,8 @@ public class MenuController {
         try
         {
             SpelRemote spelStub = (SpelRemote)registry.lookup("Spel");
+            spelStub.createNewSpel(2);
+            spelStub.createNewSpeler();
             this.spelController = new SpelController(spelStub);
             spelStub = this.spelController.getSpeelveldController().cmdLaden();
             spelStub.createNewSpel(spelStub.getAantalSpelers());
