@@ -27,11 +27,11 @@ public class BeurtController extends UnicastRemoteObject {
   public void cmdGeefBeurt() {
     try {
           beurt.geefBeurt();
+          cmdShowInkomsten();
     } catch (RemoteException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    cmdShowInkomsten();
   }
   
   public void cmdShowInkomsten() {

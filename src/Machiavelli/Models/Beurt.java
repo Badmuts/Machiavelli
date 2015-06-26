@@ -30,26 +30,7 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
         this.spel = spel;
         this.spelerLijst = spelerLijst;
         this.speler = speler;
-    }
-
-    /**
-     * De speler de beurt geven aan het begin van een ronde om zijn karakter te kiezen.
-     * Nadat een speler een karakter heeft gekozen, moet de method de volgende speler laten kiezen.
-     * Nadat alle spelers gekozen zijn moet de geefBeurt method aangeroepen worden.
-     */
-    /*public void BeginRondeBeurt(SpelerRemote speler) throws RemoteException {
-      //TODO: Speler op plek 0 ophalen in de arraylist.
-   
-        this.speler = speler;
-        speler.getSpel().getSpelers().get(spelerNummer);
-        for(SpelerRemote spelerLijst: spel.getSpelers()) {
-          
-    	  spelerNummer++;
-    	  setSpeler(this.spelerLijst.set(spelerNummer, spelerLijst));
-    	}
-        this.karakterIndex = 1;
-    	geefBeurt(); 
-    } */
+    } 
     
     /**
      * De speler krijgt de beurt gebaseerd op de karakter nummer om zijn functies uit te voeren.
