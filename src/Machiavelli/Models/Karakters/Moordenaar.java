@@ -68,6 +68,7 @@ public class Moordenaar extends UnicastRemoteObject implements Karakter, Seriali
     	if (target != null) {
     		vermoordKarakter(this.getVermoordKarakter());
     		this.speler.setEigenschapGebruikt();
+    		target = null;
     	}
     	else {
     		//TODO: view aanroepen
