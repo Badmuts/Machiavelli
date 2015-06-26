@@ -77,6 +77,7 @@ public class Dief extends UnicastRemoteObject implements Karakter, Serializable 
     		BesteelKarakter(this.speler, getTarget());
     		this.speler.setEigenschapGebruikt(true);
     		System.out.println("De dief heeft de" + getTarget().getNaam() + " bestolen!");
+    		target = null; 
     		return true;
     	}
     	else {

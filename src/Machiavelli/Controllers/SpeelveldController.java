@@ -100,6 +100,7 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
     public void cmdGebruikEigenschap() {
         try {
         	//Als de gebruikeigenschap geen target heeft, open de kiesKarakterView.
+//        	boolean gebruikEigenschap = this.speler.getKarakter().gebruikEigenschap();
             if (!this.speler.getKarakter().gebruikEigenschap()) {
             	
             	//Speler = magier, kies speler view.

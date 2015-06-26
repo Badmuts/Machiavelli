@@ -28,13 +28,14 @@ public class Moordenaar extends UnicastRemoteObject implements Karakter, Seriali
 	public Moordenaar() throws RemoteException {
 	}
 	private SpelerRemote speler = null;
+	private Object target;
     
 	/** Eigenschappen van karakter Moordenaar. */
     private final int nummer = 1;	
     private final int bouwLimiet = 1; 
     private final String naam = "Moordenaar";
     private final Type type = Type.NORMAAL;
-    private Object target;
+    
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Moordenaar.png";
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
@@ -61,13 +62,13 @@ public class Moordenaar extends UnicastRemoteObject implements Karakter, Seriali
 	 * en een karakter vermoorden die vervolgens een beurt
 	 * overslaat.
 	 */
-    
     @Override
     public boolean gebruikEigenschap() throws RemoteException {
         // TODO: vermoord karakter
     	if (target != null) {
     		vermoordKarakter(this.getVermoordKarakter());
     		this.speler.setEigenschapGebruikt(true);
+    		target = null;
     	}
     	else {
     		//TODO: view aanroepen
@@ -88,11 +89,11 @@ public class Moordenaar extends UnicastRemoteObject implements Karakter, Seriali
     public Karakter getVermoordKarakter() throws RemoteException {
 		return (Karakter)target;
 	}
-
+    @Override
 	public String getNaam() throws RemoteException {
     	return this.naam;
     }
-   
+    @Override
     public int getNummer() throws RemoteException {
     	return this.nummer;
     }
@@ -101,7 +102,8 @@ public class Moordenaar extends UnicastRemoteObject implements Karakter, Seriali
     public int getBouwLimiet() throws RemoteException {
         return this.bouwLimiet;
     }
-
+    
+    @Override
     public Type getType() throws RemoteException {
 		return this.type;
 	}
@@ -122,6 +124,7 @@ public class Moordenaar extends UnicastRemoteObject implements Karakter, Seriali
             observer.modelChanged(this);
         }
     }
+    
 	@Override
 	public Object getTarget() throws RemoteException {
 		// TODO Auto-generated method stub

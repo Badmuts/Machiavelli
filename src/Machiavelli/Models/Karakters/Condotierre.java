@@ -39,6 +39,7 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
 	private final int bouwLimiet = 1; 
 	private final String naam = "Condotierre";
     private final Type type = Type.MILITAIR;
+    
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Condotierre.png";
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
@@ -63,46 +64,37 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
     	gebruikEigenschap();
     }
 
+    /**
+	 * De Condotierre selecteert eerst een gebouwkaart op het speelveld.
+	 * Daarna kan pas deze methode worden uitgevoerd. De geselecteerde 
+	 * gebouwkaart wordt uit de stad verwijderd. De gebruikEigenschap methode
+	 * kan per beurt maar één keer worden aangeroepen. Als de gebouwkaart in de
+	 * stad van de Prediker staat, kan deze niet worden verwijderd. 
+	 */
     @Override
-    public String getImage() throws RemoteException {
-        return this.image;
+    public boolean gebruikEigenschap() throws RemoteException {	
+		if (target.getStad().getSpeler().getKarakter().getNummer() != 5) {
+			if (this.target == null) {
+				return false;	
+			}
+			else {
+				vernietigGebouw(this.target.getStad(), getTarget());
+				this.speler.setEigenschapGebruikt(true);	
+			}
+		}
+		return true;
     }
     
     /**
-	 * overriden van de methode uit de interface Karakter
-	 * en aanroepen van de methode selectGebouwView
-	 * Er wordt gewacht op de keuze van de speler. 
-	 * Vervolgens wordt het het gekozen gebouw verwijderd 
-	 * uit de stad van de speler waarin dit gebouw gekozen is
-	 */
-    public boolean gebruikEigenschap() throws RemoteException {	
-    	//System.out.println(getTarget());
-		//if (target.getStad().getSpeler().getKarakter().getNummer != 5) {
-    	if (this.target == null) {
-    		return false;	
-    	}
-    	else {
-    		vernietigGebouw(this.target.getStad(), getTarget());
-    		this.speler.setEigenschapGebruikt(true);
-    		
-    	}
-    	return true;	
-			
-	
-
-				
-    }
-    
-    //Verwijder gebouw uit stad van een andere speler en verwijder de kosten
+   	 * De kosten voor het vernietigen gebouw worden uit de portemonnee gehaald en op de bank gezet.
+   	 * De gebouwkaart wordt teruggeplaatst in de GebouwFactory. 
+   	 */
     private void vernietigGebouw(StadRemote stad, GebouwKaartRemote target) throws RemoteException {
     	System.out.println("het target is " +  target);
     	speler.setGoudOpBank(speler.getPortemonnee(), target.getKosten()-1);
-		target.getStad().removeGebouw(target);
-		
+		target.getStad().removeGebouw(target);	
     }
     
-
-
     /** ontvangen bonusgoud voor militaire gebouwen */
     @Override
     public void ontvangenBonusGoud() {
@@ -119,35 +111,36 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
     		e.printStackTrace();
     	}
     }
-    /*
-    TODO: implement registerSelectGebouwView
-    public void registerSelectGebouwView(SelecteGebouwView selecteGebouwView) {
-        this.selectGebouwView = selectGebouwView;
-    } */
     
     @Override
     public int getBouwLimiet() throws RemoteException {
         return this.bouwLimiet;
     }
     
+    @Override
     public GebouwKaartRemote getTarget() throws RemoteException {
     	return target;
     }
-	
+    
+    @Override
 	public String getNaam() throws RemoteException {
     	return this.naam;
     }
-   
+    
+    @Override
     public int getNummer() throws RemoteException {
     	return this.nummer;
     }
-
+    
+    @Override
 	public Type getType() throws RemoteException {
 		return this.type;
 	}
-	
-	
-
+    
+    @Override
+    public String getImage() throws RemoteException {
+        return this.image;
+    }
     @Override
     public void addObserver(KarakterObserver observer) throws RemoteException {
         observers.add(observer);
@@ -159,6 +152,7 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
             observer.modelChanged(this);
         }
     }
+    
     public String toString() {
     	return "target: " + this.target;
     }

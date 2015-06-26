@@ -15,6 +15,7 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 /**
  * Created by daanrosbergen on 03/06/15.
  * Edited by Sander de Jong on 08/06/15.
+ * Edited by Bernd Oostrum
  * 
  * De speler heeft het karakter Prediker gekozen. 
  * De eigenschappen van dit karakter worden gebruikt
@@ -30,6 +31,7 @@ public class Prediker extends UnicastRemoteObject implements Karakter, Bonusable
 	}
 
 	private SpelerRemote speler = null;
+	private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
 
 	/** Eigenschappen van karakter Prediker. */
@@ -41,7 +43,7 @@ public class Prediker extends UnicastRemoteObject implements Karakter, Bonusable
 	private Object target;
     
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Prediker.png";
-    private ArrayList<KarakterObserver> observers = new ArrayList<>();
+   
 
     @Override
     public void setSpeler(SpelerRemote speler) throws RemoteException {
@@ -55,8 +57,7 @@ public class Prediker extends UnicastRemoteObject implements Karakter, Bonusable
 
     @Override
     public boolean gebruikEigenschap() throws RemoteException {
-        // TODO: beschermt tegen karakter Condotierre
-        return false;
+        return true;
     }
     
     /** ontvangen bonusgoud voor Kerk gebouwen */
