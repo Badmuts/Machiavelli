@@ -178,8 +178,8 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
     	return eigenschapGebruikt;
     }
     
-    public void setEigenschapGebruikt() throws RemoteException {
-    	this.eigenschapGebruikt = true;
+    public void setEigenschapGebruikt(boolean eigenschapGebruikt) throws RemoteException {
+    	this.eigenschapGebruikt = eigenschapGebruikt;
     	
     }
 }

@@ -36,6 +36,6 @@ public interface SpelerRemote extends Remote {
     public int getGebouwdeGebouwen() throws RemoteException;
     public void setGebouwdeGebouwen(int gebouwdeGebouwen) throws RemoteException;
     public boolean EigenschapGebruikt() throws RemoteException;
-    public void setEigenschapGebruikt() throws RemoteException;
+    public void setEigenschapGebruikt(boolean eigenschapGebruikt) throws RemoteException;
 
 }

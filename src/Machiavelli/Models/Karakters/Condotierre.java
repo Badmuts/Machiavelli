@@ -83,7 +83,7 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
     	}
     	else {
     		vernietigGebouw(this.target.getStad(), getTarget());
-    		this.speler.setEigenschapGebruikt();
+    		this.speler.setEigenschapGebruikt(true);
     		
     	}
     	return true;	

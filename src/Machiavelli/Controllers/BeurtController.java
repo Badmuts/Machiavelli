@@ -31,7 +31,6 @@ public class BeurtController extends UnicastRemoteObject {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    cmdShowInkomsten();
       
   }
   

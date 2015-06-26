@@ -58,7 +58,7 @@ public class Bouwmeester implements Karakter, Serializable {
         //TODO: 2 of 3 kaarten plaatsen in stad
     	try {
 			this.speler.getHand().addGebouwen(this.speler.trekkenKaart(2));
-			this.speler.setEigenschapGebruikt();
+			this.speler.setEigenschapGebruikt(true);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

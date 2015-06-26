@@ -22,7 +22,6 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
     private ArrayList<BeurtObserver> observers = new ArrayList<>();
    //private KarakterController karaktercontroller;
     private int observerIndex;
-    private int resetgebouwaantal;
     private int karakterIndex;
     //private int spelerNummer = 0;
 
@@ -65,11 +64,10 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
       //Als einde beurt knop wordt gedrukt, wordt de observerindex verhoogt.
       this.speler = this.getSpelerLijst().get(observerIndex);
       this.speler.setGebouwdeGebouwen(0);
-      nextBeurtObserver();
-      this.speler = this.getSpelerLijst().get(observerIndex);
+      this.speler.setEigenschapGebruikt(false);
+      nextBeurtObserver();   
       notifyObservers();
-      
-      
+   
     }
     
     public SpelerRemote getSpeler() throws RemoteException

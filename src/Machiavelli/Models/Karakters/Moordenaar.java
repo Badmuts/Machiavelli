@@ -64,7 +64,7 @@ public class Moordenaar implements Karakter, Serializable {
         // TODO: vermoord karakter
     	if (target != null) {
     		vermoordKarakter(this.getVermoordKarakter());
-    		this.speler.setEigenschapGebruikt();
+    		this.speler.setEigenschapGebruikt(true);
     	}
     	else {
     		//TODO: view aanroepen

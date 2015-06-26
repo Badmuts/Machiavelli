@@ -73,7 +73,7 @@ public class Dief implements Karakter, Serializable {
     public boolean gebruikEigenschap() throws RemoteException {
     	if (target != null && target.getNaam() != "Moordenaar") {
     		BesteelKarakter(this.speler, getTarget());
-    		this.speler.setEigenschapGebruikt();
+    		this.speler.setEigenschapGebruikt(true);
     		System.out.println("De dief heeft de" + getTarget().getNaam() + " bestolen!");
     		return true;
     	}
