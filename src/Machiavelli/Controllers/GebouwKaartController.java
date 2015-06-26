@@ -14,6 +14,7 @@ import java.util.Iterator;
 /**
  * Created by badmuts on 14-6-15.
  */
+
 public class GebouwKaartController extends UnicastRemoteObject implements SpelerObserver {
     private SpelRemote spel;
     private SpelerRemote speler;
@@ -78,6 +79,11 @@ public class GebouwKaartController extends UnicastRemoteObject implements Speler
         }
     }
     
+    /**
+     * Als er een gebouw geselecteerd is, wordt de gebruikEigenschap
+     * methode aangeroepen.
+     *
+     */
     public void cmdVernietigGebouw() {
     	System.out.println("vernietig gebouw");
     	try {
@@ -85,9 +91,7 @@ public class GebouwKaartController extends UnicastRemoteObject implements Speler
     		
     		while (iterator.hasNext()) {
     			GebouwKaartRemote target = iterator.next();
-    			System.out.println(target);
     			this.speler.getKarakter().setTarget(target);
-    			;
         		this.activeCards.remove(target);
         		iterator.remove();
 			}
@@ -98,7 +102,6 @@ public class GebouwKaartController extends UnicastRemoteObject implements Speler
 			}		
     	}
     
-
     @Override
     public void modelChanged(SpelerRemote speler) throws RemoteException {
         this.speler = speler;
