@@ -13,24 +13,33 @@ public class BeurtController extends UnicastRemoteObject {
   private SpelerRemote speler;
   private InkomstenController inkomstenController;
 
+
   public BeurtController(BeurtRemote beurt, SpelRemote spel, SpelerRemote speler) throws RemoteException {
     this.spel = spel;
     this.beurt = beurt;
     this.speler = speler;
   }
 
-  /*
-   * public void cmdBeginRondeBeurt() throws RemoteException { beurt.BeginRondeBeurt(); }
+  /**
+   * Deze method roept de geefbeurt method aan in het BeurtModel.
+   * 
    */
   public void cmdGeefBeurt() {
     try {
-      beurt.geefBeurt();
+          beurt.geefBeurt();
     } catch (RemoteException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
+    cmdShowInkomsten();
+      
+  }
+  
+  public void cmdKiesKarakterRonde() {
+    KarakterController karakterController;
     try {
-      beurt.notifyObservers();
+      karakterController = new KarakterController(this.speler, "ronde");
+      karakterController.show();       
     } catch (RemoteException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

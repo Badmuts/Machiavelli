@@ -28,7 +28,6 @@ public class SpelController extends UnicastRemoteObject {
             this.gebouwKaartController = new GebouwKaartController(this.spel, this.speler);
             // Start nieuwe SpeelveldController
             new SpeelveldController(this.spel, speler, this.gebouwKaartController, this.beurt);
-            //start beurt
             
         } catch (Exception re) {
             re.printStackTrace();

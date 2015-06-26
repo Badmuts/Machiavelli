@@ -34,6 +34,7 @@ public interface SpelerRemote extends Remote {
     // Trekken van twee kaarten uit de stapel
     public ArrayList<GebouwKaartRemote> trekkenKaart() throws RemoteException;
     public int getGebouwdeGebouwen() throws RemoteException;
+    public void setGebouwdeGebouwen(int gebouwdeGebouwen) throws RemoteException;
     public boolean EigenschapGebruikt() throws RemoteException;
     public void setEigenschapGebruikt() throws RemoteException;
 

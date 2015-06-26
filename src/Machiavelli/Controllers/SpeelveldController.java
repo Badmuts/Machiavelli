@@ -11,10 +11,6 @@ import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speelveld;
 import Machiavelli.Views.SpeelveldView;
-import javafx.application.Platform;
-
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
 /**
  * 
@@ -44,9 +40,7 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
         this.speelveld.addSpeler(speler);
         this.gebouwKaartController = gebouwKaartController;
         this.beurtController = new BeurtController(this.beurt,this.spel, this.speler);
-
         this.speelveldview = new SpeelveldView(this, this.speelveld, this.gebouwKaartController, this.speler, this.beurtController);
-        
 //		speelveldview.getSpelregels().setOnAction((event) ->
 //		{
 //			RaadplegenSpelregelsController spelregelscontroller = new RaadplegenSpelregelsController();
@@ -131,26 +125,27 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
     
     @Override
     public void modelChanged(SpelRemote spel) throws RemoteException {
         this.spel = spel;
+
         Platform.runLater(() -> {
         try {
           if (this.spel.getMaxAantalSpelers() == this.spel.getAantalSpelers()) {
               this.meldingController.cmdSluitMeldingView();
-              for(SpelerRemote speler: spel.getSpelers()){
-              KarakterController karakterController = new KarakterController(this.speler, "ronde");
-              karakterController.show();
-              }
+              this.beurtController.cmdKiesKarakterRonde();
           } else {
               this.meldingController.build("Wachten op spelers: " + this.spel.getAantalSpelers() + "/" + this.spel.getMaxAantalSpelers());
           }
         } catch (Exception e) {
           // TODO Auto-generated catch block
           e.printStackTrace();
-        }});
+        } 
+
+        });
         System.out.println("SpeelveldController: Spel model changed!");
         System.out.println("Aantal spelers: " + this.spel.getAantalSpelers());
     }

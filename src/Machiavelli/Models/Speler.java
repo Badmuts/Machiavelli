@@ -170,6 +170,10 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
         return gebouwdeGebouwen;
     }
     
+    public void setGebouwdeGebouwen(int gebouwdeGebouwen) {
+      this.gebouwdeGebouwen = gebouwdeGebouwen;
+    }
+    
     public boolean EigenschapGebruikt() throws RemoteException {
     	return eigenschapGebruikt;
     }

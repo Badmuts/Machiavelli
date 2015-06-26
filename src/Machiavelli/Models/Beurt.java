@@ -63,10 +63,11 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
       // TODO: Karakter Toewijzen aan begin 
       //Die speler de beurt geven en wachten tot hij op einde beurt knop drukt
       //Als einde beurt knop wordt gedrukt, wordt de observerindex verhoogt.
-      this.resetgebouwaantal = 0;
-      this.resetgebouwaantal = speler.getGebouwdeGebouwen();
+      this.speler = this.getSpelerLijst().get(observerIndex);
+      this.speler.setGebouwdeGebouwen(0);
       nextBeurtObserver();
-      this.getSpelerLijst().set(observerIndex, speler);
+      this.speler = this.getSpelerLijst().get(observerIndex);
+      notifyObservers();
       
       
     }

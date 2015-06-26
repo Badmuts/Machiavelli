@@ -1,5 +1,6 @@
 package Machiavelli.Models;
 
+import Machiavelli.Controllers.KarakterController;
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Observers.SpelObserver;
@@ -100,11 +101,10 @@ public class Spel implements SpelRemote, Serializable {
 	public void createNewSpeler() throws RemoteException{
 		SpelerRemote speler = new Speler();
         speler.addSpel(this);
-
-        speler.setKarakter(new Condotierre()); // TESTING ONLY
-        speler.getKarakter().setSpeler(speler); // TESTING ONLY
 		this.spelers.add(speler);
 		this.speler = speler;
+        speler.setKarakter(new Magier()); // TESTING ONLY
+        speler.getKarakter().setSpeler(speler); // TESTING ONLY
 		this.beurt.setSpeler(speler);
 		notifyObservers();
 	}
