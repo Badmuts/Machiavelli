@@ -2,6 +2,7 @@ package Machiavelli.Views;
 
 import Machiavelli.Controllers.MenuController;
 import Machiavelli.Machiavelli;
+import javafx.scene.CacheHint;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
@@ -112,6 +113,14 @@ public class MainMenuView {
 
         container1.getStylesheets().add("Machiavelli/Resources/style.css");
         container2.getStylesheets().add("Machiavelli/Resources/style.css");
+
+        container1.setCache(true);
+        container1.setCacheShape(true);
+        container1.setCacheHint(CacheHint.SPEED);
+
+        container2.setCache(true);
+        container2.setCacheShape(true);
+        container2.setCacheHint(CacheHint.SPEED);
 
         //Instellen wat er weergeven moet worden
         mainSelect = new Scene(container2, 1440, 900);

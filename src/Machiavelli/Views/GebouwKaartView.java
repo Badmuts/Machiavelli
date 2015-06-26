@@ -3,6 +3,11 @@ package Machiavelli.Views;
 import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.scene.CacheHint;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -12,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -30,20 +36,35 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         this.gebouwKaartView = new StackPane();
         this.gebouwKaartView.getChildren().addAll(createImageView(), createScoreView(), createNameField());
         this.gebouwKaartView.setPrefSize(150, 250);
+        this.gebouwKaartView.setCache(true);
+        this.gebouwKaartView.setCacheShape(true);
+        this.gebouwKaartView.setCacheHint(CacheHint.SPEED);
         this.addClickHandler();
     }
 
     private void addClickHandler() {
         this.gebouwKaartView.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            StackPane view = (StackPane)event.getSource();
+            StackPane view = (StackPane) event.getSource();
             if (view.getStyleClass().contains("gebouwkaart-active")) {
                 // Gebouwkaart is gedeselecteerd
                 view.getStyleClass().remove("gebouwkaart-active");
                 this.gebouwKaartController.removeActiveCard(this.gebouwKaart);
+                final Timeline timeline = new Timeline();
+                timeline.setAutoReverse(true);
+                final KeyValue kv = new KeyValue(view.layoutYProperty(), 0, Interpolator.EASE_IN);
+                final KeyFrame kf = new KeyFrame(Duration.millis(125), kv);
+                timeline.getKeyFrames().add(kf);
+                timeline.play();
             } else {
                 // Gebouwkaart is geselecteerd
                 view.getStyleClass().add("gebouwkaart-active");
                 this.gebouwKaartController.setActiveCard(this.gebouwKaart);
+                final Timeline timeline = new Timeline();
+                timeline.setAutoReverse(true);
+                final KeyValue kv = new KeyValue(view.layoutYProperty(), -75, Interpolator.EASE_IN);
+                final KeyFrame kf = new KeyFrame(Duration.millis(125), kv);
+                timeline.getKeyFrames().add(kf);
+                timeline.play();
             }
         });
     }
