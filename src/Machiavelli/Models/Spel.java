@@ -50,11 +50,26 @@ public class Spel implements SpelRemote, Serializable {
 	}
 
 		public void opslaanSpel() {
-
+				try {
+						FileOutputStream saveFile = new FileOutputStream(createSaveLocation() + "/machiavelli.sav");
+						ObjectOutputStream save = new ObjectOutputStream(saveFile);
+						save.writeObject(this);
+						save.close();
+				} catch (Exception e) {
+						e.printStackTrace();
+				}
 		}
 
-		public void ladenSpel() {
-
+		public Spel ladenSpel() {
+				try {
+						FileInputStream saveFile = new FileInputStream(System.getProperty("user.home") + "/machiavelli.sav");
+						ObjectInputStream restore = new ObjectInputStream(saveFile);
+						return (Spel)restore.readObject();
+				} catch (Exception e) {
+						e.printStackTrace();
+				}
+				System.out.println("error: heeft niks geladen!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				return null;
 		}
 
 		public File createSaveLocation()

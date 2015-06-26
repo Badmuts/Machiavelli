@@ -81,7 +81,7 @@ public class MenuController {
      */
     public void cmdHervattenSpel() {
         // Spel inladen vanuit default locatie.
-       
+
     }
 
     /**
