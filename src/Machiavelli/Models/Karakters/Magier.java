@@ -39,7 +39,6 @@ public class Magier extends UnicastRemoteObject implements Karakter, Serializabl
 
     private SpelerRemote speler  = null;
     private Object target = null;
-    private ArrayList<GebouwKaartRemote> ruilLijst = new ArrayList<>();
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Magier.png";
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
@@ -164,38 +163,10 @@ public class Magier extends UnicastRemoteObject implements Karakter, Serializabl
             observer.modelChanged(this);
         }
     }
-    
-//    // Ruil alle bouwkaarten met alle bouwkaarten van een ander speler/karakter??
-//    private void ruilMetKarakter(SpelerRemote target, SpelerRemote magier) throws RemoteException {
-//        ArrayList<GebouwKaartRemote> handTarget = target.getHand().getKaartenLijst();
-//        ArrayList<GebouwKaartRemote> magierHand = magier.getHand().getKaartenLijst();
-//        target.getHand().setKaartenLijst(magierHand);
-//        magier.getHand().setKaartenLijst(handTarget);
-//    }
-
-    // Leg een x aantal kaarten af op de stapel en pak een gelijk aantal nieuwe kaarten
-//    private void ruilMetStapel(HandRemote hand, ArrayList<GebouwKaartRemote> ruilLijst) throws RemoteException {
-//        // Afleggen en tellen gebouwkaarten.
-//        int count = 0;
-//        for (int i = 0; i < ruilLijst.size(); i++) {
-//            hand.removeGebouw(ruilLijst.get(i));
-//            count ++;
-//        }
-//
-//        // Trek nieuwe kaarten. Misschien functie maken die een lijst van gebouwen aan hand kan toevoegen?
-//        ArrayList<GebouwKaartRemote> tempList = hand.getSpeler().trekkenKaart(count);
-//        for (int i = 0; i < tempList.size(); i++) {
-//            hand.addGebouw(tempList.get(i));
-//        }
-//    }
 
     public void beurtOverslaan() throws RemoteException {}
 
     public Object getTarget() throws RemoteException {
         return target;
     }
-
-//    public void setRuilLijst(ArrayList<GebouwKaartRemote> ruilLijst) throws RemoteException {
-//        this.ruilLijst = ruilLijst;
-//    }
 }

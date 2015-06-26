@@ -27,7 +27,9 @@ import java.util.ArrayList;
  */
 public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
 
-	public Condotierre() throws RemoteException {
+    private boolean isBonusable = true;
+
+    public Condotierre() throws RemoteException {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -68,7 +70,7 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
 	 * De Condotierre selecteert eerst een gebouwkaart op het speelveld.
 	 * Daarna kan pas deze methode worden uitgevoerd. De geselecteerde 
 	 * gebouwkaart wordt uit de stad verwijderd. De gebruikEigenschap methode
-	 * kan per beurt maar één keer worden aangeroepen. Als de gebouwkaart in de
+	 * kan per beurt maar ï¿½ï¿½n keer worden aangeroepen. Als de gebouwkaart in de
 	 * stad van de Prediker staat, kan deze niet worden verwijderd. 
 	 */
     @Override
@@ -97,19 +99,17 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
     
     /** ontvangen bonusgoud voor militaire gebouwen */
     @Override
-    public void ontvangenBonusGoud() {
-    	try
-    	{
-	        ArrayList<GebouwKaartRemote> gebouwen = speler.getStad().getGebouwen();
-	        for(GebouwKaartRemote gebouw: gebouwen) {
-	            if (gebouw.getType() == this.type)
-	                speler.getPortemonnee().ontvangenGoud(1);
-	        }
-    	}
-    	catch(RemoteException e)
-    	{
-    		e.printStackTrace();
-    	}
+    public void ontvangenBonusGoud() throws RemoteException {
+        if (isBonusable) {
+            ArrayList<GebouwKaartRemote> gebouwen = speler.getStad().getGebouwen();
+            for (GebouwKaartRemote gebouw : gebouwen) {
+                if (gebouw.getType() == this.type) {
+                    speler.getPortemonnee().ontvangenGoud(1);
+                }
+            }
+            this.isBonusable = false;
+            notifyObservers();
+        }
     }
     
     @Override
@@ -157,4 +157,8 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
     	return "target: " + this.target;
     }
 
+    @Override
+    public boolean isBonusable() throws RemoteException {
+        return isBonusable;
+    }
 }

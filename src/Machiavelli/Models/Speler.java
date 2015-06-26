@@ -1,6 +1,5 @@
 package Machiavelli.Models;
 
-import Machiavelli.Controllers.BeurtController;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelerObserver;
 import Machiavelli.Interfaces.Remotes.*;
@@ -180,6 +179,6 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
     
     public void setEigenschapGebruikt(boolean eigenschapGebruikt) throws RemoteException {
     	this.eigenschapGebruikt = eigenschapGebruikt;
-    	
+    	notifyObservers();
     }
 }

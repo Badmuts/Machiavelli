@@ -1,16 +1,16 @@
 package Machiavelli.Models.Karakters;
 
-import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
+
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 /**
  * Created by daanrosbergen on 03/06/15.
@@ -25,9 +25,11 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
  * verwijderd.
  */
 public class Prediker extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
-	
 
-	public Prediker() throws RemoteException {
+
+    private boolean isBonusable = true;
+
+    public Prediker() throws RemoteException {
 	}
 
 	private SpelerRemote speler = null;
@@ -63,12 +65,17 @@ public class Prediker extends UnicastRemoteObject implements Karakter, Bonusable
     /** ontvangen bonusgoud voor Kerk gebouwen */
     @Override
     public void ontvangenBonusGoud() throws RemoteException {
-        ArrayList<GebouwKaartRemote> gebouwen = speler.getStad().getGebouwen();
-        for(GebouwKaartRemote gebouw: gebouwen) {
-            if (gebouw.getType() == this.type)
-                speler.getPortemonnee().ontvangenGoud(1);
+        if (isBonusable) {
+            ArrayList<GebouwKaartRemote> gebouwen = speler.getStad().getGebouwen();
+            for (GebouwKaartRemote gebouw : gebouwen) {
+                if (gebouw.getType() == this.type)
+                    speler.getPortemonnee().ontvangenGoud(1);
+            }
+            this.isBonusable = false;
+            notifyObservers();
         }
     }
+
     @Override
     public String getNaam() throws RemoteException {
     	return this.naam;
@@ -116,4 +123,9 @@ public class Prediker extends UnicastRemoteObject implements Karakter, Bonusable
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    @Override
+    public boolean isBonusable() throws RemoteException {
+        return isBonusable;
+    }
 }

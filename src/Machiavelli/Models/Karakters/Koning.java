@@ -25,8 +25,10 @@ import java.util.ArrayList;
  * in zijn stad.
  */
 public class Koning extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
-	
-	public Koning() throws RemoteException {
+
+    private boolean isBonusable = true;
+
+    public Koning() throws RemoteException {
 	}
 
 	private SpelerRemote speler = null;
@@ -67,15 +69,15 @@ public class Koning extends UnicastRemoteObject implements Karakter, Bonusable, 
     /*ontvangen bonusgoud voor monument gebouwen*/
     @Override
     public void ontvangenBonusGoud() throws RemoteException {
-        try {
+        if (isBonusable) {
             ArrayList<GebouwKaartRemote> gebouwen = speler.getStad().getGebouwen();
-            for(GebouwKaartRemote gebouw: gebouwen) {
+            for (GebouwKaartRemote gebouw : gebouwen) {
                 if (gebouw.getType() == this.type) {
                     speler.getPortemonnee().ontvangenGoud(1);
                 }
             }
-        } catch (RemoteException re) {
-            System.out.print(re);
+            this.isBonusable = false;
+            notifyObservers();
         }
     }
     
@@ -125,5 +127,8 @@ public class Koning extends UnicastRemoteObject implements Karakter, Bonusable, 
 		return null;
 	}
 
-
+    @Override
+    public boolean isBonusable() throws RemoteException {
+        return isBonusable;
+    }
 }

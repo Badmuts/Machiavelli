@@ -1,20 +1,14 @@
 package Machiavelli.Controllers;
 
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-
-
-
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Views.KiesKarakterView;
 import Machiavelli.Views.MagierKeuzeView;
 
-
-
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 
@@ -113,6 +107,7 @@ public class KarakterController extends UnicastRemoteObject {
         	Karakter gekozenKarakter = karakterFactory.getKarakterByNumber(karakter.getNummer());
         	
         	this.speler.setKarakter(gekozenKarakter);
+            gekozenKarakter.setSpeler(this.speler);
         	
         	this.karakterView.close();
         	new MeldingController().build("Je bent deze ronde een " + gekozenKarakter.getNaam()).cmdWeergeefMeldingView();

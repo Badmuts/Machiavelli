@@ -28,5 +28,6 @@ import java.rmi.RemoteException;
 public interface Bonusable extends Remote {
 
     void ontvangenBonusGoud() throws RemoteException;
+    boolean isBonusable() throws RemoteException;
 
 }

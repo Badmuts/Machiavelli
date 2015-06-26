@@ -9,6 +9,7 @@ import Machiavelli.Interfaces.Remotes.StadRemote;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.CacheHint;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -42,6 +43,10 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
 
         this.stad.addObserver(this);
         this.speler.addObserver(this);
+
+        this.pane.setCache(true);
+        this.pane.setCacheShape(true);
+        this.pane.setCacheHint(CacheHint.SPEED);
 
         this.buildGebouwKaartViewArray();
         this.createSpelerPortrait();
@@ -167,14 +172,10 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
     public void modelChanged(StadRemote stad) throws RemoteException {
         Platform.runLater(() -> {
             try {
-                System.out.println("Stad view changed!");
                 this.stad = stad;
                 this.pane.getChildren().clear();
                 this.gebouwKaartViews.clear();
                 this.buildGebouwKaartViewArray();
-                this.createSpelerPortrait();
-                this.createSpelerPortraitNumber();
-                this.createNameField();
                 this.createStad();
                 this.pane.getChildren().addAll(portretPane, namePane, stadPane);
                 StackPane.setAlignment(portretPane, Pos.TOP_CENTER);
@@ -192,7 +193,27 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
             //if you change the UI, do it here !
             this.speler = speler;
             this.pane.getChildren().clear();
+            this.createSpelerPortrait();
+            this.createSpelerPortraitNumber();
+            this.createNameField();
             this.pane.getChildren().addAll(portretPane, namePane, stadPane);
+            StackPane.setAlignment(portretPane, Pos.TOP_CENTER);
+            StackPane.setAlignment(namePane, Pos.CENTER);
+            StackPane.setAlignment(stadPane, Pos.BOTTOM_CENTER);
         });
     }
+
+//    private void updateView() throws RemoteException {
+//        this.pane.getChildren().clear();
+//        this.gebouwKaartViews.clear();
+//        this.buildGebouwKaartViewArray();
+//        this.createSpelerPortrait();
+//        this.createSpelerPortraitNumber();
+//        this.createNameField();
+//        this.createStad();
+//        this.pane.getChildren().addAll(portretPane, namePane, stadPane);
+//        StackPane.setAlignment(portretPane, Pos.TOP_CENTER);
+//        StackPane.setAlignment(namePane, Pos.CENTER);
+//        StackPane.setAlignment(stadPane, Pos.BOTTOM_CENTER);
+//    }
 }

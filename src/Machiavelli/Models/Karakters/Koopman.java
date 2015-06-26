@@ -1,17 +1,16 @@
 package Machiavelli.Models.Karakters;
 
-import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.Speler;
+
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -40,6 +39,7 @@ public class Koopman extends UnicastRemoteObject implements Karakter, Bonusable,
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Koopman.png";
 
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
+    private boolean isBonusable = true;
 
     /**
 	 * Overriden van de methode uit de interface Karakter,
@@ -62,8 +62,11 @@ public class Koopman extends UnicastRemoteObject implements Karakter, Bonusable,
 	@Override
     public boolean gebruikEigenschap() throws RemoteException {
 		try {
-            ontvangenBonusGoud();
-            this.speler.setEigenschapGebruikt(true);
+            if (!this.speler.EigenschapGebruikt()) {
+                ontvangenBonusGoud(this.speler);
+                this.speler.setEigenschapGebruikt(true);
+                return true;
+            }
         } catch (RemoteException re) {
             System.out.print(re);
         }
@@ -74,22 +77,25 @@ public class Koopman extends UnicastRemoteObject implements Karakter, Bonusable,
    	 * Deze methode wordt aangroepen door gebruikEigenschap()
    	 * de speler met het karakter koopman ontvangt 1 goudstuk
    	 */
-    public void ontvangenBonusGoud(Speler koopman) throws RemoteException {
+    public void ontvangenBonusGoud(SpelerRemote koopman) throws RemoteException {
         koopman.getPortemonnee().ontvangenGoud(1);
     }
     
 	/** ontvangen bonusgoud voor commerciele gebouwen */
     @Override
     public void ontvangenBonusGoud() throws RemoteException {
-        ArrayList<GebouwKaartRemote> gebouwen = speler.getStad().getGebouwen();
-        for (GebouwKaartRemote gebouw : gebouwen) {
-            if (gebouw.getType() == this.type) {
-                speler.getPortemonnee().ontvangenGoud(1);
+        if (isBonusable) {
+            ArrayList<GebouwKaartRemote> gebouwen = speler.getStad().getGebouwen();
+            for (GebouwKaartRemote gebouw : gebouwen) {
+                if (gebouw.getType() == this.type) {
+                    speler.getPortemonnee().ontvangenGoud(1);
+                }
             }
+            this.isBonusable = false;
+            notifyObservers();
         }
     }
-    
-    
+
     @Override
     public String getNaam() throws RemoteException {
     	return this.naam;
@@ -134,5 +140,10 @@ public class Koopman extends UnicastRemoteObject implements Karakter, Bonusable,
         for (KarakterObserver observer: observers) {
             observer.modelChanged(this);
         }
+    }
+
+    @Override
+    public boolean isBonusable() throws RemoteException {
+        return isBonusable;
     }
 }
