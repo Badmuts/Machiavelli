@@ -56,7 +56,7 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
     public void cmdOpslaan(){
         try
         {
-            this.spel.opslaanSpel(this.spel);
+            this.spel.opslaanSpel();
             new MeldingController().build("Spel is opgeslagen!").cmdWeergeefMeldingView();
         }
         catch (Exception ex)
@@ -66,7 +66,9 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
     }
 
     public SpelRemote cmdLaden() throws RemoteException {
-        return this.spel.ladenSpel();
+        System.out.println("dit is een test van sander");
+        SpelRemote s = this.spel.ladenSpel();
+        return s;
     }
 
     public void cmdBonusGoud() {

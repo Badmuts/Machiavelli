@@ -81,22 +81,7 @@ public class MenuController {
      */
     public void cmdHervattenSpel() {
         // Spel inladen vanuit default locatie.
-        try
-        {
-            SpelRemote spelStub = (SpelRemote)registry.lookup("Spel");
-            spelStub.createNewSpel(2);
-            spelStub.createNewSpeler();
-            this.spelController = new SpelController(spelStub);
-            spelStub = this.spelController.getSpeelveldController().cmdLaden();
-            spelStub.createNewSpel(spelStub.getAantalSpelers());
-            spelStub.createNewSpeler();
-            this.spelController = new SpelController(spelStub);
-            System.out.println("Spel moet nu geladen zijn.. Wachten op spelers.");
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
+       
     }
 
     /**

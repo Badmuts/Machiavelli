@@ -30,6 +30,6 @@ public interface SpelRemote extends Remote {
     void createNewSpeler() throws RemoteException;
     KarakterFactory getKarakterFactory() throws RemoteException;
     void opslaanSpel() throws RemoteException;
-    SpelRemote ladenSpel() throws RemoteException;
+    void ladenSpel() throws RemoteException;
     File createSaveLocation() throws RemoteException;
 }
