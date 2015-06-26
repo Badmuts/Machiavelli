@@ -65,8 +65,8 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
         }
     }
 
-    public void cmdLaden() throws RemoteException {
-        this.spel.ladenSpel();
+    public SpelRemote cmdLaden() throws RemoteException {
+        return this.spel.ladenSpel();
     }
 
     public void cmdBonusGoud() {

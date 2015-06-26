@@ -84,6 +84,11 @@ public class MenuController {
         try
         {
             SpelRemote spelStub = (SpelRemote)registry.lookup("Spel");
+            this.spelController = new SpelController(spelStub);
+            spelStub = this.spelController.getSpeelveldController().cmdLaden();
+            spelStub.createNewSpel(spelStub.getAantalSpelers());
+            spelStub.createNewSpeler();
+            this.spelController = new SpelController(spelStub);
             System.out.println("Spel moet nu geladen zijn.. Wachten op spelers.");
         }
         catch(Exception ex)
