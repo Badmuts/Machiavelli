@@ -8,8 +8,6 @@ import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Karakters.Prediker;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import java.io.*;
 import java.rmi.RemoteException;
@@ -49,40 +47,7 @@ public class Spel implements SpelRemote, Serializable {
 		return this.karakterFactory;
 	}
 
-		public void opslaanSpel() {
-				try {
-						FileOutputStream saveFile = new FileOutputStream(createSaveLocation() + "/machiavelli.sav");
-						ObjectOutputStream save = new ObjectOutputStream(saveFile);
-						save.writeObject(this);
-						save.close();
-				} catch (Exception e) {
-						e.printStackTrace();
-				}
-		}
-
-		public Spel ladenSpel() {
-				try {
-						FileInputStream saveFile = new FileInputStream(System.getProperty("user.home") + "/machiavelli.sav");
-						ObjectInputStream restore = new ObjectInputStream(saveFile);
-						return (Spel)restore.readObject();
-				} catch (Exception e) {
-						e.printStackTrace();
-				}
-				System.out.println("error: heeft niks geladen!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-				return null;
-		}
-
-		public File createSaveLocation()
-		{
-				File file = new File(System.getProperty("user.home") + "/machiavelli/");
-				if (!file.exists()){
-						file.mkdir();
-				}
-
-				return file;
-		}
-
-		public int getAantalSpelers() throws RemoteException {
+	public int getAantalSpelers() throws RemoteException {
 		return spelers.size();
 	}
 
@@ -126,5 +91,25 @@ public class Spel implements SpelRemote, Serializable {
         speler.getKarakter().setSpeler(speler); // TESTING ONLY
 		this.spelers.add(speler);
 		notifyObservers();
+	}
+
+	public void setMaxAantalSpelers(int maxAantalSpelers) {
+		this.maxAantalSpelers = maxAantalSpelers;
+	}
+
+	public void setBank(BankRemote bank) {
+		this.bank = bank;
+	}
+
+	public void setGebouwFactory(GebouwFactoryRemote gebouwFactory) {
+		this.gebouwFactory = gebouwFactory;
+	}
+
+	public void setKarakterFactory(KarakterFactory karakterFactory) {
+		this.karakterFactory = karakterFactory;
+	}
+
+	public void setSpelers(ArrayList<SpelerRemote> spelers) {
+		this.spelers = spelers;
 	}
 }

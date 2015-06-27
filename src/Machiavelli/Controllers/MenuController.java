@@ -1,12 +1,20 @@
 package Machiavelli.Controllers;
 
+import Machiavelli.Factories.KarakterFactory;
+import Machiavelli.Interfaces.Remotes.BankRemote;
+import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Machiavelli;
+import Machiavelli.Models.Speelveld;
 import Machiavelli.Models.Spel;
 import Machiavelli.Views.InvullenSpelersView;
 import Machiavelli.Views.MainMenuView;
 
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 
 public class MenuController {
 
@@ -14,6 +22,7 @@ public class MenuController {
     private InvullenSpelersView invullenspeler;
     private SpelController spelController;
     private Registry registry;
+    private Speelveld speelveld;
 
     /**
      * Maakt de MainMenuView aan en koppelt de buttons aan cmd's
@@ -81,7 +90,20 @@ public class MenuController {
      */
     public void cmdHervattenSpel() {
         // Spel inladen vanuit default locatie.
-
+        try {
+            ArrayList<Object> tempList = this.speelveld.ladenSpel();
+            SpelRemote spelStub = (SpelRemote)this.registry.lookup("Spel");
+            spelStub.setSpelers((ArrayList<SpelerRemote>) tempList.get(0));
+            spelStub.setBank((BankRemote) tempList.get(1));
+            spelStub.setGebouwFactory((GebouwFactoryRemote) tempList.get(2));
+            spelStub.setKarakterFactory((KarakterFactory) tempList.get(3));
+            spelStub.setMaxAantalSpelers((int) tempList.get(4));
+            spelStub.createNewSpel(spelStub.getMaxAantalSpelers());
+            spelStub.createNewSpeler();
+            this.spelController = new SpelController(spelStub);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

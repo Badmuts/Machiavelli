@@ -30,7 +30,13 @@ public interface SpelRemote extends Remote {
     GebouwFactoryRemote getGebouwFactory() throws RemoteException;
     void createNewSpeler() throws RemoteException;
     KarakterFactory getKarakterFactory() throws RemoteException;
-    void opslaanSpel() throws RemoteException;
-    Spel ladenSpel() throws RemoteException;
-    File createSaveLocation() throws RemoteException;
+    void setMaxAantalSpelers(int maxAantalSpelers) throws RemoteException;
+
+    void setBank(BankRemote bank) throws RemoteException;
+
+    void setGebouwFactory(GebouwFactoryRemote gebouwFactory) throws RemoteException;
+
+    void setKarakterFactory(KarakterFactory karakterFactory) throws RemoteException;
+
+    void setSpelers(ArrayList<SpelerRemote> spelers) throws RemoteException;
 }

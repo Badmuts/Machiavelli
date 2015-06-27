@@ -1,16 +1,12 @@
 package Machiavelli.Models;
 
 import Machiavelli.Controllers.SpeelveldController;
+import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
-import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
-import Machiavelli.Interfaces.Remotes.SpelRemote;
-import Machiavelli.Interfaces.Remotes.SpelerRemote;
+import Machiavelli.Interfaces.Remotes.*;
 import Machiavelli.Machiavelli;
 import Machiavelli.Views.SpeelveldView;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-
 import java.io.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -47,6 +43,59 @@ public class Speelveld extends UnicastRemoteObject implements SpeelveldRemote, S
 
 	public void toonKarakterLijst() throws RemoteException {
 		// TODO
+	}
+
+
+	public void opslaanSpel() {
+		try
+		{
+			FileOutputStream fos = new FileOutputStream(createSaveLocation() + "/machiavelli.sav");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(this.spel.getSpelers());
+			oos.writeObject(this.spel.getBank());
+			oos.writeObject(this.spel.getGebouwFactory());
+			oos.writeObject(this.spel.getKarakterFactory());
+			oos.writeObject(this.spel.getMaxAantalSpelers());
+			oos.close();
+			fos.close();
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	public ArrayList<Object> ladenSpel() {
+
+		try {
+			ArrayList<Object> tempList = new ArrayList<>();
+			FileInputStream fis = new FileInputStream(System.getProperty("user.home") + "/machiavelli.sav");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+
+			tempList.add(((ArrayList<SpelerRemote>)ois.readObject()));
+			tempList.add(((BankRemote)ois.readObject()));
+			tempList.add(((GebouwFactoryRemote)ois.readObject()));
+			tempList.add(((KarakterFactory)ois.readObject()));
+			tempList.add(((int)ois.readObject()));
+
+			fis.close();
+			ois.close();
+			return tempList;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public File createSaveLocation()
+	{
+		File file = new File(System.getProperty("user.home") + "/machiavelli/");
+		if (!file.exists()){
+			file.mkdir();
+		}
+
+		return file;
 	}
 
 	public void addObserver(SpeelveldObserver observer) throws RemoteException {
