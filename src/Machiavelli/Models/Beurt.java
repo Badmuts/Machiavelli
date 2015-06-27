@@ -40,12 +40,16 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
     public void geefBeurt() throws RemoteException
     {
       // TODO: Karakter Toewijzen aan begin 
-      //Die speler de beurt geven en wachten tot hij op einde beurt knop drukt
-      //Als einde beurt knop wordt gedrukt, wordt de observerindex verhoogt.
+      /**Die speler de beurt geven en wachten tot hij op einde beurt knop drukt
+      *Als einde beurt knop wordt gedrukt, wordt de observerindex verhoogt.
+      * De observers.get(observerindex) haalt de observer op 
+      * voor de volgende speler(omdat nextbeurtobserver is aangeroepen)
+      * en laat bij diegene de inkomsten view zien met de showInkomsten method 
+      * in speelveldview.
+      */
       
-      //this.speler.setGebouwdeGebouwen(0);
-      //this.speler.setEigenschapGebruikt(false);
-      
+      this.speler.setGebouwdeGebouwen(0); // Voor nu zo omdat er nog geen rondes zijn
+      this.speler.setEigenschapGebruikt(false); // voor nu zo omdat er nog geen rondes zijn
       nextBeurtObserver();
       observers.get(observerIndex).showInkomsten();
       notifyObservers();
@@ -88,10 +92,6 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
     public ArrayList<SpelerRemote> getSpelerLijst()
     {
       return this.spelerLijst;
-    }
-    
-    public ArrayList<BeurtObserver> getBeurtObserver() {
-      return this.observers;
     }
     
     /**
