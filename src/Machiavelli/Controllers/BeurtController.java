@@ -32,9 +32,6 @@ public class BeurtController extends UnicastRemoteObject {
   public void cmdGeefBeurt() {
     try {
           beurt.geefBeurt();
-          this.beurt.setSpeler(this.speler);
-          beurt.getBeurtObserver().get(beurt.getObserverIndex()).showInkomsten();
-  
     } catch (RemoteException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

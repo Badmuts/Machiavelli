@@ -46,7 +46,8 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
       //this.speler.setGebouwdeGebouwen(0);
       //this.speler.setEigenschapGebruikt(false);
       
-      nextBeurtObserver();   
+      nextBeurtObserver();
+      observers.get(observerIndex).showInkomsten();
       notifyObservers();
       
       this.speler = this.getSpelerLijst().get(observerIndex);
