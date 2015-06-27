@@ -24,13 +24,16 @@ public class BeurtController extends UnicastRemoteObject {
 
   /**
    * Deze method roept de geefbeurt method aan in het BeurtModel.
+   * De beurt.getobserver.get() haalt de observer op voor de volgende speler
+   * en laat bij diegene de inkomsten view zien met de showInkomsten method 
+   * in speelveldview.
    * 
    */
   public void cmdGeefBeurt() {
     try {
           beurt.geefBeurt();
           this.beurt.setSpeler(this.speler);
-          beurt.getBeurtObserver().set(beurt.getObserverIndex(), speelveldView).showInkomsten();
+          beurt.getBeurtObserver().get(beurt.getObserverIndex()).showInkomsten();
   
     } catch (RemoteException e) {
       // TODO Auto-generated catch block
