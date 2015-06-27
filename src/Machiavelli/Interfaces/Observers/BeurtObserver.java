@@ -12,6 +12,7 @@ public interface BeurtObserver extends Remote {
 
     public void modelChanged(BeurtRemote beurt) throws RemoteException;
     
+    public void showInkomsten() throws RemoteException;
     
     public boolean isDisabled() throws RemoteException;
     

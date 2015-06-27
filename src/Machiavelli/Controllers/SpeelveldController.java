@@ -28,9 +28,9 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
     private MeldingController meldingController;
     private BeurtController beurtController;
     private GebouwKaartController gebouwKaartController;
+    private KarakterController karakterController;
     private Speelveld speelveld;
 	private SpeelveldView speelveldview;
-
 
     public SpeelveldController(SpelRemote spel, SpelerRemote speler, GebouwKaartController gebouwKaartController, BeurtRemote beurt) throws RemoteException {
         this.spel = spel;
@@ -40,7 +40,7 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
         this.speelveld.addSpeler(speler);
         this.gebouwKaartController = gebouwKaartController;
         this.beurtController = new BeurtController(this.beurt,this.spel, this.speler);
-        this.speelveldview = new SpeelveldView(this, this.speelveld, this.gebouwKaartController, this.speler, this.beurtController);
+        this.speelveldview = new SpeelveldView(this, this.speelveld, this.gebouwKaartController, this.speler, this.beurtController, this.beurt);
 //		speelveldview.getSpelregels().setOnAction((event) ->
 //		{
 //			RaadplegenSpelregelsController spelregelscontroller = new RaadplegenSpelregelsController();
@@ -60,8 +60,8 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
         else {
           this.meldingController.build("Wachten op spelers: " + this.spel.getAantalSpelers() + "/" + this.spel.getMaxAantalSpelers()).cmdWeergeefMeldingView();;
           this.meldingController.cmdSluitMeldingView();
-          KarakterController karakter = new KarakterController(this.speler, "ronde");
-          karakter.show();
+          this.karakterController = new KarakterController(this.speler, "ronde");
+          this.karakterController.show();
         }
     }
 
@@ -143,8 +143,9 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
             try {
               if (this.spel.getMaxAantalSpelers() == this.spel.getAantalSpelers()) {
                   this.meldingController.cmdSluitMeldingView();
-                  KarakterController karakter = new KarakterController(this.speler, "ronde");
-                  karakter.show();
+                  this.karakterController = new KarakterController(this.speler, "ronde");
+                  this.karakterController.show();
+                  
               } else {
                   this.meldingController.build("Wachten op spelers: " + this.spel.getAantalSpelers() + "/" + this.spel.getMaxAantalSpelers());
               }

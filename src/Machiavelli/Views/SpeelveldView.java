@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import Machiavelli.Machiavelli;
 import Machiavelli.Controllers.BeurtController;
 import Machiavelli.Controllers.GebouwKaartController;
+import Machiavelli.Controllers.InkomstenController;
 import Machiavelli.Controllers.RaadplegenSpelregelsController;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Observers.BeurtObserver;
@@ -28,7 +29,7 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speelveld;
 
 
-public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver{
+public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver, BeurtObserver{
 
     private SpelerRemote speler;
     private BeurtRemote beurt;
@@ -49,15 +50,17 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     private Pane steden;
     private boolean disabled;
 
-    public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController, SpelerRemote speler, BeurtController beurtController) throws RemoteException {
+    public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController, SpelerRemote speler, BeurtController beurtController, BeurtRemote beurt) throws RemoteException {
 		this.speelveld = speelveld;
         this.speler = speler;  
         this.beurtController = beurtController;
+        this.beurt = beurt;
         
 		this.speelveldcontroller = speelveldcontroller;
         this.gebouwKaartController = gebouwKaartController;
         this.portemonnee = speler.getPortemonnee();   
         
+        this.beurt.addObserver(this);
         this.portemonnee.addObserver(this);
 
         this.createStedenHolder();
@@ -80,6 +83,8 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         container.setPrefSize(1440, 900);
         container.getChildren().add(speelveldpane);
         speelveldscene = new Scene(container, 1440, 900);
+        
+        setDisable(true);
         
 		this.show();
 	}
@@ -190,4 +195,38 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         });
     }
 
+    @Override
+    public void modelChanged(BeurtRemote beurt) throws RemoteException {
+      // TODO Auto-generated method stub
+      Platform.runLater(() -> {
+        System.out.println("Beurt Model changed");
+        buttonHolderActionBarView.getBouwButton().setDisable(isDisabled());
+        buttonHolderActionBarView.getEigenschapButton().setDisable(isDisabled());
+        buttonHolderActionBarView.getGoudbutton().setDisable(isDisabled());
+        buttonHolderActionBarView.getEindeBeurtButton().setDisable(isDisabled());
+        });
+    }
+
+    public boolean isDisabled() {
+      // TODO Auto-generated method stub
+      return disabled;
+    }
+
+    @Override
+    public void setDisable(boolean disabled){
+      this.disabled = disabled;
+      
+    }
+    
+    public void showInkomsten() {
+      Platform.runLater(() -> {
+        try {
+          InkomstenController inkomstenController = new InkomstenController(this.speler);
+          inkomstenController.show();
+        } catch (Exception e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      });
+    }
 }

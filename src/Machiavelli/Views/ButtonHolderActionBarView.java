@@ -1,5 +1,6 @@
 package Machiavelli.Views;
 
+import Machiavelli.Controllers.InkomstenController;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
@@ -19,7 +20,7 @@ import javafx.scene.shape.Rectangle;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class ButtonHolderActionBarView extends UnicastRemoteObject implements SpelerObserver, BeurtObserver, KarakterObserver {
+public class ButtonHolderActionBarView extends UnicastRemoteObject implements SpelerObserver,KarakterObserver {
 
     private SpeelveldController speelveldController;
     private GridPane buttonGrid = new GridPane();
@@ -52,7 +53,6 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
         bouwbutton = new Button();
         eindebeurtbutton= new Button();
         
-        this.beurt.addObserver(this);
         this.speler.addObserver(this);
         this.karakter.addObserver(this);
 
@@ -74,8 +74,6 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
         exitbutton.setOnAction(event -> System.exit(0));
 
         isKarakterBonusable();
-        
-        setDisable(true);
 
         buttonholder = new Rectangle(0, 0, 350, 250);
         buttonholder.setFill(Color.rgb(57, 57, 57));
@@ -196,31 +194,6 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
 
     public StackPane getPane() {
         return this.container;
-    }
-
-    @Override
-    public void modelChanged(BeurtRemote beurt) throws RemoteException {
-      
-      Platform.runLater(() -> {
-      System.out.println("Beurt Model changed");
-      getBouwButton().setDisable(isDisabled());
-      getEigenschapButton().setDisable(isDisabled());
-      getGoudbutton().setDisable(isDisabled());
-      getEindeBeurtButton().setDisable(isDisabled());
-      });
-      
-    }
-
-    @Override
-    public boolean isDisabled() {
-      // TODO Auto-generated method stub
-      return disabled;
-    }
-
-    @Override
-    public void setDisable(boolean disabled){
-      this.disabled = disabled;
-      
     }
 
 }

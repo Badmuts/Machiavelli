@@ -22,7 +22,6 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
     private ArrayList<BeurtObserver> observers = new ArrayList<>();
    //private KarakterController karaktercontroller;
     private int observerIndex;
-    private int karakterIndex;
     //private int spelerNummer = 0;
 
     public Beurt(SpelRemote spel, ArrayList<SpelerRemote> spelerLijst, SpelerRemote speler) throws RemoteException
@@ -43,21 +42,19 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
       // TODO: Karakter Toewijzen aan begin 
       //Die speler de beurt geven en wachten tot hij op einde beurt knop drukt
       //Als einde beurt knop wordt gedrukt, wordt de observerindex verhoogt.
-      this.speler.setGebouwdeGebouwen(0);
-      this.speler.setEigenschapGebruikt(false);
+      
+      //this.speler.setGebouwdeGebouwen(0);
+      //this.speler.setEigenschapGebruikt(false);
+      
       nextBeurtObserver();   
       notifyObservers();
+      
       this.speler = this.getSpelerLijst().get(observerIndex);
     }
     
     public SpelerRemote getSpeler() throws RemoteException
     {
-    	return this.speler;
-    }
-    
-    public ArrayList<SpelerRemote> getSpelerLijst()
-    {
-    	return this.spelerLijst;
+      return this.speler;
     }
     
     public void setSpeler(SpelerRemote speler) throws RemoteException {
@@ -86,6 +83,16 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
     public int getObserverIndex() {
       return this.observerIndex;
     }
+    
+    public ArrayList<SpelerRemote> getSpelerLijst()
+    {
+      return this.spelerLijst;
+    }
+    
+    public ArrayList<BeurtObserver> getBeurtObserver() {
+      return this.observers;
+    }
+    
     /**
      * Deze method kijkt of het aantal observers groter is dan 0, als het zo is
      * roept die de beurtobserver aan met de method setDisable,
@@ -96,6 +103,7 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
      * volgende observer de buttons enablen door setDisable(false)
      * de buttons krijgen in buttonholderActionView -> Modelchanged
      * deze boolean waardes mee.
+     * Met dank aan Alex van Manen.
      * 
      * @throw RemoteException
      */
@@ -105,8 +113,7 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
 			observerIndex++;
 			if (observerIndex >= observers.size()) {
 				observerIndex = 0;
-    	    }
-    	  
+			}
 			observers.get(observerIndex).setDisable(false);
 		} 
 

@@ -6,12 +6,14 @@ import java.rmi.server.UnicastRemoteObject;
 import Machiavelli.Interfaces.Remotes.BeurtRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
+import Machiavelli.Views.SpeelveldView;
 
 public class BeurtController extends UnicastRemoteObject {
   private SpelRemote spel;
   private BeurtRemote beurt;
   private SpelerRemote speler;
   private InkomstenController inkomstenController;
+  private SpeelveldView speelveldView;
 
 
   public BeurtController(BeurtRemote beurt, SpelRemote spel, SpelerRemote speler) throws RemoteException {
@@ -27,13 +29,18 @@ public class BeurtController extends UnicastRemoteObject {
   public void cmdGeefBeurt() {
     try {
           beurt.geefBeurt();
-          cmdShowInkomsten();
+          this.beurt.setSpeler(this.speler);
+          beurt.getBeurtObserver().set(beurt.getObserverIndex(), speelveldView).showInkomsten();
+  
     } catch (RemoteException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
   
+    /**
+     * Het oproepen van de inkomsten view.
+     */
   public void cmdShowInkomsten() {
     try {
       inkomstenController = new InkomstenController(this.speler);
@@ -43,4 +50,19 @@ public class BeurtController extends UnicastRemoteObject {
       e.printStackTrace();
     }
   }
+  
+  /**
+   * Het oproepen van de karakter kiezen view.
+   */
+  public void cmdShowKarakterKiezen() {
+    
+    try {
+      KarakterController karaktercontroller = new KarakterController(this.speler, "ronde");
+      karaktercontroller.show();
+    } catch (RemoteException e) {
+      e.printStackTrace();
+    }
+  }
+  
+  
 }

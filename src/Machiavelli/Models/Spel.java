@@ -58,9 +58,12 @@ public class Spel implements SpelRemote, Serializable {
 		return this.gebouwFactory;
 	}
 	
-	public KarakterFactory getKarakterFactory()
-	{
+	public KarakterFactory getKarakterFactory() {
 		return this.karakterFactory;
+	}
+	
+	public void setKarakterFactory(KarakterFactory karakterFactory) {
+	  this.karakterFactory = karakterFactory;
 	}
 
 	public int getAantalSpelers() throws RemoteException {

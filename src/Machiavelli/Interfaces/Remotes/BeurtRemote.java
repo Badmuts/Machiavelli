@@ -24,6 +24,8 @@ public interface BeurtRemote extends Remote {
   public void setObserverIndex(int observerIndex) throws RemoteException;
 
   public void addObserver(BeurtObserver beurtObserver) throws RemoteException;
+  
+  public ArrayList<BeurtObserver> getBeurtObserver() throws RemoteException;
 
   public void notifyObservers() throws RemoteException;
 
