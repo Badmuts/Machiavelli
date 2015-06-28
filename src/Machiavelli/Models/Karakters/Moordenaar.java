@@ -81,7 +81,7 @@ public class Moordenaar extends UnicastRemoteObject implements Karakter, Seriali
     public void vermoordKarakter(Karakter target) throws RemoteException {
     	//target.getSpeler()
     	//methode eindigenbeurt van de target aanroepen.
-    	
+      
     	//zet status van karakter naar vermoord(?)
     	System.out.println("De " + target.getNaam() + " is vermoord");
     	}

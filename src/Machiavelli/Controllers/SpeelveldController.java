@@ -58,7 +58,7 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
             this.meldingController.cmdWeergeefMeldingView();
         }
         else {
-          this.meldingController.build("Wachten op spelers: " + this.spel.getAantalSpelers() + "/" + this.spel.getMaxAantalSpelers()).cmdWeergeefMeldingView();;
+          this.meldingController.build("Spelers aantal bereikt").cmdWeergeefMeldingView();;
           this.meldingController.cmdSluitMeldingView();
           this.karakterController = new KarakterController(this.speler, "ronde");
           this.karakterController.show();
@@ -88,12 +88,10 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
     
 
     public void cmdBouwGebouw() {
-        // TODO: Implement gebouwbouwen method
         this.gebouwKaartController.cmdBouwGebouw();
     }
 
     public void cmdEindeBeurt() {
-        // TODO: Implement eindeBeurt method
         this.beurtController.cmdGeefBeurt();
     }
 
@@ -159,7 +157,6 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
                   this.meldingController.build("Wachten op spelers: " + this.spel.getAantalSpelers() + "/" + this.spel.getMaxAantalSpelers());
               }
             } catch (Exception e) {
-              // TODO Auto-generated catch block
               e.printStackTrace();
             }
         });
