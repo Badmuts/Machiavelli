@@ -70,20 +70,28 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
 	 * De Condotierre selecteert eerst een gebouwkaart op het speelveld.
 	 * Daarna kan pas deze methode worden uitgevoerd. De geselecteerde 
 	 * gebouwkaart wordt uit de stad verwijderd. De gebruikEigenschap methode
-	 * kan per beurt maar ��n keer worden aangeroepen. Als de gebouwkaart in de
+	 * kan per beurt maar een keer worden aangeroepen. Als de gebouwkaart in de
 	 * stad van de Prediker staat, kan deze niet worden verwijderd. 
 	 */
     @Override
     public boolean gebruikEigenschap() throws RemoteException {	
-		if (target.getStad().getSpeler().getKarakter().getNummer() != 5) {
+    	System.out.println(target == null);
+    	
+		 
 			if (this.target == null) {
 				return false;	
 			}
 			else {
-				vernietigGebouw(this.target.getStad(), getTarget());
-				this.speler.setEigenschapGebruikt(true);	
+				if (target.getStad().getSpeler().getKarakter().getNummer() != 5) {
+					vernietigGebouw(this.target.getStad(), getTarget());
+					this.speler.setEigenschapGebruikt(true);
+				}
+				else {
+					return false;
+				}
 			}
-		}
+		
+    
 		return true;
     }
     

@@ -10,6 +10,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by badmuts on 14-6-15.
@@ -72,44 +73,61 @@ public class GebouwKaartController extends UnicastRemoteObject implements Speler
     /**
      * In de ButtonHolderActionBarView is er op Bouwen gebouw geklikt.
      * De geselecteerde kaart wordt doorgegeven aan de Speler klasse.
+     * Iterator op activeCards bleek niet te werken (ConcurrentModificationException)
+     * Hierom wordt een nieuwe lijst als kopie gemaakt van activeCards en wordt de iterator hier op toegepast
      */
     public void cmdBouwGebouw() {
-        try {
-            Iterator<GebouwKaartRemote> iterator = this.activeCards.iterator();
-            while (iterator.hasNext()) {
-                GebouwKaartRemote kaart = iterator.next();
-                this.speler.bouwenGebouw(kaart);
-                this.activeCards.remove(kaart);
-                iterator.remove();
-            }
-        } catch (Exception e) {
-            System.out.println("Iterator remove error, maar het werkt");
-        }
+    	List<GebouwKaartRemote> list = new ArrayList<GebouwKaartRemote>(activeCards.size());
+    	list.addAll(activeCards);
+    	
+    	Iterator<GebouwKaartRemote> iter = list.iterator();
+    	while(iter.hasNext()) {
+    		GebouwKaartRemote kaart = iter.next();
+    		try {
+    			speler.bouwenGebouw(kaart);
+    			ArrayList<GebouwKaartRemote> gebouwdenKaarten = this.speler.getStad().getGebouwen();
+    			String gebouwdeKaart = gebouwdenKaarten.get(gebouwdenKaarten.size() -1).getNaam();
+    			new MeldingController().build(gebouwdeKaart + " is gebouwd").cmdWeergeefMeldingView();
+    		} catch (RemoteException e) {
+    			e.printStackTrace();
+    		}
+    	}
+    	activeCards.clear();
     }
-    
+    	
     /**
      * Als er een gebouw geselecteerd is, wordt de gebruikEigenschap
      * methode aangeroepen. De geselecteerde kaart wordt doorgegeven aan
      * de karakterinterface. 
+     * Iterator op activeCards bleek niet te werken (ConcurrentModificationException)
+     * Hierom wordt een nieuwe lijst als kopie gemaakt van activeCards en wordt de iterator hier op toegepast
      */
-    public void cmdVernietigGebouw() {
+    public synchronized void cmdVernietigGebouw() {
     	System.out.println("vernietig gebouw");
-    	try {
-    		Iterator<GebouwKaartRemote> iterator = this.activeCards.iterator();
-    		
-    		while (iterator.hasNext()) {
-    			GebouwKaartRemote target = iterator.next();
-    			this.speler.getKarakter().setTarget(target);
-        		this.activeCards.remove(target);
-        		iterator.remove();
-			}
+//    	List<GebouwKaartRemote> list = new ArrayList<GebouwKaartRemote>(activeCards);
+//    	for(GebouwKaartRemote kaart : activeCards) {
+//    		try {
+//				speler.getKarakter().setTarget(kaart);
+//			} catch (RemoteException e) {
+//				e.printStackTrace();
+//			}
+//    	}
+//    	activeCards.removeAll(list);
+    	List<GebouwKaartRemote> list = new ArrayList<GebouwKaartRemote>(activeCards.size());
+    	list.addAll(activeCards);
+    	
+    	Iterator<GebouwKaartRemote> iter = list.iterator();
+    	while(iter.hasNext()) {
+    		GebouwKaartRemote kaart = iter.next();
+    		try {
+    			this.speler.getKarakter().setTarget(kaart);
+    			} catch (RemoteException e) {
+    			e.printStackTrace();
+    		}
     	}
-    	catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}		
-    	}
-    
+    	activeCards.clear();
+    }
+
     @Override
     public void modelChanged(SpelerRemote speler) throws RemoteException {
         this.speler = speler;

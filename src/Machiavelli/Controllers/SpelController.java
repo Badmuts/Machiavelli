@@ -6,7 +6,6 @@ import java.rmi.server.UnicastRemoteObject;
 import Machiavelli.Interfaces.Remotes.BeurtRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.Beurt;
 
 /**
  *

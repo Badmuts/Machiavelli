@@ -1,6 +1,5 @@
 package Machiavelli.Models;
 
-import Machiavelli.Controllers.KarakterController;
 import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Karakter;
@@ -10,10 +9,7 @@ import Machiavelli.Interfaces.Remotes.BeurtRemote;
 import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.Karakters.Condotierre;
-import Machiavelli.Models.Karakters.Dief;
-import Machiavelli.Models.Karakters.Magier;
-import Machiavelli.Models.Karakters.Moordenaar;
+
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
