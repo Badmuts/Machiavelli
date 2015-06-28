@@ -70,7 +70,7 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
 	 * De Condotierre selecteert eerst een gebouwkaart op het speelveld.
 	 * Daarna kan pas deze methode worden uitgevoerd. De geselecteerde 
 	 * gebouwkaart wordt uit de stad verwijderd. De gebruikEigenschap methode
-	 * kan per beurt maar ��n keer worden aangeroepen. Als de gebouwkaart in de
+	 * kan per beurt maar een keer worden aangeroepen. Als de gebouwkaart in de
 	 * stad van de Prediker staat, kan deze niet worden verwijderd. 
 	 */
     @Override

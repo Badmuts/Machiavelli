@@ -130,6 +130,12 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
             }
             else {
             	this.speler.getKarakter().gebruikEigenschap();
+            	if(this.speler.getKarakter().getNummer() == 6) {
+            		new MeldingController().build("1 extra goudstuk ontvangen").cmdWeergeefMeldingView();
+            	}
+            	if(this.speler.getKarakter().getNummer() == 7) {
+            		new MeldingController().build("2 extra gebouwkaarten getrokken").cmdWeergeefMeldingView();
+            	}
             	
             }
         } catch (Exception e) {
