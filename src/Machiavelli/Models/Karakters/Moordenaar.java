@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class Moordenaar extends UnicastRemoteObject implements Karakter, Serializable {
 
 	public Moordenaar() throws RemoteException {
+        super(1099);
 	}
 	private SpelerRemote speler = null;
 	private Object target;

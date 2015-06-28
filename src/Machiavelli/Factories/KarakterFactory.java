@@ -7,9 +7,10 @@ import Machiavelli.Models.Karakters.*;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class KarakterFactory implements KarakterFactoryRemote, Serializable {
+public class KarakterFactory extends UnicastRemoteObject implements KarakterFactoryRemote, Serializable {
     /**
      * ArrayList om alle karakters op te slaan
      */
@@ -19,7 +20,8 @@ public class KarakterFactory implements KarakterFactoryRemote, Serializable {
     /**
      * Maakt alle karakters aan (in dit geval 8)
      */
-    public KarakterFactory() {
+    public KarakterFactory() throws RemoteException {
+        super(1099);
         try {
         	this.karakters.add(new Moordenaar());
             this.karakters.add(new Dief());

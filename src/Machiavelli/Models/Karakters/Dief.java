@@ -28,6 +28,7 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 public class Dief extends UnicastRemoteObject implements Karakter, Serializable {
 	
 	public  Dief() throws RemoteException {
+        super(1099);
 	}
 
 	private SpelerRemote speler = null;

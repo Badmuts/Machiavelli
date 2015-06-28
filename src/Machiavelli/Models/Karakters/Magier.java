@@ -42,7 +42,9 @@ public class Magier extends UnicastRemoteObject implements Karakter, Serializabl
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Magier.png";
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
-    public Magier() throws RemoteException {}
+    public Magier() throws RemoteException {
+        super(1099);
+    }
 
     /**
 	 * Overriden van de methode uit de interface Karakter,

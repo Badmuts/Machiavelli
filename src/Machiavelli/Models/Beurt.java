@@ -26,6 +26,7 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
 
     public Beurt(SpelRemote spel, ArrayList<SpelerRemote> spelerLijst, SpelerRemote speler) throws RemoteException
     {
+        super(1099);
         this.spel = spel;
         this.spelerLijst = spelerLijst;
         this.speler = speler;

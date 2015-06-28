@@ -35,6 +35,7 @@ public class GebouwKaartController extends UnicastRemoteObject implements Speler
      * @throws RemoteException
      */
     public GebouwKaartController(SpelRemote spel, SpelerRemote spelerRemote) throws RemoteException {
+        super(1099);
         this.spel = spel;
         this.speler = spelerRemote;
         this.speler.addObserver(this);

@@ -17,6 +17,7 @@ public class BeurtController extends UnicastRemoteObject {
 
 
   public BeurtController(BeurtRemote beurt, SpelRemote spel, SpelerRemote speler) throws RemoteException {
+    super(1099);
     this.spel = spel;
     this.beurt = beurt;
     this.speler = speler;

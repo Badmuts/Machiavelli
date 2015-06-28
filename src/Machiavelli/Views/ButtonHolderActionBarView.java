@@ -39,6 +39,7 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
     private Karakter karakter;
 
     public ButtonHolderActionBarView(SpeelveldController speelveldController) throws RemoteException {
+        super(1099);
         this.speelveldController = speelveldController;
         this.speler = speelveldController.getSpeler();
         this.beurt = speelveldController.getBeurt();

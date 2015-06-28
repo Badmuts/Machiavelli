@@ -31,6 +31,7 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
 
     public Condotierre() throws RemoteException {
 		// TODO Auto-generated constructor stub
+        super(1099);
 	}
 
 	private GebouwKaartRemote target = null;

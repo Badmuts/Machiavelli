@@ -14,7 +14,7 @@ public class Server {
 	public void startServer(){
         try {
             Spel spel = new Spel();
-            SpelRemote spelSkeleton = (SpelRemote) UnicastRemoteObject.exportObject(spel, 0);
+            SpelRemote spelSkeleton = (SpelRemote) UnicastRemoteObject.exportObject(spel, 1099);
             Registry registry = LocateRegistry.createRegistry(1099); // default port 1099 // run RMI registry on local host
             System.out.println("RMI Registry starter");
             registry.rebind("Spel", spelSkeleton); // bind calculator to RMI registry

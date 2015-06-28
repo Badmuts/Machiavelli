@@ -29,7 +29,8 @@ public class Koning extends UnicastRemoteObject implements Karakter, Bonusable, 
     private boolean isBonusable = true;
 
     public Koning() throws RemoteException {
-	}
+        super(1099);
+    }
 
 	private SpelerRemote speler = null;
 

@@ -24,6 +24,7 @@ public class Bank extends UnicastRemoteObject implements BankRemote, Serializabl
 
 	// De bank begint met 30 goudmunten
 	public Bank() throws RemoteException {
+		super(1099);
 		this.goudMunten = 30;
 	}
 

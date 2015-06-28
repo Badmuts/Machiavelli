@@ -20,6 +20,7 @@ public class SpelController extends UnicastRemoteObject {
     private GebouwKaartController gebouwKaartController;
 
 	public SpelController(SpelRemote spel) throws RemoteException {
+        super(1099);
         try {
             this.spel = spel;
             this.speler = this.spel.getSpelers().get(this.spel.getSpelers().size() - 1);

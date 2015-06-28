@@ -30,6 +30,7 @@ public class Prediker extends UnicastRemoteObject implements Karakter, Bonusable
     private boolean isBonusable = true;
 
     public Prediker() throws RemoteException {
+        super(1099);
 	}
 
 	private SpelerRemote speler = null;

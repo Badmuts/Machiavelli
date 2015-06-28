@@ -37,6 +37,7 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
     private StackPane portretPane;
 
     public StadView(StadRemote stad, GebouwKaartController gebouwKaartController) throws RemoteException {
+        super(1099);
         this.stad = stad;
         this.speler = stad.getSpeler();
         this.gebouwKaartController = gebouwKaartController;

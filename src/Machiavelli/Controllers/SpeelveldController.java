@@ -33,6 +33,7 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
 	private SpeelveldView speelveldview;
 
     public SpeelveldController(SpelRemote spel, SpelerRemote speler, GebouwKaartController gebouwKaartController, BeurtRemote beurt) throws RemoteException {
+        super(1099);
         this.spel = spel;
         this.speler = speler;
         this.beurt = beurt;
