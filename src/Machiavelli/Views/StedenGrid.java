@@ -20,7 +20,7 @@ public class StedenGrid extends UnicastRemoteObject implements SpelObserver {
     private GridPane pane;
 
     public StedenGrid(SpelRemote spel, GebouwKaartController gebouwKaartController) throws RemoteException {
-        super(1099);
+//        super(1099);
         pane = new GridPane();
         pane.setPadding(new Insets(0, 0, 0, 0));
         this.gebouwKaartController = gebouwKaartController;

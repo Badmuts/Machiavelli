@@ -1,8 +1,15 @@
 package Machiavelli.Views;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-
+import Machiavelli.Controllers.*;
+import Machiavelli.Interfaces.Observers.BeurtObserver;
+import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
+import Machiavelli.Interfaces.Observers.SpeelveldObserver;
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
+import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
+import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
+import Machiavelli.Machiavelli;
+import Machiavelli.Models.Speelveld;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,23 +20,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import Machiavelli.Machiavelli;
-import Machiavelli.Controllers.BeurtController;
-import Machiavelli.Controllers.GebouwKaartController;
-import Machiavelli.Controllers.InkomstenController;
-import Machiavelli.Controllers.RaadplegenSpelregelsController;
-import Machiavelli.Controllers.SpeelveldController;
-import Machiavelli.Interfaces.Observers.BeurtObserver;
-import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
-import Machiavelli.Interfaces.Observers.SpeelveldObserver;
-import Machiavelli.Interfaces.Remotes.BeurtRemote;
-import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
-import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
-import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.Speelveld;
+
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 
-public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver, BeurtObserver{
+public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver, BeurtObserver, Serializable {
 
     private SpelerRemote speler;
     private BeurtRemote beurt;
@@ -51,7 +48,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     private boolean disabled;
 
     public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController, SpelerRemote speler, BeurtController beurtController, BeurtRemote beurt) throws RemoteException {
-        super(1099);
+//        super(1099);
         this.speelveld = speelveld;
         this.speler = speler;  
         this.beurtController = beurtController;

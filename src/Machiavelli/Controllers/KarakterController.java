@@ -25,7 +25,7 @@ public class KarakterController extends UnicastRemoteObject {
 
     public KarakterController(SpelerRemote speler, String typeView) throws RemoteException
     {
-        super(1099);
+//        super(1099);
         // TYPE VAN VIEW IN CONSTRUCTOR
         // TYPES:
         // - KARAKTER: KIES KARAKTER ALS TARGET

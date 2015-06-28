@@ -1,10 +1,8 @@
 package Machiavelli.Views;
 
-import Machiavelli.Controllers.InkomstenController;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
-import Machiavelli.Interfaces.Observers.BeurtObserver;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Observers.SpelerObserver;
 import Machiavelli.Interfaces.Remotes.BeurtRemote;
@@ -39,7 +37,7 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
     private Karakter karakter;
 
     public ButtonHolderActionBarView(SpeelveldController speelveldController) throws RemoteException {
-        super(1099);
+//        super(1099);
         this.speelveldController = speelveldController;
         this.speler = speelveldController.getSpeler();
         this.beurt = speelveldController.getBeurt();
