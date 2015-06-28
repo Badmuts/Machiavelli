@@ -85,6 +85,9 @@ public class GebouwKaartController extends UnicastRemoteObject implements Speler
     		GebouwKaartRemote kaart = iter.next();
     		try {
     			speler.bouwenGebouw(kaart);
+    			ArrayList<GebouwKaartRemote> gebouwdenKaarten = this.speler.getStad().getGebouwen();
+    			String gebouwdeKaart = gebouwdenKaarten.get(gebouwdenKaarten.size() -1).getNaam();
+    			new MeldingController().build(gebouwdeKaart + " is gebouwd").cmdWeergeefMeldingView();
     		} catch (RemoteException e) {
     			e.printStackTrace();
     		}
