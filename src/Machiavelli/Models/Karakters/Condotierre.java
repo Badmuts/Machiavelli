@@ -75,15 +75,23 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
 	 */
     @Override
     public boolean gebruikEigenschap() throws RemoteException {	
-		if (target.getStad().getSpeler().getKarakter().getNummer() != 5) {
+    	System.out.println(target == null);
+    	
+		 
 			if (this.target == null) {
 				return false;	
 			}
 			else {
-				vernietigGebouw(this.target.getStad(), getTarget());
-				this.speler.setEigenschapGebruikt(true);	
+				if (target.getStad().getSpeler().getKarakter().getNummer() != 5) {
+					vernietigGebouw(this.target.getStad(), getTarget());
+					this.speler.setEigenschapGebruikt(true);
+				}
+				else {
+					return false;
+				}
 			}
-		}
+		
+    
 		return true;
     }
     

@@ -124,6 +124,9 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
             }
             if (this.speler.getKarakter().getNummer() == 8) {
             	this.gebouwKaartController.cmdVernietigGebouw();
+            	System.out.println("hallo");
+            	new MeldingController().build("Gebouw is vernietigd").cmdWeergeefMeldingView();
+            	
             }
             else {
             	this.speler.getKarakter().gebruikEigenschap();
