@@ -5,6 +5,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import com.sun.webkit.ContextMenu.ShowContext;
+
 import Machiavelli.Interfaces.Observers.BeurtObserver;
 import Machiavelli.Interfaces.Remotes.BeurtRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
@@ -42,24 +44,31 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
       // TODO: Karakter Toewijzen aan begin 
       /**Die speler de beurt geven en wachten tot hij op einde beurt knop drukt
       *Als einde beurt knop wordt gedrukt, wordt de observerindex verhoogt.
-      * De observers.get(observerindex) haalt de observer op 
-      * voor de volgende speler(omdat nextbeurtobserver is aangeroepen)
-      * en laat bij diegene de inkomsten view zien met de showInkomsten method 
-      * in speelveldview.
       */
       
-      this.speler.setGebouwdeGebouwen(0); // Voor nu zo omdat er nog geen rondes zijn
-      this.speler.setEigenschapGebruikt(false); // voor nu zo omdat er nog geen rondes zijn
+      this.speler.setGebouwdeGebouwen(0); // Dit proberen te vervangen door nieuwe karakterFactory
+      this.speler.setEigenschapGebruikt(false); // Dit proberen te vervangen door nieuwe karakterFactory
+
       nextBeurtObserver();
-      observers.get(observerIndex).showInkomsten();
       notifyObservers();
-      
       this.speler = this.getSpelerLijst().get(observerIndex);
+    }
+    
+    public void getInkomstenView() throws RemoteException {
+      this.observers.get(observerIndex).showInkomsten();
+    }
+    
+    public void getKarakterView() throws RemoteException {
+      this.observers.get(observerIndex).showKarakterMenu();
     }
     
     public SpelerRemote getSpeler() throws RemoteException
     {
       return this.speler;
+    }
+    
+    public ArrayList<BeurtObserver> getObserverList() {
+      return this.observers;
     }
     
     public void setSpeler(SpelerRemote speler) throws RemoteException {
@@ -68,7 +77,8 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
     }
 
     public void addObserver(BeurtObserver observer) throws RemoteException {
-      nextBeurtObserver();  
+      setObserverIndex(0);
+      nextBeurtObserver();
       observers.add(observer);
       System.out.println("Beurt Observer ADDED!: " + this.observers.size());
       notifyObservers();

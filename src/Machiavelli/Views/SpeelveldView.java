@@ -17,6 +17,7 @@ import Machiavelli.Machiavelli;
 import Machiavelli.Controllers.BeurtController;
 import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Controllers.InkomstenController;
+import Machiavelli.Controllers.KarakterController;
 import Machiavelli.Controllers.RaadplegenSpelregelsController;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Observers.BeurtObserver;
@@ -223,6 +224,19 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         try {
           InkomstenController inkomstenController = new InkomstenController(this.speler);
           inkomstenController.show();
+        } catch (Exception e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      });
+    }
+    
+    
+    public void showKarakterMenu() {
+      Platform.runLater(() -> {
+        try {
+          KarakterController karaktercontroller = new KarakterController(this.speler, "ronde");
+          karaktercontroller.show();
         } catch (Exception e) {
           // TODO Auto-generated catch block
           e.printStackTrace();

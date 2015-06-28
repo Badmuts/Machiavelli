@@ -25,4 +25,5 @@ public interface SpelRemote extends Remote {
     GebouwFactoryRemote getGebouwFactory() throws RemoteException;
     void createNewSpeler() throws RemoteException;
     KarakterFactory getKarakterFactory() throws RemoteException;
+    public void setKarakterFactory(KarakterFactory karakterFactory) throws RemoteException;
 }
