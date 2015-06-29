@@ -24,7 +24,6 @@ public class Machiavelli extends Application {
      */
     public Machiavelli() {
         super();
-        System.setProperty("java.rmi.server.hostname", "145.97.16.203");
         synchronized(Machiavelli.class){
             if(uniqueInstance != null) throw new UnsupportedOperationException(
                     getClass()+" is singleton but constructor called more than once");
