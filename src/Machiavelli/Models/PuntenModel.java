@@ -9,10 +9,12 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
+ * @author Bernd Oostrum
+ * 
  * Hier wordt bepaald wie de winnaar is van het spel.
  *
- * @author Bernd Oostrum
- * @version 0.1
+ * 
+ * 
  *
  */
 public class PuntenModel extends UnicastRemoteObject implements PuntenRemote, Serializable {
