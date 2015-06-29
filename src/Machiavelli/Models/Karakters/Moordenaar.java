@@ -3,8 +3,13 @@ package Machiavelli.Models.Karakters;
 
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
-import Machiavelli.Models.Speler;
-import javafx.scene.image.Image;
+import Machiavelli.Interfaces.Observers.KarakterObserver;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
+
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -18,34 +23,37 @@ import javafx.scene.image.Image;
  * karakter vermoorden. Het vermoorde karakter speelt
  * deze ronde niet mee. 
  */
-public class Moordenaar implements Karakter {
-	
-	private Speler speler = null;
+public class Moordenaar extends UnicastRemoteObject implements Karakter, Serializable {
+
+	public Moordenaar() throws RemoteException {
+	}
+	private SpelerRemote speler = null;
+	private Object target;
     
 	/** Eigenschappen van karakter Moordenaar. */
     private final int nummer = 1;	
     private final int bouwLimiet = 1; 
     private final String naam = "Moordenaar";
     private final Type type = Type.NORMAAL;
-    private Object target;
     
-    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Moordenaar.png");
+    private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Moordenaar.png";
+    private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
     /**
      * Overriden van de methode uit de interface Karakter,
      * de Moordenaar wordt aan de speler gekoppeld.
      */
     @Override
-    public void setSpeler(Speler speler) {
+    public void setSpeler(SpelerRemote speler) throws RemoteException {
     	this.speler = speler;
     }
     @Override
-    public Speler getSpeler() {
+    public SpelerRemote getSpeler() throws RemoteException {
     	return speler;
     }
     
     @Override
-    public void setTarget(Object target) {
+    public void setTarget(Object target) throws RemoteException {
     	this.target = target;
     }
     
@@ -54,54 +62,74 @@ public class Moordenaar implements Karakter {
 	 * en een karakter vermoorden die vervolgens een beurt
 	 * overslaat.
 	 */
-    
     @Override
-    public void gebruikEigenschap() {
+    public boolean gebruikEigenschap() throws RemoteException {
         // TODO: vermoord karakter
     	if (target != null) {
     		vermoordKarakter(this.getVermoordKarakter());
+    		this.speler.setEigenschapGebruikt(true);
+    		target = null;
     	}
     	else {
     		//TODO: view aanroepen
     	}
+        return false;
     }
     
     //beurt overslaan met ifjes???
 
-    public void vermoordKarakter(Karakter target) {
-    	target.beurtOverslaan();
-    }
-
-    public Karakter getVermoordKarakter() {
+    public void vermoordKarakter(Karakter target) throws RemoteException {
+    	//target.getSpeler()
+    	//methode eindigenbeurt van de target aanroepen.
+      
+    	//zet status van karakter naar vermoord(?)
+    	System.out.println("De " + target.getNaam() + " is vermoord");
+    	}
+    
+    public Karakter getVermoordKarakter() throws RemoteException {
 		return (Karakter)target;
 	}
-
-	public String getNaam() {
+    @Override
+	public String getNaam() throws RemoteException {
     	return this.naam;
     }
-   
-    public int getNummer() {
+    @Override
+    public int getNummer() throws RemoteException {
     	return this.nummer;
     }
 
     @Override
-    public int getBouwLimiet() {
+    public int getBouwLimiet() throws RemoteException {
         return this.bouwLimiet;
     }
-
-    public Type getType() {
+    
+    @Override
+    public Type getType() throws RemoteException {
 		return this.type;
 	}
 
     @Override
-    public Image getImage() {
+    public String getImage() throws RemoteException {
         return this.image;
     }
 
     @Override
-    public void beurtOverslaan() {
-
+    public void addObserver(KarakterObserver observer) throws RemoteException {
+        observers.add(observer);
     }
+
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (KarakterObserver observer: observers) {
+            observer.modelChanged(this);
+        }
+    }
+    
+	@Override
+	public Object getTarget() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 
 

@@ -16,8 +16,7 @@ public class RaadplegenSpelregelsController {
 	public RaadplegenSpelregelsController()
 	{
 		try {
-			this.spelRegelsView = new SpelregelsView();
-			this.spelRegelsView.getCloseButton().setOnAction(event -> this.spelRegelsView.close());
+			this.spelRegelsView = new SpelregelsView(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -27,4 +26,8 @@ public class RaadplegenSpelregelsController {
 		this.spelRegelsView.show();
 		//remove the lines under...!
 	}
+
+    public void cmdSluitSpelregels() {
+        this.spelRegelsView.close();
+    }
 }

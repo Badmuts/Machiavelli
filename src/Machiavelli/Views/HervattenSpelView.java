@@ -1,8 +1,7 @@
 package Machiavelli.Views;
 
-import Machiavelli.Controllers.SpelController;
-import Machiavelli.Machiavelli;
-import Machiavelli.Models.Spel;
+import java.rmi.RemoteException;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
@@ -12,8 +11,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.rmi.RemoteException;
+import Machiavelli.Machiavelli;
+import Machiavelli.Controllers.SpelController;
+import Machiavelli.Models.Spel;
 
 public class HervattenSpelView {
     private SpelController sc;

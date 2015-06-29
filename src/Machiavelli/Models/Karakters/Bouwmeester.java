@@ -2,10 +2,13 @@ package Machiavelli.Models.Karakters;
 
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
-import Machiavelli.Models.Speler;
-import javafx.scene.image.Image;
+import Machiavelli.Interfaces.Observers.KarakterObserver;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -19,30 +22,32 @@ import java.rmi.RemoteException;
  * in zijn beurt 3 gebouwen bouwen.
  * 
  */
-public class Bouwmeester implements Karakter {
+public class Bouwmeester extends UnicastRemoteObject implements Karakter, Serializable {
 	
-	@SuppressWarnings("unused")
-	private Speler speler = null;
+	public Bouwmeester() throws RemoteException {
+	}
+
+	private SpelerRemote speler = null;
 	
 	/** Eigenschappen van karakter Bouwmeester */
     private final int nummer = 7;	
     private final int bouwLimiet = 3; 
     private final String naam = "Bouwmeester";
     private final Type type = Type.NORMAAL;
-    
-    private Image image = new Image("Machiavelli/Resources/Karakterkaarten/Portrait-Bouwmeester.png");
-	
+    private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Bouwmeester.png";
+
+    private ArrayList<KarakterObserver> observers = new ArrayList<>();
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Bouwmeester wordt aan de speler gekoppeld.
 	 */
     @Override
-    public void setSpeler(Speler speler) {
+    public void setSpeler(SpelerRemote speler) throws RemoteException {
         this.speler = speler;
     }
 
     @Override
-    public Speler getSpeler() {
+    public SpelerRemote getSpeler() throws RemoteException {
         return speler;
     }
 
@@ -53,47 +58,63 @@ public class Bouwmeester implements Karakter {
      * 
 	 */
     @Override
-    public void gebruikEigenschap() {
+    public boolean gebruikEigenschap() throws RemoteException {
         //TODO: 2 of 3 kaarten plaatsen in stad
     	try {
-			this.speler.getHand().addGebouwen(this.speler.trekkenKaart(2));
+			this.speler.getHand().addGebouwen(this.speler.trekkenKaart(1));
+			this.speler.setEigenschapGebruikt(true);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        return false;
     }
-
-    public String getNaam() {
+    
+    @Override
+    public String getNaam() throws RemoteException {
     	return this.naam;
     }
-   
-    public int getNummer() {
+   @Override
+    public int getNummer() throws RemoteException {
     	return this.nummer;
     }
 
     @Override
-    public int getBouwLimiet() {
+    public int getBouwLimiet() throws RemoteException {
         return this.bouwLimiet;
     }
 
-    
-	public Type getType() {
+    @Override
+	public Type getType() throws RemoteException {
 		return this.type;
 	}
 
 	@Override
-	public void setTarget(Object target) {
+	public void setTarget(Object target) throws RemoteException {
 		// TODO Auto-generated method stub
 		
 	}
 
     @Override
-    public Image getImage() {
+    public String getImage() throws RemoteException {
         return this.image;
     }
 
     @Override
-    public void beurtOverslaan() {
-
+    public void addObserver(KarakterObserver observer) throws RemoteException {
+        observers.add(observer);
     }
+
+    @Override
+    public void notifyObservers() throws RemoteException {
+        for (KarakterObserver observer: observers) {
+            observer.modelChanged(this);
+        }
+    }
+
+	@Override
+	public Object getTarget() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

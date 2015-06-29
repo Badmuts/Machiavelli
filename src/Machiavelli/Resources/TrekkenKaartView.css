@@ -5,10 +5,8 @@
 
 
 #ROOTNODE {
--fx-background-radius: 30;
--fx-border-radius: 30;
--fx-border-width:5;
--fx-border-color: #393939;
+
+-fx-background-color: rgba(0,0,0,0.8);
 }
 
 
@@ -18,4 +16,16 @@
     	-fx-stroke: black;
     	-fx-stroke-width: 1;
     	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+}
+
+#Kaart {
+	-fx-background-color: transparent;
+
+}
+
+#Kaart:hover {
+	-fx-background-color: rgba(255,255,255,0.3);
+	-fx-border-radius: 35 35 35 35;
+  	-fx-background-radius: 35 35 35 35;
+-fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.8) , 5, 0.0 , 0 , 1 );
 }

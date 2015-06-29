@@ -1,0 +1,32 @@
+#title{
+	-fx-font: 40px Tahoma;
+    	-fx-top:0;
+    	-fx-stroke: black;
+    	-fx-stroke-width: 1;
+    	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+}
+
+#meldingview
+{
+	-fx-background-color: rgba(0,0,0,0.8);	
+}
+
+#okButton {
+-fx-background-color: linear-gradient(#ffd65e,#febf04);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 2em;
+    -fx-font-weight: bold;
+	-fx-padding: 3 30 3 30;
+}
+
+#okButton:hover {
+		-fx-background-color: #febf04;
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: white;
+    -fx-font-size: 2.2em;
+}

@@ -1,12 +1,11 @@
 package Machiavelli.Controllers;
 
-import Machiavelli.Interfaces.Remotes.SpelRemote;
+import java.rmi.registry.Registry;
+
 import Machiavelli.Machiavelli;
-import Machiavelli.Models.Speler;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Views.InvullenSpelersView;
 import Machiavelli.Views.MainMenuView;
-
-import java.rmi.registry.Registry;
 
 public class MenuController {
 
@@ -39,6 +38,7 @@ public class MenuController {
 
         // Raadpleeg de spelregels
         mainMenuView.getSpelregelsButton().setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
+        mainMenuView.getSpelregelsButton2().setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
 
         // Start de MainMenuView
         this.cmdMainMenu();
@@ -62,9 +62,13 @@ public class MenuController {
     public void cmdDeelnemenSpel() {
         // TODO: Show new games
     	try{
-    		SpelRemote spel = (SpelRemote)registry.lookup("Spel");
-            this.spelController = new SpelController(spel);
-            this.spelController.cmdAddSpeler(new Speler());
+    		SpelRemote spelStub = (SpelRemote)registry.lookup("Spel");
+            if (spelStub.getAantalSpelers() < spelStub.getMaxAantalSpelers()) {
+                spelStub.createNewSpeler();
+                this.spelController = new SpelController(spelStub);
+            } else {
+                new MeldingController().build("Het maximaal aantal spelers is bereikt").cmdWeergeefMeldingView();
+            }
     	} catch(Exception re) {
     		re.printStackTrace();
     	}
@@ -88,8 +92,8 @@ public class MenuController {
     		int maxAantalSpelers = Integer.parseInt(this.invullenspeler.getTextField());
             SpelRemote spelStub = (SpelRemote)this.registry.lookup("Spel");
             spelStub.createNewSpel(maxAantalSpelers);
+            spelStub.createNewSpeler();
             this.spelController = new SpelController(spelStub);
-            this.spelController.cmdAddSpeler(new Speler());
     	} catch(Exception e) {
     		e.printStackTrace();
     	}

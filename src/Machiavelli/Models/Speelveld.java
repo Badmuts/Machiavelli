@@ -3,12 +3,15 @@ package Machiavelli.Models;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
+import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Views.SpeelveldView;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
@@ -17,17 +20,17 @@ import java.util.ArrayList;
  *
  */
 
-public class Speelveld implements Serializable {
+public class Speelveld extends UnicastRemoteObject implements SpeelveldRemote, Serializable {
     private SpeelveldView speelveldView;
 	private ArrayList<Speler> spelers;
 	private SpelRemote spel;
-	private Speler koning;
+	private SpelerRemote koning;
 	private Karakter karakter;
 	private SpeelveldController speelveldcontroller;
-	private Speler speler;
+	private SpelerRemote speler;
 	private ArrayList<SpeelveldObserver> observers = new ArrayList<>();
 
-	public Speelveld(SpelRemote spel) {
+	public Speelveld(SpelRemote spel) throws RemoteException {
         try {
             this.spel = (SpelRemote) Machiavelli.getInstance().getRegistry().lookup("Spel");
         } catch (Exception e) {
@@ -35,7 +38,7 @@ public class Speelveld implements Serializable {
         }
 	}
 
-	public void setKoning(Speler spelers) throws RemoteException {
+	public void setKoning(SpelerRemote spelers) throws RemoteException {
 		this.koning = spelers;
         notifyObservers();
 	}
@@ -54,15 +57,11 @@ public class Speelveld implements Serializable {
 		}
 	}
 
-	public void registratieView(SpeelveldView speelveldview) {
-		this.speelveldView = speelveldview;
-	}
-
-    public Speler getSpeler() {
+    public SpelerRemote getSpeler() {
         return this.speler;
     }
 
-    public void addSpeler(Speler speler) {
+    public void addSpeler(SpelerRemote speler) {
         this.speler = speler;
     }
 

@@ -22,9 +22,9 @@ public interface GebouwKaartRemote extends Remote {
 
     public void setKosten(int kosten) throws RemoteException;
 
-    public Stad getStad() throws RemoteException;
+    public StadRemote getStad() throws RemoteException;
 
-    public void setStad(Stad stad) throws RemoteException;
+    public void setStad(StadRemote stad) throws RemoteException;
 
     public String getImage() throws RemoteException;
 

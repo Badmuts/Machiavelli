@@ -1,8 +1,11 @@
 package Machiavelli.Interfaces;
 
 import Machiavelli.Enumerations.Type;
-import Machiavelli.Models.Speler;
-import javafx.scene.image.Image;
+import Machiavelli.Interfaces.Observers.KarakterObserver;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  * Deze interface word geimplementeerd door alle karakters.
@@ -17,18 +20,32 @@ import javafx.scene.image.Image;
  * Ook is er een setter aanwezig voor speler omdat het speler
  * object veel word gebruikt binnen de methode gebruikEigenschap.
  */
-public interface Karakter {
-	
-	void setSpeler(Speler speler);
-	Speler getSpeler();
-    void gebruikEigenschap();
-    String getNaam();
-    int getNummer();
-    int getBouwLimiet();
+public interface Karakter extends Remote {
 
-    Type getType();
-    void setTarget(Object target);
-    Image getImage();
-	void beurtOverslaan();
+//    void setSpeler(Speler speler) throws RemoteException;
+
+    boolean gebruikEigenschap() throws RemoteException;
+
+    void setTarget(Object target) throws RemoteException;
+    
+    Object getTarget() throws RemoteException;
+
+    void setSpeler(SpelerRemote speler) throws RemoteException;
+
+    SpelerRemote getSpeler() throws RemoteException;
+
+    String getNaam() throws RemoteException;
+
+    int getNummer() throws RemoteException;
+
+    int getBouwLimiet() throws RemoteException;
+
+    Type getType() throws RemoteException;
+
+    String getImage() throws RemoteException;
+
+    void addObserver(KarakterObserver observer) throws RemoteException;
+
+    void notifyObservers() throws RemoteException;
 
 }

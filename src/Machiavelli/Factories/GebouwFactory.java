@@ -2,25 +2,32 @@ package Machiavelli.Factories;
 
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Observers.GebouwFactoryObserver;
+import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
+import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Models.GebouwKaart;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Collections;
 
 /**
  * @author Daan Rosbergen
  */
-public class GebouwFactory implements Serializable {
+public class GebouwFactory extends UnicastRemoteObject implements GebouwFactoryRemote, Serializable {
 
-    private ArrayList<GebouwKaart> gebouwen = new ArrayList<GebouwKaart>();
+    private ArrayList<GebouwKaartRemote> gebouwen = new ArrayList<>();
     private ArrayList<GebouwFactoryObserver> observers = new ArrayList<GebouwFactoryObserver>();
 
     public GebouwFactory() throws RemoteException {
+        init();
+    }
+
+    private void init() throws RemoteException {
         gebouwen.add(new GebouwKaart(6, "Bibliotheek", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/bibliotheek.png"));
         gebouwen.add(new GebouwKaart(5, "Werkplaats", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/werkplaats.png"));
-        gebouwen.add(new GebouwKaart(6, "School voor Magiërs", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/school-voor-magiers.png"));
+        gebouwen.add(new GebouwKaart(6, "School voor Magiers", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/school-voor-magiers.png"));
         gebouwen.add(new GebouwKaart(5, "Laboratorium", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/laboratorium.png"));
         gebouwen.add(new GebouwKaart(6, "Drakenpoort", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/drakenpoort.png"));
         gebouwen.add(new GebouwKaart(5, "Kerkhof", Type.NORMAAL, "/Machiavelli/Resources/Gebouwkaarten/kerkhof.png"));
@@ -56,28 +63,23 @@ public class GebouwFactory implements Serializable {
         this.schuddenKaarten();
     }
 
-    public void addGebouw(GebouwKaart gebouw) throws RemoteException {
-        this.gebouwen.add(gebouw);
-    }
-
-    public GebouwKaart trekKaart() throws RemoteException {
-        GebouwKaart gebouw = gebouwen.get(0);
-        gebouwen.remove(gebouw);
-        return gebouw;
-    }
-
     private void schuddenKaarten() {
         Collections.shuffle(gebouwen);
     }
 
-    public ArrayList<GebouwKaart> getGebouwen() throws RemoteException
-    {
-        return this.gebouwen;
+    public void addGebouw(GebouwKaartRemote gebouw) throws RemoteException {
+        this.gebouwen.add(gebouw);
     }
 
-    public void setGebouwen(ArrayList<GebouwKaart> gebouwen) {
-        this.gebouwen.clear();
-        this.gebouwen = gebouwen;
+    public GebouwKaartRemote trekKaart() throws RemoteException {
+        GebouwKaartRemote gebouw = gebouwen.get(0);
+        gebouwen.remove(0);
+        return gebouw;
+    }
+
+    public ArrayList<GebouwKaartRemote> getGebouwen() throws RemoteException
+    {
+        return this.gebouwen;
     }
 
     public void addObserver(GebouwFactoryObserver gebouwFactoryObserver) throws RemoteException {

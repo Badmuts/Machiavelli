@@ -3,7 +3,7 @@ package Machiavelli.Models;
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
-import Machiavelli.Views.GebouwKaartView;
+import Machiavelli.Interfaces.Remotes.StadRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -25,10 +25,9 @@ public class GebouwKaart extends UnicastRemoteObject implements Serializable, Ge
 	private int kosten;
 	private String naam;
 	private Type type;
-	private Stad stad;
+	private StadRemote stad;
     private String image;
     private ArrayList<GebouwKaartObserver> observers = new ArrayList<GebouwKaartObserver>();
-    private GebouwKaartView gebouwKaartView;
 
     // Een kaart wordt aangemaakt met de meegegeven waardes
     public GebouwKaart(int kosten, String naam, Type type, String image) throws RemoteException {
@@ -66,11 +65,11 @@ public class GebouwKaart extends UnicastRemoteObject implements Serializable, Ge
         notifyObservers();
     }
 
-    public Stad getStad() throws RemoteException {
+    public StadRemote getStad() throws RemoteException {
         return stad;
     }
 
-    public void setStad(Stad stad) throws RemoteException {
+    public void setStad(StadRemote stad) throws RemoteException {
         this.stad = stad;
         notifyObservers();
     }
@@ -106,4 +105,5 @@ public class GebouwKaart extends UnicastRemoteObject implements Serializable, Ge
         }
         return "Gebouwkaart Remote Excp";
     }
+
 }
