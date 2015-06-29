@@ -30,7 +30,7 @@ public interface SpelRemote extends Remote {
     BeurtRemote getBeurt() throws RemoteException;
     GebouwFactoryRemote getGebouwFactory() throws RemoteException;
     void createNewSpeler() throws RemoteException;
-    KarakterFactory getKarakterFactory() throws RemoteException;
+    KarakterFactoryRemote getKarakterFactory() throws RemoteException;
 
     void setMaxAantalSpelers(int maxAantalSpelers) throws RemoteException;
 

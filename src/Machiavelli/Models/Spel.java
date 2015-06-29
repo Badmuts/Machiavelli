@@ -4,11 +4,7 @@ import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelObserver;
-import Machiavelli.Interfaces.Remotes.BankRemote;
-import Machiavelli.Interfaces.Remotes.BeurtRemote;
-import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
-import Machiavelli.Interfaces.Remotes.SpelRemote;
-import Machiavelli.Interfaces.Remotes.SpelerRemote;
+import Machiavelli.Interfaces.Remotes.*;
 
 
 import java.io.*;
@@ -22,7 +18,7 @@ public class Spel implements SpelRemote, Serializable {
 	private GebouwFactoryRemote gebouwFactory;
 	private BeurtRemote beurt;
 	private SpelerRemote speler;
-	private KarakterFactory karakterFactory;
+	private KarakterFactoryRemote karakterFactory;
 	private ArrayList<SpelObserver> observers;
 	private ArrayList<SpelerRemote> spelers = new ArrayList<>();
 
@@ -54,7 +50,7 @@ public class Spel implements SpelRemote, Serializable {
 		return this.gebouwFactory;
 	}
 	
-	public KarakterFactory getKarakterFactory() {
+	public KarakterFactoryRemote getKarakterFactory() {
 		return this.karakterFactory;
 	}
 
