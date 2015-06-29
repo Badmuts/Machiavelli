@@ -21,7 +21,7 @@ public class Spel implements SpelRemote, Serializable {
 	private KarakterFactoryRemote karakterFactory;
 	private ArrayList<SpelObserver> observers;
 	private ArrayList<SpelerRemote> spelers = new ArrayList<>();
-    private ArrayList<SpelerRemote> tempSpelers = new ArrayList();
+		private ArrayList<SpelerRemote> tempSpelers = new ArrayList();
 
 	public Spel(){
 
@@ -90,6 +90,7 @@ public class Spel implements SpelRemote, Serializable {
 
 		public void clearSpelers()
 		{
+				this.spelers = null;
 				this.spelers = new ArrayList<>();
 		}
 
