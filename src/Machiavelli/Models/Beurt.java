@@ -122,7 +122,7 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
     	if (observers.size() > 0) {
     	    observers.get(observerIndex).setDisable(true);
 			observerIndex++;
-			if (observerIndex >= observers.size() - 1) {
+			if (observerIndex >= observers.size()) {
 				observerIndex = 0;
 			}
 			observers.get(observerIndex).setDisable(false);
