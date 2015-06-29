@@ -29,7 +29,6 @@ public class KiesInkomstenView extends UnicastRemoteObject{
 	
 	public KiesInkomstenView() throws RemoteException
 	{
-//		super(1099);
 		this.title = new Text("Maak je keuze:");
 		this.title.setId("title");
 		this.title.setFill(Color.WHITE);

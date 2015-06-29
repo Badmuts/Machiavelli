@@ -20,24 +20,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import Machiavelli.Machiavelli;
-import Machiavelli.Controllers.BeurtController;
-import Machiavelli.Controllers.GebouwKaartController;
-import Machiavelli.Controllers.InkomstenController;
-import Machiavelli.Controllers.KarakterController;
-import Machiavelli.Controllers.RaadplegenSpelregelsController;
-import Machiavelli.Controllers.SpeelveldController;
-import Machiavelli.Interfaces.Observers.BeurtObserver;
-import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
-import Machiavelli.Interfaces.Observers.SpeelveldObserver;
-import Machiavelli.Interfaces.Remotes.BeurtRemote;
-import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
-import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
-import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.Speelveld;
 
 
 public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver, BeurtObserver, Serializable {
@@ -62,7 +48,6 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     private boolean disabled;
 
     public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController, SpelerRemote speler, BeurtController beurtController, BeurtRemote beurt) throws RemoteException {
-//        super(1099);
         this.speelveld = speelveld;
         this.speler = speler;  
         this.beurtController = beurtController;

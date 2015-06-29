@@ -33,7 +33,6 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
      * @param hand
      */
     public HandActionBarView(HandRemote hand, GebouwKaartController gebouwKaartController) throws RemoteException {
-//        super(1099);
         this.hand = hand;
         this.gebouwKaartController = gebouwKaartController;
         this.hand.addObserver(this);

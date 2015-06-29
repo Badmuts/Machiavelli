@@ -31,7 +31,6 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
     private StackPane gebouwKaartView;
 
     public GebouwKaartView(GebouwKaartController gebouwkaartController, GebouwKaartRemote gebouwKaart) throws RemoteException {
-//        super(1099);
         this.gebouwKaart = gebouwKaart;
         this.gebouwKaartController = gebouwkaartController;
         this.gebouwKaartView = new StackPane();
@@ -40,6 +39,17 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         this.gebouwKaartView.setCache(true);
         this.gebouwKaartView.setCacheShape(true);
         this.gebouwKaartView.setCacheHint(CacheHint.SPEED);
+        this.addClickHandler();
+    }
+
+    public GebouwKaartView(GebouwKaartController gebouwkaartController, GebouwKaartRemote gebouwKaart, int width, int height) throws RemoteException {
+        this.gebouwKaart = gebouwKaart;
+        this.width = width;
+        this.height = height;
+        this.gebouwKaartController = gebouwkaartController;
+        this.gebouwKaartView = new StackPane();
+        this.gebouwKaartView.getChildren().addAll(createImageView(), createScoreView(), createNameField());
+        this.gebouwKaartView.setPrefSize(width, height);
         this.addClickHandler();
     }
 
@@ -70,18 +80,6 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         });
     }
 
-    public GebouwKaartView(GebouwKaartController gebouwkaartController, GebouwKaartRemote gebouwKaart, int width, int height) throws RemoteException {
-//        super(1099);
-        this.gebouwKaart = gebouwKaart;
-        this.width = width;
-        this.height = height;
-        this.gebouwKaartController = gebouwkaartController;
-        this.gebouwKaartView = new StackPane();
-        this.gebouwKaartView.getChildren().addAll(createImageView(), createScoreView(), createNameField());
-        this.gebouwKaartView.setPrefSize(width, height);
-        this.addClickHandler();
-    }
-    
     
 
     private ImageView createImageView() {

@@ -24,7 +24,6 @@ public class KarakterActionBarView extends UnicastRemoteObject implements Speler
     private SpelerRemote speler;
 
     public KarakterActionBarView(Karakter karakter, SpelerRemote speler) throws RemoteException {
-//        super(1099);
         this.karakter = karakter;
         this.speler = speler;
 
