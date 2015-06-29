@@ -24,7 +24,7 @@ public class MenuController {
     private SpelController spelController;
     private Registry registry;
 
-    private ArrayList<SpelerRemote> tempSpelerLijst = new ArrayList<>();
+    //private ArrayList<SpelerRemote> tempSpelerLijst = new ArrayList<>();
 
     /**
      * Maakt de MainMenuView aan en koppelt de buttons aan cmd's
@@ -76,14 +76,19 @@ public class MenuController {
     	try{
     		SpelRemote spelStub = (SpelRemote)registry.lookup("Spel");
             if (spelStub.getAantalSpelers() < spelStub.getMaxAantalSpelers()) {
+                if(spelStub.getTempSpelers().size() != 0)
+                {
+                    spelStub.getSpelers().add(spelStub.getTempSpelers().get(0));
+                    spelStub.getTempSpelers().remove(0);
+                } else {
 
-                if (this.tempSpelerLijst.size() != 0) {
-                    spelStub.getSpelers().add(this.tempSpelerLijst.get(0));
-                    this.tempSpelerLijst.remove(0);
-                }
-                else {
+//                if (this.tempSpelerLijst.size() != 0) {
+//                    spelStub.getSpelers().add(this.tempSpelerLijst.get(0));
+//                    this.tempSpelerLijst.remove(0);
+//                }
+//                else {
                     spelStub.createNewSpeler();
-                }
+               }
                 this.spelController = new SpelController(spelStub);
             } else {
                 new MeldingController().build("Het maximaal aantal spelers is bereikt").cmdWeergeefMeldingView();
@@ -106,12 +111,17 @@ public class MenuController {
             SpelRemote loadSpel = (SpelRemote)ois.readObject();
             SpelRemote spelStub = (SpelRemote)this.registry.lookup("Spel");
             spelStub.laadSpel(loadSpel);
-            this.tempSpelerLijst = spelStub.getSpelers();
-            spelStub.getSpelers().clear();
-            spelStub.getSpelers().add(this.tempSpelerLijst.get(0));
-            this.tempSpelerLijst.remove(0);
-            spelStub.setSpelers(this.tempSpelerLijst);
-            // aantal spelers op grootte van de tempspelerlist zetten
+//            this.tempSpelerLijst = spelStub.getSpelers();
+            spelStub.setTempSpelers(spelStub.getSpelers());
+            spelStub.clearSpelers();
+//            spelStub.getSpelers().clear();
+//            spelStub.getSpelers().add(this.tempSpelerLijst.get(0));
+//            this.tempSpelerLijst.remove(0);
+//            spelStub.setSpelers(this.tempSpelerLijst);
+            spelStub.getSpelers().add(spelStub.getTempSpelers().get(0));
+            spelStub.getTempSpelers().remove(0);
+            spelStub.setSpelers(spelStub.getTempSpelers());
+            // aantal spelers op grootte van de tempspelerlist zetten?
 
             this.spelController = new SpelController(spelStub);
         } catch (Exception e) {

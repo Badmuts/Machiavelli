@@ -21,7 +21,7 @@ public class Spel implements SpelRemote, Serializable {
 	private KarakterFactoryRemote karakterFactory;
 	private ArrayList<SpelObserver> observers;
 	private ArrayList<SpelerRemote> spelers = new ArrayList<>();
-//    private ArrayList<SpelerRemote> tempSpelers = new ArrayList();
+    private ArrayList<SpelerRemote> tempSpelers = new ArrayList();
 
 	public Spel(){
 
@@ -88,6 +88,11 @@ public class Spel implements SpelRemote, Serializable {
         return this.spelers;
     }
 
+		public void clearSpelers()
+		{
+				this.spelers = new ArrayList<>();
+		}
+
     public int getMaxAantalSpelers() {
         return this.maxAantalSpelers;
     }
@@ -134,13 +139,13 @@ public class Spel implements SpelRemote, Serializable {
 		this.karakterFactory = karakterFactory;
 	}
 
-//    public void setTempSpelers(ArrayList<SpelerRemote> list)
-//    {
-//        this.tempSpelers = list;
-//    }
-//    public ArrayList<SpelerRemote> getTempSpelers() {
-//        return tempSpelers;
-//    }
+    public void setTempSpelers(ArrayList<SpelerRemote> list)
+    {
+        this.tempSpelers = list;
+    }
+    public ArrayList<SpelerRemote> getTempSpelers() {
+        return tempSpelers;
+    }
 
 	public void setSpelers(ArrayList<SpelerRemote> spelers) {
 		this.spelers = spelers;

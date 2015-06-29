@@ -42,9 +42,11 @@ public interface SpelRemote extends Remote {
 
     void laadSpel(SpelRemote loadSpel) throws RemoteException;
 
-//    ArrayList<SpelerRemote> getTempSpelers() throws RemoteException;
-//
-//    void setTempSpelers(ArrayList<SpelerRemote> list) throws RemoteException;
+    ArrayList<SpelerRemote> getTempSpelers() throws RemoteException;
+
+    void setTempSpelers(ArrayList<SpelerRemote> list) throws RemoteException;
+
+    void clearSpelers() throws RemoteException;
 
     ArrayList<SpelObserver> getObservers() throws RemoteException;
 
