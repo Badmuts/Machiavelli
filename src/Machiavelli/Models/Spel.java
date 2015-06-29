@@ -68,6 +68,7 @@ public class Spel implements SpelRemote, Serializable {
 
 	@Override
 	public void addObserver(SpelObserver observer) throws RemoteException {
+        System.out.println("Spel observer added! Observer: " + observers.size());
 		observers.add(observer);
 	}
     
