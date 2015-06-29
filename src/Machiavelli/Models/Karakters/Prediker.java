@@ -6,15 +6,16 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.GebouwKaart;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
  * Created by daanrosbergen on 03/06/15.
  * Edited by Sander de Jong on 08/06/15.
+ * Edited by Bernd Oostrum
  * 
  * De speler heeft het karakter Prediker gekozen. 
  * De eigenschappen van dit karakter worden gebruikt
@@ -23,9 +24,18 @@ import java.util.ArrayList;
  * Uit de stad van de prediker kunnen geen gebouwen worden
  * verwijderd.
  */
-public class Prediker implements Karakter, Bonusable, Serializable {
-	
+public class Prediker extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
+
+
+    private boolean isBonusable = true;
+
+    public Prediker() throws RemoteException {
+        super(1099);
+	}
+
 	private SpelerRemote speler = null;
+	private ArrayList<KarakterObserver> observers = new ArrayList<>();
+
 
 	/** Eigenschappen van karakter Prediker. */
     private final int nummer = 5;	
@@ -36,7 +46,7 @@ public class Prediker implements Karakter, Bonusable, Serializable {
 	private Object target;
     
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Prediker.png";
-    private ArrayList<KarakterObserver> observers = new ArrayList<>();
+   
 
     @Override
     public void setSpeler(SpelerRemote speler) throws RemoteException {
@@ -49,19 +59,24 @@ public class Prediker implements Karakter, Bonusable, Serializable {
     }
 
     @Override
-    public void gebruikEigenschap() throws RemoteException {
-        // TODO: beschermt tegen karakter Condotierre
+    public boolean gebruikEigenschap() throws RemoteException {
+        return true;
     }
     
     /** ontvangen bonusgoud voor Kerk gebouwen */
     @Override
     public void ontvangenBonusGoud() throws RemoteException {
-        ArrayList<GebouwKaartRemote> gebouwen = speler.getStad().getGebouwen();
-        for(GebouwKaartRemote gebouw: gebouwen) {
-            if (gebouw.getType() == this.type)
-                speler.getPortemonnee().ontvangenGoud(1);
+        if (isBonusable) {
+            ArrayList<GebouwKaartRemote> gebouwen = speler.getStad().getGebouwen();
+            for (GebouwKaartRemote gebouw : gebouwen) {
+                if (gebouw.getType() == this.type)
+                    speler.getPortemonnee().ontvangenGoud(1);
+            }
+            this.isBonusable = false;
+            notifyObservers();
         }
     }
+
     @Override
     public String getNaam() throws RemoteException {
     	return this.naam;
@@ -102,5 +117,16 @@ public class Prediker implements Karakter, Bonusable, Serializable {
         for (KarakterObserver observer: observers) {
             observer.modelChanged(this);
         }
+    }
+
+	@Override
+	public Object getTarget() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+    @Override
+    public boolean isBonusable() throws RemoteException {
+        return isBonusable;
     }
 }

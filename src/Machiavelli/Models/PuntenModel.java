@@ -21,6 +21,7 @@ public class PuntenModel extends UnicastRemoteObject implements PuntenRemote, Se
 	private ArrayList<PuntenObserver> observers = new ArrayList<>();
 
 	protected PuntenModel() throws RemoteException {
+		super(1099);
 	}
 
 	public Speler berekenWinnaar() throws RemoteException {

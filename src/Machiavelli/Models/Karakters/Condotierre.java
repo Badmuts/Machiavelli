@@ -7,11 +7,10 @@ import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Interfaces.Remotes.StadRemote;
-import Machiavelli.Models.GebouwKaart;
-import Machiavelli.Models.Stad;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /** 
@@ -26,9 +25,16 @@ import java.util.ArrayList;
  * andere speler vernietigen. Ook ontvangt hij 1 goudstuk
  * voor elk militair gebouw in zijn stad.
  */
-public class Condotierre implements Karakter, Bonusable, Serializable {
+public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
 
-	private GebouwKaart target = null;
+    private boolean isBonusable = true;
+
+    public Condotierre() throws RemoteException {
+		// TODO Auto-generated constructor stub
+        super(1099);
+	}
+
+	private GebouwKaartRemote target = null;
 	private SpelerRemote speler = null;
 	
 	/** Eigenschappen van karakter Condotierre */
@@ -36,6 +42,7 @@ public class Condotierre implements Karakter, Bonusable, Serializable {
 	private final int bouwLimiet = 1; 
 	private final String naam = "Condotierre";
     private final Type type = Type.MILITAIR;
+    
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Condotierre.png";
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
@@ -50,98 +57,99 @@ public class Condotierre implements Karakter, Bonusable, Serializable {
 
     @Override
     public SpelerRemote getSpeler() throws RemoteException {
-        return null;
+        return speler;
     }
 
     @Override
     public void setTarget(Object target) throws RemoteException {
-    	this.target = (GebouwKaart) target;
+    	System.out.println("Het target is: " + target);
+    	this.target = (GebouwKaartRemote) target;
     	gebruikEigenschap();
     }
 
+    /**
+	 * De Condotierre selecteert eerst een gebouwkaart op het speelveld.
+	 * Daarna kan pas deze methode worden uitgevoerd. De geselecteerde 
+	 * gebouwkaart wordt uit de stad verwijderd. De gebruikEigenschap methode
+	 * kan per beurt maar een keer worden aangeroepen. Als de gebouwkaart in de
+	 * stad van de Prediker staat, kan deze niet worden verwijderd. 
+	 */
     @Override
-    public String getImage() throws RemoteException {
-        return this.image;
+    public boolean gebruikEigenschap() throws RemoteException {	
+    	System.out.println(target == null);
+    	
+		 
+			if (this.target == null) {
+				return false;	
+			}
+			else {
+				if (target.getStad().getSpeler().getKarakter().getNummer() != 5) {
+					vernietigGebouw(this.target.getStad(), getTarget());
+					this.speler.setEigenschapGebruikt(true);
+				}
+				else {
+					return false;
+				}
+			}
+		
+    
+		return true;
     }
     
     /**
-	 * overriden van de methode uit de interface Karakter
-	 * en aanroepen van de methode selectGebouwView
-	 * Er wordt gewacht op de keuze van de speler. 
-	 * Vervolgens wordt het het gekozen gebouw verwijderd 
-	 * uit de stad van de speler waarin dit gebouw gekozen is
-	 */
-    public void gebruikEigenschap() throws RemoteException {
-    	try {
-			if (target != null && target.getStad().getSpeler().getKarakter().getNaam() != "Prediker") {
-					vernietigGebouw(this.target.getStad(), getTarget());
-				}
-			else {
-				//TODO speelveldview aanroepen met klikbare gebouwen in steden
-			}
-					
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}   	
+   	 * De kosten voor het vernietigen gebouw worden uit de portemonnee gehaald en op de bank gezet.
+   	 * De gebouwkaart wordt teruggeplaatst in de GebouwFactory. 
+   	 */
+    private void vernietigGebouw(StadRemote stad, GebouwKaartRemote target) throws RemoteException {
+    	System.out.println("het target is " +  target);
+    	speler.setGoudOpBank(speler.getPortemonnee(), target.getKosten()-1);
+		target.getStad().removeGebouw(target);	
     }
     
-    //Verwijder gebouw uit stad van een andere speler en verwijder de kosten??
-    private void vernietigGebouw(StadRemote stad, GebouwKaart target) {
-    	
-    	try {
-    		speler.setGoudOpBank(speler.getPortemonnee(), target.getKosten()-1);
-			target.getStad().removeGebouw(this.getTarget());
-			
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
-
     /** ontvangen bonusgoud voor militaire gebouwen */
     @Override
-    public void ontvangenBonusGoud() {
-    	try
-    	{
-	        ArrayList<GebouwKaartRemote> gebouwen = speler.getStad().getGebouwen();
-	        for(GebouwKaartRemote gebouw: gebouwen) {
-	            if (gebouw.getType() == this.type)
-	                speler.getPortemonnee().ontvangenGoud(1);
-	        }
-    	}
-    	catch(RemoteException e)
-    	{
-    		e.printStackTrace();
-    	}
+    public void ontvangenBonusGoud() throws RemoteException {
+        if (isBonusable) {
+            ArrayList<GebouwKaartRemote> gebouwen = speler.getStad().getGebouwen();
+            for (GebouwKaartRemote gebouw : gebouwen) {
+                if (gebouw.getType() == this.type) {
+                    speler.getPortemonnee().ontvangenGoud(1);
+                }
+            }
+            this.isBonusable = false;
+            notifyObservers();
+        }
     }
-    /*
-    TODO: implement registerSelectGebouwView
-    public void registerSelectGebouwView(SelecteGebouwView selecteGebouwView) {
-        this.selectGebouwView = selectGebouwView;
-    } */
     
     @Override
     public int getBouwLimiet() throws RemoteException {
         return this.bouwLimiet;
     }
     
-    public GebouwKaart getTarget() throws RemoteException {
+    @Override
+    public GebouwKaartRemote getTarget() throws RemoteException {
     	return target;
     }
-	
+    
+    @Override
 	public String getNaam() throws RemoteException {
     	return this.naam;
     }
-   
+    
+    @Override
     public int getNummer() throws RemoteException {
     	return this.nummer;
     }
-
+    
+    @Override
 	public Type getType() throws RemoteException {
 		return this.type;
 	}
-
+    
+    @Override
+    public String getImage() throws RemoteException {
+        return this.image;
+    }
     @Override
     public void addObserver(KarakterObserver observer) throws RemoteException {
         observers.add(observer);
@@ -153,5 +161,13 @@ public class Condotierre implements Karakter, Bonusable, Serializable {
             observer.modelChanged(this);
         }
     }
+    
+    public String toString() {
+    	return "target: " + this.target;
+    }
 
+    @Override
+    public boolean isBonusable() throws RemoteException {
+        return isBonusable;
+    }
 }

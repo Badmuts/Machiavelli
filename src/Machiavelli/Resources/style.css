@@ -144,7 +144,6 @@
 
 .gebouwkaart-active {
     -fx-effect: dropshadow(three-pass-box, lime, 15, 0.1, 0, 0);
-    -fx-translate-y: -75;
 }
 
 .gebouwkaart-active:hover {
@@ -175,4 +174,21 @@
 
 .menu {
     -fx-background-color: #48443c;
+}
+
+.overlay {
+    -fx-fill: rgba(0, 0, 0, 0.7);
+}
+
+.h1 {
+    -fx-font-size: 2em;
+    -fx-fill: white;
+}
+
+.title{
+	-fx-font: 40px Tahoma;
+    -fx-top:0;
+    -fx-stroke: black;
+    -fx-stroke-width: 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
 }

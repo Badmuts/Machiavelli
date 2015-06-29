@@ -1,7 +1,6 @@
 package Machiavelli.Interfaces.Remotes;
 
 import Machiavelli.Interfaces.Observers.GebouwFactoryObserver;
-import Machiavelli.Models.GebouwKaart;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

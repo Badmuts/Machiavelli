@@ -7,9 +7,10 @@ import Machiavelli.Models.Karakters.*;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class KarakterFactory implements KarakterFactoryRemote, Serializable {
+public class KarakterFactory extends UnicastRemoteObject implements KarakterFactoryRemote, Serializable {
     /**
      * ArrayList om alle karakters op te slaan
      */
@@ -19,15 +20,22 @@ public class KarakterFactory implements KarakterFactoryRemote, Serializable {
     /**
      * Maakt alle karakters aan (in dit geval 8)
      */
-    public KarakterFactory() {
-        this.karakters.add(new Moordenaar());
-        this.karakters.add(new Dief());
-        this.karakters.add(new Magier());
-        this.karakters.add(new Koning());
-        this.karakters.add(new Prediker());
-        this.karakters.add(new Koopman());
-        this.karakters.add(new Bouwmeester());
-        this.karakters.add(new Condotierre());
+    public KarakterFactory() throws RemoteException {
+        super(1099);
+        try {
+        	this.karakters.add(new Moordenaar());
+            this.karakters.add(new Dief());
+            this.karakters.add(new Magier());
+            this.karakters.add(new Koning());
+            this.karakters.add(new Prediker());
+            this.karakters.add(new Koopman());
+            this.karakters.add(new Bouwmeester());
+            this.karakters.add(new Condotierre());	
+        }
+        catch ( Exception e) {
+        	e.printStackTrace();
+        }	
+           
     }
 
     /**
@@ -56,9 +64,26 @@ public class KarakterFactory implements KarakterFactoryRemote, Serializable {
      */
     public Karakter getKarakterByNumber(int karakterNummer) throws RemoteException {
         Karakter tmpKarakter = null;
+        Karakter removeKarakter = null;
         
-        tmpKarakter = karakters.get(karakterNummer);
-        karakters.remove(karakterNummer);
+//        karakterNummer = (karakterNummer -1);
+        for(Karakter karakter : this.karakters)
+        {
+    		if(Integer.valueOf(karakter.getNummer()).equals(karakterNummer))
+        	{
+        		tmpKarakter = karakter;
+        		removeKarakter = karakter;
+        	}
+        }
+        
+//        tmpKarakter = karakters.get(karakterNummer);
+        karakters.remove(removeKarakter);
+        
+        for(Karakter k : karakters)
+        {
+        	System.out.println(karakters.indexOf(k) + " " + k.getNaam());
+        }
+        
         return tmpKarakter;
     }
 

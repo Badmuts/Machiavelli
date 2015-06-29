@@ -1,13 +1,14 @@
 package Machiavelli.Models.Karakters;
 
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-
-import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -24,9 +25,14 @@ import java.util.ArrayList;
  * aan de beurt is
  */
 
-public class Dief implements Karakter, Serializable {
+public class Dief extends UnicastRemoteObject implements Karakter, Serializable {
 	
+	public  Dief() throws RemoteException {
+        super(1099);
+	}
+
 	private SpelerRemote speler = null;
+
 	private Karakter target = null;
     
 	/** Eigenschappen van karakter Dief. */
@@ -67,13 +73,16 @@ public class Dief implements Karakter, Serializable {
 	 * al zijn goudstukken op het moment dat deze aan de beurt is. 
 	 */
     @Override
-    public void gebruikEigenschap() throws RemoteException {
+    public boolean gebruikEigenschap() throws RemoteException {
     	if (target != null && target.getNaam() != "Moordenaar") {
     		BesteelKarakter(this.speler, getTarget());
-    		
+    		this.speler.setEigenschapGebruikt(true);
+    		System.out.println("De dief heeft de" + getTarget().getNaam() + " bestolen!");
+    		target = null; 
+    		return true;
     	}
     	else {
-    		//TODO KiezenKarakterView aanroepen om een target te selecteren
+    		return false;
     	}
     }
     
@@ -119,6 +128,8 @@ public class Dief implements Karakter, Serializable {
     
     private void BesteelKarakter(SpelerRemote speler, Karakter target) {
 		try {
+			System.out.println("naam speler: " + speler.getKarakter().getNaam() + " | Goudstukken: " + speler.getPortemonnee().getGoudMunten());
+			System.out.println("naam target: " + target.getNaam() + " | Goudstukken: " + target.getSpeler().getPortemonnee().getGoudMunten());
 			speler.getGoudVanBank(speler.getSpel().getBank(), target.getSpeler().getPortemonnee().getGoudMunten());
 			target.getSpeler().setGoudOpBank(target.getSpeler().getPortemonnee(), target.getSpeler().getPortemonnee().getGoudMunten());
 		} catch (RemoteException e) {

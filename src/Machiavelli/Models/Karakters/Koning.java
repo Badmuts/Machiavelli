@@ -6,10 +6,10 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.GebouwKaart;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /** 
@@ -24,8 +24,14 @@ import java.util.ArrayList;
  * Ook ontvangt de koning 1 goudstuk voor elk monument gebouw
  * in zijn stad.
  */
-public class Koning implements Karakter, Bonusable, Serializable {
-	
+public class Koning extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
+
+    private boolean isBonusable = true;
+
+    public Koning() throws RemoteException {
+        super(1099);
+    }
+
 	private SpelerRemote speler = null;
 
 	/*Eigenschappen van karakter Koning*/
@@ -33,9 +39,8 @@ public class Koning implements Karakter, Bonusable, Serializable {
     private final int bouwLimiet = 1; 
     private final String naam = "Koning";
     private final Type type = Type.MONUMENT;
-    private Object target;
+    
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Koning.png";
-
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
     /**
@@ -57,37 +62,42 @@ public class Koning implements Karakter, Bonusable, Serializable {
 	 *  en aanroepen van de methode beginBeurt
 	 */
     @Override
-    public void gebruikEigenschap() throws RemoteException {
+    public boolean gebruikEigenschap() throws RemoteException {
         // TODO: begint beurt
+        return true;
     }
 
     /*ontvangen bonusgoud voor monument gebouwen*/
     @Override
     public void ontvangenBonusGoud() throws RemoteException {
-        try {
+        if (isBonusable) {
             ArrayList<GebouwKaartRemote> gebouwen = speler.getStad().getGebouwen();
-            for(GebouwKaartRemote gebouw: gebouwen) {
+            for (GebouwKaartRemote gebouw : gebouwen) {
                 if (gebouw.getType() == this.type) {
                     speler.getPortemonnee().ontvangenGoud(1);
                 }
             }
-        } catch (RemoteException re) {
-            System.out.print(re);
+            this.isBonusable = false;
+            notifyObservers();
         }
     }
     
+    @Override
     public int getNummer() throws RemoteException {
         return nummer;
     }
     
+    @Override
     public int getBouwLimiet() throws RemoteException {
         return bouwLimiet;
     }
     
+    @Override
     public String getNaam() throws RemoteException {
         return naam;
     }
 
+    @Override
     public Type getType() throws RemoteException {
         return type;
     }
@@ -111,9 +121,15 @@ public class Koning implements Karakter, Bonusable, Serializable {
 
 	@Override
 	public void setTarget(Object target) throws RemoteException {
-		// TODO Auto-generated method stub
-		
 	}
 
+	@Override
+	public Object getTarget() throws RemoteException {
+		return null;
+	}
 
+    @Override
+    public boolean isBonusable() throws RemoteException {
+        return isBonusable;
+    }
 }

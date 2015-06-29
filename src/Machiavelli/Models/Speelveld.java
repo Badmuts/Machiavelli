@@ -31,6 +31,7 @@ public class Speelveld extends UnicastRemoteObject implements SpeelveldRemote, S
 	private ArrayList<SpeelveldObserver> observers = new ArrayList<>();
 
 	public Speelveld(SpelRemote spel) throws RemoteException {
+//		super(1099);
         try {
             this.spel = (SpelRemote) Machiavelli.getInstance().getRegistry().lookup("Spel");
         } catch (Exception e) {

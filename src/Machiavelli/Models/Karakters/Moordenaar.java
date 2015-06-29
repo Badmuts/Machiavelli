@@ -8,6 +8,7 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /** 
@@ -22,16 +23,20 @@ import java.util.ArrayList;
  * karakter vermoorden. Het vermoorde karakter speelt
  * deze ronde niet mee. 
  */
-public class Moordenaar implements Karakter, Serializable {
-	
+public class Moordenaar extends UnicastRemoteObject implements Karakter, Serializable {
+
+	public Moordenaar() throws RemoteException {
+        super(1099);
+	}
 	private SpelerRemote speler = null;
+	private Object target;
     
 	/** Eigenschappen van karakter Moordenaar. */
     private final int nummer = 1;	
     private final int bouwLimiet = 1; 
     private final String naam = "Moordenaar";
     private final Type type = Type.NORMAAL;
-    private Object target;
+    
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Moordenaar.png";
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
@@ -58,16 +63,18 @@ public class Moordenaar implements Karakter, Serializable {
 	 * en een karakter vermoorden die vervolgens een beurt
 	 * overslaat.
 	 */
-    
     @Override
-    public void gebruikEigenschap() throws RemoteException {
+    public boolean gebruikEigenschap() throws RemoteException {
         // TODO: vermoord karakter
     	if (target != null) {
     		vermoordKarakter(this.getVermoordKarakter());
+    		this.speler.setEigenschapGebruikt(true);
+    		target = null;
     	}
     	else {
     		//TODO: view aanroepen
     	}
+        return false;
     }
     
     //beurt overslaan met ifjes???
@@ -75,16 +82,19 @@ public class Moordenaar implements Karakter, Serializable {
     public void vermoordKarakter(Karakter target) throws RemoteException {
     	//target.getSpeler()
     	//methode eindigenbeurt van de target aanroepen.
+      
+    	//zet status van karakter naar vermoord(?)
+    	System.out.println("De " + target.getNaam() + " is vermoord");
     	}
     
     public Karakter getVermoordKarakter() throws RemoteException {
 		return (Karakter)target;
 	}
-
+    @Override
 	public String getNaam() throws RemoteException {
     	return this.naam;
     }
-   
+    @Override
     public int getNummer() throws RemoteException {
     	return this.nummer;
     }
@@ -93,7 +103,8 @@ public class Moordenaar implements Karakter, Serializable {
     public int getBouwLimiet() throws RemoteException {
         return this.bouwLimiet;
     }
-
+    
+    @Override
     public Type getType() throws RemoteException {
 		return this.type;
 	}
@@ -114,6 +125,12 @@ public class Moordenaar implements Karakter, Serializable {
             observer.modelChanged(this);
         }
     }
+    
+	@Override
+	public Object getTarget() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 
 

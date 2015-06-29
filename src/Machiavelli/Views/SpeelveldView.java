@@ -1,10 +1,10 @@
 package Machiavelli.Views;
 
-import Machiavelli.Controllers.GebouwKaartController;
-import Machiavelli.Controllers.RaadplegenSpelregelsController;
-import Machiavelli.Controllers.SpeelveldController;
+import Machiavelli.Controllers.*;
+import Machiavelli.Interfaces.Observers.BeurtObserver;
 import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
 import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
 import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
@@ -21,14 +21,18 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver {
+
+public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver, BeurtObserver, Serializable {
 
     private SpelerRemote speler;
+    private BeurtRemote beurt;
     private GebouwKaartController gebouwKaartController;
     private SpeelveldController speelveldcontroller;
+    private BeurtController beurtController;
 	private Speelveld speelveld;
 	private Scene speelveldscene;
 	private Pane speelveldpane;
@@ -41,14 +45,19 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     private Text portemonneeView;
     private Pane topBar;
     private Pane steden;
+    private boolean disabled;
 
-    public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController, SpelerRemote speler) throws RemoteException {
-		this.speelveld = speelveld;
-        this.speler = speler;
+    public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController, SpelerRemote speler, BeurtController beurtController, BeurtRemote beurt) throws RemoteException {
+        this.speelveld = speelveld;
+        this.speler = speler;  
+        this.beurtController = beurtController;
+        this.beurt = beurt;
+        
 		this.speelveldcontroller = speelveldcontroller;
         this.gebouwKaartController = gebouwKaartController;
-        this.portemonnee = speler.getPortemonnee();
-
+        this.portemonnee = speler.getPortemonnee();   
+        
+        this.beurt.addObserver(this);
         this.portemonnee.addObserver(this);
 
         this.createStedenHolder();
@@ -71,7 +80,9 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         container.setPrefSize(1440, 900);
         container.getChildren().add(speelveldpane);
         speelveldscene = new Scene(container, 1440, 900);
-
+        
+        setDisable(true);
+        
 		this.show();
 	}
 
@@ -179,5 +190,53 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
                 e.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public void modelChanged(BeurtRemote beurt) throws RemoteException {
+      // TODO Auto-generated method stub
+      Platform.runLater(() -> {
+        System.out.println("Beurt Model changed");
+        buttonHolderActionBarView.getBouwButton().setDisable(isDisabled());
+        buttonHolderActionBarView.getEigenschapButton().setDisable(isDisabled());
+        buttonHolderActionBarView.getGoudbutton().setDisable(isDisabled());
+        buttonHolderActionBarView.getEindeBeurtButton().setDisable(isDisabled());
+        });
+    }
+
+    public boolean isDisabled() {
+      // TODO Auto-generated method stub
+      return disabled;
+    }
+
+    @Override
+    public void setDisable(boolean disabled){
+      this.disabled = disabled;
+      
+    }
+    
+    public void showInkomsten() {
+      Platform.runLater(() -> {
+        try {
+          InkomstenController inkomstenController = new InkomstenController(this.speler);
+          inkomstenController.show();
+        } catch (Exception e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      });
+    }
+    
+    
+    public void showKarakterMenu() {
+      Platform.runLater(() -> {
+        try {
+          KarakterController karaktercontroller = new KarakterController(this.speler, "ronde");
+          karaktercontroller.show();
+        } catch (Exception e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      });
     }
 }

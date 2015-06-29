@@ -1,8 +1,6 @@
 package Machiavelli.Interfaces.Remotes;
 
 import Machiavelli.Interfaces.Observers.HandObserver;
-import Machiavelli.Models.GebouwKaart;
-import Machiavelli.Models.Speler;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -63,4 +61,14 @@ public interface HandRemote extends Remote {
     public void addObserver(HandObserver observer) throws RemoteException;
 
     public void notifyObservers() throws RemoteException;
+
+    void addActiveCard(GebouwKaartRemote gebouwKaartRemote) throws RemoteException;
+
+    ArrayList<GebouwKaartRemote> getActiveCards() throws RemoteException;
+
+    void removeActiveCard(GebouwKaartRemote gebouwKaartRemote) throws RemoteException;
+
+    void resetActiveCards() throws RemoteException;
+
+    GebouwKaartRemote trekKaart() throws RemoteException;
 }

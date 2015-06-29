@@ -26,9 +26,10 @@ public class Portemonnee extends UnicastRemoteObject implements PortemonneeRemot
 
 	// Een portemonnee start met 2 goudmunten. Deze worden uit de bank gehaald
 	public Portemonnee(BankRemote bank) throws RemoteException {
+		super(1099);
 		this.bank = bank;
 		try {
-			goudMunten += this.bank.gevenGoud(2);
+			goudMunten += this.bank.gevenGoud(20);
 		} catch (RemoteException re) {
 			re.printStackTrace();
 		}

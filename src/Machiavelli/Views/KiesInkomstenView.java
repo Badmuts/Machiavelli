@@ -1,7 +1,7 @@
 package Machiavelli.Views;
 
-import java.rmi.RemoteException;
-
+import Machiavelli.Controllers.InkomstenController;
+import Machiavelli.Machiavelli;
 import javafx.animation.FadeTransition;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -13,14 +13,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.util.Duration;
-import Machiavelli.Machiavelli;
-import Machiavelli.Controllers.InkomstenController;
-import Machiavelli.Models.Spel;
-import Machiavelli.Models.Speler;
 
-public class KiesInkomstenView {
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+public class KiesInkomstenView extends UnicastRemoteObject{
 	
 	//Variables
 	private InkomstenController inkomstenController;

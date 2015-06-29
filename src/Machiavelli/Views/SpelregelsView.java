@@ -28,10 +28,8 @@ public class SpelregelsView implements SpelregelsObserver {
 	private Button closeButton;
     private Scene scene;
     private StackPane holder;
-    private final Scene oldScene;
 
     public SpelregelsView(RaadplegenSpelregelsController raadplegenSpelregelsController) throws IOException {
-        oldScene = stage.getScene();
         this.raadplegenSpelregelsController = raadplegenSpelregelsController;
 		this.spelregels = new Spelregels();
 
@@ -52,9 +50,7 @@ public class SpelregelsView implements SpelregelsObserver {
 		
 		this.closeButton = new Button("X");
 		this.closeButton.setId("closeButton");
-        this.closeButton.setOnAction(event -> {
-            this.raadplegenSpelregelsController.cmdSluitSpelregels();
-        });
+        this.closeButton.setOnAction(event -> this.raadplegenSpelregelsController.cmdSluitSpelregels());
 
         /**
          * Om twee Pane's over elkaar heen te plaatsen zou dat via een

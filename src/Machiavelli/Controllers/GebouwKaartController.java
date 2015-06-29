@@ -10,10 +10,16 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by badmuts on 14-6-15.
+ * 
+ * Deze Controllerklasse maakt de views van alle Gebouwkaarten aan. Ook worden
+ * interacties met de Gebouwkaarten afgehandeld. Zowel het bouwen als het 
+ * vernietigen van een gebouw wordt via deze Controller afgehandeld.
  */
+
 public class GebouwKaartController extends UnicastRemoteObject implements SpelerObserver {
     private SpelRemote spel;
     private SpelerRemote speler;
@@ -29,6 +35,7 @@ public class GebouwKaartController extends UnicastRemoteObject implements Speler
      * @throws RemoteException
      */
     public GebouwKaartController(SpelRemote spel, SpelerRemote spelerRemote) throws RemoteException {
+//        super(1099);
         this.spel = spel;
         this.speler = spelerRemote;
         this.speler.addObserver(this);
@@ -47,25 +54,79 @@ public class GebouwKaartController extends UnicastRemoteObject implements Speler
     }
 
     public void setActiveCard(GebouwKaartRemote gebouwKaartRemote) {
-        this.activeCards.add(gebouwKaartRemote);
-    }
-
-    public void removeActiveCard(GebouwKaartRemote gebouwKaart) {
-        this.activeCards.remove(gebouwKaart);
-    }
-
-    public void cmdBouwGebouw() {
         try {
-            Iterator<GebouwKaartRemote> iterator = this.activeCards.iterator();
-            while (iterator.hasNext()) {
-                GebouwKaartRemote kaart = iterator.next();
-                this.speler.bouwenGebouw(kaart);
-                this.activeCards.remove(kaart);
-                iterator.remove();
-            }
+            this.activeCards.add(gebouwKaartRemote);
+            this.speler.getHand().addActiveCard(gebouwKaartRemote);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void removeActiveCard(GebouwKaartRemote gebouwKaart) {
+        try {
+            this.activeCards.remove(gebouwKaart);
+            this.speler.getHand().removeActiveCard(gebouwKaart);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * In de ButtonHolderActionBarView is er op Bouwen gebouw geklikt.
+     * De geselecteerde kaart wordt doorgegeven aan de Speler klasse.
+     * Iterator op activeCards bleek niet te werken (ConcurrentModificationException)
+     * Hierom wordt een nieuwe lijst als kopie gemaakt van activeCards en wordt de iterator hier op toegepast
+     */
+    public void cmdBouwGebouw() {
+    	List<GebouwKaartRemote> list = new ArrayList<GebouwKaartRemote>(activeCards.size());
+    	list.addAll(activeCards);
+    	
+    	Iterator<GebouwKaartRemote> iter = list.iterator();
+    	while(iter.hasNext()) {
+    		GebouwKaartRemote kaart = iter.next();
+    		try {
+    			speler.bouwenGebouw(kaart);
+    			ArrayList<GebouwKaartRemote> gebouwdenKaarten = this.speler.getStad().getGebouwen();
+    			String gebouwdeKaart = gebouwdenKaarten.get(gebouwdenKaarten.size() -1).getNaam();
+    			new MeldingController().build(gebouwdeKaart + " is gebouwd").cmdWeergeefMeldingView();
+    		} catch (RemoteException e) {
+    			e.printStackTrace();
+    		}
+    	}
+    	activeCards.clear();
+    }
+    	
+    /**
+     * Als er een gebouw geselecteerd is, wordt de gebruikEigenschap
+     * methode aangeroepen. De geselecteerde kaart wordt doorgegeven aan
+     * de karakterinterface. 
+     * Iterator op activeCards bleek niet te werken (ConcurrentModificationException)
+     * Hierom wordt een nieuwe lijst als kopie gemaakt van activeCards en wordt de iterator hier op toegepast
+     */
+    public synchronized void cmdVernietigGebouw() {
+    	System.out.println("vernietig gebouw");
+//    	List<GebouwKaartRemote> list = new ArrayList<GebouwKaartRemote>(activeCards);
+//    	for(GebouwKaartRemote kaart : activeCards) {
+//    		try {
+//				speler.getKarakter().setTarget(kaart);
+//			} catch (RemoteException e) {
+//				e.printStackTrace();
+//			}
+//    	}
+//    	activeCards.removeAll(list);
+    	List<GebouwKaartRemote> list = new ArrayList<GebouwKaartRemote>(activeCards.size());
+    	list.addAll(activeCards);
+    	
+    	Iterator<GebouwKaartRemote> iter = list.iterator();
+    	while(iter.hasNext()) {
+    		GebouwKaartRemote kaart = iter.next();
+    		try {
+    			this.speler.getKarakter().setTarget(kaart);
+    			} catch (RemoteException e) {
+    			e.printStackTrace();
+    		}
+    	}
+    	activeCards.clear();
     }
 
     @Override

@@ -6,11 +6,10 @@ import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.GebouwKaart;
-import Machiavelli.Models.Speler;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /** 
@@ -25,7 +24,11 @@ import java.util.ArrayList;
  * zijn eigenschap en ontvangt 1 goudstuk voor elk 
  * commericiel gebouw in zijn stad.
  */
-public class Koopman implements Karakter, Bonusable, Serializable {
+public class Koopman extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
+	
+	public Koopman() throws RemoteException {
+        super(1099);
+    }
 	
 	private SpelerRemote speler = null;
 	
@@ -36,8 +39,8 @@ public class Koopman implements Karakter, Bonusable, Serializable {
     private final Type type = Type.COMMERCIEL;
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Koopman.png";
 
-	private Object target;
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
+    private boolean isBonusable = true;
 
     /**
 	 * Overriden van de methode uit de interface Karakter,
@@ -50,7 +53,7 @@ public class Koopman implements Karakter, Bonusable, Serializable {
 
     @Override
     public SpelerRemote getSpeler() throws RemoteException {
-        return null;
+        return this.speler;
     }
 
 	/**
@@ -58,25 +61,42 @@ public class Koopman implements Karakter, Bonusable, Serializable {
 	 * en aanroepen van de methode ontvangenBonusGoud
 	 */
 	@Override
-    public void gebruikEigenschap() throws RemoteException {
+    public boolean gebruikEigenschap() throws RemoteException {
 		try {
-            ontvangenBonusGoud();
+            if (!this.speler.EigenschapGebruikt()) {
+                ontvangenBonusGoud(this.speler);
+                this.speler.setEigenschapGebruikt(true);
+                return true;
+            }
         } catch (RemoteException re) {
             System.out.print(re);
         }
+        return false;
     }
-
+	
+	/**
+   	 * Deze methode wordt aangroepen door gebruikEigenschap()
+   	 * de speler met het karakter koopman ontvangt 1 goudstuk
+   	 */
+    public void ontvangenBonusGoud(SpelerRemote koopman) throws RemoteException {
+        koopman.getPortemonnee().ontvangenGoud(1);
+    }
+    
 	/** ontvangen bonusgoud voor commerciele gebouwen */
     @Override
     public void ontvangenBonusGoud() throws RemoteException {
-        ArrayList<GebouwKaartRemote> gebouwen = speler.getStad().getGebouwen();
-        for (GebouwKaartRemote gebouw : gebouwen) {
-            if (gebouw.getType() == this.type) {
-                speler.getPortemonnee().ontvangenGoud(1);
+        if (isBonusable) {
+            ArrayList<GebouwKaartRemote> gebouwen = speler.getStad().getGebouwen();
+            for (GebouwKaartRemote gebouw : gebouwen) {
+                if (gebouw.getType() == this.type) {
+                    speler.getPortemonnee().ontvangenGoud(1);
+                }
             }
+            this.isBonusable = false;
+            notifyObservers();
         }
     }
-    
+
     @Override
     public String getNaam() throws RemoteException {
     	return this.naam;
@@ -92,14 +112,19 @@ public class Koopman implements Karakter, Bonusable, Serializable {
         return this.bouwLimiet;
     }
 
+    @Override
 	public Type getType() throws RemoteException {
 		return this.type;
 	}
 
     @Override
     public void setTarget(Object target) throws RemoteException {
-        this.target = target;
     }
+    
+    @Override
+	public Object getTarget() throws RemoteException {
+		return null;
+	}
 
     @Override
     public String getImage() throws RemoteException {
@@ -118,12 +143,8 @@ public class Koopman implements Karakter, Bonusable, Serializable {
         }
     }
 
-    /**
-	 * Deze methode wordt aangroepen door gebruikEigenschap()
-	 * de speler met het karakter koopman ontvangt 1 goudstuk
-	 */
-    public void ontvangenBonusGoud(Speler koopman) throws RemoteException {
-    	koopman.getPortemonnee().ontvangenGoud(1);
+    @Override
+    public boolean isBonusable() throws RemoteException {
+        return isBonusable;
     }
-
 }

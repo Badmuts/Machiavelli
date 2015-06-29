@@ -7,6 +7,7 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /** 
@@ -21,8 +22,12 @@ import java.util.ArrayList;
  * in zijn beurt 3 gebouwen bouwen.
  * 
  */
-public class Bouwmeester implements Karakter, Serializable {
+public class Bouwmeester extends UnicastRemoteObject implements Karakter, Serializable {
 	
+	public Bouwmeester() throws RemoteException {
+        super(1099);
+	}
+
 	private SpelerRemote speler = null;
 	
 	/** Eigenschappen van karakter Bouwmeester */
@@ -54,14 +59,16 @@ public class Bouwmeester implements Karakter, Serializable {
      * 
 	 */
     @Override
-    public void gebruikEigenschap() throws RemoteException {
+    public boolean gebruikEigenschap() throws RemoteException {
         //TODO: 2 of 3 kaarten plaatsen in stad
     	try {
-			this.speler.getHand().addGebouwen(this.speler.trekkenKaart(2));
+			this.speler.getHand().addGebouwen(this.speler.trekkenKaart(1));
+			this.speler.setEigenschapGebruikt(true);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        return false;
     }
     
     @Override
@@ -105,4 +112,10 @@ public class Bouwmeester implements Karakter, Serializable {
             observer.modelChanged(this);
         }
     }
+
+	@Override
+	public Object getTarget() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

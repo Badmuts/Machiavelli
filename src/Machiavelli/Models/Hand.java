@@ -25,9 +25,11 @@ public class Hand extends UnicastRemoteObject implements HandRemote, Serializabl
     private ArrayList<GebouwKaartRemote> kaartenLijst = new ArrayList<>();
     private SpelerRemote speler;
     private ArrayList<HandObserver> observers = new ArrayList<>();
+    private ArrayList<GebouwKaartRemote> activeCards = new ArrayList<>();
 
     // Een speler start met 4 gebouwkaarten in zijn hand.
     public Hand(SpelerRemote speler) throws RemoteException {
+        super(1099);
         this.speler = speler;
         trekKaarten();
     }
@@ -57,6 +59,33 @@ public class Hand extends UnicastRemoteObject implements HandRemote, Serializabl
     public void addGebouw(GebouwKaartRemote kaart) throws RemoteException {
         kaartenLijst.add(kaart);
         notifyObservers();
+    }
+
+    @Override
+    public void addActiveCard(GebouwKaartRemote gebouwKaartRemote) throws RemoteException {
+        this.activeCards.add(gebouwKaartRemote);
+    }
+
+    @Override
+    public ArrayList<GebouwKaartRemote> getActiveCards() throws RemoteException {
+        return this.activeCards;
+    }
+
+    @Override
+    public void removeActiveCard(GebouwKaartRemote gebouwKaartRemote) throws RemoteException {
+        this.activeCards.remove(gebouwKaartRemote);
+    }
+
+    @Override
+    public void resetActiveCards() throws RemoteException {
+        this.activeCards.clear();
+    }
+
+    @Override
+    public GebouwKaartRemote trekKaart() throws RemoteException {
+        GebouwKaartRemote kaart = this.kaartenLijst.get(0);
+        this.kaartenLijst.remove(kaart);
+        return kaart;
     }
 
     /**

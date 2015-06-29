@@ -1,6 +1,7 @@
 package Machiavelli.Controllers;
 
-import Machiavelli.Interfaces.Remotes.SpelRemote;
+import java.rmi.registry.Registry;
+
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Speelveld;
 import Machiavelli.Views.InvullenSpelersView;
@@ -9,6 +10,9 @@ import Machiavelli.Views.MainMenuView;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.rmi.registry.Registry;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Views.InvullenSpelersView;
+import Machiavelli.Views.MainMenuView;
 
 public class MenuController {
 

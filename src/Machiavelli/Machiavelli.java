@@ -7,12 +7,6 @@ import javafx.stage.Stage;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
-import Machiavelli.Controllers.MenuController;
-import Machiavelli.Models.GebouwKaart;
-import Machiavelli.Models.Speler;
-
 /**
  * Google Java Style Guide aanhouden
  *
@@ -54,10 +48,11 @@ public class Machiavelli extends Application {
         try {
             System.out.println("Getting access to the registry");
             // get access to the RMI registry on the remote server
-            this.registry = LocateRegistry.getRegistry("127.0.0.1"); // if server on another machine: provide that machine's IP address. Default port  1099
+            // Wijzig naar lokaal ip adres voor testen
+            this.registry = LocateRegistry.getRegistry("145.97.16.203", 1099); // if server on another machine: provide that machine's IP address. Default port  1099
             System.out.println("Done!");
         } catch (Exception e) {
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
         new MenuController(); // Start menu
     }

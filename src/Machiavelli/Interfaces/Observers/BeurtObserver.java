@@ -1,10 +1,9 @@
 package Machiavelli.Interfaces.Observers;
 
-import Machiavelli.Interfaces.Remotes.BeurtRemote;
-import Machiavelli.Models.Beurt;
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
 
 /**
  * Created by badmuts on 10-6-15.
@@ -12,6 +11,10 @@ import java.rmi.RemoteException;
 public interface BeurtObserver extends Remote {
 
     public void modelChanged(BeurtRemote beurt) throws RemoteException;
+    
+    public void showInkomsten() throws RemoteException;
+    
+    public void showKarakterMenu() throws RemoteException;
     
     public boolean isDisabled() throws RemoteException;
     

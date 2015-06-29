@@ -4,12 +4,16 @@ import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Interfaces.Observers.HandObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.HandRemote;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
+import javafx.scene.CacheHint;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -33,6 +37,9 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
         this.gebouwKaartController = gebouwKaartController;
         this.hand.addObserver(this);
         this.pane.setPrefSize(840, 275);
+        this.pane.setCache(true);
+        this.pane.setCacheShape(true);
+        this.pane.setCacheHint(CacheHint.SPEED);
 
         createView();
     }
@@ -81,13 +88,31 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
         int x = 0; // X coordinaat (voor uitlijning)
         int totalWidth = 0;
         int index = 0;
+        int delay = 75;
         // Loop  door gebouwKaartViews en wijzig de X coordinaat.
         for (GebouwKaartView gebouwKaartView: gebouwKaartViews) {
-            gebouwKaartView.view().setLayoutX(x); // Zet X coordinaat
+//            gebouwKaartView.view().setLayoutX(x); // Zet X coordinaat
+            gebouwKaartView.view().setCache(true);
+            gebouwKaartView.view().setCacheShape(true);
+            gebouwKaartView.view().setCacheHint(CacheHint.SPEED);
             gebouwKaartView.view().setRotate(calcRotation(index, gebouwKaartViews.size()));
             handPane.getChildren().add(gebouwKaartView.view()); // Voeg view to aan Pane
-            x += 130; // Verhoog X coordinaat met 100
             totalWidth += gebouwKaartView.view().getPrefWidth();
+
+            TranslateTransition transition = new TranslateTransition(Duration.millis(250), gebouwKaartView.view());
+            transition.setDelay(Duration.millis(delay));
+            transition.setFromX(0);
+            transition.setToX(x);
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(125), gebouwKaartView.view());
+            fadeTransition.setDelay(Duration.millis(delay));
+            fadeTransition.setFromValue(0.0);
+            fadeTransition.setToValue(1.0);
+
+            fadeTransition.play();
+            transition.play();
+
+            delay += 75;
+            x += 130; // Verhoog X coordinaat met 100
             index++;
         }
         handPane.setMaxWidth(totalWidth);

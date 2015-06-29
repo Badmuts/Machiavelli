@@ -10,7 +10,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
- * Dit is de bank van het spel. Per spel is er ��n bank aanwezig die het geld beheerd.
+ * Dit is de bank van het spel. Per spel is er 1 bank aanwezig die het geld beheerd.
  * Spelers kunnen via de portemonnee geld van de bank halen en geld aan de bank geven.
  *
  * @author Sander de Jong
@@ -24,6 +24,7 @@ public class Bank extends UnicastRemoteObject implements BankRemote, Serializabl
 
 	// De bank begint met 30 goudmunten
 	public Bank() throws RemoteException {
+		super(1099);
 		this.goudMunten = 30;
 	}
 
