@@ -112,4 +112,18 @@ public class Spel implements SpelRemote, Serializable {
 	public void setSpelers(ArrayList<SpelerRemote> spelers) {
 		this.spelers = spelers;
 	}
+
+    public ArrayList<SpelObserver> getObservers() throws RemoteException {
+        return this.observers;
+    }
+
+    @Override
+    public void laadSpel(SpelRemote loadSpel) throws RemoteException {
+        this.maxAantalSpelers = loadSpel.getMaxAantalSpelers();
+        this.bank = loadSpel.getBank();
+        this.gebouwFactory = loadSpel.getGebouwFactory();
+        this.spelers = loadSpel.getSpelers();
+        this.observers = loadSpel.getObservers();
+        this.karakterFactory = loadSpel.getKarakterFactory();
+    }
 }

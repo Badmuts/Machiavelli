@@ -1,14 +1,8 @@
 package Machiavelli.Interfaces.Remotes;
 
-import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Observers.SpelObserver;
-import Machiavelli.Models.Bank;
-import Machiavelli.Models.Spel;
-import Machiavelli.Models.Speler;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -39,4 +33,8 @@ public interface SpelRemote extends Remote {
     void setKarakterFactory(KarakterFactory karakterFactory) throws RemoteException;
 
     void setSpelers(ArrayList<SpelerRemote> spelers) throws RemoteException;
+
+    void laadSpel(SpelRemote loadSpel) throws RemoteException;
+
+    ArrayList<SpelObserver> getObservers() throws RemoteException;
 }

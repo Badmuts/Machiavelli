@@ -1,12 +1,14 @@
 package Machiavelli.Models;
 
 import Machiavelli.Controllers.SpeelveldController;
-import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpeelveldObserver;
-import Machiavelli.Interfaces.Remotes.*;
+import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Views.SpeelveldView;
+
 import java.io.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -51,11 +53,7 @@ public class Speelveld extends UnicastRemoteObject implements SpeelveldRemote, S
 		{
 			FileOutputStream fos = new FileOutputStream(createSaveLocation() + "/machiavelli.sav");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(this.spel.getSpelers());
-			oos.writeObject(this.spel.getBank());
-			oos.writeObject(this.spel.getGebouwFactory());
-			oos.writeObject(this.spel.getKarakterFactory());
-			oos.writeObject(this.spel.getMaxAantalSpelers());
+			oos.writeObject(this.spel);
 			oos.close();
 			fos.close();
 		}
@@ -69,14 +67,19 @@ public class Speelveld extends UnicastRemoteObject implements SpeelveldRemote, S
 
 		try {
 			ArrayList<Object> tempList = new ArrayList<>();
-			FileInputStream fis = new FileInputStream(System.getProperty("user.home") + "/machiavelli.sav");
+			FileInputStream fis = new FileInputStream(System.getProperty("user.home") + "/machiavelli/machiavelli.sav");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 
-			tempList.add(((ArrayList<SpelerRemote>)ois.readObject()));
-			tempList.add(((BankRemote)ois.readObject()));
-			tempList.add(((GebouwFactoryRemote)ois.readObject()));
-			tempList.add(((KarakterFactory)ois.readObject()));
-			tempList.add(((int)ois.readObject()));
+            SpelRemote loadSpel = (SpelRemote)ois.readObject();
+
+//			tempList.add(((ArrayList<SpelerRemote>)ois.readObject()));
+//			tempList.add(((BankRemote)ois.readObject()));
+//			tempList.add(((GebouwFactoryRemote)ois.readObject()));
+//			tempList.add(((KarakterFactory)ois.readObject()));
+//			tempList.add(((int)ois.readObject()));
+
+            SpelRemote spel = (SpelRemote) Machiavelli.getInstance().getRegistry().lookup("Spel");
+            spel.laadSpel(loadSpel);
 
 			fis.close();
 			ois.close();
