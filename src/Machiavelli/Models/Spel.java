@@ -114,15 +114,21 @@ public class Spel implements SpelRemote, Serializable {
     }
     
 	public void createNewSpeler() throws RemoteException{
+        System.out.println("Create new speler");
 		SpelerRemote speler = new Speler();
+        System.out.println("Add spel to speler");
         speler.addSpel(this);
+        System.out.println("Get random karakter");
 //        speler.setKarakter(new Dief()); // TESTING ONLY
         speler.setKarakter(getRandomKarakterFor(speler));
+        System.out.println("Set random karakter to speler");
         speler.getKarakter().setSpeler(speler); // TESTING ONLY
+        System.out.println("Add speler to spelers[]");
 		this.spelers.add(speler);
-		this.speler = speler;
-		this.beurt.setSpeler(speler);
-		notifyObservers();
+//		this.speler = speler;
+//		this.beurt.setSpeler(speler);
+        System.out.println("Notify observers");
+        notifyObservers();
 	}
 	
 }

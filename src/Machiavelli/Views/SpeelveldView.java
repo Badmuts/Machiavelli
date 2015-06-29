@@ -48,6 +48,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     private boolean disabled;
 
     public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController, SpelerRemote speler, BeurtController beurtController, BeurtRemote beurt) throws RemoteException {
+        super(1099);
         this.speelveld = speelveld;
         this.speler = speler;  
         this.beurtController = beurtController;
@@ -57,7 +58,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         this.gebouwKaartController = gebouwKaartController;
         this.portemonnee = speler.getPortemonnee();   
         
-        this.beurt.addObserver(this);
+//        this.beurt.addObserver(this);
         this.portemonnee.addObserver(this);
 
         this.createStedenHolder();
