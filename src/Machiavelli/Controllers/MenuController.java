@@ -75,15 +75,6 @@ public class MenuController {
     	try{
     		SpelRemote spelStub = (SpelRemote)registry.lookup("Spel");
             if (spelStub.getAantalSpelers() < spelStub.getMaxAantalSpelers()) {
-                if (spelStub.getTempSpelers().size() != 0) {
-                    spelStub.getSpelers().add(spelStub.getTempSpelers().get(0));
-                    spelStub.getTempSpelers().remove(0);
-                }
-                else {
-                    spelStub.createNewSpeler();
-                }
-                this.spelController = new SpelController(spelStub);
-            } else {
                 new MeldingController().build("Het maximaal aantal spelers is bereikt").cmdWeergeefMeldingView();
             }
     	} catch(Exception re) {
