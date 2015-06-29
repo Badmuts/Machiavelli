@@ -42,6 +42,10 @@ public interface SpelRemote extends Remote {
 
     void laadSpel(SpelRemote loadSpel) throws RemoteException;
 
+    ArrayList<SpelerRemote> getTempSpelers();
+
+    void setTempSpelers(ArrayList<SpelerRemote> list);
+
     ArrayList<SpelObserver> getObservers() throws RemoteException;
 
     public void setKarakterFactory(KarakterFactory karakterFactory) throws RemoteException;

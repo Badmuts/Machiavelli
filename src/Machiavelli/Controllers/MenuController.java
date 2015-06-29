@@ -2,6 +2,7 @@ package Machiavelli.Controllers;
 
 import java.rmi.registry.Registry;
 
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Machiavelli;
 import Machiavelli.Models.Speelveld;
 import Machiavelli.Views.InvullenSpelersView;
@@ -10,6 +11,8 @@ import Machiavelli.Views.MainMenuView;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
+
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Views.InvullenSpelersView;
 import Machiavelli.Views.MainMenuView;
@@ -72,7 +75,13 @@ public class MenuController {
     	try{
     		SpelRemote spelStub = (SpelRemote)registry.lookup("Spel");
             if (spelStub.getAantalSpelers() < spelStub.getMaxAantalSpelers()) {
-                spelStub.createNewSpeler();
+                if (spelStub.getTempSpelers().size() != 0) {
+                    spelStub.getSpelers().add(spelStub.getTempSpelers().get(0));
+                    spelStub.getTempSpelers().remove(0);
+                }
+                else {
+                    spelStub.createNewSpeler();
+                }
                 this.spelController = new SpelController(spelStub);
             } else {
                 new MeldingController().build("Het maximaal aantal spelers is bereikt").cmdWeergeefMeldingView();
@@ -95,6 +104,12 @@ public class MenuController {
             SpelRemote loadSpel = (SpelRemote)ois.readObject();
             SpelRemote spelStub = (SpelRemote)this.registry.lookup("Spel");
             spelStub.laadSpel(loadSpel);
+            spelStub.setTempSpelers(spelStub.getSpelers());
+            spelStub.getSpelers().clear();
+            spelStub.getSpelers().add(spelStub.getTempSpelers().get(0));
+            spelStub.getTempSpelers().remove(0);
+            spelStub.setSpelers(spelStub.getTempSpelers());
+            // aantal spelers op grootte van de tempspelerlist zetten
 
             this.spelController = new SpelController(spelStub);
         } catch (Exception e) {
