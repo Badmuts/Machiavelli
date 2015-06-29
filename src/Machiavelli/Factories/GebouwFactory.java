@@ -21,7 +21,7 @@ public class GebouwFactory extends UnicastRemoteObject implements GebouwFactoryR
     private ArrayList<GebouwFactoryObserver> observers = new ArrayList<GebouwFactoryObserver>();
 
     public GebouwFactory() throws RemoteException {
-        super(1099);
+//        super(1099);
         init();
     }
 

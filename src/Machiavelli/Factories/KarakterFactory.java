@@ -21,7 +21,7 @@ public class KarakterFactory extends UnicastRemoteObject implements KarakterFact
      * Maakt alle karakters aan (in dit geval 8)
      */
     public KarakterFactory() throws RemoteException {
-        super(1099);
+//        super(1099);
         try {
         	this.karakters.add(new Moordenaar());
             this.karakters.add(new Dief());
