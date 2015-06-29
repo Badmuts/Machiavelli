@@ -14,6 +14,8 @@ public interface BeurtObserver extends Remote {
     
     public void showInkomsten() throws RemoteException;
     
+    public void showKarakterMenu() throws RemoteException;
+    
     public boolean isDisabled() throws RemoteException;
     
     public void setDisable(boolean disabled) throws RemoteException;

@@ -1,10 +1,10 @@
 package Machiavelli.Interfaces.Remotes;
 
-import Machiavelli.Interfaces.Observers.BeurtObserver;
-
-
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+
+import Machiavelli.Interfaces.Observers.BeurtObserver;
 
 
 /**
@@ -19,7 +19,11 @@ public interface BeurtRemote extends Remote {
 
   public void setSpeler(SpelerRemote speler) throws RemoteException;
   
+  public void getInkomstenView() throws RemoteException;
+  
   public int getObserverIndex() throws RemoteException;
+  
+  public ArrayList<BeurtObserver> getObserverList() throws RemoteException;
   
   public void setObserverIndex(int observerIndex) throws RemoteException;
 

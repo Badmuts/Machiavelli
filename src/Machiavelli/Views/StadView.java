@@ -178,6 +178,10 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
                 this.gebouwKaartViews.clear();
                 this.buildGebouwKaartViewArray();
                 this.createStad();
+                this.createSpelerPortrait();
+                this.createSpelerPortraitNumber();
+                this.createNameField();
+
                 this.pane.getChildren().addAll(portretPane, namePane, stadPane);
                 StackPane.setAlignment(portretPane, Pos.TOP_CENTER);
                 StackPane.setAlignment(namePane, Pos.CENTER);
@@ -194,9 +198,9 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
             //if you change the UI, do it here !
             this.speler = speler;
             this.pane.getChildren().clear();
-            this.createSpelerPortrait();
-            this.createSpelerPortraitNumber();
-            this.createNameField();
+            //this.createSpelerPortrait();
+            //this.createSpelerPortraitNumber();
+            //this.createNameField();
             this.pane.getChildren().addAll(portretPane, namePane, stadPane);
             StackPane.setAlignment(portretPane, Pos.TOP_CENTER);
             StackPane.setAlignment(namePane, Pos.CENTER);
