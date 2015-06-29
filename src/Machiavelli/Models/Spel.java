@@ -79,10 +79,13 @@ public class Spel implements SpelRemote, Serializable {
 
     @Override
 	public void notifyObservers() throws RemoteException {
+        int i = 0;
 		System.out.println("Spel model changed!");
 		System.out.println("Aantal spelers in spel: " + this.getAantalSpelers());
 		for (SpelObserver observer: observers) {
+            System.out.println("Update observers! Observer: " + i);
 			observer.modelChanged(this);
+            i++;
 		}
 	}
     
