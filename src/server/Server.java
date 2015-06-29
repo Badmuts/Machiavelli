@@ -13,7 +13,7 @@ public class Server {
 
 	public void startServer(){
         try {
-            System.setProperty("java.rmi.server.hostname", "145.97.16.203");
+            System.setProperty("java.rmi.server.hostname", "145.97.16.203"); // Zet uit voor lokale tests
             Registry registry = LocateRegistry.createRegistry(1099); // default port 1099 // run RMI registry on local host
             Spel spel = new Spel();
             SpelRemote spelSkeleton = (SpelRemote) UnicastRemoteObject.exportObject(spel, 1099);
