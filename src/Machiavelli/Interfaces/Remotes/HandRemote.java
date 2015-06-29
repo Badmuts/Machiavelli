@@ -71,4 +71,5 @@ public interface HandRemote extends Remote {
     void resetActiveCards() throws RemoteException;
 
     GebouwKaartRemote trekKaart() throws RemoteException;
+
 }

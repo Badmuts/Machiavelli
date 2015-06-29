@@ -18,7 +18,6 @@ import java.util.ArrayList;
  * verschillende acties uitvoeren.
  */
 public class Speler extends UnicastRemoteObject implements SpelerRemote, Serializable {
-	// Variables
 	private PortemonneeRemote portemonnee;
 	private Karakter karakter;
 	private HandRemote hand;
@@ -41,6 +40,8 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
 	/**
 	 * Haalt goud van de bank en zet het in de portemonnee.
 	 * 
+	 * @param bank 
+	 * @param aantal hoeveelheid goudstukken
 	 * @throws RemoteException
 	 */
 	public void getGoudVanBank(BankRemote bank, int aantal) throws RemoteException {
@@ -51,6 +52,8 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
 	/** 
 	 * Haalt goud uit de portemonnee en geeft dit aan de bank.
 	 * 
+	 * @param portemonnee 
+	 * @param aantal hoeveelheid goudstukken
 	 * @throws RemoteException
 	 */
 	public void setGoudOpBank(PortemonneeRemote portemonnee, int aantal) throws RemoteException {
@@ -59,8 +62,10 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
 	}
 	
 	/**
-	 * Plaats een gebouwkaart in de stad van de speler
+	 * Plaatst een gebouwkaart in de stad van de speler.
 	 *
+	 * @param gebouw geselecteerde gebouwkaart in de hand van de speler.
+	 * @return gebouwdeGebouwen
 	 * @throws RemoteException
 	 */
 	public void bouwenGebouw(GebouwKaartRemote gebouw) throws RemoteException {
@@ -81,6 +86,7 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
 	/**
 	 * Trekken van twee kaarten uit de stapel
 	 * 
+	 * @return templist
 	 * @throws RemoteException
 	 */
 	public ArrayList<GebouwKaartRemote> trekkenKaart() throws RemoteException {
@@ -92,12 +98,14 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
 	}
 
 	/**
-	 * Trekken van een x aantal kaarten van de stapel
+	 * Trekken van een x aantal kaarten uit de GebouwKaartFactory.
 	 * 
+	 * @param aantal hoeveelheid gebouwkaarten
 	 * @throws RemoteException
+	 * @return tempList 
 	 */
 	public ArrayList<GebouwKaartRemote> trekkenKaart(int aantal) throws RemoteException {
-		ArrayList<GebouwKaartRemote>tempList = new ArrayList<>();
+		ArrayList<GebouwKaartRemote> tempList = new ArrayList<>();
 		for (int i = 0; i < aantal; i++) {
 			tempList.add(this.spel.getGebouwFactory().trekKaart());
 		}
@@ -105,8 +113,10 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
 	}
 	
 	/**
-	 * Selecteren van een kaart aan de hand van de getrokken kaarten
+	 * Selecteren van een kaart aan de hand van de getrokken kaarten.
 	 * 
+	 * @param lijst 
+	 * @param index
 	 * @throws RemoteException
 	 */
 	public void selecterenKaart(ArrayList<GebouwKaartRemote> lijst, int index) throws RemoteException {

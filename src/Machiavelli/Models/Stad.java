@@ -34,8 +34,9 @@ public class Stad extends UnicastRemoteObject implements StadRemote, Serializabl
 	}
 
 	/**
-	 * GebouwKaart in de Arraylist gebouwen plaatsen.
+	 * GebouwKaart in de stad van de speler plaatsen.
 	 * 
+	 * @param gebouw wordt toegevoegd aan de stad arraylist.
 	 * @throws RemoteException
 	 */
 	public void addGebouw(GebouwKaartRemote gebouw) throws RemoteException {
@@ -44,18 +45,16 @@ public class Stad extends UnicastRemoteObject implements StadRemote, Serializabl
 	}
 	
 	/**
-	 * GebouwKaart uit de Arraylist gebouwen plaatsen. Alleen als een speler
-	 * het karakter Condotierre is kan deze methode aangeroepen worden door
-	 * middel van gebruikEigenschap.
+	 * GebouwKaart uit de Arraylist gebouwen verwijderen. De gebouwkaart wordt onderaan
+	 * de gebouwkaart factory geplaatst. Alleen als een speler het karakter 
+	 * Condotierre is kan deze methode aangeroepen worden door middel van gebruikEigenschap.
 	 * 
+	 * @param target wordt gebruikt door de Condotierre
 	 * @throws RemoteException
 	 */
 	public void removeGebouw(GebouwKaartRemote target) throws RemoteException {
 		this.gebouwen.remove(target);
-		// Plaats gebouwkaart terug op gebouwenstapel (GebouwFactory)
 		this.spel.getGebouwFactory().addGebouw(target);
-		// Update StadView
-		// this.stadView.modelChanged();
         notifyObservers();
 	}
 	
@@ -63,6 +62,8 @@ public class Stad extends UnicastRemoteObject implements StadRemote, Serializabl
 	 * Aan het einde van het spel wordt de score berekend aan de hand van
 	 * de waarde van de gebouwen in de stad van de speler.
 	 * 
+	 * @param lijst de steden in een stad.
+	 * @return waarde
 	 * @throws RemoteException
 	 */
 	private void berekenWaarde(ArrayList<GebouwKaartRemote> lijst) throws RemoteException {

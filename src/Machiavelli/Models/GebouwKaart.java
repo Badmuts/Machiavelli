@@ -11,13 +11,14 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
+ * @author Sander
+ *
  * Dit is de blauwdruk voor een gebouwkaart. De gebouwkaarten worden
  * door de spelers gebruikt om het spel te winnen. De gebouwkaarten
  * hebben een enumeration genaamd type die aangeeft of een bepaald
  * karakter extra bonusgoud ontvangt.
  *
- * @author Sander
- * @version 0.1
+ * 
  *
  */
 public class GebouwKaart extends UnicastRemoteObject implements Serializable, GebouwKaartRemote {

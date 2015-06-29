@@ -16,6 +16,14 @@ import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
+/**
+ * @author Bernd
+ * 
+ * Nadat in het hoofdmenu nieuwspel is geselecteerd, wordt deze klasse aangeroepen.
+ * Hier worden alle benodigdheden voor het spel aangemaakt. Zoals bijvoorbeeld de
+ * KarakterFactory en GebouwFactory.
+ *
+ */
 public class Spel implements SpelRemote, Serializable {
 	private int maxAantalSpelers;
 	private BankRemote bank;
@@ -30,6 +38,13 @@ public class Spel implements SpelRemote, Serializable {
 
     }
 
+	/**
+	 * Aanmaken van een nieuw spel.
+	 * 
+	 * @param maxAantalSpelers
+	 * @throws RemoteException
+	 *
+	 */
     public void createNewSpel(int maxAantalSpelers) throws RemoteException {
         this.maxAantalSpelers = maxAantalSpelers;
         this.bank = new Bank();
@@ -116,7 +131,6 @@ public class Spel implements SpelRemote, Serializable {
 	public void createNewSpeler() throws RemoteException{
 		SpelerRemote speler = new Speler();
         speler.addSpel(this);
-//        speler.setKarakter(new Dief()); // TESTING ONLY
         speler.setKarakter(getRandomKarakterFor(speler));
         speler.getKarakter().setSpeler(speler); // TESTING ONLY
 		this.spelers.add(speler);
