@@ -30,15 +30,15 @@ import java.util.ArrayList;
 
 
 public class Magier extends UnicastRemoteObject implements Karakter, Serializable {
-
-    // Variables
+	private SpelerRemote speler  = null;
+	private Object target = null;
+	
+	/** Eigenschappen van karakter Magier */
     private final String naam = "Magier";
     private final int nummer = 3;
     private final int bouwLimiet = 1;
     private final Type type = Type.NORMAAL;
 
-    private SpelerRemote speler  = null;
-    private Object target = null;
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Magier.png";
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
@@ -49,28 +49,37 @@ public class Magier extends UnicastRemoteObject implements Karakter, Serializabl
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Magier wordt aan de speler gekoppeld.
+	 * 
+	 * @throws RemoteException
 	 */
 	@Override
 	public void setSpeler(SpelerRemote speler) throws RemoteException {
         this.speler = speler;
     }
-
-    @Override
-    public SpelerRemote getSpeler() throws RemoteException {
-        return this.speler;
+	
+	/**
+	 * De speler maakt de keuze tussen ruilen met de stapel of met een ander karakter.
+	 * Deze keuze wordt hier geset.
+	 * 
+	 * @param target dit is de karakterFactory of een ander karakter.
+	 * @throws RemoteException
+	 */
+	@Override
+    public void setTarget(Object target) throws RemoteException {
+        this.target = target;
     }
 
     /**
-     *Ruil kaarten met de stapel of met een andere speler.
+     * Ruil kaarten met de stapel of met een andere speler.
      *
      * @return Is het gelukt de eigenschap uit te voeren.
+     * @throws RemoteException
      */
     @Override
     public boolean gebruikEigenschap() throws RemoteException {
         // TODO: ruilen bouwkaarten
         if (this.target == null)
             return false;
-
         try {
             ruilMetStapel();
             this.speler.setEigenschapGebruikt(true);
@@ -90,6 +99,7 @@ public class Magier extends UnicastRemoteObject implements Karakter, Serializabl
 
     /**
      * Ruilt complete hand met een andere speler
+     * 
      * @throws Exception
      */
     private void ruilMetHand() throws Exception {
@@ -104,7 +114,8 @@ public class Magier extends UnicastRemoteObject implements Karakter, Serializabl
     }
 
     /**
-     * Ruilt geslecteerde kaarten met nieuwe kaarten van stapel
+     * Ruilt geslecteerde kaarten met nieuwe kaarten van stapel.
+     * 
      * @throws Exception
      */
     private void ruilMetStapel() throws Exception {
@@ -125,6 +136,15 @@ public class Magier extends UnicastRemoteObject implements Karakter, Serializabl
         this.speler.getHand().resetActiveCards();
     }
 
+    public Object getTarget() throws RemoteException {
+        return target;
+    }
+    
+    @Override
+    public SpelerRemote getSpeler() throws RemoteException {
+        return this.speler;
+    }
+    
     @Override
     public String getNaam() throws RemoteException {
     	return this.naam;
@@ -145,11 +165,6 @@ public class Magier extends UnicastRemoteObject implements Karakter, Serializabl
 	}
 
     @Override
-    public void setTarget(Object target) throws RemoteException {
-        this.target = target;
-    }
-
-    @Override
     public String getImage() throws RemoteException {
         return this.image;
     }
@@ -164,13 +179,5 @@ public class Magier extends UnicastRemoteObject implements Karakter, Serializabl
         for (KarakterObserver observer: observers) {
             observer.modelChanged(this);
         }
-    }
-
-    public void beurtOverslaan() throws RemoteException {
-    	
-    }
-
-    public Object getTarget() throws RemoteException {
-        return target;
-    }
+    } 
 }

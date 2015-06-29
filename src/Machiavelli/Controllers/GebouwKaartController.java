@@ -103,27 +103,17 @@ public class GebouwKaartController extends UnicastRemoteObject implements Speler
      * Iterator op activeCards bleek niet te werken (ConcurrentModificationException)
      * Hierom wordt een nieuwe lijst als kopie gemaakt van activeCards en wordt de iterator hier op toegepast
      */
-    public synchronized void cmdVernietigGebouw() {
-    	System.out.println("vernietig gebouw");
-//    	List<GebouwKaartRemote> list = new ArrayList<GebouwKaartRemote>(activeCards);
-//    	for(GebouwKaartRemote kaart : activeCards) {
-//    		try {
-//				speler.getKarakter().setTarget(kaart);
-//			} catch (RemoteException e) {
-//				e.printStackTrace();
-//			}
-//    	}
-//    	activeCards.removeAll(list);
+    public void cmdVernietigGebouw() {
     	List<GebouwKaartRemote> list = new ArrayList<GebouwKaartRemote>(activeCards.size());
     	list.addAll(activeCards);
-    	
     	Iterator<GebouwKaartRemote> iter = list.iterator();
+    	
     	while(iter.hasNext()) {
     		GebouwKaartRemote kaart = iter.next();
     		try {
     			this.speler.getKarakter().setTarget(kaart);
     			} catch (RemoteException e) {
-    			e.printStackTrace();
+    				e.printStackTrace();
     		}
     	}
     	activeCards.clear();
