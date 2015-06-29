@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class Koopman extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
 	
 	public Koopman() throws RemoteException {
-        super(1099);
+//        super(1099);
     }
 	
 	private SpelerRemote speler = null;

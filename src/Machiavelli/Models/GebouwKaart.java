@@ -31,7 +31,7 @@ public class GebouwKaart extends UnicastRemoteObject implements Serializable, Ge
 
     // Een kaart wordt aangemaakt met de meegegeven waardes
     public GebouwKaart(int kosten, String naam, Type type, String image) throws RemoteException {
-        super(1099);
+//        super(1099);
         this.kosten = kosten;
         this.naam = naam;
         this.type = type;

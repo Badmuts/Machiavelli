@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class Bouwmeester extends UnicastRemoteObject implements Karakter, Serializable {
 	
 	public Bouwmeester() throws RemoteException {
-        super(1099);
+//        super(1099);
 	}
 
 	private SpelerRemote speler = null;

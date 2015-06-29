@@ -23,7 +23,7 @@ public class Stad extends UnicastRemoteObject implements StadRemote, Serializabl
 
 	public Stad(SpelerRemote speler) throws RemoteException
 	{
-		super(1099);
+//		super(1099);
 		this.speler = speler;
 		this.spel = this.speler.getSpel();
 	}

@@ -33,7 +33,7 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
 
 	// Speler toewijzen aan spel en een nieuwe portemonnee, hand en stad maken.
 	public Speler() throws RemoteException {
-		super(1099);
+//		super(1099);
 	}
 
 	// Haalt goud van de bank en zet het in de portemonnee

@@ -29,7 +29,7 @@ public class Hand extends UnicastRemoteObject implements HandRemote, Serializabl
 
     // Een speler start met 4 gebouwkaarten in zijn hand.
     public Hand(SpelerRemote speler) throws RemoteException {
-        super(1099);
+//        super(1099);
         this.speler = speler;
         trekKaarten();
     }

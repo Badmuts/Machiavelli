@@ -43,7 +43,7 @@ public class Magier extends UnicastRemoteObject implements Karakter, Serializabl
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
     public Magier() throws RemoteException {
-        super(1099);
+//        super(1099);
     }
 
     /**

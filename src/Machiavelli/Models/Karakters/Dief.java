@@ -1,14 +1,14 @@
 package Machiavelli.Models.Karakters;
 
-import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
+
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -28,7 +28,7 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 public class Dief extends UnicastRemoteObject implements Karakter, Serializable {
 	
 	public  Dief() throws RemoteException {
-        super(1099);
+//        super(1099);
 	}
 
 	private SpelerRemote speler = null;
