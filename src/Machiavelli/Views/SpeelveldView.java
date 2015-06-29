@@ -54,7 +54,7 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         this.beurtController = beurtController;
         this.beurt = beurt;
         
-		this.speelveldcontroller = speelveldcontroller;
+		    this.speelveldcontroller = speelveldcontroller;
         this.gebouwKaartController = gebouwKaartController;
         this.portemonnee = speler.getPortemonnee();   
         
