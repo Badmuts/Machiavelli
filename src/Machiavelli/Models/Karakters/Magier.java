@@ -166,7 +166,9 @@ public class Magier extends UnicastRemoteObject implements Karakter, Serializabl
         }
     }
 
-    public void beurtOverslaan() throws RemoteException {}
+    public void beurtOverslaan() throws RemoteException {
+    	
+    }
 
     public Object getTarget() throws RemoteException {
         return target;

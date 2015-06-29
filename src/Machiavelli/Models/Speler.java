@@ -10,14 +10,12 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
+ * @author Sander de Jong
+ * 
  * De speler is onderdeel van een spel. De speler beheerd zijn portemonnee en
  * heeft een hand met kaarten. Bij het aanmaken van een speler krijgt deze
  * een nieuwe hand, portemonnee en stad toegewezen. De speler kan vervolgens
  * verschillende acties uitvoeren.
- *
- * @author Sander de Jong
- * @version 0.1
- *
  */
 public class Speler extends UnicastRemoteObject implements SpelerRemote, Serializable {
 	// Variables
@@ -31,24 +29,40 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
     private int gebouwdeGebouwen = 0;
     private boolean eigenschapGebruikt = false;
 
-	// Speler toewijzen aan spel en een nieuwe portemonnee, hand en stad maken.
+	/**
+	 * Speler toewijzen aan spel en een nieuwe portemonnee, hand en stad maken.
+	 * 
+	 * @throws RemoteException
+	 */
 	public Speler() throws RemoteException {
 		super(1099);
 	}
 
-	// Haalt goud van de bank en zet het in de portemonnee
+	/**
+	 * Haalt goud van de bank en zet het in de portemonnee.
+	 * 
+	 * @throws RemoteException
+	 */
 	public void getGoudVanBank(BankRemote bank, int aantal) throws RemoteException {
 		this.portemonnee.ontvangenGoud(aantal);
         notifyObservers();
 	}
 
-	// Haalt goud uit de portemonnee en geeft dit aan de bank
+	/** 
+	 * Haalt goud uit de portemonnee en geeft dit aan de bank.
+	 * 
+	 * @throws RemoteException
+	 */
 	public void setGoudOpBank(PortemonneeRemote portemonnee, int aantal) throws RemoteException {
 		this.portemonnee.bestedenGoud(this.spel.getBank(), aantal);
         notifyObservers();
 	}
-
-	// Plaats een gebouwkaart in de stad van de speler
+	
+	/**
+	 * Plaats een gebouwkaart in de stad van de speler
+	 *
+	 * @throws RemoteException
+	 */
 	public void bouwenGebouw(GebouwKaartRemote gebouw) throws RemoteException {
         // Haal bouwlimiet op van karakter
         int bouwLimiet = this.karakter.getBouwLimiet();
@@ -63,28 +77,38 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
             notifyObservers();
         }
 	}
-
-	// Trekken van twee kaarten uit de stapel
+	
+	/**
+	 * Trekken van twee kaarten uit de stapel
+	 * 
+	 * @throws RemoteException
+	 */
 	public ArrayList<GebouwKaartRemote> trekkenKaart() throws RemoteException {
 		ArrayList<GebouwKaartRemote> tempList = new ArrayList<>();
-		for (int i = 0; i < 2; i++)
-		{
+		for (int i = 0; i < 2; i++) {
 			tempList.add(this.spel.getGebouwFactory().trekKaart());
 		}
 		return tempList;
 	}
 
-	// Trekken van een x aantal kaarten van de stapel
+	/**
+	 * Trekken van een x aantal kaarten van de stapel
+	 * 
+	 * @throws RemoteException
+	 */
 	public ArrayList<GebouwKaartRemote> trekkenKaart(int aantal) throws RemoteException {
 		ArrayList<GebouwKaartRemote>tempList = new ArrayList<>();
-		for (int i = 0; i < aantal; i++)
-		{
+		for (int i = 0; i < aantal; i++) {
 			tempList.add(this.spel.getGebouwFactory().trekKaart());
 		}
 		return tempList;
 	}
-
-	// Selecteren van een kaart aan de hand van de getrokken kaarten
+	
+	/**
+	 * Selecteren van een kaart aan de hand van de getrokken kaarten
+	 * 
+	 * @throws RemoteException
+	 */
 	public void selecterenKaart(ArrayList<GebouwKaartRemote> lijst, int index) throws RemoteException {
 		this.getHand().addGebouw(lijst.get(index));
 		lijst.remove(index);
@@ -97,13 +121,10 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
 	}
 	
 	public void setKarakter(Karakter karakter) {
-		try
-		{
+		try {
 			this.karakter = karakter;
 	        notifyObservers();
-		}
-		catch(Exception e)
-		{
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -124,16 +145,6 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
 		return this.stad;
 	}
 	
-	public void addObserver(SpelerObserver observer) throws RemoteException {
-		observers.add(observer);
-	}
-
-	public void notifyObservers() throws RemoteException {
-		for (SpelerObserver observer: observers) {
-			observer.modelChanged(this);
-		}
-	}
-
     public void addSpel(SpelRemote spel) {
         this.spel = spel;
         this.createStad();
@@ -181,4 +192,14 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
     	this.eigenschapGebruikt = eigenschapGebruikt;
     	notifyObservers();
     }
+    
+    public void addObserver(SpelerObserver observer) throws RemoteException {
+		observers.add(observer);
+	}
+
+	public void notifyObservers() throws RemoteException {
+		for (SpelerObserver observer: observers) {
+			observer.modelChanged(this);
+		}
+	}
 }
