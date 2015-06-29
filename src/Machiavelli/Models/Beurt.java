@@ -1,16 +1,14 @@
 package Machiavelli.Models;
 
-import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-
-import com.sun.webkit.ContextMenu.ShowContext;
-
 import Machiavelli.Interfaces.Observers.BeurtObserver;
 import Machiavelli.Interfaces.Remotes.BeurtRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
+
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 /**
  *
@@ -78,10 +76,10 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
     }
 
     public void addObserver(BeurtObserver observer) throws RemoteException {
-      nextBeurtObserver();
+//      nextBeurtObserver();
       observers.add(observer);
       System.out.println("Beurt Observer ADDED!: " + this.observers.size());
-      notifyObservers();
+//      notifyObservers();
       
     }
 
