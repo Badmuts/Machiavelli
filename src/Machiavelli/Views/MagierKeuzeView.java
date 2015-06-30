@@ -15,7 +15,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+/**
+ * Deze view maakt een Pane zodat de Speler een target kan kiezen.
+ *
+ * @author Daan Rosbergen
+ * @version 1.0
+ */
 public class MagierKeuzeView {
 
     private final KarakterController karakterController;
@@ -28,6 +33,10 @@ public class MagierKeuzeView {
     private Scene scene;
     private Stage stage = Machiavelli.getInstance().getStage();
 
+    /**
+     *
+     * @param karakterController
+     */
     public MagierKeuzeView(KarakterController karakterController) {
         this.karakterController = karakterController;
         container = new StackPane();
