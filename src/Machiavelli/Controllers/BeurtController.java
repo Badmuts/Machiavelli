@@ -15,7 +15,16 @@ public class BeurtController extends UnicastRemoteObject {
     private KarakterFactoryRemote karakterFactory;
     private InkomstenController inkomstenController;
 
-
+    /**
+     * @author Jimmy
+     * 
+     *         Verantwoordelijk voor het tonen van de views voor bepaalde spelers
+     * 
+     * @param beurt
+     * @param spel
+     * @param speler
+     * @throws RemoteException
+     */
     public BeurtController(BeurtRemote beurt, SpelRemote spel, SpelerRemote speler)
             throws RemoteException {
         // super(1099);
@@ -25,7 +34,8 @@ public class BeurtController extends UnicastRemoteObject {
     }
 
     /**
-     * Deze method roept de geefbeurt method aan in het BeurtModel.
+     * Deze method roept de geefbeurt method aan in het BeurtModel en checkt welke speler de beurt
+     * heeft voor bepaalde acties.
      * 
      */
     public void cmdGeefBeurt() {

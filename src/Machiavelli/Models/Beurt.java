@@ -50,9 +50,9 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
         notifyObservers();
 
         this.speler = this.getSpelerLijst().get(observerIndex);
-        this.speler.setGebouwdeGebouwen(0); // Dit proberen te vervangen door nieuwe karakterFactory
-        this.speler.setEigenschapGebruikt(false); // Dit proberen te vervangen door nieuwe
-                                                  // karakterFactory
+        this.speler.setGebouwdeGebouwen(0);
+        this.speler.setEigenschapGebruikt(false);
+        
     }
 
     public void getInkomstenView() throws RemoteException {
