@@ -88,11 +88,6 @@ public class Spel implements SpelRemote, Serializable {
         return this.spelers;
     }
 
-		public void clearSpelers()
-		{
-				this.spelers = null;
-				this.spelers = new ArrayList<>();
-		}
 
     public int getMaxAantalSpelers() {
         return this.maxAantalSpelers;
@@ -158,11 +153,17 @@ public class Spel implements SpelRemote, Serializable {
 
     @Override
     public void laadSpel(SpelRemote loadSpel) throws RemoteException {
+				this.maxAantalSpelers = 0;
         this.maxAantalSpelers = loadSpel.getMaxAantalSpelers();
+				this.bank = null;
         this.bank = loadSpel.getBank();
+				this.gebouwFactory = null;
         this.gebouwFactory = loadSpel.getGebouwFactory();
+				this.spelers = null;
         this.spelers = loadSpel.getSpelers();
+				this.observers = null;
         this.observers = loadSpel.getObservers();
+				this.karakterFactory = null;
         this.karakterFactory = loadSpel.getKarakterFactory();
     }
 }

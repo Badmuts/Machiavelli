@@ -46,7 +46,6 @@ public interface SpelRemote extends Remote {
 
     void setTempSpelers(ArrayList<SpelerRemote> list) throws RemoteException;
 
-    void clearSpelers() throws RemoteException;
 
     ArrayList<SpelObserver> getObservers() throws RemoteException;
 
