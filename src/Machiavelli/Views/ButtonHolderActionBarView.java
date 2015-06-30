@@ -5,7 +5,6 @@ import Machiavelli.Interfaces.Bonusable;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Observers.SpelerObserver;
-import Machiavelli.Interfaces.Remotes.BeurtRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -18,7 +17,20 @@ import javafx.scene.shape.Rectangle;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class ButtonHolderActionBarView extends UnicastRemoteObject implements SpelerObserver,KarakterObserver {
+/**
+ * Deze view maakt een GridPane aan en plaatst daar buttons in. Buttons worden
+ * vervolgens gekoppeld aan de juiste methodes in bijbehorende controllers.
+ *
+ * Deze klasse update wanneer Speler of Karakter wijzigen en schakelt buttons
+ * naar behoren uit.
+ *
+ * Deze klasse extends UnicastRemoteObject en kan op die manier ontvangen van
+ * andere Remote objecten.
+ *
+ * @author Daan Rosbergen
+ * @version 1.0
+ */
+public class ButtonHolderActionBarView extends UnicastRemoteObject implements SpelerObserver, KarakterObserver {
 
     private SpeelveldController speelveldController;
     private GridPane buttonGrid = new GridPane();
@@ -31,18 +43,24 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
     private Button eindebeurtbutton;
     private Rectangle buttonholder;
     private SpelerRemote speler;
-    private BeurtRemote beurt;
     private StackPane container;
     private boolean disabled;
     private Karakter karakter;
 
+    /**
+     * Constructor maakt GridPane en een container StackPane aan. Maakt alle
+     * nodige buttons aan en voegt zichzelf toe aan de als observer aan
+     * Speler en Karakter van speler. Koppelt buttons aan commands in Controllers.
+     *
+     * @param speelveldController
+     * @throws RemoteException
+     */
     public ButtonHolderActionBarView(SpeelveldController speelveldController) throws RemoteException {
         this.speelveldController = speelveldController;
         this.speler = speelveldController.getSpeler();
-        this.beurt = speelveldController.getBeurt();
         this.karakter = this.speler.getKarakter();
 
-        this.container = new StackPane();
+        container = new StackPane();
         gebruikEigenschap = new Button();
         exitbutton = new Button();
         spelregels = new Button();
@@ -99,6 +117,18 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
         }
     }
 
+    /**
+     * Helper function voor het opbouwen van buttons.
+     * Voegt button toe aan aan GridPane
+     *
+     * @param button        Button object
+     * @param tekst         Tekst in button
+     * @param styleClass    CSS class voor button
+     * @param columnIndex   Column in GridPane
+     * @param rowIndex      Row in GridPane
+     * @param sizeX         Breedte van button
+     * @param sizeY         Hoogte van button
+     */
     private void initButton(Button button, String tekst, String styleClass, int columnIndex, int rowIndex, float sizeX, float sizeY){
         button.setText(tekst);
         button.getStyleClass().add(styleClass);
@@ -107,34 +137,61 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
         this.buttonGrid.add(button, columnIndex, rowIndex);
     }
 
+    /**
+     * @return Spelregels button
+     */
     public Button getSpelregels() {
         return this.spelregels;
     }
 
+    /**
+     * @return Afsluiten button
+     */
     public Button getExitbutton() {
         return this.exitbutton;
     }
-    
+
+    /**
+     * @return Bonusgoud button
+     */
     public Button getGoudbutton() {
     	return this.goudbutton;
     }
-    
+
+    /**
+     * @return Gebruik eigenschap button
+     */
     public Button getEigenschapButton() {
     	return this.gebruikEigenschap;
     }
-    
+
+    /**
+     * @return Bouwen button
+     */
     public Button getBouwButton() {
     	return this.bouwbutton;
     }
-    
+
+    /**
+     * @return Opslaan button
+     */
     public Button getOpslaanButton() {
     	return this.opslaanknop;
     }
-    
+
+    /**
+     * @return Einde beurt button
+     */
     public Button getEindeBeurtButton() {
     	return this.eindebeurtbutton;
     }
 
+    /**
+     * SpelerObserver method. Update view wanneer Speler object wijzigd.
+     *
+     * @param speler model changed.
+     * @throws RemoteException
+     */
     @Override
     public void modelChanged(SpelerRemote speler) throws RemoteException {
         Platform.runLater(() -> {
@@ -153,6 +210,11 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
         });
     }
 
+    /**
+     * KarakterObserver method. Update view wanneer Karakter wijzigd.
+     *
+     * @param karakter
+     */
     @Override
     public void modelChanged(Karakter karakter) {
         Platform.runLater(() -> {
@@ -169,6 +231,11 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
         });
     }
 
+    /**
+     * Enabled de Bouwen button wanneer een Speler mag bouwen.
+     *
+     * @throws RemoteException
+     */
     private void isAbleToBuild() throws RemoteException {
         int gebouwdeGebouwen = speler.getGebouwdeGebouwen();
         int bouwLimiet = speler.getKarakter().getBouwLimiet();
@@ -178,7 +245,13 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
             bouwbutton.setDisable(false); // Enable button
         }
     }
-    
+
+    /**
+     * Enabled Gebruik eigenschap button wanneer een Karakter zijn
+     * eigenschap kan gebruiken.
+     *
+     * @throws RemoteException
+     */
     private void IsAbleToGebruikEigenschap() throws RemoteException {
     	boolean eigenschapGebruikt = speler.EigenschapGebruikt();
     	if (eigenschapGebruikt == false) {
@@ -190,6 +263,11 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
     	
     }
 
+    /**
+     * Methode om opgebouwde view op te halen.
+     *
+     * @return StackPane De uiteindelijke ButtonHolderActionBarView
+     */
     public StackPane getPane() {
         return this.container;
     }
