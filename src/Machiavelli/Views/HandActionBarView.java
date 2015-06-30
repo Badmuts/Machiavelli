@@ -19,6 +19,17 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+/**
+ * Deze view maakt een StackPane aan en plaatst daarin GebouwKaartViews
+ *
+ * Deze klasse update wanneer Hand wijzigd.
+ *
+ * Deze klasse extends UnicastRemoteObject en kan op die manier ontvangen van
+ * andere Remote objecten.
+ *
+ * @author Daan Rosbergen
+ * @version 1.0
+ */
 public class HandActionBarView extends UnicastRemoteObject implements HandObserver {
 
     private HandRemote hand;
@@ -30,7 +41,7 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
     /**
      * View voor de gebouwkaarten in de hand van de speler.
      *
-     * @param hand
+     * @param hand Hand van Speler
      */
     public HandActionBarView(HandRemote hand, GebouwKaartController gebouwKaartController) throws RemoteException {
         this.hand = hand;
@@ -44,6 +55,11 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
         createView();
     }
 
+    /**
+     * Vult de container pane
+     *
+     * @throws RemoteException
+     */
     private void createView() throws RemoteException {
         createBackground(); // Maak achtergrond aan
         buildGebouwKaartViewsArray(); // Vul gebouwKaartViews[]
@@ -120,12 +136,25 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
         StackPane.setAlignment(handPane, Pos.TOP_CENTER);
     }
 
+    /**
+     * Berekend de rotatie van de kaart voor een waaier effect.
+     *
+     * @param cardIndex     Plaats in Hand
+     * @param totalCards    Aantal kaartin in Hand
+     * @return int Rotatie
+     */
     private int calcRotation(int cardIndex, int totalCards) {
         // TODO: implement rotation calculation
         // int middle = totalCards/2;
         return 0;
     }
 
+    /**
+     * HandObserver method. Update view als Hand wijzigd.
+     *
+     * @param hand Nieuwe Hand van Speler
+     * @throws RemoteException
+     */
     @Override
     public void modelChanged(HandRemote hand) throws RemoteException {
         Platform.runLater(() -> {
@@ -142,6 +171,11 @@ public class HandActionBarView extends UnicastRemoteObject implements HandObserv
         });
     }
 
+    /**
+     * Methode om opgebouwde view op te halen.
+     *
+     * @return Pane met de uiteindelijke HandActionBarView
+     */
     public Pane getPane() {
         return this.pane;
     }
