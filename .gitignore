@@ -6,5 +6,4 @@
 .classpath
 /.settings/
 /doc/
-/META-INF/
-/src/META-INF/
+META-INF/
