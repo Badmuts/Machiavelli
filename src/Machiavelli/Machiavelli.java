@@ -2,6 +2,7 @@ package Machiavelli;
 
 import Machiavelli.Controllers.MenuController;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.rmi.registry.LocateRegistry;
@@ -46,8 +47,9 @@ public class Machiavelli extends Application {
         this.stage = primaryStage; // Create stage
         this.stage.setResizable(false); // Make stage unresizable
         this.stage.setTitle("Machiavelli"); // Set title of stage
+        this.stage.getIcons().add(new Image("/Machiavelli/Resources/icon.png"));
 
-        try {
+      try {
             System.out.println("Getting access to the registry");
             // get access to the RMI registry on the remote server
             // Wijzig naar lokaal ip adres voor testen
