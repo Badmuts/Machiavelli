@@ -22,6 +22,20 @@ import javafx.util.Duration;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+/**
+ * Deze view maakt een StackPane aan en plaatst daar de afbeelding van de
+ * gebouwkaart in, plaatst de waarde van de kaart over de afbeelding en
+ * plaatst de naam van de kaart over de afbeelding.
+ *
+ * Deze klasse update wanneer Gebouwkaart wijzigd en schakelt buttons
+ * naar behoren uit.
+ *
+ * Deze klasse extends UnicastRemoteObject en kan op die manier ontvangen van
+ * andere Remote objecten.
+ *
+ * @author Daan Rosbergen
+ * @version 1.0
+ */
 public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartObserver {
 
     private int height;
@@ -30,6 +44,12 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
     private GebouwKaartRemote gebouwKaart;
     private StackPane gebouwKaartView;
 
+    /**
+     *
+     * @param gebouwkaartController Controller voor GebouwKaart
+     * @param gebouwKaart           Model van GebouwKaart
+     * @throws RemoteException
+     */
     public GebouwKaartView(GebouwKaartController gebouwkaartController, GebouwKaartRemote gebouwKaart) throws RemoteException {
         this.gebouwKaart = gebouwKaart;
         this.gebouwKaartController = gebouwkaartController;
@@ -42,6 +62,14 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         this.addClickHandler();
     }
 
+    /**
+     *
+     * @param gebouwkaartController Controller voor GebouwKaart
+     * @param gebouwKaart           Model van GebouwKaart
+     * @param width                 Breedte van view
+     * @param height                Hoogte van view
+     * @throws RemoteException
+     */
     public GebouwKaartView(GebouwKaartController gebouwkaartController, GebouwKaartRemote gebouwKaart, int width, int height) throws RemoteException {
         this.gebouwKaart = gebouwKaart;
         this.width = width;
@@ -53,6 +81,10 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         this.addClickHandler();
     }
 
+    /**
+     * Voeg een klik event toe aan de GebouwKaartView. Wanneer deze actief is word
+     * deze op actief gezet in de GebouwKaartController.
+     */
     private void addClickHandler() {
         this.gebouwKaartView.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             StackPane view = (StackPane) event.getSource();
@@ -80,8 +112,10 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         });
     }
 
-    
-
+    /**
+     * Haalt afbeelding op en maakt een ImageView aan.
+     * @return
+     */
     private ImageView createImageView() {
         ImageView gebouwKaartImage = new ImageView();
         try {
@@ -100,6 +134,11 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         return gebouwKaartImage;
     }
 
+    /**
+     * Maak een cirkel met de kleur van het type kaart en de score van de kaart.
+     *
+     * @return Gebouwscore view icoon
+     */
     private Pane createScoreView() {
         Pane gebouwScoreView = new Pane();
         try {
@@ -123,6 +162,12 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         return gebouwScoreView;
     }
 
+    /**
+     * Voegt juist CSS class toe voor de juiste type kleur.
+     *
+     * @param circle ScoreView circkel
+     * @return
+     */
     private Circle setGebouwTypeClass(Circle circle) {
         try {
             switch (gebouwKaart.getType()) {
@@ -147,6 +192,13 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         return circle;
     }
 
+    /**
+     * Maakt een StackPane aan met daarin een transparte achtergrond en
+     * de naam van de GebouwKaart.
+     *
+     *
+     * @return Transparent paneel met naam van GebouwKaart
+     */
     private StackPane createNameField() {
         StackPane gebouwKaartName = new StackPane();
         Rectangle background = new Rectangle();
@@ -168,15 +220,30 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         return gebouwKaartName;
     }
 
+    /**
+     * GebouwKaartObserver method. Update de view met nieuwe gegevens.
+     *
+     * @param gebouwKaart
+     * @throws RemoteException
+     */
     public void modelChanged(GebouwKaartRemote gebouwKaart) throws RemoteException {
         // TODO: UPDATE VIEW
         this.gebouwKaart = gebouwKaart;
     }
 
+    /**
+     *
+     * @return Controller van GebouwKaartView
+     */
     public GebouwKaartController gebouwKaartController() {
         return this.gebouwKaartController;
     }
 
+    /**
+     * Methode om opgebouwde view op te halen.
+     *
+     * @return StackPane met de uiteindelijke GebouwKaartView
+     */
     public StackPane view() {
         this.gebouwKaartView.getStyleClass().add("gebouwkaart");
         return this.gebouwKaartView;
