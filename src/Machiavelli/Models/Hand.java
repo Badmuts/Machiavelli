@@ -13,34 +13,43 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * @author Sander
+ * 
  * De hand van de speler heeft controle over de kaarten die de speler
  * op dat moment bezit. Er kunnen kaarten in de hand worden toegevoegd
  * en verwijderd.
  *
- * @author Sander
- * @version 0.1
+ * 
  */
+
 public class Hand extends UnicastRemoteObject implements HandRemote, Serializable {
-    // Variables
     private ArrayList<GebouwKaartRemote> kaartenLijst = new ArrayList<>();
     private SpelerRemote speler;
     private ArrayList<HandObserver> observers = new ArrayList<>();
     private ArrayList<GebouwKaartRemote> activeCards = new ArrayList<>();
-
-    // Een speler start met 4 gebouwkaarten in zijn hand.
+   
+    /**
+     * Als het spel gestart wordt en de hand van de speler wordt aangemaakt, 
+     * begint een speler met 4 gebouwkaarten in zijn hand.
+     *
+     * @param speler
+     * @throws RemoteException
+     */
     public Hand(SpelerRemote speler) throws RemoteException {
+//        super(1099);
         this.speler = speler;
         trekKaarten();
     }
 
     /**
-     * Trek vier kaarten van de stapel als start tarief.
+     * Trek vier kaarten van de stapel en plaatst deze in de hand van de speler.
      * Vult kaartenLijst[] met kaarten die hij ontvangt.
+     * 
+     * @throws RemoteException
      */
     private void trekKaarten() {
         try {
-            // Haal gebouwFactory op vanuit het spel.
-//            GebouwFactoryRemote factory =
+           
             for (int i = 0; i < 4; i++) { // Trek 4 kaarten.
                 addGebouw(this.speler.getSpel().getGebouwFactory().trekKaart()); // Voeg kaart toe aan hand
             }
@@ -88,7 +97,7 @@ public class Hand extends UnicastRemoteObject implements HandRemote, Serializabl
     }
 
     /**
-     * Verwijder GebouwKaart uit Hand.
+     * Verwijder GebouwKaart uit de hand van de speler.
      *
      * @param gebouw
      * @throws RemoteException
@@ -106,7 +115,7 @@ public class Hand extends UnicastRemoteObject implements HandRemote, Serializabl
     }
 
     /**
-     * Voeg meerderen gebouwen toe aan Hand. (Redundant?)
+     * Voeg meerderen gebouwen toe aan de hand van de speler.
      *
      * @param gebouwKaarten
      * @throws RemoteException
@@ -137,12 +146,7 @@ public class Hand extends UnicastRemoteObject implements HandRemote, Serializabl
         notifyObservers();
     }
 
-    /**
-     * Haal eigenaar van Hand op.
-     *
-     * @return
-     * @throws RemoteException
-     */
+  
     public SpelerRemote getSpeler() throws RemoteException {
         return this.speler;
     }

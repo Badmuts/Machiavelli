@@ -1,12 +1,11 @@
 package Machiavelli.Controllers;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-
-import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Remotes.BeurtRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 public class BeurtController extends UnicastRemoteObject {
   private SpelRemote spel;
@@ -16,6 +15,7 @@ public class BeurtController extends UnicastRemoteObject {
 
 
   public BeurtController(BeurtRemote beurt, SpelRemote spel, SpelerRemote speler) throws RemoteException {
+//    super(1099);
     this.spel = spel;
     this.beurt = beurt;
     this.speler = speler;

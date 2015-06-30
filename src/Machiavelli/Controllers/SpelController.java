@@ -1,11 +1,11 @@
 package Machiavelli.Controllers;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-
 import Machiavelli.Interfaces.Remotes.BeurtRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  *
@@ -20,6 +20,7 @@ public class SpelController extends UnicastRemoteObject {
     private GebouwKaartController gebouwKaartController;
 
 	public SpelController(SpelRemote spel) throws RemoteException {
+//        super(1099);
         try {
             this.spel = spel;
             this.speler = this.spel.getSpelers().get(this.spel.getSpelers().size() - 1);

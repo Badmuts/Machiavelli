@@ -12,9 +12,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * 
- * 
  * @author Jamie Kalloe
+ * 
+ * De spelregels van Machiavelli zijn opgeslagen in een textdocument, deze
+ * kunnen op elk moment in het spel aangeroepen worden.
  *
  */
 

@@ -17,10 +17,17 @@ import Machiavelli.Interfaces.Remotes.StadRemote;
 
 
 /**
+ * @author Bernd Oostrum
+ * 
  * Hier wordt bepaald wie de winnaar is van het spel.
  *
+<<<<<<< HEAD
  * @author Bernd Oostrum, Sander de Jong
  * @version 0.2
+=======
+ * 
+ * 
+>>>>>>> 5052b9305ba74936ac8caf0078a8840619b99769
  *
  */
 public class PuntenModel extends UnicastRemoteObject implements PuntenRemote, Serializable {

@@ -17,7 +17,6 @@ import Machiavelli.Machiavelli;
 import Machiavelli.Controllers.BeurtController;
 import Machiavelli.Controllers.GebouwKaartController;
 import Machiavelli.Controllers.InkomstenController;
-import Machiavelli.Controllers.KarakterController;
 import Machiavelli.Controllers.RaadplegenSpelregelsController;
 import Machiavelli.Controllers.SpeelveldController;
 import Machiavelli.Interfaces.Observers.BeurtObserver;
@@ -30,8 +29,7 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.Speelveld;
 
 
-public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver, BeurtObserver{
-
+public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver, BeurtObserver {
     private SpelerRemote speler;
     private BeurtRemote beurt;
     private GebouwKaartController gebouwKaartController;
@@ -53,15 +51,16 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
 
     public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController, SpelerRemote speler, BeurtController beurtController, BeurtRemote beurt) throws RemoteException {
 		this.speelveld = speelveld;
+
         this.speler = speler;  
         this.beurtController = beurtController;
         this.beurt = beurt;
         
-		this.speelveldcontroller = speelveldcontroller;
+		    this.speelveldcontroller = speelveldcontroller;
         this.gebouwKaartController = gebouwKaartController;
         this.portemonnee = speler.getPortemonnee();   
         
-        this.beurt.addObserver(this);
+//        this.beurt.addObserver(this);
         this.portemonnee.addObserver(this);
 
         this.createStedenHolder();
@@ -230,17 +229,10 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         }
       });
     }
-    
-    
-    public void showKarakterMenu() {
-      Platform.runLater(() -> {
-        try {
-          KarakterController karaktercontroller = new KarakterController(this.speler, "ronde");
-          karaktercontroller.show();
-        } catch (Exception e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
-      });
-    }
+
+	@Override
+	public void showKarakterMenu() throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -1,11 +1,11 @@
 package Machiavelli;
 
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-
+import Machiavelli.Controllers.MenuController;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import Machiavelli.Controllers.MenuController;
+
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 /**
  * Google Java Style Guide aanhouden
@@ -24,6 +24,7 @@ public class Machiavelli extends Application {
      */
     public Machiavelli() {
         super();
+//        System.setProperty("java.rmi.server.hostname", "localhost");
         synchronized(Machiavelli.class){
             if(uniqueInstance != null) throw new UnsupportedOperationException(
                     getClass()+" is singleton but constructor called more than once");
@@ -48,7 +49,8 @@ public class Machiavelli extends Application {
         try {
             System.out.println("Getting access to the registry");
             // get access to the RMI registry on the remote server
-            this.registry = LocateRegistry.getRegistry("localhost"); // if server on another machine: provide that machine's IP address. Default port  1099
+            // Wijzig naar lokaal ip adres voor testen
+            this.registry = LocateRegistry.getRegistry("188.166.91.187", 1099); // if server on another machine: provide that machine's IP address. Default port  1099
             System.out.println("Done!");
         } catch (Exception e) {
             e.printStackTrace();
