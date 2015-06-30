@@ -1,16 +1,18 @@
 package Machiavelli.Controllers;
 
-import Machiavelli.Interfaces.Remotes.BeurtRemote;
-import Machiavelli.Interfaces.Remotes.SpelRemote;
-import Machiavelli.Interfaces.Remotes.SpelerRemote;
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
+import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 public class BeurtController extends UnicastRemoteObject {
   private SpelRemote spel;
   private BeurtRemote beurt;
   private SpelerRemote speler;
+  private KarakterFactoryRemote karakterFactory;
   private InkomstenController inkomstenController;
 
 
@@ -30,8 +32,8 @@ public class BeurtController extends UnicastRemoteObject {
           beurt.geefBeurt();
           if(beurt.getObserverIndex() == 0) {
             
-            /*KarakterFactory karakterfactory = new KarakterFactory();
-            this.spel.setKarakterFactory(karakterfactory); */
+            karakterFactory = this.spel.getKarakterFactory();
+            karakterFactory.refreshFactory();
             
             //Loop door aantal spelers, en laat voor elke speler de karakterkeuze menu zien
             for(int i = 0; i < spel.getMaxAantalSpelers(); i++) {
