@@ -10,6 +10,9 @@ import java.rmi.server.UnicastRemoteObject;
 /**
  * Server class voor de Machiavelli applicatie. Maakt een nieuw Registry en
  * plaats een Spel skeleton in het registry.
+ *
+ * @author Daan Rosbergen
+ * @version 1.0
  */
 public class Server {
 
