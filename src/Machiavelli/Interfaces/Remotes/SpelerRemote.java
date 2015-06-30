@@ -15,7 +15,7 @@ public interface SpelerRemote extends Remote {
     // Haalt goud van de bank en zet het in de portemonnee
     public void getGoudVanBank(BankRemote bank, int aantal) throws RemoteException;
     // Haalt goud uit de portemonnee en geeft dit aan de bank
-    public void setGoudOpBank(PortemonneeRemote portemonnee, int aantal) throws RemoteException;
+    public boolean setGoudOpBank(PortemonneeRemote portemonnee, int aantal) throws RemoteException;
     // Plaats een gebouwkaart in de stad van de speler
     public void bouwenGebouw(GebouwKaartRemote gebouw) throws RemoteException;
     // Selecteren van een kaart aan de hand van de getrokken kaarten

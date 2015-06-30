@@ -78,31 +78,49 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
 	 */
     @Override
     public boolean gebruikEigenschap() throws RemoteException {	
-    	if (this.target == null) {
-    		return false;	
-    	} else {
-    		if (target.getStad().getSpeler().getKarakter().getNummer() != 5) {
-    			vernietigGebouw(this.target.getStad(), getTarget());
-    			this.speler.setEigenschapGebruikt(true);
-    		} else {
-    			return false;
-    		}
-    	}
-    	return true;
+    	System.out.println(target == null);
+    	boolean gebruikEigenschap;
+		 
+			if (this.target == null) {
+				gebruikEigenschap = false;	
+			}
+			else {
+				if (target.getStad().getSpeler().getKarakter().getNummer() != 5) {
+					boolean kanVernietigen = vernietigGebouw(this.target.getStad(), getTarget());
+					if(!kanVernietigen)
+					{
+						gebruikEigenschap = false;
+					} else {
+						gebruikEigenschap = true;
+					}
+					this.speler.setEigenschapGebruikt(true);
+				}
+				else {
+					gebruikEigenschap = false;
+				}
+			}
+		return gebruikEigenschap;
     }
     
     /**
    	 * De kosten voor het vernietigen gebouw worden uit de portemonnee gehaald en op de bank gezet.
    	 * De gebouwkaart wordt teruggeplaatst in de GebouwFactory. 
+<<<<<<< HEAD
+     * @return TODO
+=======
    	 * 
    	 * @param stad
    	 * @param target in het geval van de Condotierre is de target een gebouwkaart
    	 * @throws RemoteException
+>>>>>>> 6395149309661da4f9c5b5c341ca69de3c13d1c0
    	 */
-    private void vernietigGebouw(StadRemote stad, GebouwKaartRemote target) throws RemoteException {
+    private boolean vernietigGebouw(StadRemote stad, GebouwKaartRemote target) throws RemoteException {
     	System.out.println("het target is " +  target);
-    	speler.setGoudOpBank(speler.getPortemonnee(), target.getKosten()-1);
-		target.getStad().removeGebouw(target);	
+    	boolean genoegGoud = speler.setGoudOpBank(speler.getPortemonnee(), target.getKosten()-1);
+    	if(genoegGoud) {
+    		target.getStad().removeGebouw(target);	
+    	}
+    	return genoegGoud;
     }
     
     /**

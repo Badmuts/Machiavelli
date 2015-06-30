@@ -92,16 +92,18 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
 		notifyObservers();
 	}
 
-	/** 
-	 * Haalt goud uit de portemonnee en geeft dit aan de bank.
-	 * 
-	 * @param portemonnee 
-	 * @param aantal hoeveelheid goudstukken
-	 * @throws RemoteException
-	 */
-	public void setGoudOpBank(PortemonneeRemote portemonnee, int aantal) throws RemoteException {
-		this.portemonnee.bestedenGoud(this.spel.getBank(), aantal);
-		notifyObservers();
+/** 
+ * Haalt goud uit de portemonnee en geeft dit aan de bank.
+ * 
+ * @param portemonnee 
+ * @param aantal hoeveelheid goudstukken
+ * @throws RemoteException
+ */
+	// Haalt goud uit de portemonnee en geeft dit aan de bank
+	public boolean setGoudOpBank(PortemonneeRemote portemonnee, int aantal) throws RemoteException {
+		boolean kanBesteden = this.portemonnee.bestedenGoud(this.spel.getBank(), aantal);
+        notifyObservers();
+        return kanBesteden;
 	}
 
 	/**

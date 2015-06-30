@@ -15,6 +15,9 @@ public class MenuController {
     private Registry registry;
 
     /**
+     * @author Jimmy
+     * Edited by: Daan
+     * 
      * Maakt de MainMenuView aan en koppelt de buttons aan cmd's
      * zodat deze kunnen worden afgehandeld.
      *

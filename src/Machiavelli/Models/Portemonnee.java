@@ -35,23 +35,27 @@ public class Portemonnee extends UnicastRemoteObject implements PortemonneeRemot
 		super(1099);
 		this.bank = bank;
 		try {
-			goudMunten += this.bank.gevenGoud(20);
+			goudMunten += this.bank.gevenGoud(2);
 		} catch (RemoteException re) {
 			re.printStackTrace();
 		}
 	}
 
-	/**
-	 * Goud uit de portemonnee van de speler aan de bank betalen.
-	 * 
-	 * @param bank 
-	 * @param aantal hoeveelheid goudstukken
-	 * @throws RemoteException
-	 */
-	public void bestedenGoud(BankRemote bank, int aantal) throws RemoteException {
-		bank.ontvangenGoud(aantal);
-		this.goudMunten -= aantal;
-		notifyObservers();
+	// Goud aan de bank betalen
+	public boolean bestedenGoud(BankRemote bank, int aantal) throws RemoteException {
+		boolean kanBesteden;
+		if(aantal < this.goudMunten) {
+			//genoeg goud in de portomonee.
+			bank.ontvangenGoud(aantal);
+			this.goudMunten -= aantal;
+			kanBesteden = true;
+			notifyObservers();
+		} else {
+			//niet genoeg goud in de portomonee.
+			kanBesteden = false;
+		}
+		
+		return kanBesteden;
 	}
 
 	/**
