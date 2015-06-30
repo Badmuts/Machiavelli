@@ -44,7 +44,6 @@ public class Machiavelli extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
         this.stage = primaryStage; // Create stage
-        // this.stage.initStyle(StageStyle.UNDECORATED);
         this.stage.setResizable(false); // Make stage unresizable
         this.stage.setTitle("Machiavelli"); // Set title of stage
 
