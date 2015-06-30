@@ -14,8 +14,14 @@ import java.util.Scanner;
 /**
  * @author Jamie Kalloe
  * 
+<<<<<<< HEAD
  *         Het Spelregels model wordt gebruikt om de spelregels mee op te halen voor de view.
  * 
+=======
+ * De spelregels van Machiavelli zijn opgeslagen in een textdocument, deze
+ * kunnen op elk moment in het spel aangeroepen worden.
+ *
+>>>>>>> 6395149309661da4f9c5b5c341ca69de3c13d1c0
  */
 
 public class Spelregels implements SpelregelsRemote, Serializable {

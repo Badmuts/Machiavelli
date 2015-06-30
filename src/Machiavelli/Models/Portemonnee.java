@@ -10,25 +10,32 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
+ * @author Sander de Jong
+ * @version 0.1
+ * 
  * De portemonnee beheerd het geld van de speler. Via de portemonnee
  * kan de speler aan andere spelers of de bank betalen. Ook ontvangt
  * de speler via de portemonnee goud.
  *
- * @author Sander de Jong
- * @version 0.1
- *
  */
+
 public class Portemonnee extends UnicastRemoteObject implements PortemonneeRemote, Serializable {
-	// Variables
 	private int goudMunten;
 	private BankRemote bank;
 	private ArrayList<PortemonneeOberserver> observers = new ArrayList<>();
 
-	// Een portemonnee start met 2 goudmunten. Deze worden uit de bank gehaald
-	public Portemonnee(BankRemote bank) throws RemoteException {
+
+	/**
+	 * Een portemonnee start met 2 goudmunten. Deze worden uit de bank gehaald.
+	 * 
+	 * @param bank
+	 * @throws RemoteException
+	 */
+		public Portemonnee(BankRemote bank) throws RemoteException {
+		super(1099);
 		this.bank = bank;
 		try {
-			goudMunten += this.bank.gevenGoud(20);
+			goudMunten += this.bank.gevenGoud(2);
 		} catch (RemoteException re) {
 			re.printStackTrace();
 		}
@@ -51,7 +58,12 @@ public class Portemonnee extends UnicastRemoteObject implements PortemonneeRemot
 		return kanBesteden;
 	}
 
-	// Ontvangen van een x aantal goud
+	/**
+	 * Ontvangen van een x aantal goud in de portemonnee van de bank.
+	 * 
+	 * @param aantal hoeveelheid goudstukken
+	 * @throws RemoteException
+	 */ 
 	public void ontvangenGoud(int aantal) throws RemoteException {
 		goudMunten += this.bank.gevenGoud(aantal);
         notifyObservers();

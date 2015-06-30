@@ -35,7 +35,11 @@ public interface KarakterFactoryRemote extends Remote {
      * @return
      */
     public Karakter getKarakterByNumber(int karakterNummer) throws RemoteException;
+    
     public void addObserver(KarakterFactoryObserver karakterFactoryObserver) throws RemoteException;
+    
+    public void refreshFactory() throws RemoteException;
+    
     public void notifyObservers() throws RemoteException;
 
 }

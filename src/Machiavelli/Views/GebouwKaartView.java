@@ -42,6 +42,17 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         this.addClickHandler();
     }
 
+    public GebouwKaartView(GebouwKaartController gebouwkaartController, GebouwKaartRemote gebouwKaart, int width, int height) throws RemoteException {
+        this.gebouwKaart = gebouwKaart;
+        this.width = width;
+        this.height = height;
+        this.gebouwKaartController = gebouwkaartController;
+        this.gebouwKaartView = new StackPane();
+        this.gebouwKaartView.getChildren().addAll(createImageView(), createScoreView(), createNameField());
+        this.gebouwKaartView.setPrefSize(width, height);
+        this.addClickHandler();
+    }
+
     private void addClickHandler() {
         this.gebouwKaartView.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             StackPane view = (StackPane) event.getSource();
@@ -69,17 +80,6 @@ public class GebouwKaartView extends UnicastRemoteObject implements GebouwKaartO
         });
     }
 
-    public GebouwKaartView(GebouwKaartController gebouwkaartController, GebouwKaartRemote gebouwKaart, int width, int height) throws RemoteException {
-        this.gebouwKaart = gebouwKaart;
-        this.width = width;
-        this.height = height;
-        this.gebouwKaartController = gebouwkaartController;
-        this.gebouwKaartView = new StackPane();
-        this.gebouwKaartView.getChildren().addAll(createImageView(), createScoreView(), createNameField());
-        this.gebouwKaartView.setPrefSize(width, height);
-        this.addClickHandler();
-    }
-    
     
 
     private ImageView createImageView() {

@@ -1,8 +1,7 @@
 package Machiavelli.Views;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-
+import Machiavelli.Controllers.InkomstenController;
+import Machiavelli.Machiavelli;
 import javafx.animation.FadeTransition;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -14,12 +13,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.util.Duration;
-import Machiavelli.Machiavelli;
-import Machiavelli.Controllers.InkomstenController;
-import Machiavelli.Models.Spel;
-import Machiavelli.Models.Speler;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * @author Jamie Kalloe

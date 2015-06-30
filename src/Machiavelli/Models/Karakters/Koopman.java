@@ -25,10 +25,7 @@ import java.util.ArrayList;
  * commericiel gebouw in zijn stad.
  */
 public class Koopman extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
-	
-	public Koopman() throws RemoteException {
-    }
-	
+	private boolean isBonusable = true;
 	private SpelerRemote speler = null;
 	
 	/** Eigenschappen van karakter Koopman. */
@@ -36,28 +33,31 @@ public class Koopman extends UnicastRemoteObject implements Karakter, Bonusable,
     private final int bouwLimiet = 1; 
     private final String naam = "Koopman";
     private final Type type = Type.COMMERCIEL;
+    
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Koopman.png";
-
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
-    private boolean isBonusable = true;
+        
+    public Koopman() throws RemoteException {
+//      super(1099);
+    }
 
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Koopman wordt aan de speler gekoppeld.
+	 * 
+	 * @throws RemoteException
 	 */
 	@Override
 	public void setSpeler(SpelerRemote speler) throws RemoteException {
         this.speler = speler;
     }
 
-    @Override
-    public SpelerRemote getSpeler() throws RemoteException {
-        return this.speler;
-    }
-
 	/**
 	 * overriden van de methode uit de interface Karakter
 	 * en aanroepen van de methode ontvangenBonusGoud
+	 * 
+	 * @return true eigenschap is gebruikt
+	 * @throws RemoteException
 	 */
 	@Override
     public boolean gebruikEigenschap() throws RemoteException {
@@ -65,17 +65,19 @@ public class Koopman extends UnicastRemoteObject implements Karakter, Bonusable,
             if (!this.speler.EigenschapGebruikt()) {
                 ontvangenBonusGoud(this.speler);
                 this.speler.setEigenschapGebruikt(true);
-                return true;
             }
         } catch (RemoteException re) {
             System.out.print(re);
         }
-        return false;
+        return true;
     }
 	
 	/**
-   	 * Deze methode wordt aangroepen door gebruikEigenschap()
+   	 * Deze methode wordt aangroepen door gebruikEigenschap
    	 * de speler met het karakter koopman ontvangt 1 goudstuk
+   	 * 
+   	 * @param koopman
+   	 * @throws RemoteException
    	 */
     public void ontvangenBonusGoud(SpelerRemote koopman) throws RemoteException {
         koopman.getPortemonnee().ontvangenGoud(1);
@@ -95,7 +97,17 @@ public class Koopman extends UnicastRemoteObject implements Karakter, Bonusable,
             notifyObservers();
         }
     }
+    
+    @Override
+    public boolean isBonusable() throws RemoteException {
+        return isBonusable;
+    }
 
+    @Override
+    public SpelerRemote getSpeler() throws RemoteException {
+        return this.speler;
+    }
+    
     @Override
     public String getNaam() throws RemoteException {
     	return this.naam;
@@ -140,10 +152,5 @@ public class Koopman extends UnicastRemoteObject implements Karakter, Bonusable,
         for (KarakterObserver observer: observers) {
             observer.modelChanged(this);
         }
-    }
-
-    @Override
-    public boolean isBonusable() throws RemoteException {
-        return isBonusable;
-    }
+    }  
 }

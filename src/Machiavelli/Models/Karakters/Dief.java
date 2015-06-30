@@ -1,14 +1,14 @@
 package Machiavelli.Models.Karakters;
 
-import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.KarakterObserver;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
+
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
@@ -26,12 +26,7 @@ import Machiavelli.Interfaces.Remotes.SpelerRemote;
  */
 
 public class Dief extends UnicastRemoteObject implements Karakter, Serializable {
-	
-	public  Dief() throws RemoteException {
-	}
-
 	private SpelerRemote speler = null;
-
 	private Karakter target = null;
     
 	/** Eigenschappen van karakter Dief. */
@@ -40,24 +35,31 @@ public class Dief extends UnicastRemoteObject implements Karakter, Serializable 
     private final String naam = "Dief";
     private final Type type = Type.NORMAAL;
     
-    /*Afbeelding van de Dief*/
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Dief.png";
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
-    /**
+	public  Dief() throws RemoteException {
+//      super(1099);
+	}
+	
+	/**
    	 * Overriden van de methode uit de interface Karakter,
    	 * de Dief wordt aan de speler gekoppeld.
+   	 * 
+   	 * @throws RemoteException
    	 */
    	@Override
    	public void setSpeler(SpelerRemote speler) throws RemoteException {
            this.speler = speler;
        }
 
-    @Override
-    public SpelerRemote getSpeler() throws RemoteException {
-        return speler;
-    }
-
+   	/**
+	 * De speler selecteert een karakter, deze wordt als target geset.
+	 * Vervolgens wordt de gebruikEigenschap methode aangroepen om dit karakter te bestelen.
+	 * 
+	 * @param target dit het geselecteerde karakter
+	 * @throws RemoteException
+	 */
     @Override
     public void setTarget(Object target) throws RemoteException {
         this.target = (Karakter) target;
@@ -70,21 +72,46 @@ public class Dief extends UnicastRemoteObject implements Karakter, Serializable 
 	 * Er wordt gewacht op de keuze van de speler. 
 	 * Vervolgens wordt het het gekozen karakter bestolen van
 	 * al zijn goudstukken op het moment dat deze aan de beurt is. 
+	 * 
+	 * @return true eigenschap is gebruikt
+	 * @throws RemoteException
 	 */
     @Override
     public boolean gebruikEigenschap() throws RemoteException {
-    	if (target != null && target.getNaam() != "Moordenaar") {
+    	if (target != null && target.getNummer() != 1) {
     		BesteelKarakter(this.speler, getTarget());
     		this.speler.setEigenschapGebruikt(true);
-    		System.out.println("De dief heeft de" + getTarget().getNaam() + " bestolen!");
-    		target = null; 
+    		target = null; //target wordt gereset
     		return true;
-    	}
-    	else {
+    	} else {
     		return false;
     	}
     }
     
+    /**
+   	 *  De dief ontvangt al de goudstukken van het geselecteerde karakter.
+   	 *  De goudstukken van het bestolen karakter wordt op de bank gezet, vervolgens
+   	 *  ontvangt de dief dit goud weer van de bank.
+   	 *  
+   	 *  @param speler dit is de dief
+   	 *  @param target dit is het geselecteerde karakter
+   	 *  @throws RemoteException
+   	 */
+    private void BesteelKarakter(SpelerRemote speler, Karakter target) {
+		try {
+			System.out.println("naam speler: " + speler.getKarakter().getNaam() + " | Goudstukken: " + speler.getPortemonnee().getGoudMunten());
+			System.out.println("naam target: " + target.getNaam() + " | Goudstukken: " + target.getSpeler().getPortemonnee().getGoudMunten());
+			target.getSpeler().setGoudOpBank(target.getSpeler().getPortemonnee(), target.getSpeler().getPortemonnee().getGoudMunten());
+			speler.getGoudVanBank(speler.getSpel().getBank(), target.getSpeler().getPortemonnee().getGoudMunten());
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}	
+	}
+
+    @Override
+    public SpelerRemote getSpeler() throws RemoteException {
+        return speler;
+    }
     @Override
     public String getNaam() throws RemoteException {
     	return this.naam;
@@ -104,6 +131,7 @@ public class Dief extends UnicastRemoteObject implements Karakter, Serializable 
 	public Type getType() throws RemoteException {
 		return this.type;
 	}
+    
 	public Karakter getTarget() throws RemoteException {
 		return this.target;
 	}
@@ -124,18 +152,4 @@ public class Dief extends UnicastRemoteObject implements Karakter, Serializable 
             observer.modelChanged(this);
         }
     }
-    
-    private void BesteelKarakter(SpelerRemote speler, Karakter target) {
-		try {
-			System.out.println("naam speler: " + speler.getKarakter().getNaam() + " | Goudstukken: " + speler.getPortemonnee().getGoudMunten());
-			System.out.println("naam target: " + target.getNaam() + " | Goudstukken: " + target.getSpeler().getPortemonnee().getGoudMunten());
-			speler.getGoudVanBank(speler.getSpel().getBank(), target.getSpeler().getPortemonnee().getGoudMunten());
-			target.getSpeler().setGoudOpBank(target.getSpeler().getPortemonnee(), target.getSpeler().getPortemonnee().getGoudMunten());
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-	}
-
-
 }

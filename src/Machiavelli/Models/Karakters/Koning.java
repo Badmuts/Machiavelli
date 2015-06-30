@@ -25,15 +25,10 @@ import java.util.ArrayList;
  * in zijn stad.
  */
 public class Koning extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
-
     private boolean isBonusable = true;
-
-    public Koning() throws RemoteException {
-	}
-
 	private SpelerRemote speler = null;
 
-	/*Eigenschappen van karakter Koning*/
+	/**Eigenschappen van karakter Koning*/
 	private final int nummer = 4;	
     private final int bouwLimiet = 1; 
     private final String naam = "Koning";
@@ -42,6 +37,10 @@ public class Koning extends UnicastRemoteObject implements Karakter, Bonusable, 
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Koning.png";
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
+    public Koning() throws RemoteException {
+//      super(1099);
+    }
+    
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Koning wordt aan de speler gekoppeld.
@@ -51,22 +50,21 @@ public class Koning extends UnicastRemoteObject implements Karakter, Bonusable, 
         this.speler = speler;
     }
 
-    @Override
-    public SpelerRemote getSpeler() throws RemoteException {
-        return speler;
-    }
-
     /**
 	 * overriden van de methode uit de interface Karakter
 	 *  en aanroepen van de methode beginBeurt
 	 */
     @Override
     public boolean gebruikEigenschap() throws RemoteException {
-        // TODO: begint beurt
         return true;
     }
-
-    /*ontvangen bonusgoud voor monument gebouwen*/
+    
+    /**
+   	 * De Koning ontvangt 1 goudstuk per monument gebouw in zijn stad als de knop Bonusgoud
+   	 * wordt ingedrukt. isBonusable wordt op false gezet, zodat deze methode maar 1 keer per beurt aangeroepen kan worden.
+   	 * 
+   	 * @throws RemoteException
+   	 */
     @Override
     public void ontvangenBonusGoud() throws RemoteException {
         if (isBonusable) {
@@ -79,6 +77,16 @@ public class Koning extends UnicastRemoteObject implements Karakter, Bonusable, 
             this.isBonusable = false;
             notifyObservers();
         }
+    }
+    
+    @Override
+    public boolean isBonusable() throws RemoteException {
+        return isBonusable;
+    }
+    
+    @Override
+    public SpelerRemote getSpeler() throws RemoteException {
+        return speler;
     }
     
     @Override
@@ -107,6 +115,14 @@ public class Koning extends UnicastRemoteObject implements Karakter, Bonusable, 
     }
 
     @Override
+	public void setTarget(Object target) throws RemoteException {
+	}
+
+	@Override
+	public Object getTarget() throws RemoteException {
+		return null;
+	}
+    @Override
     public void addObserver(KarakterObserver observer) throws RemoteException {
         observers.add(observer);
     }
@@ -116,19 +132,5 @@ public class Koning extends UnicastRemoteObject implements Karakter, Bonusable, 
         for (KarakterObserver observer: observers) {
             observer.modelChanged(this);
         }
-    }
-
-	@Override
-	public void setTarget(Object target) throws RemoteException {
-	}
-
-	@Override
-	public Object getTarget() throws RemoteException {
-		return null;
-	}
-
-    @Override
-    public boolean isBonusable() throws RemoteException {
-        return isBonusable;
-    }
+    }  
 }
