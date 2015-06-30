@@ -43,9 +43,10 @@ public class Speler extends UnicastRemoteObject implements SpelerRemote, Seriali
 	}
 
 	// Haalt goud uit de portemonnee en geeft dit aan de bank
-	public void setGoudOpBank(PortemonneeRemote portemonnee, int aantal) throws RemoteException {
-		this.portemonnee.bestedenGoud(this.spel.getBank(), aantal);
+	public boolean setGoudOpBank(PortemonneeRemote portemonnee, int aantal) throws RemoteException {
+		boolean kanBesteden = this.portemonnee.bestedenGoud(this.spel.getBank(), aantal);
         notifyObservers();
+        return kanBesteden;
 	}
 
 	// Plaats een gebouwkaart in de stad van de speler

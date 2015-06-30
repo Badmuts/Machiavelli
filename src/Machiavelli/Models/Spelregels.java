@@ -12,42 +12,60 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * 
- * 
  * @author Jamie Kalloe
- *
+ * 
+ *         Het Spelregels model wordt gebruikt om de spelregels mee op te halen voor de view.
+ * 
  */
 
 public class Spelregels implements SpelregelsRemote, Serializable {
-	private ArrayList<SpelregelsObserver> observers = new ArrayList<>();
+  private ArrayList<SpelregelsObserver> observers = new ArrayList<>();
 
-	public String getSpelregels() throws IOException {
-		return this.getSpelregelsFromResource("spelregels.txt");
-	}
-	
-	private String getSpelregelsFromResource(String fileName) {
-		String text = null;
+  /**
+   * Retourneerd de spelregels die zijn opgehaald uit de text file.
+   * 
+   * @return spelregels String
+   */
+  public String getSpelregels() throws IOException {
+    return this.getSpelregelsFromResource("spelregels.txt");
+  }
 
-		File file = new File("src" + File.separator + "Machiavelli/Resources" + File.separator + "spelregels.txt");
+  /**
+   * Deze method haalt de spelregels uit een textfile van het opgegeven pad.
+   * 
+   * @param fileName naam de van de file waar de spelregels in staan.
+   */
+  private String getSpelregelsFromResource(String fileName) {
+    String text = null;
 
-		String absolutePath = file.getAbsolutePath();
-		try {
-			text = new Scanner( new File(absolutePath), "UTF-8" ).useDelimiter("\\A").next();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		return text;
-	}
+    File file =
+        new File("src" + File.separator + "Machiavelli/Resources" + File.separator
+            + "spelregels.txt");
 
-	public void addObserver(SpelregelsObserver observer) throws RemoteException {
-		observers.add(observer);
-	}
+    String absolutePath = file.getAbsolutePath();
+    try {
+      text = new Scanner(new File(absolutePath), "UTF-8").useDelimiter("\\A").next();
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
 
-	public void notifyObservers() throws RemoteException {
-		for (SpelregelsObserver observer: observers) {
-			observer.modelChanged(this);
-		}
-	}
-	
+    return text;
+  }
+
+  /**
+   * Voert de SpelregelsObserver toe aan de lijst met observers.
+   */
+  public void addObserver(SpelregelsObserver observer) throws RemoteException {
+    observers.add(observer);
+  }
+
+  /**
+   * Vertelt de observers dat het model is veranderd.
+   */
+  public void notifyObservers() throws RemoteException {
+    for (SpelregelsObserver observer : observers) {
+      observer.modelChanged(this);
+    }
+  }
+
 }

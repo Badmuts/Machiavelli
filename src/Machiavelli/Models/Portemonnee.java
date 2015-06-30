@@ -35,10 +35,20 @@ public class Portemonnee extends UnicastRemoteObject implements PortemonneeRemot
 	}
 
 	// Goud aan de bank betalen
-	public void bestedenGoud(BankRemote bank, int aantal) throws RemoteException {
-		bank.ontvangenGoud(aantal);
-		this.goudMunten -= aantal;
-		notifyObservers();
+	public boolean bestedenGoud(BankRemote bank, int aantal) throws RemoteException {
+		boolean kanBesteden;
+		if(aantal < this.goudMunten) {
+			//genoeg goud in de portomonee.
+			bank.ontvangenGoud(aantal);
+			this.goudMunten -= aantal;
+			kanBesteden = true;
+			notifyObservers();
+		} else {
+			//niet genoeg goud in de portomonee.
+			kanBesteden = false;
+		}
+		
+		return kanBesteden;
 	}
 
 	// Ontvangen van een x aantal goud
