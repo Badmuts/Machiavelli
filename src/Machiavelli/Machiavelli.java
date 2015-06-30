@@ -8,9 +8,12 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 /**
- * Google Java Style Guide aanhouden
+ * Machiavelli client applicatie. Verbind met server en roept het menu aan.
+ * Deze klasse is een singleton zodat het Registry en de
+ * Stage van JavaFX kunnen worden aangeroepen.
  *
  * @author Daan Rosbergen
+ * @version 1.0
  */
 
 public class Machiavelli extends Application {
@@ -59,7 +62,7 @@ public class Machiavelli extends Application {
     }
 
     /**
-     * Singleton instance van applicaitie
+     * Singleton instance van applicatie
      * @return Machiavelli
      */
     public static synchronized Machiavelli getInstance() {
