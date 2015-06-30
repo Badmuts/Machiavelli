@@ -9,76 +9,50 @@ import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 public class BeurtController extends UnicastRemoteObject {
-  private SpelRemote spel;
-  private BeurtRemote beurt;
-  private SpelerRemote speler;
-  private KarakterFactoryRemote karakterFactory;
-  private InkomstenController inkomstenController;
+    private SpelRemote spel;
+    private BeurtRemote beurt;
+    private SpelerRemote speler;
+    private KarakterFactoryRemote karakterFactory;
+    private InkomstenController inkomstenController;
 
 
-  public BeurtController(BeurtRemote beurt, SpelRemote spel, SpelerRemote speler) throws RemoteException {
-//    super(1099);
-    this.spel = spel;
-    this.beurt = beurt;
-    this.speler = speler;
-  }
-
-  /**
-   * Deze method roept de geefbeurt method aan in het BeurtModel.
-   * 
-   */
-  public void cmdGeefBeurt() {
-    try {
-          beurt.geefBeurt();
-          if(beurt.getObserverIndex() == 0) {
-            
-            karakterFactory = this.spel.getKarakterFactory();
-            karakterFactory.refreshFactory();
-            
-            //Loop door aantal spelers, en laat voor elke speler de karakterkeuze menu zien
-            for(int i = 0; i < spel.getMaxAantalSpelers(); i++) {
-            beurt.getObserverList().get(beurt.getObserverIndex()).showKarakterMenu();
-            int y = beurt.getObserverIndex();
-            beurt.setObserverIndex(y += 1);
-
-              if (beurt.getObserverIndex() >= beurt.getObserverList().size()) {
-                beurt.setObserverIndex(0);
-              }
-            }
-          } else {
-              beurt.getInkomstenView();
-            }
-    } catch (RemoteException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+    public BeurtController(BeurtRemote beurt, SpelRemote spel, SpelerRemote speler)
+            throws RemoteException {
+        // super(1099);
+        this.spel = spel;
+        this.beurt = beurt;
+        this.speler = speler;
     }
-  }
-  
+
     /**
-     * Het oproepen van de inkomsten view.
+     * Deze method roept de geefbeurt method aan in het BeurtModel.
+     * 
      */
-  public void cmdShowInkomsten() {
-    try {
-      inkomstenController = new InkomstenController(this.speler);
-      inkomstenController.show();
-    } catch (Exception e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+    public void cmdGeefBeurt() {
+        try {
+            beurt.geefBeurt();
+            if (beurt.getObserverIndex() == 0) {
+
+                karakterFactory = this.spel.getKarakterFactory();
+                karakterFactory.refreshFactory();
+
+                // Loop door aantal spelers, en laat voor elke speler de karakterkeuze menu zien
+                for (int i = 0; i < spel.getMaxAantalSpelers(); i++) {
+                    beurt.getObserverList().get(beurt.getObserverIndex()).showKarakterMenu();
+                    int y = beurt.getObserverIndex();
+                    beurt.setObserverIndex(y += 1);
+
+                    if (beurt.getObserverIndex() >= beurt.getObserverList().size()) {
+                        beurt.setObserverIndex(0);
+                    }
+                }
+            } else {
+                beurt.getInkomstenView();
+            }
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
-  }
-  
-  /**
-   * Het oproepen van de karakter kiezen view.
-   */
-  public void cmdShowKarakterKiezen() {
-    
-    try {
-      KarakterController karaktercontroller = new KarakterController(this.speler, "ronde");
-      karaktercontroller.show();
-    } catch (RemoteException e) {
-      e.printStackTrace();
-    }
-  }
-  
-  
+
 }
