@@ -60,7 +60,7 @@ public class Bouwmeester extends UnicastRemoteObject implements Karakter, Serial
 	@Override
 	public boolean gebruikEigenschap() throws RemoteException {
 		try {
-			this.speler.getHand().addGebouwen(this.speler.trekkenKaart(1));
+			this.speler.getHand().addGebouwen(this.speler.trekkenKaart(2));
 			this.speler.setEigenschapGebruikt(true);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
