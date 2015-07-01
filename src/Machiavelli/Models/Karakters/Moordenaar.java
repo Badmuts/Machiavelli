@@ -24,10 +24,6 @@ import java.util.ArrayList;
  * deze ronde niet mee. 
  */
 public class Moordenaar extends UnicastRemoteObject implements Karakter, Serializable {
-
-	public Moordenaar() throws RemoteException {
-        super(1099);
-	}
 	private SpelerRemote speler = null;
 	private Object target;
     
@@ -40,6 +36,10 @@ public class Moordenaar extends UnicastRemoteObject implements Karakter, Seriali
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Moordenaar.png";
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
+    public Moordenaar() throws RemoteException {
+//      super(1099);
+	}
+    
     /**
      * Overriden van de methode uit de interface Karakter,
      * de Moordenaar wordt aan de speler gekoppeld.
@@ -48,48 +48,58 @@ public class Moordenaar extends UnicastRemoteObject implements Karakter, Seriali
     public void setSpeler(SpelerRemote speler) throws RemoteException {
     	this.speler = speler;
     }
-    @Override
-    public SpelerRemote getSpeler() throws RemoteException {
-    	return speler;
-    }
-    
+   
+    /**
+	 * De speler selecteert een karakter, deze wordt als target geset.
+	 * Vervolgens wordt de gebruikEigenschap methode aangroepen om dit karakter te vermoorden.
+	 * 
+	 * @param target dit is het geselecteerde karakter
+	 * @throws RemoteException
+	 */
     @Override
     public void setTarget(Object target) throws RemoteException {
-    	this.target = target;
+    	this.target = (Karakter) target;
+    	gebruikEigenschap();
     }
     
     /**
 	 * overriden van de methode uit de interface Karakter
-	 * en een karakter vermoorden die vervolgens een beurt
-	 * overslaat.
+	 * en aanroepen van de methode selectKarakterView
+	 * Er wordt gewacht op de keuze van de speler. 
+	 * Vervolgens wordt het het gekozen karakter vermoord.
+	 * 
+	 * @return true eigenschap is gebruikt
+	 * @throws RemoteException
 	 */
     @Override
     public boolean gebruikEigenschap() throws RemoteException {
         // TODO: vermoord karakter
     	if (target != null) {
-    		vermoordKarakter(this.getVermoordKarakter());
+    		vermoordKarakter((Karakter) this.getTarget());
     		this.speler.setEigenschapGebruikt(true);
-    		target = null;
+    		target = null; //target wordt gereset
+    		return true;
+    	} else {
+    		return false;
     	}
-    	else {
-    		//TODO: view aanroepen
-    	}
-        return false;
     }
     
-    //beurt overslaan met ifjes???
-
+    /**
+   	 *  De moordenaar vermoord het geselecteerde karakter.
+   	 *  Deze slaat een een beurt over.
+   	 *  
+   	 *  @param object dit is het geselecteerde karakter
+   	 *  @throws RemoteException
+   	 */
     public void vermoordKarakter(Karakter target) throws RemoteException {
-    	//target.getSpeler()
-    	//methode eindigenbeurt van de target aanroepen.
-      
-    	//zet status van karakter naar vermoord(?)
-    	System.out.println("De " + target.getNaam() + " is vermoord");
-    	}
+    	//TODO: Het target slaat zijn beurt over.
+    }
     
-    public Karakter getVermoordKarakter() throws RemoteException {
-		return (Karakter)target;
-	}
+    @Override
+    public SpelerRemote getSpeler() throws RemoteException {
+    	return speler;
+    }
+    
     @Override
 	public String getNaam() throws RemoteException {
     	return this.naam;
@@ -110,6 +120,11 @@ public class Moordenaar extends UnicastRemoteObject implements Karakter, Seriali
 	}
 
     @Override
+	public Object getTarget() throws RemoteException {
+		return this.target;
+	}
+    
+    @Override
     public String getImage() throws RemoteException {
         return this.image;
     }
@@ -125,12 +140,6 @@ public class Moordenaar extends UnicastRemoteObject implements Karakter, Seriali
             observer.modelChanged(this);
         }
     }
-    
-	@Override
-	public Object getTarget() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
 
 

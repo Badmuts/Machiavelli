@@ -1,17 +1,30 @@
 package Machiavelli.Models;
 
-import Machiavelli.Factories.GebouwFactory;
-import Machiavelli.Factories.KarakterFactory;
-import Machiavelli.Interfaces.Karakter;
-import Machiavelli.Interfaces.Observers.SpelObserver;
-import Machiavelli.Interfaces.Remotes.*;
-
-
-import java.io.*;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import Machiavelli.Factories.GebouwFactory;
+import Machiavelli.Factories.KarakterFactory;
+import Machiavelli.Interfaces.Karakter;
+import Machiavelli.Interfaces.Observers.SpelObserver;
+import Machiavelli.Interfaces.Remotes.BankRemote;
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
+import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
+import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
+
+
+/**
+ * @author Bernd
+ * 
+ * Nadat in het hoofdmenu nieuwspel is geselecteerd, wordt deze klasse aangeroepen.
+ * Hier worden alle benodigdheden voor het spel aangemaakt. Zoals bijvoorbeeld de
+ * KarakterFactory en GebouwFactory.
+ *
+ */
 public class Spel implements SpelRemote, Serializable {
 	private int maxAantalSpelers;
 	private BankRemote bank;
@@ -23,20 +36,24 @@ public class Spel implements SpelRemote, Serializable {
 	private ArrayList<SpelerRemote> spelers = new ArrayList<>();
 		private ArrayList<SpelerRemote> tempSpelers = new ArrayList();
 
-	public Spel(){
+	public Spel() {
+	}
 
-    }
-
+	/**
+	 * Aanmaken van een nieuw spel.
+	 * 
+	 * @param maxAantalSpelers
+	 * @throws RemoteException
+	 *
+	 */
     public void createNewSpel(int maxAantalSpelers) throws RemoteException {
-        this.maxAantalSpelers = maxAantalSpelers;
-        this.bank = new Bank();
-        this.gebouwFactory = new GebouwFactory();
-		this.spelers = new ArrayList<>();
-        this.observers = new ArrayList<SpelObserver>();
-        this.karakterFactory = new KarakterFactory();
-        this.beurt = new Beurt(this, this.getSpelers(), speler);
-
-        
+				this.maxAantalSpelers = maxAantalSpelers;
+				this.bank = new Bank();
+				this.gebouwFactory = new GebouwFactory();
+				this.spelers = new ArrayList<>();
+				this.observers = new ArrayList<SpelObserver>();
+				this.karakterFactory = new KarakterFactory();
+				this.beurt = new Beurt(this, this.getSpelers(), speler);
     }
     
     public BeurtRemote getBeurt() throws RemoteException {
@@ -61,6 +78,7 @@ public class Spel implements SpelRemote, Serializable {
 
 	@Override
 	public void addObserver(SpelObserver observer) throws RemoteException {
+        System.out.println("Spel observer added! Observer: " + observers.size());
 		observers.add(observer);
 	}
     
@@ -110,13 +128,11 @@ public class Spel implements SpelRemote, Serializable {
 	public void createNewSpeler() throws RemoteException{
 		SpelerRemote speler = new Speler();
         speler.addSpel(this);
-//        speler.setKarakter(new Dief()); // TESTING ONLY
+
         speler.setKarakter(getRandomKarakterFor(speler));
         speler.getKarakter().setSpeler(speler); // TESTING ONLY
 		this.spelers.add(speler);
-		this.speler = speler;
-		this.beurt.setSpeler(speler);
-		notifyObservers();
+        notifyObservers();
 	}
 
 	public void setMaxAantalSpelers(int maxAantalSpelers) {

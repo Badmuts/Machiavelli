@@ -21,22 +21,31 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-
-public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver, PortemonneeOberserver, BeurtObserver, Serializable {
-
+/**
+ * View voor het Speelveld
+ *
+ * Deze klasse update wanneer Speelveld, Portemonnee of Beurt wijzigd.
+ *
+ * Deze klasse extends UnicastRemoteObject en kan op die manier ontvangen van
+ * andere Remote objecten.
+ *
+ * @author Daan Rosbergen
+ * @version 1.0
+ */
+public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver,
+        PortemonneeOberserver, BeurtObserver {
     private SpelerRemote speler;
     private BeurtRemote beurt;
     private GebouwKaartController gebouwKaartController;
     private SpeelveldController speelveldcontroller;
     private BeurtController beurtController;
-	private Speelveld speelveld;
-	private Scene speelveldscene;
-	private Pane speelveldpane;
-	private Stage stage = Machiavelli.getInstance().getStage();
+    private Speelveld speelveld;
+    private Scene speelveldscene;
+    private Pane speelveldpane;
+    private Stage stage = Machiavelli.getInstance().getStage();
     private AnchorPane actionBar;
     private ButtonHolderActionBarView buttonHolderActionBarView;
     private HandActionBarView handActionBarView;
@@ -47,16 +56,29 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     private Pane steden;
     private boolean disabled;
 
-    public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld, GebouwKaartController gebouwKaartController, SpelerRemote speler, BeurtController beurtController, BeurtRemote beurt) throws RemoteException {
+    /**
+     *
+     * @param speelveldcontroller
+     * @param speelveld
+     * @param gebouwKaartController
+     * @param speler
+     * @param beurtController
+     * @param beurt
+     * @throws RemoteException
+     */
+    public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld,
+            GebouwKaartController gebouwKaartController, SpelerRemote speler,
+            BeurtController beurtController, BeurtRemote beurt) throws RemoteException {
         this.speelveld = speelveld;
-        this.speler = speler;  
+
+        this.speler = speler;
         this.beurtController = beurtController;
         this.beurt = beurt;
-        
-		this.speelveldcontroller = speelveldcontroller;
+
+        this.speelveldcontroller = speelveldcontroller;
         this.gebouwKaartController = gebouwKaartController;
-        this.portemonnee = speler.getPortemonnee();   
-        
+        this.portemonnee = speler.getPortemonnee();
+
         this.beurt.addObserver(this);
         this.portemonnee.addObserver(this);
 
@@ -80,20 +102,28 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         container.setPrefSize(1440, 900);
         container.getChildren().add(speelveldpane);
         speelveldscene = new Scene(container, 1440, 900);
-        
-        setDisable(true);
-        
-		this.show();
-	}
 
+        setDisable(true);
+
+        this.show();
+    }
+
+    /**
+     * Voegt StedenGrid toe aan view.
+     */
     private void createStedenHolder() {
         try {
-            this.steden = new StedenGrid(this.speelveldcontroller.getSpel(), this.gebouwKaartController).getPane();
+            this.steden =
+                    new StedenGrid(this.speelveldcontroller.getSpel(), this.gebouwKaartController)
+                            .getPane();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Maakt de TopStatusBar aan met portemonnee en spelregels button.
+     */
     private void createTopStatusBar() {
         this.topBar = new Pane();
 
@@ -104,7 +134,8 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         iv.setFitHeight(74);
 
         Button spelregelsButton = new Button("Spelregels");
-        spelregelsButton.setOnAction(event -> new RaadplegenSpelregelsController().cmdWeergeefSpelregels());
+        spelregelsButton.setOnAction(event -> new RaadplegenSpelregelsController()
+                .cmdWeergeefSpelregels());
         spelregelsButton.setLayoutY(10);
         spelregelsButton.setLayoutX(10);
         spelregelsButton.getStyleClass().add("button-primary");
@@ -119,6 +150,9 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         topBar.getChildren().addAll(iv, spelregelsButton, topStatus, portemonneeView);
     }
 
+    /**
+     * Maakt portemonne view aan
+     */
     private void createPortemonnee() {
         this.portemonneeView = new Text();
         try {
@@ -130,6 +164,9 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         this.portemonneeView.getStyleClass().add("portemonnee");
     }
 
+    /**
+     * Maakt ButtonHolderActionBarView aan.
+     */
     private void createButtonHolder() {
         try {
             buttonHolderActionBarView = new ButtonHolderActionBarView(this.speelveldcontroller);
@@ -138,29 +175,47 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         }
     }
 
+    /**
+     * Maakt HandActionBarView aan.
+     */
     private void createKaartHolder() {
         try {
             this.speler.getHand();
-            handActionBarView = new HandActionBarView(this.speler.getHand(), this.gebouwKaartController);
+            handActionBarView =
+                    new HandActionBarView(this.speler.getHand(), this.gebouwKaartController);
         } catch (Exception re) {
             re.printStackTrace();
         }
     }
 
+    /**
+     * Maakt KarakterActionBarView aan.
+     */
     private void createKarakterHolder() {
         try {
-            karakterActionBarView = new KarakterActionBarView(this.speelveld.getSpeler().getKarakter(), this.speelveld.getSpeler());
+            karakterActionBarView =
+                    new KarakterActionBarView(this.speelveld.getSpeler().getKarakter(),
+                            this.speelveld.getSpeler());
         } catch (RemoteException re) {
             re.printStackTrace();
         }
     }
 
-	public void show(){
-		stage.setScene(speelveldscene);
+    /**
+     * Methode om view te tonen.
+     */
+    public void show() {
+        stage.setScene(speelveldscene);
         stage.centerOnScreen();
-		stage.show();
-	}
+        stage.show();
+    }
 
+    /**
+     * Maakt de ActionBarView met daarin:
+     *  - KarakterActionBarView
+     *  - HandActionBarView
+     *  - ButtonHolderActionBarView
+     */
     private void createActionBar() {
         actionBar = new AnchorPane();
         actionBar.getChildren().add(this.karakterActionBarView.getPane());
@@ -174,11 +229,23 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         actionBar.getStyleClass().add("action-bar");
     }
 
+    /**
+     * Update view als Speelveld wijzigd.
+     *
+     * @param speelveld model is changed.
+     * @throws RemoteException
+     */
     @Override
     public void modelChanged(SpeelveldRemote speelveld) throws RemoteException {
         // TODO: update view
     }
 
+    /**
+     * Update view als Portemonnee wijzigd.
+     *
+     * @param portemonnee Nieuw Portemonnee model
+     * @throws RemoteException
+     */
     @Override
     public void modelChanged(PortemonneeRemote portemonnee) throws RemoteException {
         Platform.runLater(() -> {
@@ -192,51 +259,75 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         });
     }
 
+    /**
+     * Update view als Beurt wijzigd.
+     *
+     * @param beurt Nieuw Beurt model.
+     * @throws RemoteException
+     */
     @Override
     public void modelChanged(BeurtRemote beurt) throws RemoteException {
-      // TODO Auto-generated method stub
-      Platform.runLater(() -> {
-        System.out.println("Beurt Model changed");
-        buttonHolderActionBarView.getBouwButton().setDisable(isDisabled());
-        buttonHolderActionBarView.getEigenschapButton().setDisable(isDisabled());
-        buttonHolderActionBarView.getGoudbutton().setDisable(isDisabled());
-        buttonHolderActionBarView.getEindeBeurtButton().setDisable(isDisabled());
+        // TODO Auto-generated method stub
+        Platform.runLater(() -> {
+            System.out.println("Beurt Model changed");
+            buttonHolderActionBarView.getBouwButton().setDisable(isDisabled());
+            buttonHolderActionBarView.getEigenschapButton().setDisable(isDisabled());
+            buttonHolderActionBarView.getGoudbutton().setDisable(isDisabled());
+            buttonHolderActionBarView.getEindeBeurtButton().setDisable(isDisabled());
         });
     }
 
+    /**
+     * Methode van BeurtObserver
+     *
+     * @return isDisabled
+     */
     public boolean isDisabled() {
-      // TODO Auto-generated method stub
-      return disabled;
+        // TODO Auto-generated method stub
+        return disabled;
     }
 
+    /**
+     * Methode van BeurtObserver
+     *
+     * @param disabled
+     */
     @Override
-    public void setDisable(boolean disabled){
-      this.disabled = disabled;
-      
+    public void setDisable(boolean disabled) {
+        this.disabled = disabled;
+
     }
-    
+
+    /**
+     * Methode om InkomstenView te tonen.
+     */
     public void showInkomsten() {
-      Platform.runLater(() -> {
-        try {
-          InkomstenController inkomstenController = new InkomstenController(this.speler);
-          inkomstenController.show();
-        } catch (Exception e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
-      });
+        Platform.runLater(() -> {
+            try {
+                InkomstenController inkomstenController = new InkomstenController(this.speler);
+                inkomstenController.show();
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        });
     }
-    
-    
-    public void showKarakterMenu() {
-      Platform.runLater(() -> {
-        try {
-          KarakterController karaktercontroller = new KarakterController(this.speler, "ronde");
-          karaktercontroller.show();
-        } catch (Exception e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
-      });
+
+    /**
+     * Methode om KarakterKiezenView te tonen.
+     * @throws RemoteException
+     */
+    @Override
+    public void showKarakterMenu() throws RemoteException {
+        // TODO Auto-generated method stub
+        Platform.runLater(() -> {
+            try {
+                KarakterController karaktercontroller =
+                        new KarakterController(this.speler, "ronde");
+                karaktercontroller.show();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

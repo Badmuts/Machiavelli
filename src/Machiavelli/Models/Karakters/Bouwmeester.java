@@ -23,99 +23,100 @@ import java.util.ArrayList;
  * 
  */
 public class Bouwmeester extends UnicastRemoteObject implements Karakter, Serializable {
+	private SpelerRemote speler = null;
+
+	/** Eigenschappen van karakter Bouwmeester */
+	private final int nummer = 7;	
+	private final int bouwLimiet = 3; 
+	private final String naam = "Bouwmeester";
+	private final Type type = Type.NORMAAL;
+	
+	private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Bouwmeester.png";
+	private ArrayList<KarakterObserver> observers = new ArrayList<>();
 	
 	public Bouwmeester() throws RemoteException {
-        super(1099);
+		//        super(1099);
 	}
-
-	private SpelerRemote speler = null;
 	
-	/** Eigenschappen van karakter Bouwmeester */
-    private final int nummer = 7;	
-    private final int bouwLimiet = 3; 
-    private final String naam = "Bouwmeester";
-    private final Type type = Type.NORMAAL;
-    private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Bouwmeester.png";
-
-    private ArrayList<KarakterObserver> observers = new ArrayList<>();
-    /**
+	/**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Bouwmeester wordt aan de speler gekoppeld.
+	 * 
+	 * @throws RemoteException
 	 */
-    @Override
-    public void setSpeler(SpelerRemote speler) throws RemoteException {
-        this.speler = speler;
-    }
+	@Override
+	public void setSpeler(SpelerRemote speler) throws RemoteException {
+		this.speler = speler;
+	}
 
-    @Override
-    public SpelerRemote getSpeler() throws RemoteException {
-        return speler;
-    }
-
-    /**
+	/**
 	 * overriden van de methode uit de interface Karakter.
 	 * Er worden 2 gebouwkaarten uit de Gebouwfactory in de hand van de
 	 * speler met het karakter bouwmeester geplaatst.
-     * 
+	 * 
+	 * @return false hierdoor kan de methode maar 1 keer per beurt gebruikt worden
+	 * @throws RemoteException
 	 */
-    @Override
-    public boolean gebruikEigenschap() throws RemoteException {
-        //TODO: 2 of 3 kaarten plaatsen in stad
-    	try {
-			this.speler.getHand().addGebouwen(this.speler.trekkenKaart(1));
+	@Override
+	public boolean gebruikEigenschap() throws RemoteException {
+		try {
+			this.speler.getHand().addGebouwen(this.speler.trekkenKaart(2));
 			this.speler.setEigenschapGebruikt(true);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        return false;
-    }
-    
-    @Override
-    public String getNaam() throws RemoteException {
-    	return this.naam;
-    }
-   @Override
-    public int getNummer() throws RemoteException {
-    	return this.nummer;
-    }
+		return false;
+	}
 
-    @Override
-    public int getBouwLimiet() throws RemoteException {
-        return this.bouwLimiet;
-    }
+	@Override
+	public SpelerRemote getSpeler() throws RemoteException {
+		return speler;
+	}
+	
+	@Override
+	public String getNaam() throws RemoteException {
+		return this.naam;
+	}
+	
+	@Override
+	public int getNummer() throws RemoteException {
+		return this.nummer;
+	}
 
-    @Override
+	@Override
+	public int getBouwLimiet() throws RemoteException {
+		return this.bouwLimiet;
+	}
+
+	@Override
 	public Type getType() throws RemoteException {
 		return this.type;
 	}
 
 	@Override
 	public void setTarget(Object target) throws RemoteException {
-		// TODO Auto-generated method stub
-		
 	}
-
-    @Override
-    public String getImage() throws RemoteException {
-        return this.image;
-    }
-
-    @Override
-    public void addObserver(KarakterObserver observer) throws RemoteException {
-        observers.add(observer);
-    }
-
-    @Override
-    public void notifyObservers() throws RemoteException {
-        for (KarakterObserver observer: observers) {
-            observer.modelChanged(this);
-        }
-    }
 
 	@Override
 	public Object getTarget() throws RemoteException {
-		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String getImage() throws RemoteException {
+		return this.image;
+	}
+
+	@Override
+	public void addObserver(KarakterObserver observer) throws RemoteException {
+		observers.add(observer);
+	}
+
+	@Override
+	public void notifyObservers() throws RemoteException {
+		for (KarakterObserver observer: observers) {
+			observer.modelChanged(this);
+		}
+    }
 }

@@ -21,7 +21,7 @@ public class GebouwFactory extends UnicastRemoteObject implements GebouwFactoryR
     private ArrayList<GebouwFactoryObserver> observers = new ArrayList<GebouwFactoryObserver>();
 
     public GebouwFactory() throws RemoteException {
-        super(1099);
+//        super(1099);
         init();
     }
 
@@ -42,7 +42,7 @@ public class GebouwFactory extends UnicastRemoteObject implements GebouwFactoryR
             gebouwen.add(new GebouwKaart(5, "Burcht", Type.MILITAIR, "/Machiavelli/Resources/Gebouwkaarten/burcht.png"));
         }
         for (int i = 0; i < 3; i++) {
-            gebouwen.add(new GebouwKaart(4, "Paleis", Type.MONUMENT, "/Machiavelli/Resources/Gebouwkaarten/paleis.png"));
+            gebouwen.add(new GebouwKaart(5, "Paleis", Type.MONUMENT, "/Machiavelli/Resources/Gebouwkaarten/paleis.png"));
             gebouwen.add(new GebouwKaart(2, "Winkels", Type.COMMERCIEL, "/Machiavelli/Resources/Gebouwkaarten/winkels.png"));
             gebouwen.add(new GebouwKaart(4, "Haven", Type.COMMERCIEL, "/Machiavelli/Resources/Gebouwkaarten/haven.png"));
             gebouwen.add(new GebouwKaart(3, "Handelshuis", Type.COMMERCIEL, "/Machiavelli/Resources/Gebouwkaarten/handelshuis.png"));

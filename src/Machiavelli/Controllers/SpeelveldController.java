@@ -116,7 +116,19 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
         try {
         	//Als de gebruikeigenschap geen target heeft, open de kiesKarakterView.
 //        	boolean gebruikEigenschap = this.speler.getKarakter().gebruikEigenschap();
+        	if (this.speler.getKarakter().getNummer() == 8 && this.speler.getKarakter().getTarget() == null) {
+            	//haal karakter op, check of hij het gebouw vernietigd heeft.
+            	this.gebouwKaartController.cmdVernietigGebouw();
+            	System.out.println("hallo");
+            }
+        	
             if (!this.speler.getKarakter().gebruikEigenschap()) {
+
+            	if(this.speler.getKarakter().getNummer() == 8)
+            	{
+            		new MeldingController().build("Er is niet genoeg goud / geen kaart geselecteerd").cmdWeergeefMeldingView();
+            		this.speler.getKarakter().setTarget(null);
+            	}
             	
             	//Speler = magier, kies speler view.
             	if(this.speler.getKarakter().getNummer() == 3)
@@ -136,15 +148,9 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
             		KarakterController karakterController = new KarakterController(this.speler, "karakter");
             		karakterController.show();
             	}
-            }
-            if (this.speler.getKarakter().getNummer() == 8) {
-            	this.gebouwKaartController.cmdVernietigGebouw();
-            	System.out.println("hallo");
-            	new MeldingController().build("Gebouw is vernietigd").cmdWeergeefMeldingView();
-            	
-            }
-            else {
+            } else {
             	this.speler.getKarakter().gebruikEigenschap();
+
             	if(this.speler.getKarakter().getNummer() == 6) {
             		new MeldingController().build("1 extra goudstuk ontvangen").cmdWeergeefMeldingView();
             	}
@@ -152,7 +158,13 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
             		new MeldingController().build("2 extra gebouwkaarten getrokken").cmdWeergeefMeldingView();
             	}
             	
+            	if(this.speler.getKarakter().getNummer() == 8)
+            	{
+        			new MeldingController().build("Er is een gebouw vernietigd.").cmdWeergeefMeldingView();
+        			this.speler.getKarakter().setTarget(null);
+            	}
             }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

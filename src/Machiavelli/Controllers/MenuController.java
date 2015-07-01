@@ -27,6 +27,9 @@ public class MenuController {
     //private ArrayList<SpelerRemote> tempSpelerLijst = new ArrayList<>();
 
     /**
+     * @author Jimmy
+     * Edited by: Daan
+     * 
      * Maakt de MainMenuView aan en koppelt de buttons aan cmd's
      * zodat deze kunnen worden afgehandeld.
      *

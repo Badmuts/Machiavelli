@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 /** 
  * Created by daanrosbergen on 03/06/15.
- * Editted by Bernd Oostrum
+ * Edited by Bernd Oostrum
  * 
  * De speler heeft het karakter Condotierre gekozen. 
  * De eigenschappen van dit karakter worden gebruikt
@@ -26,14 +26,7 @@ import java.util.ArrayList;
  * voor elk militair gebouw in zijn stad.
  */
 public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
-
     private boolean isBonusable = true;
-
-    public Condotierre() throws RemoteException {
-		// TODO Auto-generated constructor stub
-        super(1099);
-	}
-
 	private GebouwKaartRemote target = null;
 	private SpelerRemote speler = null;
 	
@@ -46,23 +39,29 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Condotierre.png";
     private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
+    public Condotierre() throws RemoteException {
+//    	super(1099);
+	}
+    
     /**
 	 * Overriden van de methode uit de interface Karakter,
 	 * de Condotierre wordt aan de speler gekoppeld.
+	 * 
+	 * @throws RemoteException
 	 */
     @Override
     public void setSpeler(SpelerRemote speler) throws RemoteException {
         this.speler = speler;
     }
 
-    @Override
-    public SpelerRemote getSpeler() throws RemoteException {
-        return speler;
-    }
-
+    /**
+	 * De speler selecteert een gebouw in een stad, deze wordt als target geset.
+	 * Vervolgens wordt de gebruikEigenschap methode aangroepen om dit gebouw te verwijderen.
+	 * 
+	 * @throws RemoteException
+	 */
     @Override
     public void setTarget(Object target) throws RemoteException {
-    	System.out.println("Het target is: " + target);
     	this.target = (GebouwKaartRemote) target;
     	gebruikEigenschap();
     }
@@ -73,40 +72,63 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
 	 * gebouwkaart wordt uit de stad verwijderd. De gebruikEigenschap methode
 	 * kan per beurt maar een keer worden aangeroepen. Als de gebouwkaart in de
 	 * stad van de Prediker staat, kan deze niet worden verwijderd. 
+	 * 
+	 * @return true eigenschap is gebruikt.
+	 * @throws RemoteException
 	 */
     @Override
     public boolean gebruikEigenschap() throws RemoteException {	
     	System.out.println(target == null);
-    	
+    	boolean gebruikEigenschap;
 		 
 			if (this.target == null) {
-				return false;	
+				gebruikEigenschap = false;	
 			}
 			else {
 				if (target.getStad().getSpeler().getKarakter().getNummer() != 5) {
-					vernietigGebouw(this.target.getStad(), getTarget());
+					boolean kanVernietigen = vernietigGebouw(this.target.getStad(), getTarget());
+					if(!kanVernietigen)
+					{
+						gebruikEigenschap = false;
+					} else {
+						gebruikEigenschap = true;
+					}
 					this.speler.setEigenschapGebruikt(true);
 				}
 				else {
-					return false;
+					gebruikEigenschap = false;
 				}
 			}
-		
-    
-		return true;
+		return gebruikEigenschap;
     }
     
     /**
    	 * De kosten voor het vernietigen gebouw worden uit de portemonnee gehaald en op de bank gezet.
    	 * De gebouwkaart wordt teruggeplaatst in de GebouwFactory. 
+<<<<<<< HEAD
+     * @return TODO
+=======
+   	 * 
+   	 * @param stad
+   	 * @param target in het geval van de Condotierre is de target een gebouwkaart
+   	 * @throws RemoteException
+>>>>>>> 6395149309661da4f9c5b5c341ca69de3c13d1c0
    	 */
-    private void vernietigGebouw(StadRemote stad, GebouwKaartRemote target) throws RemoteException {
+    private boolean vernietigGebouw(StadRemote stad, GebouwKaartRemote target) throws RemoteException {
     	System.out.println("het target is " +  target);
-    	speler.setGoudOpBank(speler.getPortemonnee(), target.getKosten()-1);
-		target.getStad().removeGebouw(target);	
+    	boolean genoegGoud = speler.setGoudOpBank(speler.getPortemonnee(), target.getKosten()-1);
+    	if(genoegGoud) {
+    		target.getStad().removeGebouw(target);	
+    	}
+    	return genoegGoud;
     }
     
-    /** ontvangen bonusgoud voor militaire gebouwen */
+    /**
+   	 * De Condotierre ontvangt 1 goudstuk per militair gebouw in zijn stad als de knop Bonusgoud
+   	 * wordt ingedrukt. isBonusable wordt op false gezet, zodat deze methode maar 1 keer per beurt aangeroepen kan worden.
+   	 * 
+   	 * @throws RemoteException
+   	 */
     @Override
     public void ontvangenBonusGoud() throws RemoteException {
         if (isBonusable) {
@@ -119,6 +141,11 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
             this.isBonusable = false;
             notifyObservers();
         }
+    }
+    
+    @Override
+    public SpelerRemote getSpeler() throws RemoteException {
+        return speler;
     }
     
     @Override
@@ -150,6 +177,12 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
     public String getImage() throws RemoteException {
         return this.image;
     }
+    
+    @Override
+    public boolean isBonusable() throws RemoteException {
+        return isBonusable;
+    }
+    
     @Override
     public void addObserver(KarakterObserver observer) throws RemoteException {
         observers.add(observer);
@@ -160,14 +193,5 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
         for (KarakterObserver observer: observers) {
             observer.modelChanged(this);
         }
-    }
-    
-    public String toString() {
-    	return "target: " + this.target;
-    }
-
-    @Override
-    public boolean isBonusable() throws RemoteException {
-        return isBonusable;
     }
 }

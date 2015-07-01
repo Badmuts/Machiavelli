@@ -25,37 +25,25 @@ import java.util.ArrayList;
  * verwijderd.
  */
 public class Prediker extends UnicastRemoteObject implements Karakter, Bonusable, Serializable {
-
-
     private boolean isBonusable = true;
-
-    public Prediker() throws RemoteException {
-        super(1099);
-	}
-
 	private SpelerRemote speler = null;
-	private ArrayList<KarakterObserver> observers = new ArrayList<>();
-
 
 	/** Eigenschappen van karakter Prediker. */
     private final int nummer = 5;	
     private final int bouwLimiet = 1; 
     private final String naam = "Prediker";
     private final Type type = Type.KERKELIJK;
-    @SuppressWarnings("unused")
-	private Object target;
     
     private final String image = "Machiavelli/Resources/Karakterkaarten/Portrait-Prediker.png";
-   
+    private ArrayList<KarakterObserver> observers = new ArrayList<>();
 
+    public Prediker() throws RemoteException {
+      //  super(1099);
+	}
+    
     @Override
     public void setSpeler(SpelerRemote speler) throws RemoteException {
         this.speler = speler;
-    }
-
-    @Override
-    public SpelerRemote getSpeler() throws RemoteException {
-        return speler;
     }
 
     @Override
@@ -63,7 +51,12 @@ public class Prediker extends UnicastRemoteObject implements Karakter, Bonusable
         return true;
     }
     
-    /** ontvangen bonusgoud voor Kerk gebouwen */
+    /**
+   	 * De Prediker ontvangt 1 goudstuk per kerk gebouw in zijn stad als de knop Bonusgoud
+   	 * wordt ingedrukt. isBonusable wordt op false gezet, zodat deze methode maar 1 keer per beurt aangeroepen kan worden.
+   	 * 
+   	 * @throws RemoteException
+   	 */
     @Override
     public void ontvangenBonusGoud() throws RemoteException {
         if (isBonusable) {
@@ -77,6 +70,11 @@ public class Prediker extends UnicastRemoteObject implements Karakter, Bonusable
         }
     }
 
+    @Override
+    public SpelerRemote getSpeler() throws RemoteException {
+        return speler;
+    }
+    
     @Override
     public String getNaam() throws RemoteException {
     	return this.naam;
@@ -99,12 +97,21 @@ public class Prediker extends UnicastRemoteObject implements Karakter, Bonusable
 
     @Override
     public void setTarget(Object target) throws RemoteException {
-        this.target = target;
     }
 
     @Override
     public String getImage() throws RemoteException {
         return this.image;
+    }
+    
+    @Override
+	public Object getTarget() throws RemoteException {
+		return null;
+	}
+
+    @Override
+    public boolean isBonusable() throws RemoteException {
+        return isBonusable;
     }
 
     @Override
@@ -117,16 +124,5 @@ public class Prediker extends UnicastRemoteObject implements Karakter, Bonusable
         for (KarakterObserver observer: observers) {
             observer.modelChanged(this);
         }
-    }
-
-	@Override
-	public Object getTarget() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-    @Override
-    public boolean isBonusable() throws RemoteException {
-        return isBonusable;
     }
 }

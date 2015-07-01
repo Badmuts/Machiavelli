@@ -7,28 +7,41 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+/**
+ * Server class voor de Machiavelli applicatie. Maakt een nieuw Registry en
+ * plaats een Spel skeleton in het registry.
+ *
+ * @author Daan Rosbergen
+ * @version 1.0
+ */
 public class Server {
 
-    private Spel spel;
-
+    /**
+     * Maakt een nieuw Registry aan en plaatst een Spel skeleton in het registry
+     */
 	public void startServer(){
         try {
-            //System.setProperty("java.rmi.server.hostname", "145.97.16.203"); // Zet uit voor lokale tests
+
+            // Hardcode ipadres van server, zet deze uit voor lokale tests.
+//            System.setProperty("java.rmi.server.hostname", "145.97.16.203"); // Hardcode ipadres van server
+            System.out.println("RMI Registry starter");
             Registry registry = LocateRegistry.createRegistry(1099); // default port 1099 // run RMI registry on local host
             Spel spel = new Spel();
+            // Maak van spel een skeleton
             SpelRemote spelSkeleton = (SpelRemote) UnicastRemoteObject.exportObject(spel, 1099);
-            System.out.println("RMI Registry starter");
-            registry.rebind("Spel", spelSkeleton); // bind calculator to RMI registry
+            registry.rebind("Spel", spelSkeleton); // bind Spel to RMI registry
             System.out.println("Spel skeleton bound");
             System.out.println("Server running...");
-            // if you'd like to run rmiregistry from the command line
-            //	run it from the project's bin directory, so rmiregistry can find the necessary classes
-
         } catch (Exception e) {
             System.out.println("EXCEPTION: " + e);
         }
 	}
 
+    /**
+     * Maakt een nieuw Server object en roept startServer() aan.
+     *
+     * @param args
+     */
 	public static void main(String args[]){
 		Server server = new Server();
         server.startServer();
