@@ -1,25 +1,20 @@
 package Machiavelli.Models;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import Machiavelli.Machiavelli;
 import Machiavelli.Interfaces.Observers.SpelregelsObserver;
 import Machiavelli.Interfaces.Remotes.SpelregelsRemote;
 
 /**
  * @author Jamie Kalloe
- * 
- *         <<<<<<< HEAD Het Spelregels model wordt gebruikt om de spelregels mee op te halen voor de
- *         view.
- * 
- *         ======= De spelregels van Machiavelli zijn opgeslagen in een textdocument, deze kunnen op
- *         elk moment in het spel aangeroepen worden.
- *
- *         >>>>>>> 6395149309661da4f9c5b5c341ca69de3c13d1c0
+ *         De spelregels van Machiavelli zijn opgeslagen in een textdocument, deze
+ *         kunnen op elk moment in het spel aangeroepen worden.
  */
 
 public class Spelregels implements SpelregelsRemote, Serializable {
@@ -27,29 +22,43 @@ public class Spelregels implements SpelregelsRemote, Serializable {
 
     /**
      * Retourneerd de spelregels die zijn opgehaald uit de text file.
-     * 
+     *
      * @return spelregels String
      */
-    public String getSpelregels() throws IOException {
-        return this.getSpelregelsFromResource("spelregels.txt");
+    public String getSpelregels() {
+        try {
+            return this.getSpelregelsFromResource("spelregels.txt");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
      * Deze method haalt de spelregels uit een textfile van het opgegeven pad.
-     * 
+     *
      * @param fileName naam de van de file waar de spelregels in staan.
      */
-    private String getSpelregelsFromResource(String fileName) {
+    private String getSpelregelsFromResource(String fileName) throws Exception {
+        String text = null;
 
-        Scanner scanner =
-                new Scanner(Machiavelli.class.getResourceAsStream("Resources/spelregels.txt"),
-                        "UTF-8");
-        String text = scanner.useDelimiter("\\A").next();
-        scanner.close();
+        InputStream in = getClass().getResourceAsStream("/Machiavelli/Resources/" + fileName);
+        BufferedReader input = new BufferedReader(new InputStreamReader(in));
+        try {
+            StringBuilder builder = new StringBuilder();
+            String aux = "";
+
+            while ((aux = input.readLine()) != null) {
+                builder.append(aux + System.getProperty("line.separator"));
+            }
+            text = builder.toString();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        input.close();
         return text;
-
     }
-
     /**
      * Voert de SpelregelsObserver toe aan de lijst met observers.
      */
