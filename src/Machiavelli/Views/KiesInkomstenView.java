@@ -3,6 +3,7 @@ package Machiavelli.Views;
 import Machiavelli.Controllers.InkomstenController;
 import Machiavelli.Machiavelli;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -171,4 +172,5 @@ public class KiesInkomstenView extends UnicastRemoteObject {
   public Button getOntvangKaartenButton() {
     return this.ontvangKaarten;
   }
+
 }
