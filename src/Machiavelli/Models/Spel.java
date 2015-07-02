@@ -9,7 +9,12 @@ import Machiavelli.Factories.GebouwFactory;
 import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Karakter;
 import Machiavelli.Interfaces.Observers.SpelObserver;
-import Machiavelli.Interfaces.Remotes.*;
+import Machiavelli.Interfaces.Remotes.BankRemote;
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
+import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
+import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
+import Machiavelli.Interfaces.Remotes.SpelRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
 
 /**
@@ -29,6 +34,7 @@ public class Spel implements SpelRemote, Serializable {
 	private KarakterFactoryRemote karakterFactory;
 	private ArrayList<SpelObserver> observers;
 	private ArrayList<SpelerRemote> spelers = new ArrayList<>();
+		private ArrayList<SpelerRemote> tempSpelers = new ArrayList();
 
 	public Spel() {
 	}
@@ -65,10 +71,6 @@ public class Spel implements SpelRemote, Serializable {
 	public KarakterFactoryRemote getKarakterFactory() {
 		return this.karakterFactory;
 	}
-	
-	public void setKarakterFactory(KarakterFactory karakterFactory) {
-	  this.karakterFactory = karakterFactory;
-	}
 
 	public int getAantalSpelers() throws RemoteException {
 		return spelers.size();
@@ -104,6 +106,7 @@ public class Spel implements SpelRemote, Serializable {
         return this.spelers;
     }
 
+
     public int getMaxAantalSpelers() {
         return this.maxAantalSpelers;
     }
@@ -131,5 +134,52 @@ public class Spel implements SpelRemote, Serializable {
 		this.spelers.add(speler);
         notifyObservers();
 	}
-	
+
+	public void setMaxAantalSpelers(int maxAantalSpelers) {
+		this.maxAantalSpelers = maxAantalSpelers;
+	}
+
+	public void setBank(BankRemote bank) {
+		this.bank = bank;
+	}
+
+	public void setGebouwFactory(GebouwFactoryRemote gebouwFactory) {
+		this.gebouwFactory = gebouwFactory;
+	}
+
+	public void setKarakterFactory(KarakterFactory karakterFactory) {
+		this.karakterFactory = karakterFactory;
+	}
+
+    public void setTempSpelers(ArrayList<SpelerRemote> list)
+    {
+        this.tempSpelers = list;
+    }
+    public ArrayList<SpelerRemote> getTempSpelers() {
+        return tempSpelers;
+    }
+
+	public void setSpelers(ArrayList<SpelerRemote> spelers) {
+		this.spelers = spelers;
+	}
+
+    public ArrayList<SpelObserver> getObservers() throws RemoteException {
+        return this.observers;
+    }
+
+    @Override
+    public void laadSpel(SpelRemote loadSpel) throws RemoteException {
+				this.maxAantalSpelers = 0;
+        this.maxAantalSpelers = loadSpel.getMaxAantalSpelers();
+				this.bank = null;
+        this.bank = loadSpel.getBank();
+				this.gebouwFactory = null;
+        this.gebouwFactory = loadSpel.getGebouwFactory();
+				this.spelers = null;
+        this.spelers = loadSpel.getSpelers();
+				this.observers = null;
+        this.observers = loadSpel.getObservers();
+				this.karakterFactory = null;
+        this.karakterFactory = loadSpel.getKarakterFactory();
+    }
 }

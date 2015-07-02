@@ -16,13 +16,31 @@ import javafx.scene.text.TextAlignment;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-
+/**
+ * Deze view maakt een Pane aan en plaatst daar de afbeelding van het
+ * Karakter in, plaatst de waarde van de kaart over de afbeelding en
+ * plaatst de naam van de kaart over de afbeelding.
+ *
+ * Deze klasse update wanneer Speler wijzigd.
+ *
+ * Deze klasse extends UnicastRemoteObject en kan op die manier ontvangen van
+ * andere Remote objecten.
+ *
+ * @author Daan Rosbergen
+ * @version 1.0
+ */
 public class KarakterActionBarView extends UnicastRemoteObject implements SpelerObserver {
 
     private Karakter karakter;
     private Pane pane;
     private SpelerRemote speler;
 
+    /**
+     *
+     * @param karakter          Karakter
+     * @param speler            Speler
+     * @throws RemoteException
+     */
     public KarakterActionBarView(Karakter karakter, SpelerRemote speler) throws RemoteException {
         this.karakter = karakter;
         this.speler = speler;
@@ -33,12 +51,22 @@ public class KarakterActionBarView extends UnicastRemoteObject implements Speler
         this.pane.getChildren().addAll(this.createBackground(), this.createPortrait(), this.createNumber(), this.createNameField());
     }
 
+    /**
+     * Maakt achtergrond voor view
+     *
+     * @return Achtergrond
+     */
     private Rectangle createBackground() {
         Rectangle karakterholder = new Rectangle(0, 0, 250, 250);
         karakterholder.setFill(Color.rgb(57, 57, 57));
         return karakterholder;
     }
 
+    /**
+     * Maakt Portrait voor Karakter afbeelding
+     *
+     * @return Karakter afbeelding
+     */
     private ImageView createPortrait() {
         Rectangle clip = new Rectangle(150, 150);
         clip.setArcHeight(20);
@@ -57,6 +85,11 @@ public class KarakterActionBarView extends UnicastRemoteObject implements Speler
         return portretview;
     }
 
+    /**
+     * Maakt view voor karakternummer en type
+     *
+     * @return Karakter nummer view
+     */
     private Pane createNumber() {
         StackPane numberPane = new StackPane();
 
@@ -77,6 +110,12 @@ public class KarakterActionBarView extends UnicastRemoteObject implements Speler
         return numberPane;
     }
 
+    /**
+     * Zet de juiste CSS class voor de juiste type kleuring.
+     *
+     * @param circle Karakter nummer view
+     * @return Circle met juiste CSS class
+     */
     private Circle setKarakterTypeClass(Circle circle) {
         try {
             switch (karakter.getType()) {
@@ -101,6 +140,11 @@ public class KarakterActionBarView extends UnicastRemoteObject implements Speler
         return circle;
     }
 
+    /**
+     * Maakt naam veld voor Karakter
+     *
+     * @return Naam veld
+     */
     private Pane createNameField() {
         Pane namePane = new Pane();
         try {
@@ -116,10 +160,21 @@ public class KarakterActionBarView extends UnicastRemoteObject implements Speler
         return namePane;
     }
 
+    /**
+     * Methode om opgebouwde view op te halen.
+     *
+     * @return Pane met de uiteindelijke GebouwKaartView
+     */
     public Pane getPane() {
         return this.pane;
     }
 
+    /**
+     * SpelerObserver method. Update view als Speler wijzigd.
+     *
+     * @param speler model changed.
+     * @throws RemoteException
+     */
     @Override
     public void modelChanged(SpelerRemote speler) throws RemoteException {
         Platform.runLater(() -> {

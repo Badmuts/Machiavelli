@@ -1,8 +1,15 @@
 package Machiavelli.Views;
 
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-
+import Machiavelli.Controllers.*;
+import Machiavelli.Interfaces.Observers.BeurtObserver;
+import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
+import Machiavelli.Interfaces.Observers.SpeelveldObserver;
+import Machiavelli.Interfaces.Remotes.BeurtRemote;
+import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
+import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
+import Machiavelli.Machiavelli;
+import Machiavelli.Models.Speelveld;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,23 +20,21 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import Machiavelli.Machiavelli;
-import Machiavelli.Controllers.BeurtController;
-import Machiavelli.Controllers.GebouwKaartController;
-import Machiavelli.Controllers.InkomstenController;
-import Machiavelli.Controllers.KarakterController;
-import Machiavelli.Controllers.RaadplegenSpelregelsController;
-import Machiavelli.Controllers.SpeelveldController;
-import Machiavelli.Interfaces.Observers.BeurtObserver;
-import Machiavelli.Interfaces.Observers.PortemonneeOberserver;
-import Machiavelli.Interfaces.Observers.SpeelveldObserver;
-import Machiavelli.Interfaces.Remotes.BeurtRemote;
-import Machiavelli.Interfaces.Remotes.PortemonneeRemote;
-import Machiavelli.Interfaces.Remotes.SpeelveldRemote;
-import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.Speelveld;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
+/**
+ * View voor het Speelveld
+ *
+ * Deze klasse update wanneer Speelveld, Portemonnee of Beurt wijzigd.
+ *
+ * Deze klasse extends UnicastRemoteObject en kan op die manier ontvangen van
+ * andere Remote objecten.
+ *
+ * @author Daan Rosbergen
+ * @version 1.0
+ */
 public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObserver,
         PortemonneeOberserver, BeurtObserver {
     private SpelerRemote speler;
@@ -51,6 +56,16 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
     private Pane steden;
     private boolean disabled;
 
+    /**
+     *
+     * @param speelveldcontroller
+     * @param speelveld
+     * @param gebouwKaartController
+     * @param speler
+     * @param beurtController
+     * @param beurt
+     * @throws RemoteException
+     */
     public SpeelveldView(SpeelveldController speelveldcontroller, Speelveld speelveld,
             GebouwKaartController gebouwKaartController, SpelerRemote speler,
             BeurtController beurtController, BeurtRemote beurt) throws RemoteException {
@@ -93,6 +108,9 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         this.show();
     }
 
+    /**
+     * Voegt StedenGrid toe aan view.
+     */
     private void createStedenHolder() {
         try {
             this.steden =
@@ -103,6 +121,9 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         }
     }
 
+    /**
+     * Maakt de TopStatusBar aan met portemonnee en spelregels button.
+     */
     private void createTopStatusBar() {
         this.topBar = new Pane();
 
@@ -129,6 +150,9 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         topBar.getChildren().addAll(iv, spelregelsButton, topStatus, portemonneeView);
     }
 
+    /**
+     * Maakt portemonne view aan
+     */
     private void createPortemonnee() {
         this.portemonneeView = new Text();
         try {
@@ -140,6 +164,9 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         this.portemonneeView.getStyleClass().add("portemonnee");
     }
 
+    /**
+     * Maakt ButtonHolderActionBarView aan.
+     */
     private void createButtonHolder() {
         try {
             buttonHolderActionBarView = new ButtonHolderActionBarView(this.speelveldcontroller);
@@ -148,6 +175,9 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         }
     }
 
+    /**
+     * Maakt HandActionBarView aan.
+     */
     private void createKaartHolder() {
         try {
             this.speler.getHand();
@@ -158,6 +188,9 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         }
     }
 
+    /**
+     * Maakt KarakterActionBarView aan.
+     */
     private void createKarakterHolder() {
         try {
             karakterActionBarView =
@@ -168,12 +201,21 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         }
     }
 
+    /**
+     * Methode om view te tonen.
+     */
     public void show() {
         stage.setScene(speelveldscene);
         stage.centerOnScreen();
         stage.show();
     }
 
+    /**
+     * Maakt de ActionBarView met daarin:
+     *  - KarakterActionBarView
+     *  - HandActionBarView
+     *  - ButtonHolderActionBarView
+     */
     private void createActionBar() {
         actionBar = new AnchorPane();
         actionBar.getChildren().add(this.karakterActionBarView.getPane());
@@ -187,11 +229,23 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         actionBar.getStyleClass().add("action-bar");
     }
 
+    /**
+     * Update view als Speelveld wijzigd.
+     *
+     * @param speelveld model is changed.
+     * @throws RemoteException
+     */
     @Override
     public void modelChanged(SpeelveldRemote speelveld) throws RemoteException {
         // TODO: update view
     }
 
+    /**
+     * Update view als Portemonnee wijzigd.
+     *
+     * @param portemonnee Nieuw Portemonnee model
+     * @throws RemoteException
+     */
     @Override
     public void modelChanged(PortemonneeRemote portemonnee) throws RemoteException {
         Platform.runLater(() -> {
@@ -205,6 +259,12 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         });
     }
 
+    /**
+     * Update view als Beurt wijzigd.
+     *
+     * @param beurt Nieuw Beurt model.
+     * @throws RemoteException
+     */
     @Override
     public void modelChanged(BeurtRemote beurt) throws RemoteException {
         // TODO Auto-generated method stub
@@ -217,17 +277,30 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         });
     }
 
+    /**
+     * Methode van BeurtObserver
+     *
+     * @return isDisabled
+     */
     public boolean isDisabled() {
         // TODO Auto-generated method stub
         return disabled;
     }
 
+    /**
+     * Methode van BeurtObserver
+     *
+     * @param disabled
+     */
     @Override
     public void setDisable(boolean disabled) {
         this.disabled = disabled;
 
     }
 
+    /**
+     * Methode om InkomstenView te tonen.
+     */
     public void showInkomsten() {
         Platform.runLater(() -> {
             try {
@@ -240,6 +313,10 @@ public class SpeelveldView extends UnicastRemoteObject implements SpeelveldObser
         });
     }
 
+    /**
+     * Methode om KarakterKiezenView te tonen.
+     * @throws RemoteException
+     */
     @Override
     public void showKarakterMenu() throws RemoteException {
         // TODO Auto-generated method stub

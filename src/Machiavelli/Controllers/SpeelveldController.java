@@ -9,6 +9,7 @@ import Machiavelli.Models.Speelveld;
 import Machiavelli.Views.SpeelveldView;
 import javafx.application.Platform;
 
+import java.io.FileNotFoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -70,6 +71,18 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
 		return this.spel;
 	}
 
+    public void cmdOpslaan(){
+        try
+        {
+            this.speelveld.opslaanSpel();
+            new MeldingController().build("Spel is opgeslagen!").cmdWeergeefMeldingView();
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+
     public void cmdBonusGoud() {
         try {
             Bonusable karakter = (Bonusable)this.speler.getKarakter();
@@ -96,11 +109,26 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
         this.beurtController.cmdGeefBeurt();
     }
 
+    public Speelveld getSpeelveld() {return this.speelveld;}
+
+
     public void cmdGebruikEigenschap() {
         try {
         	//Als de gebruikeigenschap geen target heeft, open de kiesKarakterView.
 //        	boolean gebruikEigenschap = this.speler.getKarakter().gebruikEigenschap();
+        	if (this.speler.getKarakter().getNummer() == 8 && this.speler.getKarakter().getTarget() == null) {
+            	//haal karakter op, check of hij het gebouw vernietigd heeft.
+            	this.gebouwKaartController.cmdVernietigGebouw();
+            	System.out.println("hallo");
+            }
+        	
             if (!this.speler.getKarakter().gebruikEigenschap()) {
+
+            	if(this.speler.getKarakter().getNummer() == 8)
+            	{
+            		new MeldingController().build("Er is niet genoeg goud / geen kaart geselecteerd").cmdWeergeefMeldingView();
+            		this.speler.getKarakter().setTarget(null);
+            	}
             	
             	//Speler = magier, kies speler view.
             	if(this.speler.getKarakter().getNummer() == 3)
@@ -120,15 +148,9 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
             		KarakterController karakterController = new KarakterController(this.speler, "karakter");
             		karakterController.show();
             	}
-            }
-            if (this.speler.getKarakter().getNummer() == 8) {
-            	this.gebouwKaartController.cmdVernietigGebouw();
-            	System.out.println("hallo");
-            	new MeldingController().build("Gebouw is vernietigd").cmdWeergeefMeldingView();
-            	
-            }
-            else {
+            } else {
             	this.speler.getKarakter().gebruikEigenschap();
+
             	if(this.speler.getKarakter().getNummer() == 6) {
             		new MeldingController().build("1 extra goudstuk ontvangen").cmdWeergeefMeldingView();
             	}
@@ -136,13 +158,20 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
             		new MeldingController().build("2 extra gebouwkaarten getrokken").cmdWeergeefMeldingView();
             	}
             	
+            	if(this.speler.getKarakter().getNummer() == 8)
+            	{
+        			new MeldingController().build("Er is een gebouw vernietigd.").cmdWeergeefMeldingView();
+        			this.speler.getKarakter().setTarget(null);
+            	}
             }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
     
+
     @Override
     public void modelChanged(SpelRemote spel) throws RemoteException {
         this.spel = spel;

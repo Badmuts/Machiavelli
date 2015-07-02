@@ -11,8 +11,9 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 /**
+ * @author Jimmy
  *
- * Dit model geeft de spelers een beurt.
+ *         Dit model geeft de spelers een beurt.
  *
  */
 public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializable {
@@ -20,112 +21,107 @@ public class Beurt extends UnicastRemoteObject implements BeurtRemote, Serializa
     private SpelerRemote speler;
     private ArrayList<SpelerRemote> spelerLijst;
     private ArrayList<BeurtObserver> observers = new ArrayList<>();
-   //private KarakterController karaktercontroller;
+    // private KarakterController karaktercontroller;
     private int observerIndex;
-    //private int spelerNummer = 0;
 
-    public Beurt(SpelRemote spel, ArrayList<SpelerRemote> spelerLijst, SpelerRemote speler) throws RemoteException
-    {
-//        super(1099);
+    // private int spelerNummer = 0;
+
+    public Beurt(SpelRemote spel, ArrayList<SpelerRemote> spelerLijst, SpelerRemote speler)
+            throws RemoteException {
+        // super(1099);
         this.spel = spel;
         this.spelerLijst = spelerLijst;
         this.speler = speler;
-    } 
-    
+    }
+
     /**
      * De speler krijgt de beurt gebaseerd op de karakter nummer om zijn functies uit te voeren.
      * 
      * @throw RemoteException
      */
-    
-    public void geefBeurt() throws RemoteException
-    {
-      // TODO: Karakter Toewijzen aan begin 
-      /**Die speler de beurt geven en wachten tot hij op einde beurt knop drukt
-      *Als einde beurt knop wordt gedrukt, wordt de observerindex verhoogt.
-      */
 
-      nextBeurtObserver();
-      notifyObservers();
-      
-      this.speler = this.getSpelerLijst().get(observerIndex);
-      this.speler.setGebouwdeGebouwen(0); // Dit proberen te vervangen door nieuwe karakterFactory
-      this.speler.setEigenschapGebruikt(false); // Dit proberen te vervangen door nieuwe karakterFactory
+    public void geefBeurt() throws RemoteException {
+        /**
+         * Die speler de beurt geven en wachten tot hij op einde beurt knop drukt Als einde beurt
+         * knop wordt gedrukt, wordt de observerindex verhoogt.
+         */
+
+        nextBeurtObserver();
+        notifyObservers();
+
+        this.speler = this.getSpelerLijst().get(observerIndex);
+        this.speler.setGebouwdeGebouwen(0);
+        this.speler.setEigenschapGebruikt(false);
+        
     }
-    
+
     public void getInkomstenView() throws RemoteException {
-      this.observers.get(observerIndex).showInkomsten();
+        this.observers.get(observerIndex).showInkomsten();
     }
-    
+
     public void getKarakterView() throws RemoteException {
-      this.observers.get(observerIndex).showKarakterMenu();
+        this.observers.get(observerIndex).showKarakterMenu();
     }
-    
-    public SpelerRemote getSpeler() throws RemoteException
-    {
-      return this.speler;
+
+    public SpelerRemote getSpeler() throws RemoteException {
+        return this.speler;
     }
-    
+
     public ArrayList<BeurtObserver> getObserverList() {
-      return this.observers;
+        return this.observers;
     }
-    
+
     public void setSpeler(SpelerRemote speler) throws RemoteException {
-    	this.speler = speler;
+        this.speler = speler;
         notifyObservers();
     }
 
     public void addObserver(BeurtObserver observer) throws RemoteException {
-//      nextBeurtObserver();
-      observers.add(observer);
-      System.out.println("Beurt Observer ADDED!: " + this.observers.size());
-//      notifyObservers();
-      
+        nextBeurtObserver();
+        observers.add(observer);
+        System.out.println("Beurt Observer ADDED!: " + this.observers.size());
+        notifyObservers();
     }
 
     public void notifyObservers() throws RemoteException {
         System.out.println("Beurt changed");
-        for (BeurtObserver observer: observers) {
+        for (BeurtObserver observer : observers) {
             observer.modelChanged(this);
         }
     }
-    
+
     public void setObserverIndex(int observerIndex) {
-      this.observerIndex = observerIndex;
+        this.observerIndex = observerIndex;
     }
-    
+
     public int getObserverIndex() {
-      return this.observerIndex;
+        return this.observerIndex;
     }
-    
-    public ArrayList<SpelerRemote> getSpelerLijst()
-    {
-      return this.spelerLijst;
+
+    public ArrayList<SpelerRemote> getSpelerLijst() {
+        return this.spelerLijst;
     }
-    
+
     /**
-     * Deze method kijkt of het aantal observers groter is dan 0, als het zo is
-     * roept die de beurtobserver aan met de method setDisable,
-     * deze method krijgt een boolean mee als parameter.
-     * De observer krijgt als eerst een true mee(dus de buttons bij de eerste
-     * observer worden uitgeschakeld), daarna verhoogt hij de observerindex.
-     * Als de observerIndex niet zo groot is als de arraylist, laat hij de
-     * volgende observer de buttons enablen door setDisable(false)
-     * de buttons krijgen in buttonholderActionView -> Modelchanged
-     * deze boolean waardes mee.
-     * Met dank aan Alex van Manen.
+     * Deze method kijkt of het aantal observers groter is dan 0, als het zo is roept die de
+     * beurtobserver aan met de method setDisable, deze method krijgt een boolean mee als parameter.
+     * De observer krijgt als eerst een true mee(dus de buttons bij de eerste observer worden
+     * uitgeschakeld), daarna verhoogt hij de observerindex. Als de observerIndex niet zo groot is
+     * als de arraylist, laat hij de volgende observer de buttons enablen door setDisable(false) de
+     * buttons krijgen in buttonholderActionView -> Modelchanged deze boolean waardes mee. Met dank
+     * aan Alex van Manen.
      * 
      * @throw RemoteException
      */
-  private void nextBeurtObserver() throws RemoteException {
-    	if (observers.size() > 0) {
-    	    observers.get(observerIndex).setDisable(true);
-			observerIndex++;
-			if (observerIndex >= observers.size()) {
-				observerIndex = 0;
-			}
-			observers.get(observerIndex).setDisable(false);
-		} 
+    private void nextBeurtObserver() throws RemoteException {
+        if (observers.size() > 0) {
+            observers.get(observerIndex).setDisable(true);
+            observerIndex++;
+            if (observerIndex >= observers.size()) {
+                observerIndex = 0;
+            }
+            observers.get(observerIndex).setDisable(false);
+        }
 
     }
 

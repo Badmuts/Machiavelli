@@ -2,7 +2,17 @@ package Machiavelli.Controllers;
 
 import java.rmi.registry.Registry;
 
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Machiavelli;
+import Machiavelli.Models.Speelveld;
+import Machiavelli.Views.InvullenSpelersView;
+import Machiavelli.Views.MainMenuView;
+
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.rmi.registry.Registry;
+import java.util.ArrayList;
+
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Views.InvullenSpelersView;
 import Machiavelli.Views.MainMenuView;
@@ -14,7 +24,12 @@ public class MenuController {
     private SpelController spelController;
     private Registry registry;
 
+    //private ArrayList<SpelerRemote> tempSpelerLijst = new ArrayList<>();
+
     /**
+     * @author Jimmy
+     * Edited by: Daan
+     * 
      * Maakt de MainMenuView aan en koppelt de buttons aan cmd's
      * zodat deze kunnen worden afgehandeld.
      *
@@ -64,7 +79,19 @@ public class MenuController {
     	try{
     		SpelRemote spelStub = (SpelRemote)registry.lookup("Spel");
             if (spelStub.getAantalSpelers() < spelStub.getMaxAantalSpelers()) {
-                spelStub.createNewSpeler();
+                if(spelStub.getTempSpelers().size() != 0)
+                {
+                    spelStub.getSpelers().add(spelStub.getTempSpelers().get(0));
+                    spelStub.getTempSpelers().remove(0);
+                } else {
+
+//                if (this.tempSpelerLijst.size() != 0) {
+//                    spelStub.getSpelers().add(this.tempSpelerLijst.get(0));
+//                    this.tempSpelerLijst.remove(0);
+//                }
+//                else {
+                    spelStub.createNewSpeler();
+               }
                 this.spelController = new SpelController(spelStub);
             } else {
                 new MeldingController().build("Het maximaal aantal spelers is bereikt").cmdWeergeefMeldingView();
@@ -79,7 +106,26 @@ public class MenuController {
      * overzicht met hervatbare spellen.
      */
     public void cmdHervattenSpel() {
-        // TODO: Show resumable games
+        // Spel inladen vanuit default locatie.
+        try {
+            FileInputStream fis = new FileInputStream(System.getProperty("user.home") + "/machiavelli/machiavelli.sav");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            SpelRemote loadSpel = (SpelRemote)ois.readObject();
+            SpelRemote spelStub = (SpelRemote)this.registry.lookup("Spel");
+
+            spelStub.setTempSpelers(spelStub.getSpelers());
+
+            //Deze clear werkt niet, als deze clear wel werkt dan ben ik benieuwd of het laden werkt.
+            spelStub.getSpelers().clear();
+            spelStub.getSpelers().add(spelStub.getTempSpelers().get(0));
+            spelStub.getTempSpelers().remove(0);
+            spelStub.setSpelers(spelStub.getTempSpelers());
+
+            this.spelController = new SpelController(spelStub);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

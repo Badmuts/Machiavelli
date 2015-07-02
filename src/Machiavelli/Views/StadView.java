@@ -25,6 +25,18 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+/**
+ * Deze view maakt een StackPane aan en maakt GebouwKaartViews voor
+ * Gebouwen in de stad van de Speler.
+ *
+ * Deze klasse update wanneer Speler of Stad wijzigd.
+ *
+ * Deze klasse extends UnicastRemoteObject en kan op die manier ontvangen van
+ * andere Remote objecten.
+ *
+ * @author Daan Rosbergen
+ * @version 1.0
+ */
 public class StadView extends UnicastRemoteObject implements StadObserver, SpelerObserver {
     private SpelerRemote speler;
     private GebouwKaartController gebouwKaartController;
@@ -36,6 +48,12 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
     private FlowPane stadPane;
     private StackPane portretPane;
 
+    /**
+     *
+     * @param stad                  Stad van Speler
+     * @param gebouwKaartController GebouwKaarController
+     * @throws RemoteException
+     */
     public StadView(StadRemote stad, GebouwKaartController gebouwKaartController) throws RemoteException {
         this.stad = stad;
         this.speler = stad.getSpeler();
@@ -60,6 +78,9 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
         StackPane.setAlignment(stadPane, Pos.BOTTOM_CENTER);
     }
 
+    /**
+     * Karakter nummer view
+     */
     private void createSpelerPortraitNumber() {
         numberPane = new StackPane();
         numberPane.setPrefSize(40, 40);
@@ -80,6 +101,12 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
         StackPane.setAlignment(numberPane, Pos.TOP_LEFT);
     }
 
+    /**
+     * Voegt juiste CSS class toe aan circle
+     *
+     * @param circle SpelerPortraitNumber
+     * @return Circle met juiste CSS class
+     */
     private Circle setKarakterTypeClass(Circle circle) {
         try {
             switch (this.speler.getKarakter().getType()) {
@@ -104,6 +131,9 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
         return circle;
     }
 
+    /**
+     * View voor naam van Karakter.
+     */
     private void createNameField() {
         namePane = new Pane();
         try {
@@ -118,6 +148,9 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
         }
     }
 
+    /**
+     * View voor afbeelding van Karakter.
+     */
     private void createSpelerPortrait() {
         portretPane = new StackPane();
         portretPane.setPrefSize(95, 95);
@@ -142,6 +175,12 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
         StackPane.setAlignment(portretview, Pos.CENTER);
     }
 
+    /**
+     * Haal gebouwen op uit Stad. Maak nieuwe GebouwKaartView en
+     * voeg controller toe aan view.
+     *
+     * @throws RemoteException
+     */
     private void buildGebouwKaartViewArray() throws RemoteException {
         for (GebouwKaartRemote gebouwKaartRemote: this.stad.getGebouwen()) {
             GebouwKaartView gebouwKaartView = new GebouwKaartView(this.gebouwKaartController, gebouwKaartRemote, 65, 90);
@@ -152,6 +191,9 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
         }
     }
 
+    /**
+     * FlowPane met GebouwKaartViews
+     */
     private void createStad() {
         stadPane = new FlowPane();
         stadPane.setPadding(new Insets(125, 0, 5, 50));
@@ -164,10 +206,21 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
         }
     }
 
+    /**
+     * Methode om opgebouwde view op te halen.
+     *
+     * @return Pane met de uiteindelijke StadView
+     */
     public Pane getPane() {
         return this.pane;
     }
 
+    /**
+     * Update view wanneer stad wijzigd.
+     *
+     * @param stad Nieuwe Stad model
+     * @throws RemoteException
+     */
     @Override
     public void modelChanged(StadRemote stad) throws RemoteException {
         Platform.runLater(() -> {
@@ -191,6 +244,12 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
         });
     }
 
+    /**
+     * Update view wanneer speler wijzigd.
+     *
+     * @param speler model changed.
+     * @throws RemoteException
+     */
     @Override
     public void modelChanged(SpelerRemote speler) throws RemoteException {
         Platform.runLater(() -> {
@@ -206,18 +265,4 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
             StackPane.setAlignment(stadPane, Pos.BOTTOM_CENTER);
         });
     }
-
-//    private void updateView() throws RemoteException {
-//        this.pane.getChildren().clear();
-//        this.gebouwKaartViews.clear();
-//        this.buildGebouwKaartViewArray();
-//        this.createSpelerPortrait();
-//        this.createSpelerPortraitNumber();
-//        this.createNameField();
-//        this.createStad();
-//        this.pane.getChildren().addAll(portretPane, namePane, stadPane);
-//        StackPane.setAlignment(portretPane, Pos.TOP_CENTER);
-//        StackPane.setAlignment(namePane, Pos.CENTER);
-//        StackPane.setAlignment(stadPane, Pos.BOTTOM_CENTER);
-//    }
 }

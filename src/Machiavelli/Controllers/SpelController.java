@@ -18,6 +18,7 @@ public class SpelController extends UnicastRemoteObject {
     private SpelRemote spel;
     private BeurtRemote beurt;
     private GebouwKaartController gebouwKaartController;
+    private SpeelveldController speelveldController;
 
 	public SpelController(SpelRemote spel) throws RemoteException {
 //        super(1099);
@@ -29,13 +30,18 @@ public class SpelController extends UnicastRemoteObject {
             // Start nieuwe SpeelveldController
             new SpeelveldController(this.spel, speler, this.gebouwKaartController, this.beurt);
             
+
         } catch (Exception re) {
             re.printStackTrace();
         }
 	}
 
     public GebouwKaartController getGebouwKaartController() {
-        return gebouwKaartController;
+        return this.gebouwKaartController;
+    }
+    public SpeelveldController getSpeelveldController()
+    {
+        return this.speelveldController;
     }
 }
 

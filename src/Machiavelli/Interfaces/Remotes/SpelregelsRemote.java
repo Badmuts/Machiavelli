@@ -11,7 +11,7 @@ import java.rmi.RemoteException;
  */
 public interface SpelregelsRemote extends Remote {
 
-    public String getSpelregels() throws IOException, RemoteException;
+    public String getSpelregels() throws IOException, RemoteException, Exception;
     public void addObserver(SpelregelsObserver observer) throws RemoteException;
     public void notifyObservers() throws RemoteException;
 

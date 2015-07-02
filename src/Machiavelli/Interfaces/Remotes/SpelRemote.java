@@ -1,5 +1,11 @@
 package Machiavelli.Interfaces.Remotes;
 
+
+import Machiavelli.Factories.KarakterFactory;
+import Machiavelli.Interfaces.Observers.SpelObserver;
+
+
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -25,5 +31,24 @@ public interface SpelRemote extends Remote {
     GebouwFactoryRemote getGebouwFactory() throws RemoteException;
     void createNewSpeler() throws RemoteException;
     KarakterFactoryRemote getKarakterFactory() throws RemoteException;
+
+    void setMaxAantalSpelers(int maxAantalSpelers) throws RemoteException;
+
+    void setBank(BankRemote bank) throws RemoteException;
+
+    void setGebouwFactory(GebouwFactoryRemote gebouwFactory) throws RemoteException;
+
+    void setSpelers(ArrayList<SpelerRemote> spelers) throws RemoteException;
+
+    void laadSpel(SpelRemote loadSpel) throws RemoteException;
+
+    ArrayList<SpelerRemote> getTempSpelers() throws RemoteException;
+
+    void setTempSpelers(ArrayList<SpelerRemote> list) throws RemoteException;
+
+
+    ArrayList<SpelObserver> getObservers() throws RemoteException;
+
     public void setKarakterFactory(KarakterFactory karakterFactory) throws RemoteException;
+
 }
