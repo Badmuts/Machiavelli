@@ -23,7 +23,7 @@ public class Server {
         try {
 
             // Hardcode ipadres van server, zet deze uit voor lokale tests.
-//            System.setProperty("java.rmi.server.hostname", "145.97.16.203"); // Hardcode ipadres van server
+            System.setProperty("java.rmi.server.hostname", "145.97.16.203"); // Hardcode ipadres van server
             System.out.println("RMI Registry starter");
             Registry registry = LocateRegistry.createRegistry(1099); // default port 1099 // run RMI registry on local host
             Spel spel = new Spel();

@@ -53,8 +53,8 @@ public class Machiavelli extends Application {
             System.out.println("Getting access to the registry");
             // get access to the RMI registry on the remote server
             // Wijzig naar lokaal ip adres voor testen
-            //this.registry = LocateRegistry.getRegistry("188.166.91.187", 1099); // if server on another machine: provide that machine's IP address. Default port  1099
-            this.registry = LocateRegistry.getRegistry("localhost", 1099);
+            this.registry = LocateRegistry.getRegistry("145.97.16.203", 1099); // if server on another machine: provide that machine's IP address. Default port  1099
+//            this.registry = LocateRegistry.getRegistry("localhost", 1099);
             System.out.println("Done!");
         } catch (Exception e) {
             e.printStackTrace();
