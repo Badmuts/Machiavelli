@@ -17,9 +17,9 @@ public class PuntenController extends UnicastRemoteObject {
 
     public PuntenController(SpelRemote spel, PuntenRemote puntenModel) throws RemoteException {
 
-        this.puntenView = new PuntenView(this);
-        this.puntenModel = puntenModel;
         this.spel = spel;
+        this.puntenModel = puntenModel;
+        this.puntenView = new PuntenView(this);
     }
 
     public String cmdBerekenScorelijst()
