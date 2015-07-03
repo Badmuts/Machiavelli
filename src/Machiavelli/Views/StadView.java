@@ -1,11 +1,9 @@
 package Machiavelli.Views;
 
-import Machiavelli.Controllers.GebouwKaartController;
-import Machiavelli.Interfaces.Observers.SpelerObserver;
-import Machiavelli.Interfaces.Observers.StadObserver;
-import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
-import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Interfaces.Remotes.StadRemote;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,10 +18,13 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
+import Machiavelli.Controllers.GebouwKaartController;
+import Machiavelli.Controllers.PuntenController;
+import Machiavelli.Interfaces.Observers.SpelerObserver;
+import Machiavelli.Interfaces.Observers.StadObserver;
+import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
+import Machiavelli.Interfaces.Remotes.SpelerRemote;
+import Machiavelli.Interfaces.Remotes.StadRemote;
 
 /**
  * Deze view maakt een StackPane aan en maakt GebouwKaartViews voor
@@ -265,7 +266,7 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
             StackPane.setAlignment(stadPane, Pos.BOTTOM_CENTER);
             try {
                 if(this.stad.getGebouwen().size() == 8) {
-                    
+                    PuntenController puntencontroller = new PuntenController(this.speler.getSpel());
                 }
             } catch (Exception e) {
                 // TODO Auto-generated catch block
