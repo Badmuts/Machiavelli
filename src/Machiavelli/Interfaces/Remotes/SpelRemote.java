@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import Machiavelli.Factories.KarakterFactory;
 import Machiavelli.Interfaces.Observers.SpelObserver;
+import Machiavelli.Models.PuntenModel;
 
 /**
  * Created by badmuts on 10-6-15.
@@ -50,5 +51,7 @@ public interface SpelRemote extends Remote {
     ArrayList<SpelObserver> getObservers() throws RemoteException;
 
     public void setKarakterFactory(KarakterFactory karakterFactory) throws RemoteException;
+
+    public PuntenModel getPuntenModel() throws RemoteException;
 
 }
