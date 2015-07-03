@@ -21,7 +21,7 @@ import Machiavelli.Controllers.PuntenController;
 
 public class PuntenView extends UnicastRemoteObject {
     private PuntenController puntenController;
-    private StackPane modal;
+    private StackPane stackPane;
     private StackPane holder;
     private Stage stage = Machiavelli.getInstance().getStage();
     private Button exitButton;
@@ -33,7 +33,7 @@ public class PuntenView extends UnicastRemoteObject {
         Rectangle bg = new Rectangle(1440, 900);
         bg.setFill(Color.rgb(0, 0, 0, 0.7));
 
-        modal = new StackPane();
+        stackPane = new StackPane();
 
         Text title = new Text("Einde van het spel");
         title.setFill(Color.WHITE);
@@ -49,29 +49,26 @@ public class PuntenView extends UnicastRemoteObject {
         this.exitButton
         .setOnAction(event -> System.exit(0));
         
+        this.stackPane.getStylesheets().add("Machiavelli/Resources/puntenView.css");
+        
         VBox controlContainer = new VBox();
         controlContainer.setSpacing(50.0);
         controlContainer.setPadding(new Insets(1, 1, 1, 1));
 
-        controlContainer.getChildren().addAll(modal, exitButton);
+        controlContainer.getChildren().addAll(bg, stackPane, exitButton);
         controlContainer.setAlignment(Pos.CENTER);
-        this.modal.getChildren().addAll(controlContainer);
+        this.stackPane.getChildren().addAll(controlContainer);
     }
     public void show() {
         holder = new StackPane();
         holder.getChildren().addAll(stage.getScene().getRoot().getChildrenUnmodifiable());
-        holder.getChildren().add(modal);
+        holder.getChildren().add(stackPane);
         holder.getStylesheets().add("Machiavelli/Resources/style.css");
 
         FadeTransition ft = new FadeTransition(Duration.millis(300), holder);
         ft.setFromValue(0.0);
         ft.setToValue(1.0);
         ft.play();
-
-        TranslateTransition tt = new TranslateTransition(Duration.millis(300), modal);
-        tt.setFromY(50);
-        tt.setToY(0);
-        tt.play();
 
         this.scene = new Scene(holder, 1440, 900);
         stage.setScene(scene);
