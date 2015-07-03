@@ -15,7 +15,7 @@ public class PuntenController {
 
     public PuntenController(SpelRemote spel) throws RemoteException {
 
-        this.puntenView = new PuntenView();
+        this.puntenView = new PuntenView(this);
         this.puntenModel = new PuntenModel(spel);
     }
 
