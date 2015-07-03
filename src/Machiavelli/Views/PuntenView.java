@@ -78,8 +78,8 @@ public class PuntenView extends UnicastRemoteObject {
         stage.show();
     }
     
-    public String getText() {
-        return puntenController.cmdGetWinnaar();
+    public String getText() throws RemoteException {
+        return puntenController.cmdBerekenScorelijst();
     }
     
     
