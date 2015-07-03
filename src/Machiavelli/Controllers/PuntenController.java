@@ -22,26 +22,20 @@ public class PuntenController extends UnicastRemoteObject {
         this.puntenView = new PuntenView(this);
     }
 
-    public String cmdBerekenScorelijst()
-    {
-        try {
-            ArrayList<SpelerRemote> tempList = puntenModel.berekenScorelijst();
-            this.winnaar = tempList.get(0);
-            for(int i = 0; i < this.spel.getSpelers().size(); i++)
+    public String cmdBerekenScorelijst() throws RemoteException {
+        ArrayList<SpelerRemote> tempList = puntenModel.berekenScorelijst();
+        this.winnaar = tempList.get(0);
+        for(int i = 0; i < this.spel.getSpelers().size(); i++)
+        {
+            if (this.spel.getSpelers().get(i).equals(this.winnaar))
             {
-                if (this.spel.getSpelers().get(i).equals(this.winnaar))
-                {
-                    cmdGetWinnaar();
-                } else
-                {
-                    cmdgetVerliezer();
-                }
+                return cmdGetWinnaar();
+            } else
+            {
+                return cmdgetVerliezer();
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return null;
+        return "het spel is klaar";
     }
 
     public String cmdGetWinnaar() throws RemoteException {
