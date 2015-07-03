@@ -24,7 +24,7 @@ public class Stad extends UnicastRemoteObject implements StadRemote, Serializabl
 	private SpelerRemote speler;
 	private ArrayList<GebouwKaartRemote> gebouwen = new ArrayList<>();
 	private SpelRemote spel;
-	private int waardeStad;
+	private int waardeStad = 0;
 	private ArrayList<StadObserver> observers = new ArrayList<>();
 
 	public Stad(SpelerRemote speler) throws RemoteException {
