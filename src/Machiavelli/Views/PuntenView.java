@@ -45,6 +45,7 @@ public class PuntenView extends UnicastRemoteObject {
         uitkomst.setId("tekst");
         uitkomst.setFill(Color.WHITE);
         
+        exitButton = new Button();
         this.exitButton.setText("Afsluiten");
         this.exitButton.setMinWidth(150f);
         this.exitButton.setMinHeight(50f);
@@ -53,13 +54,7 @@ public class PuntenView extends UnicastRemoteObject {
         
         this.stackPane.getStylesheets().add("Machiavelli/Resources/puntenView.css");
         
-        VBox controlContainer = new VBox();
-        controlContainer.setSpacing(50.0);
-        controlContainer.setPadding(new Insets(1, 1, 1, 1));
-
-        controlContainer.getChildren().addAll(bg, stackPane, exitButton);
-        controlContainer.setAlignment(Pos.CENTER);
-        this.stackPane.getChildren().addAll(controlContainer);
+        show();
     }
     
     public void show() {
