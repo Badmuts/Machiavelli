@@ -10,35 +10,22 @@ import java.util.HashSet;
 
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Observers.PuntenObserver;
-import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
-import Machiavelli.Interfaces.Remotes.PuntenRemote;
-import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Interfaces.Remotes.StadRemote;
-
+import Machiavelli.Interfaces.Remotes.*;
 
 /**
- * @author Bernd Oostrum
- * 
- * Hier wordt bepaald wie de winnaar is van het spel.
- *
-<<<<<<< HEAD
- * @author Bernd Oostrum, Sander de Jong
- * @version 0.2
-=======
- * 
- * 
->>>>>>> 5052b9305ba74936ac8caf0078a8840619b99769
- *
+ * @author Sander de Jong, Bernd Oostrum
+ * @version 2.0
  */
+
 public class PuntenModel extends UnicastRemoteObject implements PuntenRemote, Serializable {
 
 	private ArrayList<PuntenObserver> observers = new ArrayList<>();
 	private ArrayList<SpelerRemote> scoreLijst = new ArrayList<>();
-	private Spel spel;
+	private SpelRemote spel;
 
 
 	// Spel meegeven
-	public PuntenModel(Spel spel) throws RemoteException {
+	public PuntenModel(SpelRemote spel) throws RemoteException {
 		this.spel = spel;
 	}
 
@@ -111,7 +98,7 @@ public class PuntenModel extends UnicastRemoteObject implements PuntenRemote, Se
 	}
 
 	// Geeft lijst terug met spelers van hoog naar laag
-	public ArrayList<SpelerRemote> scoreLijst() throws RemoteException {
+	public ArrayList<SpelerRemote> berekenScorelijst() throws RemoteException {
 		calculateWinner();
 		return this.scoreLijst;
 	}

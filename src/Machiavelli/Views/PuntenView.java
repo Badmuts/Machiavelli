@@ -8,8 +8,6 @@ import javafx.scene.text.Text;
 public class PuntenView extends UnicastRemoteObject {
 
     public PuntenView() throws RemoteException {
-        private Text title;
-        private 
-    }
 
+    }
 }

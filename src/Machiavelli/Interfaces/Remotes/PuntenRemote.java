@@ -16,7 +16,7 @@ public interface PuntenRemote extends Remote {
 
   public void notifyObservers() throws RemoteException;
   
-  public ArrayList<SpelerRemote> scoreLijst() throws RemoteException;
+  public ArrayList<SpelerRemote> berekenScorelijst() throws RemoteException;
   
   
 
