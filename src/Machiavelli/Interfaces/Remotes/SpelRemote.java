@@ -52,6 +52,6 @@ public interface SpelRemote extends Remote {
 
     public void setKarakterFactory(KarakterFactory karakterFactory) throws RemoteException;
 
-    public PuntenModel getPuntenModel() throws RemoteException;
+    public PuntenRemote getPuntenModel() throws RemoteException;
 
 }

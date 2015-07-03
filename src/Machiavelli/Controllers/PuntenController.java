@@ -1,19 +1,21 @@
 package Machiavelli.Controllers;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+
+import Machiavelli.Interfaces.Remotes.PuntenRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
-import Machiavelli.Models.PuntenModel;
 import Machiavelli.Views.PuntenView;
 
-public class PuntenController {
+public class PuntenController extends UnicastRemoteObject {
     private PuntenView puntenView;
-    private PuntenModel puntenModel;
+    private PuntenRemote puntenModel;
     private SpelerRemote winnaar;
     private SpelRemote spel;
 
-    public PuntenController(SpelRemote spel, PuntenModel puntenModel) throws RemoteException {
+    public PuntenController(SpelRemote spel, PuntenRemote puntenModel) throws RemoteException {
 
         this.puntenView = new PuntenView(this);
         this.puntenModel = puntenModel;
