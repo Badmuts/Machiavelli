@@ -44,23 +44,11 @@ public class PuntenController extends UnicastRemoteObject {
         return null;
     }
 
-    public String cmdGetWinnaar()
-    {
-        try {
-            return "Je hebt gewonnen met " + this.winnaar.getStad().getWaardeStad();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    public String cmdGetWinnaar() throws RemoteException {
+        return "Je hebt gewonnen met " + this.winnaar.getStad().getWaardeStad();
     }
 
-    public String cmdgetVerliezer()
-    {
-        try {
-            return "Je hebt verloren! De winnaar heeft " + this.winnaar.getStad().getWaardeStad();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    public String cmdgetVerliezer() throws RemoteException {
+        return "Je hebt verloren! De winnaar heeft " + this.winnaar.getStad().getWaardeStad();
     }
 }
