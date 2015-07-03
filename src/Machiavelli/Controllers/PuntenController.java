@@ -20,18 +20,16 @@ public class PuntenController extends UnicastRemoteObject {
         this.spel = spel;
         this.puntenModel = puntenModel;
         this.puntenView = new PuntenView(this);
+        puntenView.show();
     }
 
     public String cmdBerekenScorelijst() throws RemoteException {
         ArrayList<SpelerRemote> tempList = puntenModel.berekenScorelijst();
         this.winnaar = tempList.get(0);
-        for(int i = 0; i < this.spel.getSpelers().size(); i++)
-        {
-            if (this.spel.getSpelers().get(i).equals(this.winnaar))
-            {
+        for (int i = 0; i < this.spel.getSpelers().size(); i++) {
+            if (this.spel.getSpelers().get(i).equals(this.winnaar)) {
                 return cmdGetWinnaar();
-            } else
-            {
+            } else if (!this.spel.getSpelers().get(i).equals(this.winnaar)) {
                 return cmdgetVerliezer();
             }
         }
@@ -39,10 +37,11 @@ public class PuntenController extends UnicastRemoteObject {
     }
 
     public String cmdGetWinnaar() throws RemoteException {
-        return "Je hebt gewonnen met " + this.winnaar.getStad().getWaardeStad();
+        return this.spel.getSpelers().get(0).getKarakter().getNaam() + " heeft gewonnen met " + this.winnaar.getStad().getWaardeStad() + " punten!";
     }
 
     public String cmdgetVerliezer() throws RemoteException {
-        return "Je hebt verloren! De winnaar heeft " + this.winnaar.getStad().getWaardeStad();
+        return "Je hebt verloren! De winnaar heeft " + this.winnaar.getStad().getWaardeStad()
+                + " punten";
     }
 }
