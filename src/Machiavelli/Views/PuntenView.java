@@ -36,11 +36,13 @@ public class PuntenView extends UnicastRemoteObject {
         stackPane = new StackPane();
 
         Text title = new Text("Einde van het spel");
+        title.setId("titel");
         title.setFill(Color.WHITE);
         title.setLayoutX(590);
         title.setLayoutY(50);
         
         Text uitkomst = new Text(getText());
+        uitkomst.setId("tekst");
         uitkomst.setFill(Color.WHITE);
         
         this.exitButton.setText("Afsluiten");
@@ -59,6 +61,7 @@ public class PuntenView extends UnicastRemoteObject {
         controlContainer.setAlignment(Pos.CENTER);
         this.stackPane.getChildren().addAll(controlContainer);
     }
+    
     public void show() {
         holder = new StackPane();
         holder.getChildren().addAll(stage.getScene().getRoot().getChildrenUnmodifiable());
@@ -74,7 +77,10 @@ public class PuntenView extends UnicastRemoteObject {
         stage.setScene(scene);
         stage.show();
     }
+    
     public String getText() {
-        return null; //moet nog ingevuld worden
+        return puntenController.cmdGetWinnaar();
     }
+    
+    
 }

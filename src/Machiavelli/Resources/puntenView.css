@@ -6,6 +6,14 @@
     	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
 }
 
+#tekst {
+	-fx-font: 40px Tahoma;
+    	-fx-top:0;
+    	-fx-stroke: black;
+    	-fx-stroke-width: 1;
+    	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+}
+
 #closeButton {
     -fx-background-color: linear-gradient(#f2825b,#e55b2b,#f07146);
     -fx-background-radius: 6, 5;
