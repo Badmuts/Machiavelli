@@ -8,24 +8,22 @@ import Machiavelli.Models.PuntenModel;
 import Machiavelli.Views.PuntenView;
 
 public class PuntenController {
-    private PuntenModel puntenModel;
     private PuntenView puntenView;
+    private PuntenModel puntenModel;
     private SpelerRemote winnaar;
-    private ArrayList<SpelerRemote> verliezers;
 
-    public PuntenController(SpelRemote spel) throws RemoteException {
+    public PuntenController(SpelRemote spel, PuntenModel puntenModel) throws RemoteException {
 
         this.puntenView = new PuntenView(this);
-        this.puntenModel = new PuntenModel(spel);
+        this.puntenModel = puntenModel;
     }
 
-    public void cmdBerekenScorelijst()
+    public String cmdBerekenScorelijst()
     {
         try {
             ArrayList<SpelerRemote> tempList = puntenModel.berekenScorelijst();
             this.winnaar = tempList.get(0);
-            tempList.remove(0);
-            this.verliezers = tempList;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
