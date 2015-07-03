@@ -13,6 +13,7 @@ import Machiavelli.Interfaces.Remotes.BankRemote;
 import Machiavelli.Interfaces.Remotes.BeurtRemote;
 import Machiavelli.Interfaces.Remotes.GebouwFactoryRemote;
 import Machiavelli.Interfaces.Remotes.KarakterFactoryRemote;
+import Machiavelli.Interfaces.Remotes.PuntenRemote;
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 
@@ -32,6 +33,7 @@ public class Spel implements SpelRemote, Serializable {
 	private BeurtRemote beurt;
 	private SpelerRemote speler;
 	private KarakterFactoryRemote karakterFactory;
+	private PuntenRemote puntenRemote;
 	private ArrayList<SpelObserver> observers;
 	private ArrayList<SpelerRemote> spelers = new ArrayList<>();
 		private ArrayList<SpelerRemote> tempSpelers = new ArrayList();
@@ -54,6 +56,12 @@ public class Spel implements SpelRemote, Serializable {
 				this.observers = new ArrayList<SpelObserver>();
 				this.karakterFactory = new KarakterFactory();
 				this.beurt = new Beurt(this, this.getSpelers(), speler);
+				this.puntenRemote = new PuntenModel(this);
+				
+    }
+    
+    public PuntenRemote getPuntenModel() throws RemoteException {
+        return this.puntenRemote;
     }
     
     public BeurtRemote getBeurt() throws RemoteException {

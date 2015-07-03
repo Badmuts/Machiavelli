@@ -263,6 +263,14 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
             StackPane.setAlignment(portretPane, Pos.TOP_CENTER);
             StackPane.setAlignment(namePane, Pos.CENTER);
             StackPane.setAlignment(stadPane, Pos.BOTTOM_CENTER);
+            try {
+                if(this.stad.getGebouwen().size() == 8) {
+                    
+                }
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         });
     }
 }
