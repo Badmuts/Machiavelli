@@ -2,14 +2,12 @@ package Machiavelli.Controllers;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-
 import Machiavelli.Interfaces.Remotes.SpelRemote;
 import Machiavelli.Interfaces.Remotes.SpelerRemote;
 import Machiavelli.Models.PuntenModel;
 import Machiavelli.Views.PuntenView;
 
 public class PuntenController {
-
     private PuntenModel puntenModel;
     private PuntenView puntenView;
     private SpelerRemote winnaar;
@@ -17,8 +15,8 @@ public class PuntenController {
 
     public PuntenController(SpelRemote spel) throws RemoteException {
 
-        puntenView = new PuntenView();
-        puntenModel = new PuntenModel(spel);
+        this.puntenView = new PuntenView();
+        this.puntenModel = new PuntenModel(spel);
     }
 
     public void cmdBerekenScorelijst()
