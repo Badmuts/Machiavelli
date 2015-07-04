@@ -87,7 +87,7 @@ public class PuntenModel extends UnicastRemoteObject implements PuntenRemote, Se
 			@Override
 			public int compare(SpelerRemote o1, SpelerRemote o2) {
 				try {
-					return o1.getStad().getWaardeStad() + o2.getStad().getWaardeStad();
+					return o2.getStad().getWaardeStad() - o1.getStad().getWaardeStad();
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}

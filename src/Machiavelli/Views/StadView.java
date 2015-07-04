@@ -265,7 +265,7 @@ public class StadView extends UnicastRemoteObject implements StadObserver, Spele
             StackPane.setAlignment(namePane, Pos.CENTER);
             StackPane.setAlignment(stadPane, Pos.BOTTOM_CENTER);
             try {
-                if(this.stad.getGebouwen().size() == 8) {
+                if(this.stad.getGebouwen().size() >= 8) {
                     PuntenController puntencontroller = new PuntenController(this.speler.getSpel(), this.speler.getSpel().getPuntenModel());
                 }
             } catch (Exception e) {
