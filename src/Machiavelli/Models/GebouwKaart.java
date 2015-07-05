@@ -1,38 +1,35 @@
 package Machiavelli.Models;
 
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.ListIterator;
+
 import Machiavelli.Enumerations.Type;
 import Machiavelli.Interfaces.Observers.GebouwKaartObserver;
 import Machiavelli.Interfaces.Remotes.GebouwKaartRemote;
 import Machiavelli.Interfaces.Remotes.StadRemote;
 
-import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-
 /**
  * @author Sander
  *
- * Dit is de blauwdruk voor een gebouwkaart. De gebouwkaarten worden
- * door de spelers gebruikt om het spel te winnen. De gebouwkaarten
- * hebben een enumeration genaamd type die aangeeft of een bepaald
- * karakter extra bonusgoud ontvangt.
- *
- * 
- *
+ *Dit is de blauwdruk voor een gebouwkaart. De gebouwkaarten worden door de spelers
+ *gebruikt om het spel te winnen. De gebouwkaarten hebben een enumeration genaamd type die
+ *aangeeft of een bepaald karakter extra bonusgoud ontvangt.
  */
 public class GebouwKaart extends UnicastRemoteObject implements Serializable, GebouwKaartRemote {
     // Variables
-	private int kosten;
-	private String naam;
-	private Type type;
-	private StadRemote stad;
+    private int kosten;
+    private String naam;
+    private Type type;
+    private StadRemote stad;
     private String image;
     private ArrayList<GebouwKaartObserver> observers = new ArrayList<GebouwKaartObserver>();
 
     // Een kaart wordt aangemaakt met de meegegeven waardes
     public GebouwKaart(int kosten, String naam, Type type, String image) throws RemoteException {
-//        super(1099);
+        // super(1099);
         this.kosten = kosten;
         this.naam = naam;
         this.type = type;
@@ -57,8 +54,7 @@ public class GebouwKaart extends UnicastRemoteObject implements Serializable, Ge
         notifyObservers();
     }
 
-    public int getKosten() throws RemoteException
-    {
+    public int getKosten() throws RemoteException {
         return this.kosten;
     }
 
@@ -90,7 +86,7 @@ public class GebouwKaart extends UnicastRemoteObject implements Serializable, Ge
     }
 
     public void notifyObservers() throws RemoteException {
-        for (GebouwKaartObserver observer: observers) {
+        for (GebouwKaartObserver observer : observers) {
             observer.modelChanged(this);
         }
     }

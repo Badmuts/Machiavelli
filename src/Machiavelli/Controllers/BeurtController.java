@@ -34,13 +34,24 @@ public class BeurtController extends UnicastRemoteObject {
     }
 
     /**
-     * Deze method roept de geefbeurt method aan in het BeurtModel en checkt welke speler de beurt
-     * heeft voor bepaalde acties.
+     * Deze method roept de geefbeurt method aan in het BeurtModel
      * 
      */
     public void cmdGeefBeurt() {
         try {
             beurt.geefBeurt();
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Deze method checkt welke view er getoont moet worden bij een beurt.
+     */
+    public void cmdNextObserver() {
+        try {
+            cmdGeefBeurt();
             if (beurt.getObserverIndex() == 0) {
 
                 karakterFactory = this.spel.getKarakterFactory();

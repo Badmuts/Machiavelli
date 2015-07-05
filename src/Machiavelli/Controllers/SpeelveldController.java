@@ -109,7 +109,7 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
     }
 
     public void cmdEindeBeurt() {
-        this.beurtController.cmdGeefBeurt();
+        this.beurtController.cmdNextObserver();
     }
 
     public Speelveld getSpeelveld() {
@@ -189,6 +189,7 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
         Platform.runLater(() -> {
             try {
                 if (this.spel.getMaxAantalSpelers() == this.spel.getAantalSpelers()) {
+                    beurtController.cmdGeefBeurt();
                     this.meldingController.cmdSluitMeldingView();
                     this.karakterController = new KarakterController(this.speler, "ronde");
                     this.karakterController.show();
