@@ -79,6 +79,7 @@ public class Moordenaar extends UnicastRemoteObject implements Karakter, Seriali
     		this.speler.setEigenschapGebruikt(true);
     		target = null; //target wordt gereset
     		return true;
+
     	} else {
     		return false;
     	}

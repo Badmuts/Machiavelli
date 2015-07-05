@@ -18,19 +18,19 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
- * Deze view maakt een GridPane aan en plaatst daar buttons in. Buttons worden
- * vervolgens gekoppeld aan de juiste methodes in bijbehorende controllers.
+ * Deze view maakt een GridPane aan en plaatst daar buttons in. Buttons worden vervolgens gekoppeld
+ * aan de juiste methodes in bijbehorende controllers.
  *
- * Deze klasse update wanneer Speler of Karakter wijzigen en schakelt buttons
- * naar behoren uit.
+ * Deze klasse update wanneer Speler of Karakter wijzigen en schakelt buttons naar behoren uit.
  *
- * Deze klasse extends UnicastRemoteObject en kan op die manier ontvangen van
- * andere Remote objecten.
+ * Deze klasse extends UnicastRemoteObject en kan op die manier ontvangen van andere Remote
+ * objecten.
  *
  * @author Daan Rosbergen
  * @version 1.0
  */
-public class ButtonHolderActionBarView extends UnicastRemoteObject implements SpelerObserver, KarakterObserver {
+public class ButtonHolderActionBarView extends UnicastRemoteObject implements SpelerObserver,
+        KarakterObserver {
 
     private SpeelveldController speelveldController;
     private GridPane buttonGrid = new GridPane();
@@ -48,14 +48,15 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
     private Karakter karakter;
 
     /**
-     * Constructor maakt GridPane en een container StackPane aan. Maakt alle
-     * nodige buttons aan en voegt zichzelf toe aan de als observer aan
-     * Speler en Karakter van speler. Koppelt buttons aan commands in Controllers.
+     * Constructor maakt GridPane en een container StackPane aan. Maakt alle nodige buttons aan en
+     * voegt zichzelf toe aan de als observer aan Speler en Karakter van speler. Koppelt buttons aan
+     * commands in Controllers.
      *
      * @param speelveldController
      * @throws RemoteException
      */
-    public ButtonHolderActionBarView(SpeelveldController speelveldController) throws RemoteException {
+    public ButtonHolderActionBarView(SpeelveldController speelveldController)
+            throws RemoteException {
         this.speelveldController = speelveldController;
         this.speler = speelveldController.getSpeler();
         this.karakter = this.speler.getKarakter();
@@ -67,8 +68,8 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
         opslaanknop = new Button();
         goudbutton = new Button();
         bouwbutton = new Button();
-        eindebeurtbutton= new Button();
-        
+        eindebeurtbutton = new Button();
+
         this.speler.addObserver(this);
         this.karakter.addObserver(this);
 
@@ -79,9 +80,9 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
         initButton(gebruikEigenschap, "Eigenschap", "button-primary", 1, 1, 160f, 55f);
         initButton(bouwbutton, "Bouwen", "button-primary", 2, 1, 160f, 55f);
         initButton(goudbutton, "Bonusgoud", "button-primary", 1, 2, 160f, 55f);
-        initButton(eindebeurtbutton,"Einde beurt","button-danger", 2, 2, 160f, 55f);
-        initButton(opslaanknop,"Opslaan","button-success", 1, 3, 160f, 55f);
-        initButton(exitbutton,"Afsluiten","button-danger", 2, 3, 160f, 55f);
+        initButton(eindebeurtbutton, "Einde beurt", "button-danger", 2, 2, 160f, 55f);
+        initButton(opslaanknop, "Opslaan", "button-success", 1, 3, 160f, 55f);
+        initButton(exitbutton, "Afsluiten", "button-danger", 2, 3, 160f, 55f);
 
         opslaanknop.setOnAction(event1 -> this.speelveldController.cmdOpslaan());
         goudbutton.setOnAction(event -> this.speelveldController.cmdBonusGoud());
@@ -98,16 +99,14 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
     }
 
     /**
-     * Controleer of Karakter bonusable is. Wanneer karakter
-     * niet bonusable is word de 'Bonusgoud' knop uitgezet.
+     * Controleer of Karakter bonusable is. Wanneer karakter niet bonusable is word de 'Bonusgoud'
+     * knop uitgezet.
      */
     private void isKarakterBonusable() {
         try {
-            Bonusable bonusable = (Bonusable)this.karakter;
-            if (bonusable.isBonusable()) {
-                goudbutton.setDisable(false); // Enable button
-            } else {
-                goudbutton.setDisable(true); // Disable button
+            Bonusable bonusable = (Bonusable) this.karakter;
+            if (!bonusable.isBonusable()) {
+                goudbutton.setDisable(true);
             }
         } catch (Exception e) {
             if (e instanceof ClassCastException) {
@@ -119,18 +118,18 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
     }
 
     /**
-     * Helper function voor het opbouwen van buttons.
-     * Voegt button toe aan aan GridPane
+     * Helper function voor het opbouwen van buttons. Voegt button toe aan aan GridPane
      *
-     * @param button        Button object
-     * @param tekst         Tekst in button
-     * @param styleClass    CSS class voor button
-     * @param columnIndex   Column in GridPane
-     * @param rowIndex      Row in GridPane
-     * @param sizeX         Breedte van button
-     * @param sizeY         Hoogte van button
+     * @param button Button object
+     * @param tekst Tekst in button
+     * @param styleClass CSS class voor button
+     * @param columnIndex Column in GridPane
+     * @param rowIndex Row in GridPane
+     * @param sizeX Breedte van button
+     * @param sizeY Hoogte van button
      */
-    private void initButton(Button button, String tekst, String styleClass, int columnIndex, int rowIndex, float sizeX, float sizeY){
+    private void initButton(Button button, String tekst, String styleClass, int columnIndex,
+            int rowIndex, float sizeX, float sizeY) {
         button.setText(tekst);
         button.getStyleClass().add(styleClass);
         button.setMinWidth(sizeX);
@@ -156,35 +155,35 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
      * @return Bonusgoud button
      */
     public Button getGoudbutton() {
-    	return this.goudbutton;
+        return this.goudbutton;
     }
 
     /**
      * @return Gebruik eigenschap button
      */
     public Button getEigenschapButton() {
-    	return this.gebruikEigenschap;
+        return this.gebruikEigenschap;
     }
 
     /**
      * @return Bouwen button
      */
     public Button getBouwButton() {
-    	return this.bouwbutton;
+        return this.bouwbutton;
     }
 
     /**
      * @return Opslaan button
      */
     public Button getOpslaanButton() {
-    	return this.opslaanknop;
+        return this.opslaanknop;
     }
 
     /**
      * @return Einde beurt button
      */
     public Button getEindeBeurtButton() {
-    	return this.eindebeurtbutton;
+        return this.eindebeurtbutton;
     }
 
     /**
@@ -219,7 +218,7 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
     @Override
     public void modelChanged(Karakter karakter) {
         Platform.runLater(() -> {
-            try {
+              try {
                 this.karakter = karakter;
                 this.container.getChildren().clear();
                 isKarakterBonusable();
@@ -242,26 +241,19 @@ public class ButtonHolderActionBarView extends UnicastRemoteObject implements Sp
         int bouwLimiet = speler.getKarakter().getBouwLimiet();
         if (gebouwdeGebouwen >= bouwLimiet) {
             bouwbutton.setDisable(true); // Disable button
-        } else {
-            bouwbutton.setDisable(false); // Enable button
         }
     }
 
     /**
-     * Enabled Gebruik eigenschap button wanneer een Karakter zijn
-     * eigenschap kan gebruiken.
+     * Enabled Gebruik eigenschap button wanneer een Karakter zijn eigenschap kan gebruiken.
      *
      * @throws RemoteException
      */
     private void IsAbleToGebruikEigenschap() throws RemoteException {
-    	boolean eigenschapGebruikt = speler.EigenschapGebruikt();
-    	if (eigenschapGebruikt == false) {
-    		gebruikEigenschap.setDisable(false);
-    	}
-    	else {
-    		gebruikEigenschap.setDisable(true);
-    	}
-    	
+        boolean eigenschapGebruikt = speler.EigenschapGebruikt();
+        if (eigenschapGebruikt == true) {
+            gebruikEigenschap.setDisable(true);
+        }
     }
 
     /**
