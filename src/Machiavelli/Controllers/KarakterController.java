@@ -100,6 +100,7 @@ public class KarakterController extends UnicastRemoteObject {
       } else {
         System.out.println("het gekozen karakter " + karakter.getNaam() + " speelt NIET mee");
         this.karakterView.close();
+        this.speler.setEigenschapGebruikt(true);
         new MeldingController().build("De " + karakter.getNaam() + " speelt niet mee!")
             .cmdWeergeefMeldingView();
         // break;
