@@ -116,10 +116,15 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
    	 */
     private boolean vernietigGebouw(StadRemote stad, GebouwKaartRemote target) throws RemoteException {
     	System.out.println("het target is " +  target);
-    	boolean genoegGoud = speler.setGoudOpBank(speler.getPortemonnee(), target.getKosten()-1);
-    	if(genoegGoud) {
-    		target.getStad().removeGebouw(target);	
-    	}
+//    	boolean genoegGoud = speler.setGoudOpBank(speler.getPortemonnee(), target.getKosten()-1);
+//    	if(genoegGoud) {
+//    		target.getStad().removeGebouw(target);
+//    	}
+        boolean genoegGoud = false;
+        if (speler.getPortemonnee().getGoudMunten() >= target.getKosten()-1) {
+            target.getStad().removeGebouw(target);
+            genoegGoud = true;
+        }
     	return genoegGoud;
     }
     
