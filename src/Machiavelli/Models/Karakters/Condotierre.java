@@ -87,8 +87,7 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
 			else {
 				if (target.getStad().getSpeler().getKarakter().getNummer() != 5 && target.getStad().getSpeler().getKarakter().getNummer() != 8) {
 					boolean kanVernietigen = vernietigGebouw(this.target.getStad(), getTarget());
-					if(!kanVernietigen)
-					{
+					if(!kanVernietigen) {
 						gebruikEigenschap = false;
 					} else {
 						gebruikEigenschap = true;
