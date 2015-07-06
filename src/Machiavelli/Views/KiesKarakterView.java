@@ -137,7 +137,7 @@ public class KiesKarakterView {
             // Add container to karakterViews[]
             this.karakterViews.add(karakaterView);
         }
-        if (this.karakterFactory.getKarakters().size() < 8) {
+        if (karakterController.getTypeView() == "karakter") {
             for (SpelerRemote speler : this.spelerLijst) {
                 // Create container
                 StackPane karakaterView = new StackPane();
