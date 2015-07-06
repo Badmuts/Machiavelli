@@ -68,6 +68,8 @@ public class SpeelveldController extends UnicastRemoteObject implements SpelObse
             this.meldingController.cmdSluitMeldingView();
             this.karakterController = new KarakterController(this.speler, "ronde");
             this.karakterController.show();
+            
+            beurtController.cmdGeefBeurt();
             beurtController.cmdGeefBeurt();
         }
     }

@@ -138,9 +138,9 @@ public class KarakterController extends UnicastRemoteObject {
       gekozenKarakter.setSpeler(this.speler);
 
       this.karakterView.close();
-      new MeldingController().build("Je bent deze ronde een " + gekozenKarakter.getNaam())
+      /*new MeldingController().build("Je bent deze ronde een " + gekozenKarakter.getNaam())
           .cmdWeergeefMeldingView();
-
+    */
     } catch (RemoteException e) {
       e.printStackTrace();
     }
