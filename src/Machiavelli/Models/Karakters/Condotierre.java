@@ -85,7 +85,7 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
 				gebruikEigenschap = false;	
 			}
 			else {
-				if (target.getStad().getSpeler().getKarakter().getNummer() != 5) {
+				if (target.getStad().getSpeler().getKarakter().getNummer() != 5 && target.getStad().getSpeler().getKarakter().getNummer() != 8) {
 					boolean kanVernietigen = vernietigGebouw(this.target.getStad(), getTarget());
 					if(!kanVernietigen)
 					{
@@ -105,21 +105,13 @@ public class Condotierre extends UnicastRemoteObject implements Karakter, Bonusa
     /**
    	 * De kosten voor het vernietigen gebouw worden uit de portemonnee gehaald en op de bank gezet.
    	 * De gebouwkaart wordt teruggeplaatst in de GebouwFactory. 
-<<<<<<< HEAD
-     * @return TODO
-=======
    	 * 
    	 * @param stad
    	 * @param target in het geval van de Condotierre is de target een gebouwkaart
    	 * @throws RemoteException
->>>>>>> 6395149309661da4f9c5b5c341ca69de3c13d1c0
-   	 */
+  	 */
     private boolean vernietigGebouw(StadRemote stad, GebouwKaartRemote target) throws RemoteException {
     	System.out.println("het target is " +  target);
-//    	boolean genoegGoud = speler.setGoudOpBank(speler.getPortemonnee(), target.getKosten()-1);
-//    	if(genoegGoud) {
-//    		target.getStad().removeGebouw(target);
-//    	}
         boolean genoegGoud = false;
         if (speler.getPortemonnee().getGoudMunten() >= target.getKosten()-1) {
             target.getStad().removeGebouw(target);
