@@ -40,6 +40,9 @@ public class BeurtController extends UnicastRemoteObject {
     public void cmdGeefBeurt() {
         try {
             beurt.geefBeurt();
+            if (beurt.getObserverIndex() >= beurt.getObserverList().size()) {
+                beurt.setObserverIndex(0);
+            }
         } catch (RemoteException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
