@@ -22,7 +22,7 @@ import java.rmi.RemoteException;
  * - COMMERCIEL
  * - MILITAIR
  *
- * TODO: Mogelijk kan deze worden vervangen door een abstracte klasse? Omdat de implementatie van deze methode altijd gelijk is.
+ * TODO: Mogelijk kan deze worden vervangen door een klasse? Omdat de implementatie van deze methode altijd gelijk is.
  *
  */
 public interface Bonusable extends Remote {
