@@ -1,6 +1,8 @@
 # Machiavelli
 Dit is het git repository van de applicatie Machiavelli.
 
+![Machiavelli](https://www.dropbox.com/s/v0yg2tsnuk0qo6f/Speelbord.png?dl=1)
+
 ## Structuur
 De structuur voor dit project is als volgt:
 
